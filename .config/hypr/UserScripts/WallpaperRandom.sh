@@ -5,8 +5,10 @@
 wallDIR="$HOME/.config/hypr-wallpapers"
 scriptsDir="$HOME/.config/hypr/scripts"
 
-PICS=($(find ${wallDIR} -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" \)))
+PICS=($(find -L ${wallDIR} -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" \)))
 RANDOMPICS=${PICS[$RANDOM % ${#PICS[@]}]}
+
+echo $RANDOMPICS
 
 # Transition config
 FPS=60
