@@ -1,0 +1,77 @@
+/* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
+/* pywal-wlogout */
+
+/* Importing pywal colors */
+
+@import '../../.cache/wal/colors-waybar.css';
+
+window {
+    font-family: Ubuntu Nerd Font;
+    font-size: 1.4rem;
+    color: #cdd6f4; /* text */
+    background-color: rgba(30, 30, 46, 0.94);
+}
+
+button {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30%;
+    margin: 20px;
+    background-color: transparent;
+    border: transparent solid 2px;
+    border-radius: 20px;
+}
+
+button:focus {
+  border: #8B87A5 solid 2px;
+}
+
+button:hover {
+    background-color: @color2; 
+    color: #1e1e2e;
+    border: transparent solid 2px;
+    transition: all 0ms;
+}
+
+
+#lock {
+    background-image: image(url("./icons/lock.png"));
+}
+#lock:hover {
+    background-image: image(url("./icons/lock-hover.png"));
+}
+
+#logout {
+    background-image: image(url("./icons/logout.png"));
+}
+#logout:hover {
+    background-image: image(url("./icons/logout-hover.png"));
+}
+
+#suspend {
+    background-image: image(url("./icons/sleep.png"));
+}
+#suspend:hover {
+    background-image: image(url("./icons/sleep-hover.png"));
+}
+
+#shutdown {
+    background-image: image(url("./icons/power.png"));
+}
+#shutdown:hover {
+    background-image: image(url("./icons/power-hover.png"));
+}
+
+#reboot {
+    background-image: image(url("./icons/restart.png"));
+}
+#reboot:hover {
+    background-image: image(url("./icons/restart-hover.png"));
+}
+
+#hibernate {
+    background-image: image(url("./icons/hibernate.png"));
+}
+#hibernate:hover {
+    background-image: image(url("./icons/hibernate-hover.png"));
+}
