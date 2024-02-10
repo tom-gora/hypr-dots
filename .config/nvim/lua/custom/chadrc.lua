@@ -23,7 +23,6 @@ vim.api.nvim_create_autocmd(
 -- autocmd to handle global buffer uid trakcer when buffer is being unloaded
 vim.api.nvim_create_autocmd({ "BufUnload" }, {
   group = my_augroup,
-  once = true,
   callback = function()
     local wipedout_buf = tonumber(vim.fn.expand "<abuf>")
     local success = pcall(vim.api.nvim_buf_get_var, wipedout_buf, "buf_uid")
