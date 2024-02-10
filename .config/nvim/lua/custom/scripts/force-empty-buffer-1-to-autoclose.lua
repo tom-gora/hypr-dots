@@ -4,18 +4,17 @@ function On_bufnew_clean()
   -- if more than one buf do checks foreach
   if #buffers > 1 then
     for _, bufnr in ipairs(buffers) do
-      -- Check if the buffer number is 1
+      -- Check if the bufnr is 1
       if bufnr == 1 then
-        -- Check if the buffer is empty
+        -- Check if no lines
         local lines = vim.api.nvim_buf_get_lines(1, 0, -1, false)
         if lines[1] == "" then
-          -- Wipe out the buffer
+          -- Wipe out the buffer and fix the global buffer uid tracker
           vim.api.nvim_buf_delete(bufnr, { force = false })
           Buf_uid_tracker = Buf_uid_tracker - 1
-          -- Quietly end the function execution
           return
         end
-        -- Break the loop after processing buffer 1
+        -- Break after sorting buffer 1
         break
       end
     end
