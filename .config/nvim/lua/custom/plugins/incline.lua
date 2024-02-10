@@ -10,7 +10,7 @@ M = {
       vim.api.nvim_get_hl(0, { name = "InclineCenterInactive" })
     local outer_hl_inactive =
       vim.api.nvim_get_hl(0, { name = "InclineOuterInactive" })
-    local buf_uid_tracker = 1
+    Buf_uid_tracker = 1
 
     require("incline").setup {
       window = {
@@ -24,8 +24,8 @@ M = {
         local success, current_buf_uid =
           pcall(vim.api.nvim_buf_get_var, props.buf, "buf_uid")
         if not success or current_buf_uid == nil then
-          vim.api.nvim_buf_set_var(props.buf, "buf_uid", buf_uid_tracker)
-          buf_uid_tracker = buf_uid_tracker + 1
+          vim.api.nvim_buf_set_var(props.buf, "buf_uid", Buf_uid_tracker)
+          Buf_uid_tracker = Buf_uid_tracker + 1
         end
 
         local filename = vim.api.nvim_buf_get_var(props.buf, "buf_uid")

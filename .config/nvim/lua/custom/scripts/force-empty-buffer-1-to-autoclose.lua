@@ -11,6 +11,7 @@ function On_bufnew_clean()
         if lines[1] == "" then
           -- Wipe out the buffer
           vim.api.nvim_buf_delete(bufnr, { force = false })
+          Buf_uid_tracker = Buf_uid_tracker - 1
           -- Quietly end the function execution
           return
         end
