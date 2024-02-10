@@ -127,12 +127,6 @@ M.general = {
       general_opts,
     },
 
-    ["<leader>fb"] = {
-      "<cmd>Telescope buffers <CR>",
-      "Telescope find BUFFERS",
-      general_opts,
-    },
-
     ["<leader>fr"] = {
       "<cmd>Telescope oldfiles <CR>",
       "Telescope find RECENT FILES",
@@ -389,6 +383,25 @@ M.general = {
       general_opts,
     },
     ---------------------------------------------------------------[ Go group ]
+    ["<leader>gb"] = {
+      "<cmd>Telescope buffers <CR>",
+      "Go to Telescope BUFFERS",
+      general_opts,
+    },
+
+    -- binds alternative to tab
+    ["<leader>g]"] = {
+      "<cmd>bnext<cr>",
+      "Goto next buffer",
+      general_opts,
+    },
+
+    ["<leader>g["] = {
+      "<cmd>bprev<cr>",
+      "Goto prev buffer",
+      general_opts,
+    },
+
     ["<leader>g1"] = {
       "<CMD>lua Go_to_buf(1)<CR>",
       "Go to buf 1",
