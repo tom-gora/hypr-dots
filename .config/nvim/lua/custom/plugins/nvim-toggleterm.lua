@@ -41,7 +41,8 @@ M = {
         local t_name = term.name
         local shell = string.upper(t_name:match "/bin/(.-);")
         local t_number = t_name:match "#toggleterm#(%d+)"
-        local formatted_name = string.format(" %s 󰶻 term#%s", shell, t_number)
+        local formatted_name =
+          string.format(" %s 󰶻 term#%s", shell, t_number)
         return formatted_name
       end,
     },
@@ -55,19 +56,23 @@ M = {
       },
       FloatBorder = {
         guifg = "#8bbec7",
-        -- guibg = "#121019"
       },
     },
   },
   config = function(_, opts)
     require("toggleterm").setup(opts)
+    -- REGISTER MY CUSTOM TERMINALS:
     local Terminal = require("toggleterm.terminal").Terminal
+    -- node terminal
     local node_term = Terminal:new { cmd = "node", direction = "float" }
+    -- btop terminal
     local btop_term = Terminal:new { cmd = "btop", direction = "float" }
+    --  lazygit terminal
     local lazygit_term = Terminal:new {
       cmd = "lazygit",
       direction = "float",
       float_opts = {
+        -- dynamic size of specifically lazygit float term
         width = function()
           return math.floor(vim.o.columns * 0.9)
         end,
@@ -80,6 +85,8 @@ M = {
         end,
       },
     }
+
+    -- functions to call them
     function _NODE_toggle()
       node_term:toggle()
     end
@@ -92,6 +99,7 @@ M = {
       btop_term:toggle()
     end
 
+    -- set keymaps for terms
     vim.api.nvim_set_keymap(
       "n",
       "<leader>tn",

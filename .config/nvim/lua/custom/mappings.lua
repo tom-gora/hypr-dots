@@ -388,6 +388,60 @@ M.general = {
       " Splits",
       general_opts,
     },
+    ---------------------------------------------------------------[ Go group ]
+    ["<leader>g1"] = {
+      "<CMD>lua Go_to_buf(1)<CR>",
+      "Go to buf 1",
+      general_opts,
+    },
+
+    ["<leader>g2"] = {
+      "<CMD>lua Go_to_buf(2)<CR>",
+      "Go to buf 2",
+      general_opts,
+    },
+
+    ["<leader>g3"] = {
+      "<CMD>lua Go_to_buf(3)<CR>",
+      "Go to buf 3",
+      general_opts,
+    },
+
+    ["<leader>g4"] = {
+      "<CMD>lua Go_to_buf(4)<CR>",
+      "Go to buf 4",
+      general_opts,
+    },
+
+    ["<leader>g5"] = {
+      "<CMD>lua Go_to_buf(5)<CR>",
+      "Go to buf 5",
+      general_opts,
+    },
+
+    ["<leader>g6"] = {
+      "<CMD>lua Go_to_buf(6)<CR>",
+      "Go to buf 6",
+      general_opts,
+    },
+
+    ["<leader>g7"] = {
+      "<CMD>lua Go_to_buf(7)<CR>",
+      "Go to buf 7",
+      general_opts,
+    },
+
+    ["<leader>g8"] = {
+      "<CMD>lua Go_to_buf(8)<CR>",
+      "Go to buf 8",
+      general_opts,
+    },
+
+    ["<leader>g9"] = {
+      "<CMD>lua Go_to_buf(9)<CR>",
+      "Go to buf 9",
+      general_opts,
+    },
   },
   v = {
     ----------------------[ fix polluting clipboard with non cutting operations]
@@ -476,7 +530,9 @@ M.disabled = {
     ["<leader>fz"] = "",
     ["<leader>cm"] = "",
     ["<leader>gt"] = "",
+    ["<leader>gb"] = "",
     ["<leader>pt"] = "",
+    ["<leader>ph"] = "",
     ["<leader>th"] = "",
     ["<leader>ch"] = "",
     ["<leader>ma"] = "",

@@ -37,8 +37,7 @@ M = {
         n = { name = " NeoVim" },
         -- and hack on top of a hack to dasdmake the entry appear in whichkey
         s = { name = "󱒎 Splits", p = "which_key_ignore" },
-        d = { name = "which_key_ignore" },
-        D = { name = "which_key_ignore" },
+        g = { name = " Go!" },
       },
     }
   end,
