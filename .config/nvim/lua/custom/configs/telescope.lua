@@ -20,18 +20,12 @@ M = {
     sorting_strategy = "ascending",
     layout_strategy = "vertical",
     layout_config = {
-      -- horizontal = {
-      --   prompt_position = "top",
-      --   preview_width = 0.55,
-      --   results_width = 0.8,
-      -- },
       vertical = {
         mirror = true,
         prompt_position = "top",
       },
       width = 0.6,
       height = 0.86,
-      -- preview_cutoff = 120,
     },
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     file_ignore_patterns = { "node_modules", "%. " },
@@ -46,10 +40,17 @@ M = {
     grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
     qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
     -- Developer configurations: Not meant for general override
+    -- well fuck you nvchad pricks XD
     buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
     mappings = {
       n = {
         ["q"] = require("telescope.actions").close,
+        ["<Tab>"] = require("telescope.actions").move_selection_next,
+        ["<S-Tab>"] = require("telescope.actions").move_selection_previous,
+        ["<C-n>"] = require("telescope.actions").toggle_selection
+          + require("telescope.actions").move_selection_worse,
+        ["<C-p>"] = require("telescope.actions").toggle_selection
+          + require("telescope.actions").move_selection_better,
       },
       i = {
         ["<Tab>"] = require("telescope.actions").move_selection_next,
