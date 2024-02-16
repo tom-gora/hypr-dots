@@ -13,7 +13,7 @@ require "custom.scripts.force-empty-buffer-1-to-autoclose"
 
 -- Jumping to buffer by uid displayed in incline
 require "custom.scripts.go-to-buf-by-uid"
-require "custom.scripts.sourcegraph-wrappers"
+require "custom.scripts.wrappers"
 
 local my_augroup = vim.api.nvim_create_augroup("MyAugroup", { clear = true })
 vim.api.nvim_create_autocmd(

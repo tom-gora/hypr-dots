@@ -93,9 +93,10 @@ function SnipRunFlowSnippet()
 
   -- exit visual and confirm cancellation
   if canceled then
-    print "Operation canceled"
     local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
     vim.api.nvim_feedkeys(esc, "x", false)
+    vim.notify("Operation canceled", vim.log.levels.INFO, nil)
+    return
   end
 end
 
