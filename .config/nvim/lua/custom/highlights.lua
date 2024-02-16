@@ -17,6 +17,8 @@ vim.api.nvim_set_hl(0, "InclineOuterInactive", {
   bg = "#191724",
 })
 
+vim.api.nvim_set_hl(0, "CmpItemKindCody", { fg = "#EA9D34" })
+
 ---@type Base46HLGroupsList
 M.override = {
   Comment = {
@@ -79,6 +81,15 @@ M.override = {
   },
   St_NormalmodeText = {
     fg = "#D7827E",
+  },
+  NormalFloat = {
+    bg = "#191724",
+  },
+  CmpBorder = {
+    fg = "#9CCFD8",
+  },
+  WinSeparator = {
+    fg = "#9CCFD8",
   },
 }
 

@@ -316,6 +316,25 @@ M.general = {
       "View UNDO tree",
       general_opts,
     },
+
+    ["<leader>cx"] = {
+      "<cmd>lua SnipRunFlowSnippet()<CR>",
+      "Execute SNIPPET with SnipRun",
+      general_opts,
+    },
+
+    ["<leader>cX"] = {
+      "<cmd>lua SnipRunFlowFile()<CR>",
+      "Execute FILE with SnipRun",
+      general_opts,
+    },
+
+    ["<leader>cv"] = {
+      "<cmd>SnipClose<CR>",
+      "Execute FILE with SnipRun",
+      general_opts,
+    },
+
     ----------------------------------------------------------[ Help group XD ]
     ["<leader>hh"] = {
       "<cmd>NvCheatsheet<CR>",
@@ -377,7 +396,7 @@ M.general = {
     },
     ------------------------------------------------------------[ Splits group ]
     --hack to get a quick leader driven access to <C-w> binds
-    ["<leader>s"] = {
+    ["<leader>v"] = {
       "<cmd>lua vim.api.nvim_input('<c-w>')<cr>",
       " Splits",
       general_opts,
@@ -453,6 +472,36 @@ M.general = {
     ["<leader>g9"] = {
       "<CMD>lua Go_to_buf(9)<CR>",
       "Go to buf 9",
+      general_opts,
+    },
+    ---------------------------------------------------[ Sourcegraph/Cody group]
+    ["<leader>ss"] = {
+      "<CMD>SourcegraphSearch<CR>",
+      "Sourcegraph SEARCH",
+      general_opts,
+    },
+
+    ["<leader>sl"] = {
+      "<CMD>SourcegraphLink<CR>",
+      "Sourcegraph LINK",
+      general_opts,
+    },
+
+    ["<leader>sc"] = {
+      "<CMD>CodyToggle<CR>",
+      "Toggle Cody CHAT",
+      general_opts,
+    },
+
+    ["<leader>sa"] = {
+      "<CMD>lua CodyAskFlow()<CR>",
+      "ASK Cody about selection",
+      general_opts,
+    },
+
+    ["<leader>st"] = {
+      "<CMD>lua CodyTaskFlow()<CR>",
+      "Give Cody a TASK",
       general_opts,
     },
   },

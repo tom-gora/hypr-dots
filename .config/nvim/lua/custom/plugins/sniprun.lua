@@ -6,19 +6,22 @@ M = {
   cmd = {
     "SnipRun",
     "SnipInfo",
-    "SnipLive",
     "SnipClose",
     "SnipReset",
     "SnipReplMemoryClean",
   },
   config = function()
-    require("sniprun").setup {
+    local sniprun = require "sniprun"
+    sniprun.setup {
       display = { "Terminal" },
       display_options = {
-        terminal_scrollback = vim.o.scrollback,
-        terminal_line_number = false,
-        terminal_signcolumn = false,
+        terminal_line_number = false, -- whether show line number in terminal window
+        terminal_signcolumn = false, -- whether show signcolumn in terminal window
+        terminal_width = 40, --# change the terminal display option width (if vertical)
         terminal_position = "vertical",
+      },
+      snipruncolors = {
+        SniprunFloatingWinOk = { fg = "#e0def4" },
       },
     }
   end,
