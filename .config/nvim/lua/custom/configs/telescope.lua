@@ -48,7 +48,17 @@ M = {
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
     mappings = {
-      n = { ["q"] = require("telescope.actions").close },
+      n = {
+        ["q"] = require("telescope.actions").close,
+      },
+      i = {
+        ["<Tab>"] = require("telescope.actions").move_selection_next,
+        ["<S-Tab>"] = require("telescope.actions").move_selection_previous,
+        ["<C-n>"] = require("telescope.actions").toggle_selection
+          + require("telescope.actions").move_selection_worse,
+        ["<C-p>"] = require("telescope.actions").toggle_selection
+          + require("telescope.actions").move_selection_better,
+      },
     },
   },
 
