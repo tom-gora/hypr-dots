@@ -331,7 +331,7 @@ M.general = {
 
     ["<leader>cv"] = {
       "<cmd>SnipClose<CR>",
-      "Execute FILE with SnipRun",
+      "Close SnipRun",
       general_opts,
     },
 

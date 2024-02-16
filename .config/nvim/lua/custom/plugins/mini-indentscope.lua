@@ -8,7 +8,9 @@ M = {
   opts = {
     draw = {
       delay = 0,
-      animation = function() return 0 end,
+      animation = function()
+        return 0
+      end,
     },
     symbol = "░",
     options = {
@@ -24,7 +26,7 @@ M = {
         "alpha",
         "coc-explorer",
         "dashboard",
-        "fzf",   -- fzf-lua
+        "fzf", -- fzf-lua
         "help",
         "lazy",
         "lazyterm",
@@ -34,7 +36,7 @@ M = {
         "notify",
         "NvimTree",
         "qf",
-        "starter",   -- mini.starter
+        "starter", -- mini.starter
         "toggleterm",
         "Trouble",
         "neoai-input",
@@ -43,11 +45,15 @@ M = {
         "neo-tree",
         "neo-*",
         "noice",
+        "cody",
+        "sourcegraph",
       },
       callback = function()
         vim.b.miniindentscope_disable = true
         vim.schedule(function()
-          if MiniIndentscope then MiniIndentscope.undraw() end
+          if MiniIndentscope then
+            MiniIndentscope.undraw()
+          end
         end)
       end,
     })
