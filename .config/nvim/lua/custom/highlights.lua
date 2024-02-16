@@ -50,7 +50,7 @@ M.override = {
     fg = "#9CCFD8",
   },
   ColorColumn = {
-    bg = "#482831",
+    bg = "#2b181d",
   },
   CursorLine = {
     bg = "#201e31",
