@@ -10,19 +10,9 @@ local bo = vim.bo
 local fn = vim.fn
 local M = {}
 
-local buftype = { "help" }
-local filetype = { "man" }
-
 local function condition()
-  for _, btype in ipairs(buftype) do
-    if bo.buftype == btype then
-      return true
-    end
-  end
-  for _, ftype in ipairs(filetype) do
-    if bo.filetype == ftype then
-      return true
-    end
+  if bo.buftype == "help" or bo.filetype == "man" then
+    return true
   end
   return false
 end
