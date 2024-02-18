@@ -1,4 +1,5 @@
 local my_augroup = vim.api.nvim_create_augroup("MyAugroup", { clear = true })
+
 vim.api.nvim_create_autocmd(
   "BufReadPost",
   { command = "lua On_bufnew_clean()", group = my_augroup, once = true }
@@ -16,7 +17,7 @@ vim.api.nvim_create_autocmd({ "BufUnload" }, {
   end,
 })
 
--- make sure native term user bny code runner does not display numberline
+-- make sure native term used by code runner does not display numberline
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
   group = my_augroup,
   callback = function()
@@ -29,6 +30,14 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     end
   end,
 })
+
+-- open help window in a vertical split
+-- vim.api.nvim_create_autocmd({ "FileType", "WinEnter" }, {
+--   pattern = "help",
+--   group = my_augroup,
+--   callback = function()
+--   end,
+-- })
 
 ------------------------------------------------------------------------------
 

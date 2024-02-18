@@ -1,5 +1,6 @@
 -- bring in my custom configs
--- vim opts
+
+-- vim opts definitions
 require "custom.my-vim-opts"
 -- script to allow quick cleanup of swap backups
 require "custom.scripts.clear-swap-files"
@@ -16,6 +17,8 @@ require "custom.scripts.go-to-buf-by-uid"
 require "custom.scripts.wrappers"
 -- my autocommands
 require "custom.autocommands"
+-- in windows at least half the screen width open help splits vertical with wrap
+require("custom.scripts.modified_vertical_help_plugin").activateFix()
 
 ---@diagnostic disable: inject-field
 ---@type ChadrcConfig

@@ -85,6 +85,13 @@ M = {
         end,
       },
     }
+    -- dotnet runner terminal
+    local dotnet_run_term = Terminal:new {
+      cmd = "dotnet run",
+      direction = "float",
+      dir = "./",
+      close_on_exit = false,
+    }
 
     -- functions to call them
     function _NODE_toggle()
@@ -97,6 +104,10 @@ M = {
 
     function _BTOP_toggle()
       btop_term:toggle()
+    end
+
+    function _DOTNET_RUNNER_toggle()
+      dotnet_run_term:toggle()
     end
 
     -- set keymaps for terms
@@ -119,6 +130,17 @@ M = {
       "<leader>tb",
       "<cmd>lua _BTOP_toggle()<CR>",
       { noremap = true, silent = true, desc = "Toggle BTOP terminal" }
+    )
+
+    vim.api.nvim_set_keymap(
+      "n",
+      "<leader>td",
+      "<cmd>lua _DOTNET_RUNNER_toggle()<CR>",
+      {
+        noremap = true,
+        silent = true,
+        desc = "Toggle basic DOTNET runner terminal",
+      }
     )
   end,
 }
