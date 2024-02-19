@@ -2,7 +2,7 @@ local my_augroup = vim.api.nvim_create_augroup("MyAugroup", { clear = true })
 
 vim.api.nvim_create_autocmd(
   "BufReadPost",
-  { command = "lua On_bufnew_clean()", group = my_augroup, once = true }
+  { command = "lua _G.OnBufnewClean()", group = my_augroup, once = true }
 )
 
 -- autocmd to handle global buffer uid trakcer when buffer is being unloaded
@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd({ "BufUnload" }, {
 })
 
 -- make sure native term used by code runner does not display numberline
+-- (for some reason inbuilt config option did not work for me?)
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
   group = my_augroup,
   callback = function()
@@ -31,13 +32,19 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
   end,
 })
 
--- open help window in a vertical split
--- vim.api.nvim_create_autocmd({ "FileType", "WinEnter" }, {
---   pattern = "help",
---   group = my_augroup,
---   callback = function()
---   end,
--- })
+-- in windows at least half the screen width open help splits vertical with wrap
+vim.api.nvim_create_autocmd({ "WinNew" }, {
+  group = my_augroup,
+  callback = function()
+    vim.api.nvim_create_autocmd("BufEnter", {
+      group = my_augroup,
+      once = true,
+      callback = function()
+        _G.VerticalSplitHelper()
+      end,
+    })
+  end,
+})
 
 ------------------------------------------------------------------------------
 

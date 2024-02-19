@@ -11,7 +11,7 @@ M.general = {
 
     ---------------------------------[ LSP info hover trigger ]
     ["<a-cr>"] = {
-      "<cmd>lua ToggleFloatDoc()<cr>",
+      "<cmd>lua _G.ToggleFloatDoc()<cr>",
       "",
       general_opts,
     },
@@ -318,13 +318,13 @@ M.general = {
     },
 
     ["<leader>cx"] = {
-      "<cmd>lua SnipRunFlowSnippet()<CR>",
+      "<cmd>lua _G.SnipRunFlowSnippet()<CR>",
       "Execute SNIPPET with SnipRun",
       general_opts,
     },
 
     ["<leader>cX"] = {
-      "<cmd>lua SnipRunFlowFile()<CR>",
+      "<cmd>lua _G.SnipRunFlowFile()<CR>",
       "Execute FILE with SnipRun",
       general_opts,
     },
@@ -349,7 +349,7 @@ M.general = {
     },
     ----------------------------------------------------------[ NeoVim group]
     ["<leader>ns"] = {
-      "<cmd>lua Clear_swap()<CR>",
+      "<cmd>lua _G.ClearSwap()<CR>",
       "Clear the contents of SWAP directory",
       general_opts,
     },
@@ -422,55 +422,55 @@ M.general = {
     },
 
     ["<leader>g1"] = {
-      "<CMD>lua Go_to_buf(1)<CR>",
+      "<CMD>lua _G.GoToBufByNr(1)<CR>",
       "Go to buf 1",
       general_opts,
     },
 
     ["<leader>g2"] = {
-      "<CMD>lua Go_to_buf(2)<CR>",
+      "<CMD>lua _G.GoToBufByNr(2)<CR>",
       "Go to buf 2",
       general_opts,
     },
 
     ["<leader>g3"] = {
-      "<CMD>lua Go_to_buf(3)<CR>",
+      "<CMD>lua _G.GoToBufByNr(3)<CR>",
       "Go to buf 3",
       general_opts,
     },
 
     ["<leader>g4"] = {
-      "<CMD>lua Go_to_buf(4)<CR>",
+      "<CMD>lua _G.GoToBufByNr(4)<CR>",
       "Go to buf 4",
       general_opts,
     },
 
     ["<leader>g5"] = {
-      "<CMD>lua Go_to_buf(5)<CR>",
+      "<CMD>lua _G.GoToBufByNr(5)<CR>",
       "Go to buf 5",
       general_opts,
     },
 
     ["<leader>g6"] = {
-      "<CMD>lua Go_to_buf(6)<CR>",
+      "<CMD>lua _G.GoToBufByNr(6)<CR>",
       "Go to buf 6",
       general_opts,
     },
 
     ["<leader>g7"] = {
-      "<CMD>lua Go_to_buf(7)<CR>",
+      "<CMD>lua _G.GoToBufByNr(7)<CR>",
       "Go to buf 7",
       general_opts,
     },
 
     ["<leader>g8"] = {
-      "<CMD>lua Go_to_buf(8)<CR>",
+      "<CMD>lua _G.GoToBufByNr(8)<CR>",
       "Go to buf 8",
       general_opts,
     },
 
     ["<leader>g9"] = {
-      "<CMD>lua Go_to_buf(9)<CR>",
+      "<CMD>lua _G.GoToBufByNr(9)<CR>",
       "Go to buf 9",
       general_opts,
     },
@@ -494,13 +494,13 @@ M.general = {
     },
 
     ["<leader>sa"] = {
-      "<CMD>lua CodyAskFlow()<CR>",
+      "<CMD>lua _G.CodyAskFlow()<CR>",
       "ASK Cody about selection",
       general_opts,
     },
 
     ["<leader>st"] = {
-      "<CMD>lua CodyTaskFlow()<CR>",
+      "<CMD>lua _G.CodyTaskFlow()<CR>",
       "Give Cody a TASK",
       general_opts,
     },

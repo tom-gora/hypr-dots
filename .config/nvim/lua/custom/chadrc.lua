@@ -2,6 +2,10 @@
 
 -- vim opts definitions
 require "custom.my-vim-opts"
+-- my autocommands declarations
+require "custom.autocommands"
+
+-- SCRIPTS:
 -- script to allow quick cleanup of swap backups
 require "custom.scripts.clear-swap-files"
 -- quick toggle lsp doc hover window off/on with <a-cr>
@@ -15,10 +19,8 @@ require "custom.scripts.force-empty-buffer-1-to-autoclose"
 require "custom.scripts.go-to-buf-by-uid"
 -- QOL wrappers for some plugin commands
 require "custom.scripts.wrappers"
--- my autocommands
-require "custom.autocommands"
--- in windows at least half the screen width open help splits vertical with wrap
-require("custom.scripts.modified_vertical_help_plugin").activateFix()
+-- helper for the modification to help splits to make them vertical by default
+require "custom.scripts.vertical-split-helper"
 
 ---@diagnostic disable: inject-field
 ---@type ChadrcConfig

@@ -1,4 +1,4 @@
-function Clear_swap()
+function _G.ClearSwap()
   local swap_dir = vim.fn.expand "$HOME" .. "/.local/state/nvim/swap"
   local function clear_both_cmd_lines()
     vim.fn.timer_start(2000, function()

@@ -1,4 +1,4 @@
-function On_bufnew_clean()
+function _G.OnBufnewClean()
   local buffers = vim.api.nvim_list_bufs()
 
   -- if more than one buf do checks foreach

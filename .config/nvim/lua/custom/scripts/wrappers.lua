@@ -1,14 +1,14 @@
 -- my wrappers for commands:
 
 -- flow enhancement for cody task
-function CodyTaskFlow()
+function _G.CodyTaskFlow()
   -- get input before the task
   local input = vim.fn.input " Task Cody > "
   vim.cmd("CodyTask " .. input)
 end
 
 -- flow enhancement for cody ask
-function CodyAskFlow()
+function _G.CodyAskFlow()
   -- set up state to track if user cancels or accepts
   local canceled = false
   local accepted = false
@@ -55,7 +55,7 @@ function CodyAskFlow()
   end
 end
 
-function SnipRunFlowSnippet()
+function _G.SnipRunFlowSnippet()
   -- set up state to track if user cancels or accepts
   local canceled = false
   local accepted = false
@@ -100,7 +100,7 @@ function SnipRunFlowSnippet()
   end
 end
 
-function SnipRunFlowFile()
+function _G.SnipRunFlowFile()
   vim.cmd "normal! ggVG$"
   local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
   vim.api.nvim_feedkeys(esc, "x", false)

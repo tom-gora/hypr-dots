@@ -1,4 +1,4 @@
-function Go_to_buf(buf_uid)
+function _G.GoToBufByNr(buf_uid)
   local buffer_found = false
   for _, buf_num in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_is_loaded(buf_num) then
