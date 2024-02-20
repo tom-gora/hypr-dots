@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "$HOME/.config/hypr/scripts/LockScreen.sh",
+    "action" : "$HOME/.config/hypr/scripts/utils/LockScreen.sh",
     "text" : "Lock [ l ]",
     "keybind" : "l"
 }

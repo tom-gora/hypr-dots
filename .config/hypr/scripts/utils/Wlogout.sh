@@ -3,7 +3,7 @@
 
 # wlogout (Power, Screen Lock, Suspend, etc)
 
-/bin/bash "$HOME/.config/hypr/UserScripts/RandomBG"
+/bin/bash "$HOME/.config/hypr/scripts/wallpaperAndStyle/RandomBG.sh"
 
 # Set variables for parameters
 A_2160=680

@@ -19,6 +19,6 @@ SWWW_PARAMS="--transition-fps $FPS --transition-type $TYPE --transition-duration
 
 swww query || swww init && swww img ${RANDOMPICS} $SWWW_PARAMS
 
-${scriptsDir}/PywalSwww.sh
+${scriptsDir}/wallpaperAndStyle/PywalSwww.sh
 sleep 1
-${scriptsDir}/Refresh.sh
+${scriptsDir}/wallpaperAndStyle/Refresh.sh

@@ -6,10 +6,11 @@
 # up as the wallpaper at regular intervals
 #
 # NOTE: this script uses bash (not POSIX shell) for the RANDOM variable
+set -x
 
-pywal_refresh=$HOME/.config/hypr/scripts/RefreshNoWaybar.sh
+pywal_refresh=$HOME/.config/hypr/scripts/wallpaperAndStyle/RefreshNoWaybar.sh
 
-if [[ $# -lt 1 ]] || [[ ! -d $1   ]]; then
+if [[ $# -lt 1 ]] || [[ ! -d $1 ]]; then
 	echo "Usage:
 	$0 <dir containing images>"
 	exit 1
@@ -23,15 +24,15 @@ export SWWW_TRANSITION_TYPE=simple
 INTERVAL=1800
 
 while true; do
-	find "$1" \
-		| while read -r img; do
+	find -L "$1" |
+		while read -r img; do
 			echo "$((RANDOM % 1000)):$img"
-		done \
-		| sort -n | cut -d':' -f2- \
-		| while read -r img; do
-			swww img "$img" 
+		done |
+		sort -n | cut -d':' -f2- |
+		while read -r img; do
+			swww img "$img"
 			$pywal_refresh
 			sleep $INTERVAL
-			
+
 		done
 done

@@ -19,8 +19,8 @@
     "timeout-low": 3,
     "timeout-critical": 0,
     "fit-to-screen": false,
-    "control-center-width": 450,
-    "control-center-height": 800,
+    "control-center-width": 470,
+    "control-center-height": 600,
     "notification-window-width": 470,
     "keyboard-shortcuts": true,
     "image-visibility": "when available",
@@ -31,9 +31,8 @@
     "widgets": [
        	"dnd",
         "buttons-grid",
-		"mpris",
-    	"volume", 
-   	 	"backlight",
+        "mpris",
+        "volume", 
         "title",
         "notifications"
     ],
@@ -57,9 +56,6 @@
         "volume": {
             "label": "󰕾"
         },
-        "backlight": {
-            "label": "󰃟"
-        },
         "buttons-grid": {
             "actions": [
                 {
@@ -72,15 +68,11 @@
                 },
                 {
                     "label": "󰌾",
-                    "command": "~/.config/hypr/scripts/LockScreen.sh"
+                    "command": "~/.config/hypr/scripts/utils/LockScreen.sh"
                 },
                 {
                     "label": "󰍃",
                     "command": "hyprctl dispatch exit"
-                },
-                {
-                    "label": "󰀝",
-                    "command": "~/.config/hypr/scripts/AirplaneMode.sh"
                 },
                 {
                     "label": "󰕾",
@@ -89,10 +81,6 @@
                 {
                     "label": "󰍬",
                     "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-                },
-                {
-                    "label": "󰂯",
-                    "command": "blueman-manager"
                 }
             ]
         }

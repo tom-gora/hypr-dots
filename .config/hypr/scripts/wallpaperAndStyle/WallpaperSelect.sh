@@ -83,6 +83,6 @@ fi
 main
 
 sleep 0.5
-${SCRIPTSDIR}/PywalSwww.sh
+${SCRIPTSDIR}/wallpaperAndStyle/PywalSwww.sh
 sleep 0.2
-${SCRIPTSDIR}/Refresh.sh
+${SCRIPTSDIR}/wallpaperAndStyle/Refresh.sh
