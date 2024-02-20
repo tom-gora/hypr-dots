@@ -212,9 +212,9 @@
     "format": "{}",
     "format-en": "gb",
     "format-pl": "pl",
-    "on-click": "~/.config/hypr/scripts/utils/SwitchKeyboardLayout.sh"
+    "on-click": "~/.config/hypr/scripts/utils/SwitchKeyboardLayout.sh",
 },
-    
+
 "hyprland/submap": {
     "format": "<span style=\"italic\">  {}</span>", // Icon: expand-arrows-alt
     "tooltip": false,

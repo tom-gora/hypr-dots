@@ -26,4 +26,4 @@ get_leftmost_window_pid() {
 
 leftmost_address=$(get_leftmost_window_pid "$current_side")
 
-hyprctl dispatch resizewindowpixel exact 49% 51%,address:"$leftmost_address"
+hyprctl dispatch resizewindowpixel exact 49%,address:"$leftmost_address"

@@ -1,47 +1,41 @@
 #!/bin/bash
-# Rofi menu for Quick Edit / View of Settings (SUPER E)
+# Rofi menu for Quick Edit
 
 configs="$HOME/.config/hypr/configs"
-UserConfigs="$HOME/.config/hypr/UserConfigs"
 
 menu() {
-	printf "1. view Env-variables\n"
-	printf "2. view Window-Rules\n"
-	printf "3. view Startup_Apps\n"
-	printf "4. view User-Keybinds\n"
-	printf "5. view Monitors\n"
-	printf "6. view Laptop-Keybinds\n"
-	printf "7. view User-Settings\n"
-	printf "8. view Default-Settings\n"
-	printf "9. view Default-Keybinds\n"
+	printf "1. view Window-Rules\n"
+	printf "2. view Startup_Apps\n"
+	printf "3. view Settings\n"
+	printf "4. view Keybinds\n"
+	printf "5. view Submap Keybinds\n"
+	printf "6. view Env-variables\n"
+	printf "7. view Monitors\n"
 }
 
 main() {
 	choice=$(menu | rofi -dmenu -config ~/.config/rofi/config-compact.rasi | cut -d. -f1)
 	case $choice in
 	1)
-		kitty -e nvim "$UserConfigs/ENVariables.conf"
+		kitty -e nvim "$configs/WindowRules.conf"
 		;;
 	2)
-		kitty -e nvim "$UserConfigs/WindowRules.conf"
+		kitty -e nvim "$configs/Startup_Apps.conf"
 		;;
 	3)
-		kitty -e nvim "$UserConfigs/Startup_Apps.conf"
-		;;
-	4)
-		kitty -e nvim "$UserConfigs/UserKeybinds.conf"
-		;;
-	5)
-		kitty -e nvim "$UserConfigs/Monitors.conf"
-		;;
-	6)
-		kitty -e nvim "$UserConfigs/UserSettings.conf"
-		;;
-	7)
 		kitty -e nvim "$configs/Settings.conf"
 		;;
-	8)
+	4)
 		kitty -e nvim "$configs/Keybinds.conf"
+		;;
+	5)
+		kitty -e nvim "$configs/Submap_Keybinds.conf"
+		;;
+	6)
+		kitty -e nvim "$configs/ENVariables.conf"
+		;;
+	7)
+		kitty -e nvim "$configs/Monitors.conf"
 		;;
 	*) ;;
 	esac

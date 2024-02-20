@@ -1,4 +1,5 @@
 #!/bin/bash
+# Toggling calculator on and off with a single keybind
 
 CALCULATOR_PROCESS="gnome-calculator"
 

@@ -1,5 +1,4 @@
 #!/bin/bash
-## /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Script for Random Wallpaper ( CTRL ALT W)
 
 wallDIR="$HOME/.config/hypr-wallpapers"

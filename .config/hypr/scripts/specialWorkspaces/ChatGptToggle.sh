@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 #define ID of "special"
 SPECIAL_WORKSPACE_NAME="special:chatgpt"
 

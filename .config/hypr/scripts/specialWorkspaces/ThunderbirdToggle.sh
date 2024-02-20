@@ -3,8 +3,6 @@
 #define ID of "special"
 SPECIAL_WORKSPACE_NAME="special:thunderbird"
 
-set -x
-
 # Grab clients as json
 OUTPUT=$(hyprctl clients -j)
 # Extract thunderbird client data

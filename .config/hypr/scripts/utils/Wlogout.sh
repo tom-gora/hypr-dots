@@ -1,6 +1,4 @@
 #!/bin/bash
-## /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-
 # wlogout (Power, Screen Lock, Suspend, etc)
 
 /bin/bash "$HOME/.config/hypr/scripts/wallpaperAndStyle/RandomBG.sh"
