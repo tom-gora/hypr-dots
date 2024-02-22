@@ -8,7 +8,7 @@ determine_monitor() {
 }
 current_side=$(determine_monitor)
 
-get_leftmost_window_pid() {
+get_leftmost_window_addr() {
 	local side=$1
 	windows_metadata=$(hyprctl clients -j)
 
@@ -24,6 +24,6 @@ get_leftmost_window_pid() {
 	echo "$leftmost_window" | jq -r '.address'
 }
 
-leftmost_address=$(get_leftmost_window_pid "$current_side")
+leftmost_address=$(get_leftmost_window_addr "$current_side")
 
 hyprctl dispatch resizewindowpixel exact 49%,address:"$leftmost_address"

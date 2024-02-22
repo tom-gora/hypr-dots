@@ -20,7 +20,8 @@
   "modules-center": [
     "idle_inhibitor",
     "clock",
-    "custom/weather"
+    "custom/weather",
+    "custom/recording"
   ],
   "modules-right": [
     "group/motherboard",

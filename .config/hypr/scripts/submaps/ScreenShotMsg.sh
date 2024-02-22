@@ -2,7 +2,7 @@
 
 notif="$HOME/.config/swaync/images/screenshot.png"
 
-notify-send -u critical -i "$notif" "Make a Screenshot" "╭───┰───────────────────────────────╮
+notify-send -t 60000 -i "$notif" "Make a Screenshot" "╭───┰───────────────────────────────╮
 │<b> N </b>┃ Full Screenshot Now           │
 │<b> W </b>┃ Window Only Now               │
 │<b> A </b>┃ Area Screenshot               │

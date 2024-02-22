@@ -1,6 +1,6 @@
 #!/bin/bash
 
-notify-send -u critical "Go to workspace" "╭───┰───────────────────────────────╮
+notify-send -t 60000 "Go to workspace" "╭───┰───────────────────────────────╮
 │<b> 1 </b>┃ Go to 1                       │
 │<b> 2 </b>┃ Go to 2                       │
 │<b> 3 </b>┃ Go to 3                       │

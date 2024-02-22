@@ -33,5 +33,5 @@ else
 	# If not then by design it is in view, so send it away to "special"
 	hyprctl dispatch movetoworkspacesilent special:chatgpt,address:"$CGPT_WINDOW_ADDR"
 fi
-echo $CURRENT_CGPT_WORKSPACE
+echo $CGPT_WINDOW_ADDR
 exit 0

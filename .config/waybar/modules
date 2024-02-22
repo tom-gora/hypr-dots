@@ -461,6 +461,14 @@
     "tooltip" : true,
 },
   
+"custom/recording": {
+    "format": "{}",
+    "exec": "echo '🔴 REC'",
+    "exec-if": "pgrep wf-recorder",
+    "interval": 1,
+    "tooltip": "false",	
+    "on-click": "~/.config/hypr/scripts/utils/KillWfRecorder.sh",
+},
   
 // Separators
 "custom/separator#dot": {

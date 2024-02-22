@@ -61,6 +61,7 @@ M.mason = {
     "emmet-ls",
     "css-lsp",
     "html-lsp",
+    "jsonls",
     "typescript-language-server",
     "prettierd",
     "htmlhint",

@@ -23,7 +23,7 @@ SPOTIFY_WINDOW_ADDR=$(jq -r '.address' <<<"$SPOTIFY_OBJ")
 
 # If the window is on "special" then move it into view
 if [ "$CURRENT_SPOTIFY_WORKSPACE" == "$SPECIAL_WORKSPACE_NAME" ]; then
-	hyprctl dispatch movetoworkspace 'e-0',address:"$SPOTIFY_WINDOW_ADDR"
+	hyprctl dispatch movetoworkspace 'e+0',address:"$SPOTIFY_WINDOW_ADDR"
 	hyprctl dispatch focuswindow address:"$SPOTIFY_WINDOW_ADDR"
 else
 	# If not then by design it is in view, so send it away to "special"
