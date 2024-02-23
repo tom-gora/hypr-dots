@@ -11,7 +11,7 @@ file="Recording_${time}_${RANDOM}.mp4"
 notify_view() {
 	local check_file="$dir/$file"
 	if [[ -e "$check_file" ]]; then
-		notify-send -u low -i ${icon} "Recording saved." "Click to view\n\n${file}"
+		notify-send -u low -i ${icon} -c "Wf-recorder" "Recording saved." "Click to view\n\n${file}"
 		echo "${check_file}" >/tmp/recent_recording.txt
 	fi
 }
@@ -19,7 +19,7 @@ notify_view() {
 # countdown
 countdown() {
 	for sec in $(seq $1 -1 1); do
-		notify-send -t 500 "Starting recording in" "<b>$sec</b>"
+		notify-send -t 500 -c "Wf-recorder" "Starting recording in" "<b>$sec</b>"
 		sleep 1
 	done
 	swaync-client --close-latest
@@ -28,7 +28,7 @@ countdown() {
 # record functions
 recArea() {
 	swaync-client --close-latest
-	local coordinates=$(slurp)
+	local coordinates=$(slurp -b "#2A273FDD" -w 0)
 	if [[ "$coordinates" == "" ]]; then
 		exit 0
 	fi

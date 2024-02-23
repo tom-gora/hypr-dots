@@ -66,9 +66,12 @@ shotwin() {
 
 shotarea() {
 	swaync-client --close-latest
-	# testing
-	# cd ${dir} && grim -g "$(/home/tomeczku/Downloads/slurp/build/slurp -R -b "#2A273FCC" -w 0)" - | tee "$file" | wl-copy
-	cd ${dir} && grim -g "$(slurp -b "#2A273FCC" -w 0)" - | tee "$file" | wl-copy
+
+	local coordinates=$(slurp -b "#2A273FDD" -w 0)
+	if [[ "$coordinates" == "" ]]; then
+		exit 0
+	fi
+	cd ${dir} && grim -g "$coordinates" - | tee "$file" | wl-copy
 	notify_view
 }
 

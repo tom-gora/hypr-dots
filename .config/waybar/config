@@ -15,13 +15,12 @@
     "custom/separator#blank_1",
     "custom/separator#line",
     "group/audio",
-    "mpris",
+    "custom/recording"
   ],
   "modules-center": [
     "idle_inhibitor",
     "clock",
     "custom/weather",
-    "custom/recording"
   ],
   "modules-right": [
     "group/motherboard",

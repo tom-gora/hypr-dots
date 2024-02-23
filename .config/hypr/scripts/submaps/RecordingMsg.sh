@@ -2,7 +2,7 @@
 
 notif="$HOME/.config/swaync/images/screenshot.png"
 
-notify-send -t 60000 -i "$notif" "Make a Recording" "╭─────────┰───────────────────────────────╮
+notify-send -c "Wf-recorder" -t 60000 -i "$notif" "Make a Recording" "╭─────────┰───────────────────────────────╮
 │<b> A       </b>┃ Record area now.              │
 │<b> Ctrl-A  </b>┃ Record area in 5 sec.         │
 │<b> Shift-A </b>┃ Record area in 10 sec.        │
