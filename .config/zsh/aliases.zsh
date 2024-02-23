@@ -12,8 +12,6 @@ alias src="source $ZDOTDIR/.zshrc"
 # alias for old neovim config
 alias anvim="NVIM_APPNAME=anvim nvim"
 # other nvim aliases
-alias kn="NVIM_APPNAME=kickstart nvim"
-alias myvi="NVIM_APPNAME=myvi nvim"
 alias vi="nvim"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
