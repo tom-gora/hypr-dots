@@ -1,3 +1,4 @@
 .config/zsh/.zsh_history
 .config/zsh/histfile
 .config/zsh/.zcompdump*
+.config/rofi/.current_wallpaper
