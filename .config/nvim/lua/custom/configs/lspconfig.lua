@@ -70,7 +70,6 @@ local servers = {
   "intelephense",
   "jdtls",
   "jsonls",
-  -- "omnisharp",
   "stimulus_ls",
   "tsserver",
   "tailwindcss",

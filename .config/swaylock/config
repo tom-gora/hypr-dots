@@ -2,16 +2,17 @@ daemonize
 show-failed-attempts
 clock
 
-# AM/PM formats (American Format)
-#datestr=%a, %B %e
-#timestr=%I:%M %p
-
-#24 HRS clock format and standard Europe Date Format
+datestr=%A %d %b
 timestr=%H:%M
-datestr=%d %B, %a
+# datestr=%d %B, %a
 
-# Add current display as background
 screenshots
+grace=1
+grace-no-mouse
+grace-no-touch
+fade-in=0.6
+ignore-empty-password
+hide-keyboard-layout
 
 # Add an image as a background. You need to disable screenshots above
 #image=$HOME/.config/rofi/.current_wallpaper
@@ -19,41 +20,34 @@ screenshots
 # Effect for background
 # NOTE: if you choose image as wallpaper, you may want to comment (#) these effects 
 effect-blur=14x2
-# effect-vignette=0.5:0.5
+effect-vignette=0.6:0.6
 #effect-greyscale
 #effect-pixelate=5
 
-color=1f1d2e80
+color=#D7827E
 font="Ubuntu Nerd Font"
 indicator
 indicator-radius=300
 indicator-thickness=30
 
 text-color=#e0def4
-text-caps-lock-color=#faf4ed
+text-caps-lock-color=#B4637A
 inside-color=#191724
-line-color=#1f1d2e
+line-color=#191724
 ring-color=#191724
 separator-color=#191724
 text-ver-color=#faf4ed
 inside-ver-color=#191724
-line-ver-color=#26233a
+line-ver-color=#31748f
 ring-ver-color=#31748f
 text-wrong-color=#eb6f92
 inside-wrong-color=#191724
-line-wrong-color=#191724
-ring-wrong-color=#f6c177
+line-wrong-color=#eb6f92
+ring-wrong-color=#eb6f92
 text-clear-color=#191724
-inside-clear-color=#faf4ed
+inside-clear-color=#c4a7e7
 line-clear-color=#907aa9
-ring-clear-color=#c4a7e7
-key-hl-color=#eb6f92
-bs-hl-color=#faf4ed
+ring-clear-color=#907aa9
+key-hl-color=#232136
 
-grace=1
-grace-no-mouse
-grace-no-touch
-fade-in=0.6
-ignore-empty-password
-
-
+bs-hl-color=#F6C177
