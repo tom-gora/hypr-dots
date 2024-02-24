@@ -80,7 +80,7 @@ M.mason = {
     -- c#
     -- "csharp-language-server", -- damn wont do, schoo requires older .net
     "omnisharp",
-    "csharpier",
+    -- "csharpier",
   },
 }
 

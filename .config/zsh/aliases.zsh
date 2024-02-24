@@ -35,8 +35,13 @@ alias ........="../../../.."
 alias qq="exit"
 alias xx="exit"
 
+alias uni="cd ~/Documents/uni_dir/"
+
 # utils etc.
 alias fzf-here='fzfgrep_func() { grep -rl "$1" . | fzf | xargs -r nvim; }; fzfgrep_func'
+# for school quickly handle dotnet
+alias .r="dotnet run ."
+alias .br="dotnet build && echo '\n\033[1;35mOutput >>>>>>> \033[0m\n' && dotnet run ."
 
 # applications aliases
 alias code="codium"

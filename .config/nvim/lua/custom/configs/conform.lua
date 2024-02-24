@@ -7,7 +7,6 @@ local options = {
     javascript = { "prettierd" },
     css = { "prettierd" },
     html = { "prettierd" },
-    cs = { "csharpier" },
     sh = { "shfmt" },
   },
 

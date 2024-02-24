@@ -2,19 +2,19 @@
 -- Remaps as per nvChad docs; Which-Key group names defined in wk config file
 
 ---@type MappingsTable
-local M = {}
 local general_opts = { nnoremap = true, silent = true }
+local M = {}
 local ignore = "which_key_ignore"
 
 M.general = {
   n = {
-
-    ---------------------------------[ LSP info hover trigger ]
+    --------------------------------------------------[ LSP info hover trigger ]
     ["<a-cr>"] = {
       "<cmd>lua _G.ToggleFloatDoc()<cr>",
       "",
       general_opts,
     },
+
     ---------------------------------[ position the cursor after pasted in text]
     ["p"] = {
       "gp",
@@ -524,6 +524,32 @@ M.general = {
       "",
       general_opts,
     },
+
+    --------------------------------------------------------[ move plugin binds]
+    -- ["<a-j>"] = {
+    --   "<cmd>MoveBlock(1)<cr>",
+    --   "",
+    --   general_opts,
+    -- },
+    --
+    -- ["<a-k>"] = {
+    --   "<cmd>MoveBlock(-1)<cr>",
+    --   "",
+    --   general_opts,
+    -- },
+    --
+    -- ["<a-l>"] = {
+    --   "<cmd>MoveHWord(1)<cr>",
+    --   "",
+    --   general_opts,
+    -- },
+    --
+    -- ["<a-h>"] = {
+    --   "<cmd>MoveWord(-1)<cr>",
+    --   "",
+    --   general_opts,
+    -- },
+
     -----------------------------------------------[ Search and replace group ]
     ["<leader>rs"] = {
       "<CMD>SearchReplaceWithinVisualSelection<CR>",
