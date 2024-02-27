@@ -7,7 +7,7 @@ M = {
   lazy = false,
   event = "BufWritePre",
   config = function()
-    require "custom.configs.conform"
+    require "custom.configs.conform_conf"
   end,
 }
 

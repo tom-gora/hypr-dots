@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd({ "WinNew" }, {
 
 -- "HACK: Semantic Tokens Error Fix"
 --
--- local mod_mode = require "custom.configs.statusline"
+-- local mod_mode = require "custom.configs.statusline_conf"
 -- local autocmd = vim.api.nvim_create_autocmd
 -- autocmd("LspAttach", {
 --   callback = function(args)

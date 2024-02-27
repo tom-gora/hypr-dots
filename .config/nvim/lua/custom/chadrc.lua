@@ -30,7 +30,7 @@ M.ui = {
   statusline = {
     theme = "minimal",
     separator_style = "round",
-    overriden_modules = require "custom.configs.statusline",
+    overriden_modules = require "custom.configs.statusline_conf",
   },
   cmp = {
     icons = true,
@@ -68,6 +68,6 @@ M.plugins = "custom.plugins"
 -- mappings customization
 M.mappings = require "custom.mappings"
 -- lazy config redone just to enable bordered theme
-M.lazy_nvim = require "custom.configs.lazy"
+M.lazy_nvim = require "custom.configs.lazy_conf"
 
 return M

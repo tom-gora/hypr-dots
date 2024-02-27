@@ -1,13 +1,11 @@
 local M = {}
+local opts = require "custom.configs.colorizer_conf"
 
 M = {
   "NvChad/nvim-colorizer.lua",
-  opts = {
-    user_default_options = {
-      names = true,
-      tailwind = true,
-    },
-  },
+  config = function()
+    require("colorizer").setup(opts)
+  end,
 }
 
 return M

@@ -39,7 +39,7 @@ M.treesitter = {
       init_selection = "<C-CR>",
       node_incremental = "<C-CR>",
       -- scope_incremental = "<S-Space>",
-      node_decrementl = "<C-bs>",
+      node_decremental = "<C-bs>",
     },
   },
 }

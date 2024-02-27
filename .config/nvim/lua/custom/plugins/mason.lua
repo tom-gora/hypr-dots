@@ -1,6 +1,6 @@
 ---@type NvPluginSpec[]
 local M = {}
-local overrides = require "custom.configs.overrides"
+local overrides = require "custom.configs.chad_overrides_conf"
 
 M = {
   "williamboman/mason.nvim",
