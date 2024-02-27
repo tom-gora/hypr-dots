@@ -10,6 +10,8 @@ M = {
       vim.api.nvim_get_hl(0, { name = "InclineCenterInactive" })
     local outer_hl_inactive =
       vim.api.nvim_get_hl(0, { name = "InclineOuterInactive" })
+    local pos_slant_hl = vim.api.nvim_get_hl(0, { name = "InclineSlant" })
+    local pos_hl = vim.api.nvim_get_hl(0, { name = "InclinePosition" })
     Buf_uid_tracker = 1
 
     require("incline").setup {
@@ -35,77 +37,95 @@ M = {
           filename = filename .. "  "
         end
 
-        local active_pill_end_hl = {
+        local active_pill_end_hl_hex = {
           guifg = "#" .. string.format("%06x", outer_hl.fg),
           guibg = "#" .. string.format("%06x", outer_hl.bg),
         }
-        local active_pill_center_hl = {
+        local active_pill_center_hl_hex = {
           guifg = "#" .. string.format("%06x", center_hl.fg),
           guibg = "#" .. string.format("%06x", center_hl.bg),
         }
-        local inactive_pill_end_hl = {
+        local inactive_pill_end_hl_hex = {
           guifg = "#" .. string.format("%06x", outer_hl_inactive.fg),
           guibg = "#" .. string.format("%06x", outer_hl_inactive.bg),
         }
-        local inactive_pill_center_hl = {
+        local inactive_pill_center_hl_hex = {
           guifg = "#" .. string.format("%06x", center_hl_inactive.fg),
           guibg = "#" .. string.format("%06x", center_hl_inactive.bg),
         }
+        local pos_hl_hex = {
+          guifg = "#" .. string.format("%06x", pos_hl.fg),
+          guibg = "#" .. string.format("%06x", pos_hl.bg),
+        }
+        local pos_slant_hl_hex = {
+          guifg = "#" .. string.format("%06x", pos_slant_hl.fg),
+          guibg = "#" .. string.format("%06x", pos_slant_hl.bg),
+        }
 
-        local icon, color =
-          require("nvim-web-devicons").get_icon_color(filename)
+        local end_pill_data = {
+          "",
+          guifg = active_pill_end_hl_hex.guifg,
+          guibg = active_pill_end_hl_hex.guibg,
+        }
+
+        local position = function()
+          local coordinates = vim.api.nvim_win_get_cursor(0)
+          end_pill_data = {
+            " ",
+            guifg = pos_slant_hl_hex.guibg,
+            guibg = active_pill_end_hl_hex.guibg,
+          }
+          return {
+            {
+              " ",
+              guibg = active_pill_center_hl_hex.guibg,
+            },
+            {
+              "",
+              guifg = pos_slant_hl_hex.guifg,
+              guibg = pos_slant_hl_hex.guibg,
+            },
+            {
+              " " .. coordinates[1] .. "/" .. coordinates[2],
+              guibg = pos_hl_hex.guibg,
+              guifg = pos_hl_hex.guifg,
+              gui = "bold",
+            },
+          }
+        end
         if props.focused then
           return {
             {
               "",
-              guifg = active_pill_end_hl.guifg,
-              guibg = active_pill_end_hl.guibg,
-            },
-            {
-              icon,
-              guifg = color,
-              guibg = active_pill_center_hl.guibg,
-            },
-            {
-              " ",
-              guibg = active_pill_center_hl.guibg,
+              guifg = active_pill_end_hl_hex.guifg,
+              guibg = active_pill_end_hl_hex.guibg,
             },
             {
               filename,
-              guibg = active_pill_center_hl.guibg,
-              guifg = active_pill_center_hl.guifg,
+              guibg = active_pill_center_hl_hex.guibg,
+              guifg = active_pill_center_hl_hex.guifg,
+              gui = "bold",
             },
-            {
-              "",
-              guifg = active_pill_end_hl.guifg,
-              guibg = active_pill_end_hl.guibg,
-            },
+            position(),
+            end_pill_data,
           }
         end
         return {
           {
             "",
-            guifg = inactive_pill_end_hl.guifg,
-            guibg = inactive_pill_end_hl.guibg,
-          },
-          {
-            icon,
-            guifg = color,
-            guibg = inactive_pill_center_hl.guibg,
-          },
-          {
-            " ",
-            guibg = inactive_pill_center_hl.guibg,
+            guifg = inactive_pill_end_hl_hex.guifg,
+            guibg = inactive_pill_end_hl_hex.guibg,
           },
           {
             filename,
-            guibg = inactive_pill_center_hl.guibg,
-            guifg = inactive_pill_center_hl.guifg,
+            guibg = inactive_pill_center_hl_hex.guibg,
+            guifg = inactive_pill_center_hl_hex.guifg,
+            gui = "bold",
           },
           {
-            "",
-            guifg = inactive_pill_end_hl.guifg,
-            guibg = inactive_pill_end_hl.guibg,
+            " ",
+            guifg = inactive_pill_end_hl_hex.guifg,
+            guibg = inactive_pill_end_hl_hex.guibg,
           },
         }
       end,
