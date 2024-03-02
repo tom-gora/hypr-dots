@@ -63,7 +63,7 @@ M.config_function = function(_, opts)
     "n",
     "<leader>e",
     "<Cmd>lua MiniFiles.open()<CR>",
-    { nowait = true, silent = true, desc = " File explorer" }
+    { nowait = true, silent = true, desc = "»   Mini Files" }
   )
 end
 

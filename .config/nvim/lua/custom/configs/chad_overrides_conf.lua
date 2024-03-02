@@ -61,7 +61,7 @@ M.mason = {
     "emmet-ls",
     "css-lsp",
     "html-lsp",
-    "jsonls",
+    "json-lsp",
     "typescript-language-server",
     "prettierd",
     "htmlhint",
@@ -80,7 +80,8 @@ M.mason = {
     -- c#
     -- "csharp-language-server", -- damn wont do, schoo requires older .net
     "omnisharp",
-    -- "csharpier",
+    "lemminx",
+    "xmlformatter",
   },
 }
 

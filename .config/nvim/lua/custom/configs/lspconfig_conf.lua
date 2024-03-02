@@ -50,6 +50,7 @@ local on_attach = function(client, bufnr)
   if client.server_capabilities.signatureHelpProvider then
     require("nvchad.signature").setup(client)
   end
+  --fix omnisharp
   if client.name == "omnisharp" then
     client.server_capabilities.semanticTokensProvider = {
       full = vim.empty_dict(),
@@ -141,7 +142,7 @@ local lspconfig = require "lspconfig"
 local servers = {
   "bashls",
   "clangd",
-  -- "csharp_ls",
+  "lemminx",
   "cssls",
   "intelephense",
   "jdtls",

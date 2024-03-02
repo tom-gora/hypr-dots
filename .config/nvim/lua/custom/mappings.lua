@@ -1,4 +1,4 @@
----@diagnostic disable: inject-field
+-- -@diagnostic disable: inject-field
 -- Remaps as per nvChad docs; Which-Key group names defined in wk config file
 
 ---@type MappingsTable
@@ -28,6 +28,18 @@ M.general = {
       general_opts,
     },
 
+    ["ciw"] = {
+      '"_ciw',
+      "",
+      general_opts,
+    },
+
+    ["caw"] = {
+      '"_caw',
+      "",
+      general_opts,
+    },
+
     ["x"] = {
       '"_x',
       "",
@@ -44,24 +56,25 @@ M.general = {
       function()
         require("Comment.api").toggle.linewise.current()
       end,
-      "󰿠 Toggle comment",
+      ignore,
       general_opts,
     },
     ----------------------------------------[ Quick linewise visual selection ]
     ["<leader><leader>"] = {
       "V",
-      "󰘤 Select line block mode",
+      ignore,
+      general_opts,
     },
     -------------------------------------------[ Select entire buffer content ]
     ["<leader>a"] = {
       "ggVG",
-      "󰩭 Select All",
+      ignore,
       general_opts,
     },
     -----------------------------------------------[ Quick leader driven save ]
     ["<leader>w"] = {
       "<cmd>w<cr>",
-      " Write to file",
+      ignore,
       general_opts,
     },
     ---------------------------------------------------------[ Quitting group ]
@@ -572,7 +585,7 @@ M.general = {
     },
     --[ Don't replace clipboard when pasting over + position the cursor after ]
     ["p"] = {
-      "gP",
+      "P",
       "",
       general_opts,
     },

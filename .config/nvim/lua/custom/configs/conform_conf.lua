@@ -7,7 +7,10 @@ local options = {
     javascript = { "prettierd" },
     css = { "prettierd" },
     html = { "prettierd" },
+    json = { "prettierd" },
     sh = { "shfmt" },
+    xml = { "xmlformatter" },
+    csproj = { "xmlformatter" },
   },
 
   -- adding same formatter for multiple filetypes can look too much work for some

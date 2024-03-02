@@ -2,6 +2,7 @@ local M = {}
 
 M = {
   "nvim-telescope/telescope.nvim",
+  event = "VeryLazy",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "debugloop/telescope-undo.nvim",

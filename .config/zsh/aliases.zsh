@@ -14,6 +14,8 @@ alias anvim="NVIM_APPNAME=anvim nvim"
 # other nvim aliases
 alias vi="nvim"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+# print project trees ignoring unwanted dirs
+alias ptree="tree -I 'node_modules|bin|obj|.git|.vscode|.idea|.vs|__pycache__|target|build|dist|out'"
 
 # eza instead of ls
 alias l="eza -l --group-directories-first --icons always"
@@ -39,9 +41,11 @@ alias uni="cd ~/Documents/uni_dir/"
 
 # utils etc.
 alias fzf-here='fzfgrep_func() { grep -rl "$1" . | fzf | xargs -r nvim; }; fzfgrep_func'
+
 # for school quickly handle dotnet
 alias .r="dotnet run ."
 alias .br="dotnet build && echo '\n\033[1;35mOutput >>>>>>> \033[0m\n' && dotnet run ."
+alias .b="dotnet build"
 
 # applications aliases
 alias code="codium"

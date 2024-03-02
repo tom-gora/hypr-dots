@@ -73,6 +73,27 @@ vim.api.nvim_create_autocmd({ "WinNew" }, {
   end,
 })
 
+-- fix my damn C# semicolons XD;
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  group = my_augroup,
+  pattern = { "*.cs", "*.vb" },
+  callback = function()
+    local diagnostics_data = vim.diagnostic.get()
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    for _, diagnostic in pairs(diagnostics_data) do
+      if diagnostic.message == "; expected" then
+        vim.cmd(tostring(diagnostic.lnum + 1))
+        vim.cmd "normal! A;"
+        vim.api.nvim_win_set_cursor(0, cursor_pos)
+      elseif diagnostic.message == "} expected" then
+        vim.cmd(tostring(diagnostic.lnum + 1))
+        vim.cmd "normal! A}"
+        vim.api.nvim_win_set_cursor(0, cursor_pos)
+      end
+    end
+  end,
+})
+
 ------------------------------------------------------------------------------
 
 -- "HACK: Semantic Tokens Error Fix"
