@@ -6,6 +6,12 @@ M.opts = {
     vim.o.timeoutlen = 300
   end,
   window = { border = "rounded" },
+  layout = {
+    height = { min = 3, max = 25 },
+    width = { min = 20, max = 30 },
+    spacing = 3,
+    align = "center",
+  },
   icons = {
     separator = "",
     group = "»  ",
