@@ -11,6 +11,7 @@ local options = {
     sh = { "shfmt" },
     xml = { "xmlformatter" },
     csproj = { "xmlformatter" },
+    java = { "google-java-format" },
   },
 
   -- adding same formatter for multiple filetypes can look too much work for some

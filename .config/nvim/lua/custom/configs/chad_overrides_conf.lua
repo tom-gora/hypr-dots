@@ -77,6 +77,8 @@ M.mason = {
     -- OTHER
     -- poor mans java ls
     "jdtls",
+    -- anf formatter
+    "google-java-format",
     -- c#
     -- "csharp-language-server", -- damn wont do, schoo requires older .net
     "omnisharp",
