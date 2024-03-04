@@ -22,8 +22,27 @@ get_leftmost_window_addr() {
 	fi
 
 	echo "$leftmost_window" | jq -r '.address'
+
 }
 
 leftmost_address=$(get_leftmost_window_addr "$current_side")
 
-hyprctl dispatch resizewindowpixel exact 49%,address:"$leftmost_address"
+#TODO: This is a rudimentary solution to a bug breaking script when multiple
+# workspaces are assigned to a single monitor causing multiple arressess to
+# get concatentated. I could not precise selection work so for now rebalancing
+# will execute on all workspaces on a given monitor.
+# When I figure out how to join json data as precisely as database data I might
+# improve this. Those can come in handy then:
+# #
+# focused_window=$(echo "$windows_metadata" | jq -r 'map(select(.focusHistoryID == 0)) | .[0]')
+# focused_workspace=$(echo "$focused_window" | jq -r '.workspace.id')
+
+if [ $(echo "$leftmost_address" | wc -l) -gt 1 ]; then
+	IFS=$'\n' read -d '' -r -a address_array <<<"$leftmost_address"
+
+	for address in "${address_array[@]}"; do
+		hyprctl dispatch resizewindowpixel exact 49%,address:"$address"
+	done
+else
+	hyprctl dispatch resizewindowpixel exact 49%,address:"$leftmost_address"
+fi
