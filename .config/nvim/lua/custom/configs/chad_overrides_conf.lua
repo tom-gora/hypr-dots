@@ -22,6 +22,7 @@ M.treesitter = {
     "sql",
     "toml",
     "xml",
+    "astro",
   },
   indent = {
     enable = true,
@@ -63,12 +64,14 @@ M.mason = {
     "html-lsp",
     "json-lsp",
     "typescript-language-server",
+    "prettier",
     "prettierd",
     "htmlhint",
     "stylelint",
     "tailwindcss-language-server",
     "intelephense",
-    "stimulus-language-server",
+    "astro-language-server",
+    -- "stimulus-language-server",
 
     --shell
     "bash-language-server",
@@ -77,11 +80,12 @@ M.mason = {
     -- OTHER
     -- poor mans java ls
     "jdtls",
-    -- anf formatter
+    -- and a formatter
     "google-java-format",
     -- c#
     -- "csharp-language-server", -- damn wont do, schoo requires older .net
     "omnisharp",
+    -- xml stuff
     "lemminx",
     "xmlformatter",
   },

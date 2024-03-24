@@ -7,11 +7,13 @@ local options = {
     javascript = { "prettierd" },
     css = { "prettierd" },
     html = { "prettierd" },
+    cshtml = { "prettierd" },
     json = { "prettierd" },
     sh = { "shfmt" },
     xml = { "xmlformatter" },
     csproj = { "xmlformatter" },
     java = { "google-java-format" },
+    astro = { "prettier" },
   },
 
   -- adding same formatter for multiple filetypes can look too much work for some

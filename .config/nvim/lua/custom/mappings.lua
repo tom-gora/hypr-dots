@@ -348,6 +348,12 @@ M.general = {
       general_opts,
     },
 
+    ["<leader>ct"] = {
+      "<cmd>lua _G.TakeSiliconScreenshot()<CR>",
+      "TAKE code screenshot",
+      general_opts,
+    },
+
     ----------------------------------------------------------[ Help group XD ]
     ["<leader>hh"] = {
       "<cmd>NvCheatsheet<CR>",

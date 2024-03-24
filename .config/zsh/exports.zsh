@@ -8,6 +8,7 @@ export LC_ALL=en_GB.UTF-8
 
 # XDG ninja fixes
 export ANDROID_HOME="$XDG_DATA_HOME/android"
+export ANDROID_AVD_HOME="$HOME/.var/app/com.google.AndroidStudio/config/.android/avd"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export GOPATH="$XDG_CONFIG_HOME/go"
 export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
@@ -24,6 +25,8 @@ CLASSPATH=/lib/jvm/java-17-openjdk-17.0.9.0.9-3.fc39.x86_64/bin
 export= PATH="$HOME/.local/bin":$PATH
 export= PATH="/usr/local/bin":$PATH
 export PATH="$HOME/.local/bin/.spicetify":$PATH
+export PATH="$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/tools/bin":$PATH
+export PATH="$HOME/.config/cargo/bin":$PATH
 
 
 # Manpath

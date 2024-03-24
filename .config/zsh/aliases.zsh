@@ -26,6 +26,9 @@ alias ld="eza -lD --group-directories-first --icons always"
 # bat instead of cat
 alias cat="bat"
 
+# quick open
+alias xo="xdg-open"
+
 # navigation improvements
 
 alias hh="cd $HOME"
