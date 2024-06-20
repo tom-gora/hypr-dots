@@ -1,56 +1,54 @@
-    [
-      {
-        "extensionsCore": [
-          "drcika.apc-extension",
-          "kevin-kwong.vscode-autohide-keyboard",
-          "streetsidesoftware.code-spell-checker",
-          "sourcegraph.cody-ai",
-          "file-icons.file-icons",
-          "ecmel.vscode-html-css",
-          "anteprimorac.html-end-tag-labels",
-          "Cardinal90.multi-cursor-case-preserve",
-          "sndst00m.vscode-native-svg-preview",
-          "christian-kohler.path-intellisense",
-          "esbenp.prettier-vscode",
-          "mvllow.rose-pine",
-          "DavidSanders.search-under-cursor",
-          "sourcegraph.sourcegraph",
-          "wayou.vscode-todo-highlight",
-          "silesky.toggle-boolean",
-          "PranshuAgrawal.toggle-case",
-          "amodio.toggle-excluded-files",
-          "vscodevim.vim",
-          "VSpaceCode.whichkey",
-          "Monish.regexsnippets",
-          "adpyke.codesnap",
-          "humao.rest-client",
-          "formulahendry.auto-rename-tag",
-          "formulahendry.code-runner"
-        ]
-      },
-      {
-        "extensionsReact": [
-          "dsznajder.es7-react-js-snippets",
-          "christian-kohler.npm-intellisense"
-        ]
-      },
-      {
-        "extensionsTailwind": [
-          "bradlc.vscode-tailwindcss",
-          "Etsi0.class-collapse",
-          "heybourn.headwind",
-          "thebearingedge.twind-intellisense-fork"
-        ]
-      },
-      {
-        "extensionsAstro": [
-          "astro-build.astro-vscode"
-        ]
-      },
-      {
-        "extensionsPhp": [
-          "devsense.phptools-vscode",
-          "bmewburn.vscode-intelephense-client"
-        ]
-      }
+[
+  {
+    "extensionsCore": [
+      "drcika.apc-extension",
+      "kevin-kwong.vscode-autohide-keyboard",
+      "streetsidesoftware.code-spell-checker",
+      "sourcegraph.cody-ai",
+      "file-icons.file-icons",
+      "ecmel.vscode-html-css",
+      "anteprimorac.html-end-tag-labels",
+      "Cardinal90.multi-cursor-case-preserve",
+      "sndst00m.vscode-native-svg-preview",
+      "christian-kohler.path-intellisense",
+      "esbenp.prettier-vscode",
+      "mvllow.rose-pine",
+      "DavidSanders.search-under-cursor",
+      "sourcegraph.sourcegraph",
+      "wayou.vscode-todo-highlight",
+      "silesky.toggle-boolean",
+      "PranshuAgrawal.toggle-case",
+      "amodio.toggle-excluded-files",
+      "vscodevim.vim",
+      "VSpaceCode.whichkey",
+      "Monish.regexsnippets",
+      "adpyke.codesnap",
+      "humao.rest-client",
+      "formulahendry.code-runner"
     ]
+  },
+  {
+    "extensionsReact": [
+      "dsznajder.es7-react-js-snippets",
+      "christian-kohler.npm-intellisense"
+    ]
+  },
+  {
+    "extensionsTailwind": [
+      "bradlc.vscode-tailwindcss",
+      "Etsi0.class-collapse",
+      "heybourn.headwind",
+      "thebearingedge.twind-intellisense-fork"
+    ]
+  },
+  {
+    "extensionsAstro": ["astro-build.astro-vscode"]
+  },
+  {
+    "extensionsPhp": [
+      "devsense.phptools-vscode",
+      "bmewburn.vscode-intelephense-client"
+    ]
+  }
+]
+

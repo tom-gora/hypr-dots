@@ -1,6 +1,3 @@
-# OMZ config
-export ZSH="$XDG_CONFIG_HOME/oh-my-zsh"
-
 # language environment
 export LANG=GB.UTF-8
 export LC_CTYPE=en_GB.UTF-8
@@ -41,6 +38,8 @@ else
   export VISUAL='nvim'
 fi
 
+# Force bat theme
+export BAT_THEME='rose-pine-moon'
 
 # Preferred browser
 # export BROWSER="one.ablaze.floorp.desktop"

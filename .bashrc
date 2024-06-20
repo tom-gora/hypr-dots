@@ -31,3 +31,5 @@ if [ -d ~/.bashrc.d ]; then
 	done
 fi
 unset rc
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

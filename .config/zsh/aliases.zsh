@@ -12,15 +12,19 @@ alias src="source $ZDOTDIR/.zshrc"
 #alias my-nvim="NVIM_APPNAME=my-nvim nvim"
 # other nvim aliases
 alias vi="nvim"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-# print project trees ignoring unwanted dirs
-alias ptree="tree -I 'node_modules|bin|obj|.git|.vscode|.idea|.vs|__pycache__|target|build|dist|out'"
 
 # eza instead of ls
 alias ll="eza -l --group-directories-first --group --header --icons always"
 alias ls="eza -1 --group-directories-first --icons always"
 alias la="eza -la --group-directories-first --icons always"
 alias ld="eza -lD --group-directories-first --icons always"
+alias tree="eza --tree"
+
+# one letter away from yazi
+alias y="yazi"
+
+# quick lazygit
+alias lg="lazygit"
 
 # bat instead of cat
 alias cat="bat"
@@ -56,7 +60,7 @@ alias .br="dotnet build && echo '\n\033[1;35mOutput >>>>>>> \033[0m\n' && dotnet
 alias .b="dotnet build"
 
 # applications aliases
-#alias code="codium"
+alias code="codium"
 alias ferdium="flatpak run org.ferdium.Ferdium %U"
 alias cpwd="pwd | wl-copy"
 alias cpl="fc -ln -1 | wl-copy"
@@ -68,15 +72,4 @@ alias clients="hyprctl clients"
 alias fix-code="sudo chown -R $(whoami) /usr/share/codium"
 alias fix-spicetify="sudo chmod a+wr /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify && sudo chmod a+wr -R /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/Apps && spicetify backup apply"
 
-# FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~
-
-# edit neovim configs
-function cfgn() {
-  cd "$XDG_CONFIG_HOME/nvim/lua/" && nvim .
-}
-
-# edit hyprland configs
-function cfgh() {
-  cd "$HOME/.config/hypr" && nvim .
-}
 

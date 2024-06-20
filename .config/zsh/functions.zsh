@@ -1,3 +1,6 @@
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
 # serve static php
 function php-server() {
 local port
@@ -15,57 +18,13 @@ local port
   return 1
 }
 
-function cat-tail() {
-if [ $# -ne 2 ]; then
-  echo "Usage: cat-tail <file> <lines-from-end>\nor\ncat-tail <lines-from-end> <file>"
-  exit 1
-fi
-local file
-local lines
-if [ -f "$1" ]; then
-  file="$1"
-  lines="$2"
-elif [ -f "$2" ]; then
-file="$2"
-lines="$1"
- else
-echo "File not found."
-exit 1
-fi
-
-
-if ! [[ $lines =~ ^[0-9]+$ ]] || [ $lines -lt 1 ]; then
-  echo "Lines must be a positive number."
-  exit 1
-fi
-
-bat $file --line-range $(expr $(wc -l $file | cut -d" " -f 1) - $(expr $lines - 1)): --wrap character
+# edit neovim configs
+function cfgn() {
+  cd "$XDG_CONFIG_HOME/nvim/lua/" && nvim .
 }
 
-
-function cat-head() {
-if [ $# -ne 2 ]; then
-  echo "Usage: cat-tail <file> <lines-from-end>\nor\ncat-tail <lines-from-end> <file>"
-  exit 1
-fi
-local file
-local lines
-if [ -f "$1" ]; then
-  file="$1"
-  lines="$2"
-elif [ -f "$2" ]; then
-file="$2"
-lines="$1"
- else
-echo "File not found."
-exit 1
-fi
-
-
-if ! [[ $lines =~ ^[0-9]+$ ]] || [ $lines -lt 1 ]; then
-  echo "Lines must be a positive number."
-  exit 1
-fi
-
-bat $file --line-range :$lines --wrap character
+# edit hyprland configs
+function cfgh() {
+  cd "$HOME/.config/hypr" && nvim .
 }
+
