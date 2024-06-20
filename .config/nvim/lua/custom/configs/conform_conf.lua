@@ -4,16 +4,17 @@ local options = {
 
   formatters_by_ft = {
     lua = { "stylua" },
-    javascript = { "prettierd" },
-    css = { "prettierd" },
-    html = { "prettierd" },
-    cshtml = { "prettierd" },
-    json = { "prettierd" },
+    javascript = { "prettier" },
+    css = { "prettier" },
+    html = { "prettier" },
+    cshtml = { "prettier" },
+    json = { "prettier" },
     sh = { "shfmt" },
     xml = { "xmlformatter" },
     csproj = { "xmlformatter" },
     java = { "google-java-format" },
     astro = { "prettier" },
+    php = { "prettier" },
   },
 
   -- adding same formatter for multiple filetypes can look too much work for some

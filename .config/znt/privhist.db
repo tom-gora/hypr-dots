@@ -1,2 +1,3 @@
 cd ~
 xx
+journalctl | tail -n100

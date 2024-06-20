@@ -74,26 +74,63 @@ vim.api.nvim_create_autocmd({ "WinNew" }, {
 })
 
 -- fix my damn C# semicolons XD;
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  group = my_augroup,
-  pattern = { "*.cs", "*.vb" },
-  callback = function()
-    local diagnostics_data = vim.diagnostic.get()
-    local cursor_pos = vim.api.nvim_win_get_cursor(0)
-    for _, diagnostic in pairs(diagnostics_data) do
-      if diagnostic.message == "; expected" then
-        vim.cmd(tostring(diagnostic.lnum + 1))
-        vim.cmd "normal! A;"
-        vim.api.nvim_win_set_cursor(0, cursor_pos)
-      elseif diagnostic.message == "} expected" then
-        vim.cmd(tostring(diagnostic.lnum + 1))
-        vim.cmd "normal! A}"
-        vim.api.nvim_win_set_cursor(0, cursor_pos)
-      end
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--   group = my_augroup,
+--   pattern = { "*.cs", "*.vb" },
+--   callback = function()
+--     local diagnostics_data = vim.diagnostic.get()
+--     local cursor_pos = vim.api.nvim_win_get_cursor(0)
+--     for _, diagnostic in pairs(diagnostics_data) do
+--       if diagnostic.message == "; expected" then
+--         vim.cmd(tostring(diagnostic.lnum + 1))
+--         vim.cmd "normal! A;"
+--         vim.api.nvim_win_set_cursor(0, cursor_pos)
+--       elseif diagnostic.message == "} expected" then
+--         vim.cmd(tostring(diagnostic.lnum + 1))
+--         vim.cmd "normal! A}"
+--         vim.api.nvim_win_set_cursor(0, cursor_pos)
+--       end
+--     end
+--   end,
+-- })
 
+-- below were used to manually run tailwind build process on save
+-- when I was building plain php + tailwind project and it had zero integration
+-- to do this automatically. Also a very crude callback to refresh the browser
+--
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--   group = my_augroup,
+--   pattern = { "*.php" },
+--   callback = function()
+--     local tailwind_attached =
+--       vim.lsp.get_active_clients { name = "tailwindcss" }
+--     if tailwind_attached then
+--       local file = vim.fn.expand "%:."
+--       vim.cmd ":!npm run build-css"
+--       vim.cmd "call feedkeys('\\<cr>')"
+--       vim.cmd ":!echo key ctrl+f5 | dotool"
+--     end
+--   end,
+-- })
+
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--   group = my_augroup,
+--   pattern = { "*.html", "*.css", "*.scss", "*.js", "*.jsx", "*.ts", "*.tsx" },
+--   callback = function()
+--     local tailwind_attached =
+--       vim.lsp.get_active_clients { name = "tailwindcss" }
+--     if tailwind_attached then
+--       local file = vim.fn.expand "%:."
+--       vim.cmd ":!npm run build-css"
+--       vim.cmd "call feedkeys('\\<cr>')"
+--       vim.cmd(
+--         ":!prettier ./"
+--           .. file
+--           .. " --write --plugin=prettier-plugin-tailwindcss"
+--       )
+--     end
+--   end,
+-- })
 ------------------------------------------------------------------------------
 
 -- "HACK: Semantic Tokens Error Fix"

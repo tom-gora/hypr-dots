@@ -1,55 +1,75 @@
-version = "1.1.12"
+version = "1.1.14"
 
+[class]
+DEFAULT = "󰖯"
+FFPWA-01HMNRCK8N44H15ZX3C98E4KY9 = "󱩎 "
+Upscayl = "󰩨 "
+"(?i)jetbrains-studio" = "󰀴 "
+"[Ff]irefox" = "󰈹 "
+"(?i)Steam" = "󰓓 "
+"(?i)Thunar" = " "
+Brave-browser = " "
+"(?i)Thunderbird" = " "
+"(?i)jetbrains-idea" = " "
+"(?i)Kitty" = " "
+"(?i)Eyedropper" = ""
+"(?i)Ferdium" = "󰭻 "
+"(?i)Codium" = "󰨞 "
+pavucontrol = ""
+"org.gnome.Calculator" = " "
+"(?i)Spotify" = " "
+
+[class_active]
+
+[initial_class]
+
+[initial_class_active]
+
+[workspaces_name]
+5 = "󰎰"
+2 = "󰎩"
+6 = "󰎵"
+3 = "󰎬"
+4 = "󰎮"
+0 = "󰎣"
+1 = "󰎦"
+10 = "󰽾"
+7 = "󰎸"
+9 = "󰎾"
+8 = "󰎻"
+
+[title_in_class]
+
+[title_in_class_active]
+
+[title_in_initial_class]
+
+[title_in_initial_class_active]
+
+[initial_title_in_class]
+
+[initial_title_in_class_active]
+
+[initial_title_in_initial_class]
+
+[initial_title_in_initial_class_active]
+
+[exclude]
+"(?i)fcitx" = ".*"
+aProgram = "^$"
+"[Ss]team" = "^(Friends List.*)?$"
+"(?i)TestApp" = ""
+"" = "^$"
 
 [format]
 dedup = true
 dedup_inactive_fullscreen = true
 delim = " "
-client = "{icon}"
-client_active = "<span color='#EB6F92'>{icon}</span>"
 workspace = "<span color='#3D8AAA' font_size='x-large' rise='-2300'>{name}</span><span color='#9CCFD8' letter_spacing='20000' font_size='large' rise='-1150'>󰄾</span>{clients}"
 workspace_empty = "{name}"
-client_dup = "{icon}{counter_sup}{delim}"
-client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused_sup}"
+client = "{icon}"
 client_fullscreen = "[{icon}]{delim}"
-
-
-[class]
-"DEFAULT" = "{class}"
-"(?i)Kitty" = " "
-"[Ff]irefox" = "󰈹 "
-"(?i)Thunderbird" = " "
-"(?i)Ferdium" = "󰭻 "
-"(?i)Eyedropper" = ""
-"(?i)Thunar" = " "
-"(?i)Codium" = "󰨞 "
-"(?i)Spotify" = " "
-"(?i)Steam" = "󰓓 "
-"(?i)jetbrains-idea" = " "
-"(?i)jetbrains-studio" = "󰀴 "
-"FFPWA-01HMNRCK8N44H15ZX3C98E4KY9" = "󱩎 "
-"org.gnome.Calculator" = " "
-"Brave-browser" = " "
-"pavucontrol" = ""
-"Upscayl" = "󰩨 "
-
-[exclude]
-"" = "^$" # prevent displaying icon for empty class
-"(?i)fcitx" = ".*" # will match all title for fcitx
-"(?i)TestApp" = "" # will match all title for TestApp
-aProgram = "^$" # will match null title for aProgram
-# will match Steam friends list plus all popups (empty titles)
-"[Ss]team" = "^(Friends List.*)?$" 
-[workspaces_name]
-0 = "󰎣"
-1 = "󰎦"
-2 = "󰎩"
-3 = "󰎬"
-4 = "󰎮"
-5 = "󰎰"
-6 = "󰎵"
-7 = "󰎸"
-8 = "󰎻"
-9 = "󰎾"
-10 = "󰽾"
-
+client_active = "<span color='#EB6F92'>{icon}</span>"
+client_dup = "{icon}{counter_sup}{delim}"
+client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused_sup}"
+client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused_sup}"

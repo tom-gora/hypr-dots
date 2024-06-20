@@ -7,6 +7,7 @@ local M = {}
 local ignore = "which_key_ignore"
 
 M.general = {
+
   n = {
     --------------------------------------------------[ LSP info hover trigger ]
     ["<a-cr>"] = {
@@ -543,32 +544,6 @@ M.general = {
       "",
       general_opts,
     },
-
-    --------------------------------------------------------[ move plugin binds]
-    -- ["<a-j>"] = {
-    --   "<cmd>MoveBlock(1)<cr>",
-    --   "",
-    --   general_opts,
-    -- },
-    --
-    -- ["<a-k>"] = {
-    --   "<cmd>MoveBlock(-1)<cr>",
-    --   "",
-    --   general_opts,
-    -- },
-    --
-    -- ["<a-l>"] = {
-    --   "<cmd>MoveHWord(1)<cr>",
-    --   "",
-    --   general_opts,
-    -- },
-    --
-    -- ["<a-h>"] = {
-    --   "<cmd>MoveWord(-1)<cr>",
-    --   "",
-    --   general_opts,
-    -- },
-
     -----------------------------------------------[ Search and replace group ]
     ["<leader>rs"] = {
       "<CMD>SearchReplaceWithinVisualSelection<CR>",
@@ -605,7 +580,6 @@ M.general = {
     },
   },
 }
-
 --------------------------------[ Disabled native and distro provided mappings ]
 M.disabled = {
   n = {

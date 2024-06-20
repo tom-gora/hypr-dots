@@ -23,6 +23,8 @@ M.treesitter = {
     "toml",
     "xml",
     "astro",
+    "qmljs",
+    "qmldir",
   },
   indent = {
     enable = true,

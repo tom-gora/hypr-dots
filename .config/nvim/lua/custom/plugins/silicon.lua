@@ -1,4 +1,4 @@
-local M
+local M = {}
 
 M = {
   "michaelrommel/nvim-silicon",
@@ -8,7 +8,7 @@ M = {
     require("silicon").setup {
       -- Configuration here, or leave empty to use defaults
       font = "JetBrainsMono Nerd Font=34;Noto Emoji=34",
-      theme = "OneHalfDark",
+      theme = "Sublime Snazzy",
       to_clipboard = true,
       window_title = function()
         return vim.fn.fnamemodify(
@@ -16,6 +16,8 @@ M = {
           ":t"
         )
       end,
+      background = "#28253B",
+      shadow_color = "#110F17",
     }
   end,
 }

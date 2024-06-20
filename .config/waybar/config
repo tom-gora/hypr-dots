@@ -11,7 +11,7 @@
   "margin-left": 8,
   "margin-right": 8,
   "modules-left": [
-    "hyprland/workspaces",
+    "hyprland/workspaces#renamed",
     "custom/separator#blank_1",
     "custom/separator#line",
     "group/audio",

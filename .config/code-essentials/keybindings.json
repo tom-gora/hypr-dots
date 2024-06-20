@@ -1,0 +1,395 @@
+[
+    // reliably exit sidebar or term and return focus to editor and leave ESC to "cancel action" events {
+    {
+        "key": "ctrl+q",
+        "command": "workbench.action.closeSidebar",
+        "when": "sideBarFocus"
+    },
+    // dismiss notifications
+    {
+        "key": "ctrl+shift+n",
+        "command": "notifications.clearAll"
+    },
+    // toggle string case [selection]
+    {
+        "key": "alt+c",
+        "command": "extension.toggleCase",
+        "when": "editorHasSelection"
+    },
+    // terminal handling
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.terminal.focus",
+        "when": "terminalHasBeenCreated || terminalProcessSupported",
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminal.active && terminalFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.terminal.openDetectedLink",
+        "when": "terminal.active && terminalFocus"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "workbench.action.terminal.split",
+        "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active && terminalFocus"
+    },
+    // src: https://github.com/VSCodeVim/Vim/issues/3588
+    /*  VSCode attempt to emulate https://github.com/terryma/vim-multiple-cursors */
+    // Use built in VSCode pattern matcher for entire word search (ctrl + n)
+    {
+        "key": "ctrl+n",
+        "command": "editor.action.addSelectionToNextFindMatch",
+        "when": "vim.active && editorFocus && vim.mode == 'Normal' || vim.mode == 'Visual' || vim.mode == 'VisualBlock' && !inDebugRepl"
+    },
+    // Skip current match (ctrl + x)
+    {
+        "key": "ctrl+x",
+        "command": "editor.action.moveSelectionToNextFindMatch",
+        "when": "vim.active && editorFocus && vim.mode == 'Normal' || vim.mode == 'Visual' || vim.mode == 'VisualBlock' && !inDebugRepl"
+    },
+    // Go back to previous match (ctrl + p)
+    {
+        "key": "ctrl+p",
+        "command": "editor.action.moveSelectionToPreviousFindMatch",
+        "when": "vim.active && editorFocus && vim.mode == 'Visual' || vim.mode == 'VisualBlock' && !inDebugRepl"
+    },
+    // Select all matches (ctrl + a). This is effectively the same as (ctrl + shift + l)
+    {
+        "key": "ctrl+a",
+        "command": "editor.action.selectHighlights",
+        "when": "vim.active && editorFocus && vim.mode == 'Normal' || vim.mode == 'Visual' || vim.mode == 'VisualBlock' && !inDebugRepl"
+    }
+    // SECTION:
+    // toggle tabs left/right
+    {
+        "key": "shift+l",
+        "name": "Next Editor",
+        "command": "workbench.action.nextEditor",
+        "when": "vim.mode != 'Insert' || !textInputFocus"
+    },
+    {
+        "key": "shift+h",
+        "name": "Previous Editor",
+        "command": "workbench.action.previousEditor",
+        "when": "vim.mode != 'Insert' || !textInputFocus"
+    },
+    {
+        "key": "shift+k",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus && vim.mode != 'insert'"
+    },
+    // SECTION:
+    // move line/selection vertically
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    // SECTION:
+    // scope selections
+    {
+        "key": "shift+enter",
+        "command": "editor.action.smartSelect.expand",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+backspace",
+        "command": "editor.action.smartSelect.shrink",
+        "when": "editorTextFocus"
+    },
+    // SECTION:
+    // getting around  inside file tree
+    {
+        "key": "r",
+        "command": "renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "d",
+        "command": "moveFileToTrash",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "/",
+        "command": "explorer.newFolder",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "shift+j",
+        "command": "list.expandSelectionDown",
+        "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+    },
+    {
+        "key": "shift+k",
+        "command": "list.expandSelectionUp",
+        "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+    },
+    {
+        "key": "t",
+        "command": "toggleexcludedfiles.toggle",
+        "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+    },
+    // SECTION:
+    // going up and down the menus/completions and such with either Tab/Shift+Tab or Ctrl+j/Ctrl+k style
+    // 1. in quick inputs
+    {
+        "key": "ctrl+j",
+        "command": "quickInput.next",
+        "when": "inQuickInput && quickInputType == 'quickPick'"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "quickInput.previous",
+        "when": "inQuickInput && quickInputType == 'quickPick'"
+    },
+    {
+        "key": "tab",
+        "command": "quickInput.next",
+        "when": "inQuickInput && quickInputType == 'quickPick'"
+    },
+    {
+        "key": "alt+tab",
+        "command": "quickInput.previous",
+        "when": "inQuickInput && quickInputType == 'quickPick'"
+    },
+    // 2. in completions
+    {
+        "key": "ctrl+j",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "tab",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "alt+tab",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "acceptSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    },
+    // 3. in search/replace panel
+    {
+        "key": "tab",
+        "command": "search.action.focusNextSearchResult",
+        "when": "hasSearchResult && searchViewletVisible || inSearchEditor && searchViewletVisible"
+    },
+    {
+        "key": "shift+tab",
+        "command": "search.action.focusPreviousSearchResult",
+        "when": "hasSearchResult && searchViewletVisible || inSearchEditor && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "search.action.focusNextSearchResult",
+        "when": "hasSearchResult && searchViewletVisible || inSearchEditor && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "search.action.focusPreviousSearchResult",
+        "when": "hasSearchResult && searchViewletVisible || inSearchEditor && searchViewletVisible"
+    },
+    // 4. through search widget results
+    {
+        "key": "tab",
+        "command": "editor.action.nextMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "shift+tab",
+        "command": "editor.action.previousMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "editor.action.nextMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "editor.action.previousMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "space",
+        "command": "whichkey.show",
+        "when": "!Editors && !editorFocus && vim.mode != 'insert' && vim.mode != 'normal' && !inputFocus && !inQuickInput"
+    }
+    // SECTION:
+    // --- REMOVED SHORTCUTS
+    {
+        "key": "ctrl+b",
+        "command": "-vscode-neovim.ctrl-b",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.b && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-vscode-neovim.send",
+        "when": "editorTextFocus && neovim.ctrlKeysInsert.b && neovim.init && neovim.mode == 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
+    {
+        "key": "shift+tab",
+        "command": "-acceptAlternativeSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "shift+tab",
+        "command": "-outdent",
+        "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    },
+    {
+        "key": "shift+tab",
+        "command": "-insertPrevSuggestion",
+        "when": "hasOtherSuggestions && textInputFocus && !inSnippetMode && !suggestWidgetVisible && config.editor.tabCompletion == 'on'"
+    },
+    {
+        "key": "shift+tab",
+        "command": "-extension.vim_shift+tab",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
+    },
+    {
+        "key": "tab",
+        "command": "-acceptSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "-editor.action.accessibleViewAcceptInlineCompletion",
+        "when": "accessibleViewIsShown && accessibleViewCurrentProviderId == 'inlineCompletions'"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "-editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+alt+down",
+        "command": "-extension.vim_cmd+alt+down",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
+    },
+    {
+        "key": "shift+alt+right",
+        "command": "-editor.action.smartSelect.expand",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+left",
+        "command": "-editor.action.smartSelect.shrink",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+up",
+        "command": "-extension.vim_cmd+alt+up",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
+    {
+        "key": "ctrl+shift+5",
+        "command": "-workbench.action.terminal.split",
+        "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+    },
+    {
+        "key": "ctrl+shift+5",
+        "command": "-workbench.action.terminal.splitActiveTab",
+        "when": "terminalProcessSupported && terminalTabsFocus"
+    },
+    {
+        "key": "ctrl+shift+s",
+        "command": "-workbench.action.files.saveAs"
+    },
+    {
+        "key": "ctrl+shift+s",
+        "command": "-workbench.action.files.saveLocalFile",
+        "when": "remoteFileDialogVisible"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "-workbench.action.terminal.focus",
+        "when": "accessibilityModeEnabled && accessibleViewOnLastLine && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibilityModeEnabled && accessibleViewOnLastLine && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "ctrl+shift+o",
+        "command": "-workbench.action.terminal.openDetectedLink",
+        "when": "terminalFocus && terminalHasBeenCreated"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "-workbench.action.terminal.openDetectedLink",
+        "when": "accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "ctrl+shift+n",
+        "command": "-workbench.action.newWindow"
+    },
+    {
+        "key": "ctrl+,",
+        "command": "-workbench.action.openSettings"
+    },
+    {
+        "key": "ctrl+k ctrl+s",
+        "command": "-workbench.action.openGlobalKeybindings"
+    },
+    {
+        "key": "ctrl+k ctrl+k",
+        "command": "-editor.action.defineKeybinding",
+        "when": "resource == 'vscode-userdata:/home/tomeczku/.config/VSCodium/User/keybindings.json'"
+    },
+    {
+        "key": "alt+k",
+        "command": "-editor.action.accessibilityHelpConfigureKeybindings",
+        "when": "accessibilityHelpIsShown"
+    },
+    {
+        "key": "ctrl+k ctrl+i",
+        "command": "-editor.action.showHover",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "-extension.toggleCase",
+        "when": "editorHasSelection"
+    },
+]

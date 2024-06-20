@@ -70,7 +70,7 @@ local default_plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
-    tag = "v0.9.2",
+    -- tag = "v0.9.2",
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = function()
@@ -152,7 +152,10 @@ local default_plugins = {
 
           -- setup cmp for autopairs
           local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+          require("cmp").event:on(
+            "confirm_done",
+            cmp_autopairs.on_confirm_done()
+          )
         end,
       },
 

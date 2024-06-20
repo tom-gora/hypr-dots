@@ -148,7 +148,6 @@ local servers = {
   "intelephense",
   "jdtls",
   "jsonls",
-  "stimulus_ls",
   "tsserver",
   "tailwindcss",
 }
@@ -212,6 +211,7 @@ lspconfig["emmet_ls"].setup {
   on_attach = on_attach,
   filetypes = {
     "html",
+    "php",
     "typescriptreact",
     "javascriptreact",
     "css",

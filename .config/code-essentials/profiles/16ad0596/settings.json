@@ -1,0 +1,654 @@
+{
+    // SECTION:
+    // UI window
+    "window.menuBarVisibility": "hidden",
+    // SECTION:
+    // UI workbench
+    "workbench.startupEditor": "none",
+    "workbench.colorTheme": "Rosé Pine Moon",
+    "workbench.iconTheme": "file-icons",
+    "workbench.activityBar.location": "default",
+    "workbench.sideBar.location": "right",
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#56949faa",
+        "editorGroupHeader.border": "#56949f33",
+        "editorGroup.border": "#56949f33",
+        "editorIndentGuide.background1": "#39374a01",
+        "editorIndentGuide.activeBackground1": "#4f4d5eaa",
+    },
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.editor.pinnedTabSizing": "compact",
+    // SECTION:
+    // Editor look and behaviors
+    "editor.renderWhitespace": "none",
+    "editor.experimentalWhitespaceRendering": "off",
+    "editor.lineNumbers": "relative",
+    "editor.cursorStyle": "block",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.fontFamily": "'IBM Plex Mono', 'JetBrains Mono', 'monospace', monospace",
+    "editor.fontWeight": "600",
+    "editor.minimap.enabled": false,
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.minimap.showRegionSectionHeaders": false,
+    "editor.guides.bracketPairsHorizontal": false,
+    "editor.matchBrackets": "always",
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "symbols.hidesExplorerArrows": false,
+    "cody.autocomplete.formatOnAccept": true,
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+        // relevant for neovim plugin not vim emulation
+        // "asvetliakov.vscode-neovim": 1
+    },
+    // SECTION:
+    // breadcrumbs
+    "breadcrumbs.filePath": "off",
+    "breadcrumbs.icons": true,
+    // SECTION:
+    // file tree explorer
+    "explorer.compactFolders": true,
+    // SECTION:
+    // Formatters
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.bracketSameLine": true,
+    "prettier.semi": true,
+    "prettier.singleQuote": false,
+    "files.trimTrailingWhitespace": true,
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false,
+    },
+    "[php]": {
+        "editor.defaultFormatter": "lkrms.pretty-php"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    //-----------------------------------------------------------
+    // SECTION: EXTENSIONS SETTINGS BELOW:
+    //-----------------------------------------------------------
+    // relevant for neovim plugin not vim emulation
+    // "vscode-neovim.neovimInitVimPaths.linux": "$HOME/.dotfiles/.config/nvim/init.lua",
+    // SECTION:
+    // vim emulation plugin
+    "vim.leader": "space",
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.statusBarColorControl": false,
+    "vim.autoSwitchInputMethod.enable": true,
+    "vim.sneak": true,
+    "vim.surround": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": false,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        // stop overwriting default register on paste and deletion actions
+        {
+            "before": [
+                "d"
+            ],
+            "commands": [
+                "deleteRight",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "d",
+                "d"
+            ],
+            "commands": [
+                "editor.action.deleteLines",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "p"
+            ],
+            "commands": [
+                "editor.action.clipboardPasteAction",
+                "extension.vim_escape"
+            ]
+        },
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "<leader>"
+            ],
+            "commands": [
+                "whichkey.show"
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<space>"
+            ],
+            "commands": [
+                "whichkey.show"
+            ]
+        },
+        // stop overwriting default register on paste and deletion actions
+        {
+            "before": [
+                "p"
+            ],
+            "commands": [
+                "editor.action.clipboardPasteAction",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "y"
+            ],
+            "commands": [
+                "editor.action.clipboardCopyAction",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "d"
+            ],
+            "commands": [
+                "deleteRight",
+                "extension.vim_escape"
+            ]
+        },
+    ],
+    // SECTION:
+    // APC UI tweaks
+    "apc.font.family": "IBM Plex Sans",
+    "apc.menubar.compact": true,
+    "apc.stylesheet": {
+        ".explorer-viewlet": "width: 300px; right: 0 !important",
+        ".decorationsOverviewRuler": "display: none !important",
+        ".monaco-sash.maximum": "border-right: none !important",
+        ".monaco-sash.vertical:nth-of-type(2)": "border-right: 2px solid #56949f77; transform: translateX(-3px);",
+        ".tabs-container .tab": "margin: 2px; max-height: 90%; border-radius: 0.25rem",
+        ".tabs-container .tab .monaco-icon-label": "height: min-content; transform: translateY(-2px)",
+        ".tabs-container .tab.active .monaco-icon-label": "transform: translateY(-4px)",
+        ".tabs-container .tab:hover": "margin: 2px; max-height: 90%; border-radius: 0.25rem",
+        ".tabs-container .tab.active": "background-color: #56949f11 !important; margin: 2px; max-height: 90%; border-radius: 0.25rem; border: 2px solid #56949f55 !important;",
+        ".quick-input-widget": "bottom: 20px !important; width: 60vw !important; transform: translateX(-20%); border: 2px solid #56949f !important; padding: 8px 4px; top: unset !important;  max-height: 50vh; display: flex; flex-wrap: wrap; flex-direction: column; left: 50%; margin-inline: auto",
+        ".quick-input-titlebar": "margin-inline: 6px;",
+        ".split-view-view.visible::before": "width: 2px !important; transform:translateY(57px) !important",
+        ".title.title-border-bottom::after": "height: 2px !important;",
+        // relevant for neovim plugin not vim emulation
+        ".statusbar-item-label[aria-label='-- NORMAL --']": "font-weight: bold; background-color: #ea9a97; border-radius: 2px; color: #191724; transform: translateY(-2px); scale: 0.8;",
+        ".statusbar-item-label[aria-label='-- VISUAL --']": "font-weight: bold; background-color: #9ccfd8; border-radius: 2px; color: #191724; transform: translateY(-2px); scale: 0.8;",
+        ".statusbar-item-label[aria-label='-- VISUAL LINE --']": "font-weight: bold; background-color: #9ccfd8; border-radius: 2px; color: #191724; transform: translateY(-2px); scale: 0.8;",
+        ".statusbar-item-label[aria-label='-- VISUAL BLOCK --']": "font-weight: bold; background-color: #9ccfd8; border-radius: 2px; color: #191724; transform: translateY(-2px); scale: 0.8;",
+        ".statusbar-item-label[aria-label='-- VISUAL --  MULTI CURSOR  Recording @w']": "font-weight: bold; background-color: #f6c177 border-radius: 2px; color: #191724; transform: translateY(-2px); scale: 0.8;",
+        ".statusbar-item-label[aria-label='-- INSERT --']": "font-weight: bold; background-color: #c4a7e7; border-radius: 2px; color: #191724; transform: translateY(-2px); scale: 0.8",
+        // prevent weird side effects from trying out vim statusbar color settings
+        "footer.statusbar": "background-color: inherit !important; color: #e0def4 !important"
+    },
+    "apc.activityBar": {
+        "size": 32
+    },
+    // SECTION:
+    // Autohide extension to hide panels when in focused editor
+    "autoHide.hideOnOpen": true,
+    "autoHide.hideOnlyMouse": false,
+    "autoHide.autoHidePanel": false,
+    // SECTION:
+    // whichkey settings
+    "whichkey.bindings": [
+        // -- this was a variant working for neovim extension rather than vim emulation plugin
+        // {
+        //     "key": " ",
+        //     "name": "Visual line",
+        //     "type": "command",
+        //     "command": "vscode-neovim.send",
+        //     "when": "editorFocus && neovim.mode == normal",
+        //     "args": "V",
+        // },
+        {
+            "key": " ",
+            "name": "Visual line",
+            "type": "command",
+            "command": "vim.remap",
+            "when": "editorFocus && vim.mode == 'Normal'",
+            "args": {
+                "after": [
+                    "V"
+                ]
+            }
+        },
+        {
+            "key": "p",
+            "name": "Command Palette",
+            "type": "command",
+            "command": "workbench.action.showCommands",
+        },
+        // select all
+        {
+            "key": "a",
+            "name": "Select All",
+            "type": "command",
+            "command": "editor.action.selectAll",
+            "when": "editorFocus && vim.mode == 'Normal'",
+        },
+        // toggle file explorer
+        {
+            "key": "e",
+            "name": "Toggle File Explorer",
+            "type": "command",
+            "command": "workbench.view.explorer"
+        },
+        {
+            "key": "w",
+            "name": "Write",
+            "type": "command",
+            "command": "workbench.action.files.save"
+        },
+        {
+            "key": "W",
+            "name": "Write All",
+            "type": "command",
+            "command": "workbench.action.files.saveAll"
+        },
+        {
+            "key": "q",
+            "name": "Quit",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "q",
+                    "name": "This Editor",
+                    "command": "workbench.action.closeActiveEditor"
+                },
+                {
+                    "key": "a",
+                    "name": "All Editors",
+                    "command": "workbench.action.closeAllEditors"
+                },
+                {
+                    "key": "u",
+                    "name": "All Unmodified Editors",
+                    "command": "git.closeAllUnmodifiedEditors"
+                },
+                {
+                    "key": "o",
+                    "name": "All Other Editors",
+                    "command": "workbench.action.closeOtherEditors"
+                },
+                {
+                    "key": "w",
+                    "name": "This Window",
+                    "command": "workbench.action.closeWindow"
+                }
+            ],
+        },
+        {
+            "key": "/",
+            "name": "Toggle comment",
+            "command": "editor.action.commentLine",
+            "when": "editorTextFocus && !editorReadonly"
+        },
+        {
+            "key": "g",
+            "name": "Go To",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "1",
+                    "name": "Tab 1",
+                    "command": "workbench.action.openEditorAtIndex1"
+                },
+                {
+                    "key": "2",
+                    "name": "Tab 2",
+                    "command": "workbench.action.openEditorAtIndex2"
+                },
+                {
+                    "key": "3",
+                    "name": "Tab 3",
+                    "command": "workbench.action.openEditorAtIndex3"
+                },
+                {
+                    "key": "4",
+                    "name": "Tab 3",
+                    "command": "workbench.action.openEditorAtIndex4"
+                },
+                {
+                    "key": "5",
+                    "name": "Tab 5",
+                    "command": "workbench.action.openEditorAtIndex5"
+                },
+                {
+                    "key": "6",
+                    "name": "Tab 6",
+                    "command": "workbench.action.openEditorAtIndex6"
+                },
+                {
+                    "key": "7",
+                    "name": "Tab 7",
+                    "command": "workbench.action.openEditorAtIndex7"
+                },
+                {
+                    "key": "8",
+                    "name": "Tab 8",
+                    "command": "workbench.action.openEditorAtIndex8"
+                },
+                {
+                    "key": "9",
+                    "name": "Tab 9",
+                    "command": "workbench.action.openEditorAtIndex9"
+                },
+                {
+                    "key": "t",
+                    "name": "Select Opened Editor",
+                    "command": "workbench.action.showAllEditors"
+                },
+                {
+                    "key": "l",
+                    "name": "Next Editor",
+                    "command": "workbench.action.nextEditor"
+                },
+                {
+                    "key": "h",
+                    "name": "Previous Editor",
+                    "command": "workbench.action.previousEditor"
+                },
+            ]
+        },
+        {
+            "key": "r",
+            "name": "Find and Replace",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "o",
+                    "name": "Find and Replace Here",
+                    "command": "editor.action.startFindReplaceAction",
+                    "when": "editorFocus || editorIsOpen"
+                },
+                {
+                    "key": "e",
+                    "name": "Find and Replace Everywhere",
+                    "command": "workbench.action.replaceInFiles",
+                    "when": "editorFocus || editorIsOpen"
+                },
+                {
+                    "key": "w",
+                    "name": "Find and Replace Word",
+                    "command": "extension.searchUnderCursor",
+                    "when": "editorFocus || editorIsOpen"
+                }
+            ]
+        },
+        {
+            "key": "o",
+            "name": "Open",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "n",
+                    "name": "New Empty File",
+                    "command": "workbench.action.files.newUntitledFile",
+                },
+                {
+                    "key": "f",
+                    "name": "File",
+                    "command": "workbench.action.files.openFile",
+                },
+                {
+                    "key": "d",
+                    "name": "Directory",
+                    "command": "workbench.action.files.openFolder",
+                },
+                {
+                    "key": "c",
+                    "name": "Reopen Closed",
+                    "command": "workbench.action.reopenClosedEditor",
+                },
+                {
+                    "key": "r",
+                    "name": "Recent",
+                    "command": "workbench.action.openRecent",
+                }
+            ]
+        },
+        {
+            "key": "t",
+            "name": "Terminal",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "n",
+                    "name": "New Terminal",
+                    "command": "workbench.action.terminal.new",
+                    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile",
+                },
+                {
+                    "key": "t",
+                    "name": "Toggle Terminal",
+                    "command": "workbench.action.terminal.toggleTerminal",
+                    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile",
+                },
+                {
+                    "key": "r",
+                    "name": "Big Fucking Terminal to the Right",
+                    "command": "workbench.action.createTerminalEditorSide"
+                }
+            ]
+        },
+        {
+            "key": "f",
+            "name": "Find",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "f",
+                    "name": "Find",
+                    "command": "actions.find",
+                    "when": "editorFocus || editorIsOpen"
+                },
+                {
+                    "key": "q",
+                    "name": "Quick Find",
+                    "command": "workbench.action.quickTextSearch",
+                    "when": "editorFocus || editorIsOpen"
+                },
+            ]
+        },
+        {
+            "key": "v",
+            "name": "Splits",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "v",
+                    "name": "Quick Split",
+                    "command": "workbench.action.splitEditor"
+                },
+                {
+                    "key": "l",
+                    "name": "Split Left",
+                    "command": "workbench.action.splitEditorLeft"
+                },
+                {
+                    "key": "h",
+                    "name": "Split Right",
+                    "command": "workbench.action.splitEditorRight"
+                },
+                {
+                    "key": "k",
+                    "name": "Split Up",
+                    "command": "workbench.action.splitEditorUp",
+                },
+                {
+                    "key": "j",
+                    "name": "Split Down",
+                    "command": "workbench.action.splitEditorDown",
+                },
+            ]
+        },
+        {
+            "key": "s",
+            "name": "Settings",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "s",
+                    "name": "Settings",
+                    "command": "workbench.action.openSettings",
+                },
+                {
+                    "key": "S",
+                    "name": "Settings(JSON)",
+                    "command": "workbench.action.openApplicationSettingsJson",
+                },
+                {
+                    "key": "k",
+                    "name": "Keybindings",
+                    "command": "workbench.action.openGlobalKeybindings",
+                },
+                {
+                    "key": "K",
+                    "name": "Keybindings(JSON)",
+                    "command": "workbench.action.openGlobalKeybindingsFile",
+                },
+            ]
+        }
+    ],
+    // SECTION:
+    //todohighlights; declared keywords: TODO: HACK: FIX: FIXME: NOTE: DEBUG: WARN: WARNING: SECTION:
+    "todohighlight.isEnable": true,
+    "todohighlight.isCaseSensitive": true,
+    "todohighlight.defaultStyle": {
+        "color": "#232136",
+        "backgroundColor": "#f6c177",
+        "borderRadius": "2px",
+        "isWholeLine": false,
+    },
+    "todohighlight.keywords": [
+        "TODO:",
+        "REVIEW:",
+        {
+            "text": "NOTE:",
+            "color": "#232136",
+            "backgroundColor": "#c4a7e7",
+            "isWholeLine": false,
+        },
+        {
+            "text": "DEBUG:",
+            "color": "#232136",
+            "backgroundColor": "#ebbcba",
+            "isWholeLine": false,
+        },
+        {
+            "text": "FIX:",
+            "color": "#232136",
+            "backgroundColor": "#eb6f92",
+            "isWholeLine": false,
+        },
+        {
+            "text": "FIXME:",
+            "color": "#232136",
+            "backgroundColor": "#eb6f92",
+            "isWholeLine": false,
+        },
+        {
+            "text": "WARN:",
+            "color": "#232136",
+            "backgroundColor": "#d7827e",
+            "isWholeLine": false,
+        },
+        {
+            "text": "WARNING:",
+            "color": "#232136",
+            "backgroundColor": "#d7827e",
+            "isWholeLine": false,
+        },
+        {
+            "text": "HACK:",
+            "color": "#232136",
+            "backgroundColor": "#ea9d34",
+            "isWholeLine": false,
+        },
+        {
+            "text": "TODO:",
+            "backgroundColor": "#31748f",
+            "color": "#232136",
+            "borderRadius": "2px",
+            "isWholeLine": false,
+        },
+        {
+            "text": "SECTION:",
+            "color": "#232136",
+            "backgroundColor": "#907aa9",
+            "isWholeLine": false,
+        },
+    ],
+    // SECTION:
+    // color strings highlighting
+    "color-highlight.markRuler": false,
+    "color-highlight.markerType": "dot-before",
+    // SECTION:
+    // toggle hidden/config etc items in file tree as declared
+    "toggleexcludedfiles.statusBar.enabled": false,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": true,
+        "**/.next": true,
+        "**/.husky": true,
+        "**/drizzle": true,
+        "**/dist": true,
+        "**/.todo.md": true,
+        "**/.vscode": true,
+        "**/.eslintrc.cjs": true,
+        "**/.editorconfig": true,
+        "**/.gitignore": true,
+        "**/.lintstagedrc.mjs": true,
+        "**/.markdownlint.json": true,
+        "**/.markdownlintignore": true,
+        "**/.prettierignore": true,
+        "**/bun.lockb": true,
+        "**/cspell.json": true,
+        "**/package-lock.json": true,
+        "**/pnpm-lock.yaml": true,
+        "**/next-env.d.ts": true,
+        "**/postcss.config.cjs": true,
+        "**/prettier.config.js": true,
+        "**/README.md": true,
+        "**/next.config.js": true,
+        "**/tailwind.config.ts": true,
+        "**/drizzle.config.ts": true,
+        "**/migrate.ts": true,
+        "**/.env.example": true,
+        "**/*config.json": true,
+        "**/*config.mjs": true,
+        "**/package.json": true,
+        "**/.astro": true,
+        "**/tsconfig.json": true
+    },
+    // SECTION:
+    // cody & sourcegraph
+    "cody.telemetry.level": "off",
+    "cody.autocomplete.disableInsideComments": true,
+    // SECTION:
+    // codesnap screenshots
+    "codesnap.shutterAction": "save",
+    "codesnap.showWindowTitle": true,
+    "codesnap.realLineNumbers": true,
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    }
+}

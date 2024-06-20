@@ -22,8 +22,8 @@ export PROMPT_EOL_MARK=""
 CLASSPATH=/lib/jvm/java-17-openjdk-17.0.9.0.9-3.fc39.x86_64/bin
 
 # Local binaries in path
-export= PATH="$HOME/.local/bin":$PATH
-export= PATH="/usr/local/bin":$PATH
+export PATH="$HOME/.local/bin":$PATH
+export PATH="/usr/local/bin":$PATH
 export PATH="$HOME/.local/bin/.spicetify":$PATH
 export PATH="$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/tools/bin":$PATH
 export PATH="$HOME/.config/cargo/bin":$PATH
@@ -41,11 +41,14 @@ else
   export VISUAL='nvim'
 fi
 
+
 # Preferred browser
-export BROWSER="firefox"
+# export BROWSER="one.ablaze.floorp.desktop"
 
 # some wayland fixes
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+
+
