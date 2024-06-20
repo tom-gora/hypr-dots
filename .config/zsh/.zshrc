@@ -44,6 +44,8 @@ export ZSH="$XDG_CONFIG_HOME/oh-my-zsh"
 source $HOME/.config/zsh/fzf-git.sh/fzf-git.sh 
 
 
+# source for the below settings
+# https://www.josean.com/posts/7-amazing-cli-tools
 eval $(thefuck --alias)
 eval $(thefuck --alias fk)
 eval $(zoxide init zsh)
