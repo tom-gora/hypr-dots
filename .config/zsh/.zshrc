@@ -48,7 +48,7 @@ source $HOME/.config/zsh/fzf-git.sh/fzf-git.sh
 # https://www.josean.com/posts/7-amazing-cli-tools
 eval $(thefuck --alias)
 eval $(thefuck --alias fk)
-eval $(zoxide init zsh)
+eval "$(zoxide init zsh)"
 
 # setup for fzf etc
 #
