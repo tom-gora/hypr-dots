@@ -5,6 +5,9 @@
     "padding": {
       "top": 5,
       "right": 6
+    },
+    "color": {
+      "1": "green",
     }
   },
   "display": {
@@ -15,7 +18,8 @@
     "break",
     {
       "type": "title",
-      "key": "  ",
+      "key": "╭───────",
+      "keyColor": "35",
       "color": {
         "user": "32",
         "at": "37",
@@ -24,63 +28,72 @@
     },
     {
       "type": "datetime",
-      "key": "  ",
-      "keyColor": "33",
+      "key": "│  ",
+      "keyColor": "35",
       "format": "{9} {7}-{4}-{1}  {14}:{18}",
     },
-    "break",
+    {
+      "type": "custom",
+      "key": "│  ",
+      "keyColor": "35",
+      "format": " "
+    },
     {
       "type": "os",
-      "key": " ",
+      "key": "├  ",
       "format": "{2}",
-      "keyColor": "33",
+      "keyColor": "35",
     },
     {
       "type": "kernel",
       "format": "{2}",
-      "key": "󰹢 ",
-      "keyColor": "33",
+      "key": "├ 󰹢 ",
+      "keyColor": "35",
     },
     {
       "type": "packages",
-      "format": "{} (dnf)",
-      "key": " ",
-      "keyColor": "33",
+      "key": "├  ",
+      "keyColor": "35"
     },
     {
       "type": "shell",
-      "key": " ",
+      "key": "├  ",
       "format": "{1}",
-      "keyColor": "33",
+      "keyColor": "35",
     },
     {
       "type": "terminal",
-      "key": " ",
+      "key": "├  ",
       "format": "{1}",
-      "keyColor": "33",
+      "keyColor": "35",
     },
     {
       "type": "wm",
       "format": "{}",
-      "key": " ",
-      "keyColor": "33",
+      "key": "├  ",
+      "keyColor": "35",
     },
     {
       "type": "uptime",
-      "key": "󱑔 ",
-      "keyColor": "33",
+      "key": "├ 󱑔 ",
+      "keyColor": "35",
     },
-    "break",
+    {
+      "type": "custom",
+      "key": "│  ",
+      "keyColor": "35",
+      "format": " "
+    },
     {
       "type": "localIp",
-      "key": "󱏖 ",
-      "keyColor": "33",
+      "key": "├ 󱏖 ",
+      "keyColor": "35",
     },
     {
       "type": "publicIp",
       "format": "{1}",
-      "key": "󰀳 ",
-      "keyColor": "33",
+      "key": "╰ 󰀳 ",
+      "keyColor": "35",
     },
     "break",
     {
@@ -88,7 +101,6 @@
       "key": "  ",
       "symbol": "square",
     },
-    "break",
     "break",
   ]
 }
