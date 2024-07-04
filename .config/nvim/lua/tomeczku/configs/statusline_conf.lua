@@ -1,0 +1,185 @@
+-- code lifted and modified per my needs from nvchad's "minimal" implementation. Skips all other themes and fluff
+-- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
+--
+local function statusline(modules)
+  -- bring in base config stolen from nvchad
+  local modes = require ("tomeczku.core.statusline.statusline").modes
+
+  local root_sep = ""
+  local this_is_the_paths_end = ""
+
+  local function is_activewin()
+    return vim.api.nvim_get_current_win() == vim.g.statusline_winid
+  end
+
+  local function stbufnr()
+    return vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+  end
+
+  -- lifted this function from NVchad and modified string format and colors
+  local cursor_position = function()
+  -- added padding function to make the module less "jumpy" in terms of width while navigating buffers
+  -- now the only realistic "width jump" will appear when exceeding 99 lines position (or I guess 999) which is much less jarring
+  local line_col = string.format("%2d/%-2d", vim.fn.line('.'), vim.fn.col('.'))
+    return "%#St_Pos_sep#" .."" .. "%#St_Pos_bg#" ..""..  "%#St_Pos_bg# " .. line_col .. "%#St_Pos_sep#" .. ""
+  end
+
+  local git = function()
+    if not vim.b[stbufnr()].gitsigns_head or vim.b[stbufnr()].gitsigns_git_status then
+      return ""
+    end
+
+    local git_status = vim.b[stbufnr()].gitsigns_status_dict
+
+    local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
+    local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed) or ""
+    local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
+    local branch_name = " " .. git_status.head
+
+    return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
+  end
+--
+  -- lifted this function from NVchad and modified string format and colors
+  local lsp_status = function()
+    if rawget(vim, "lsp") then
+      for _, client in ipairs(vim.lsp.get_active_clients()) do
+        if
+          client.attached_buffers[vim.fn.winbufnr(vim.g.statusline_winid)]
+          and client.name ~= "null-ls"
+        then
+          return (
+            vim.o.columns > 86
+            and "%#St_ConfirmMode#"
+              .. "%#St_ConfirmModeCustomTxt#"
+              .. " "
+              .. client.name
+              .. "%#St_ConfirmMode# "
+          ) or "%#St_ConfirmMode# "
+        end
+      end
+    end
+
+    -- just draw nothing if no lsp client
+    return ""
+  end
+
+  local LSP_Diagnostics = function()
+    if not rawget(vim, "lsp") then
+      return ""
+    end
+
+    local errors = #vim.diagnostic.get(stbufnr(), { severity = vim.diagnostic.severity.ERROR })
+    local warnings = #vim.diagnostic.get(stbufnr(), { severity = vim.diagnostic.severity.WARN })
+    local hints = #vim.diagnostic.get(stbufnr(), { severity = vim.diagnostic.severity.HINT })
+    local info = #vim.diagnostic.get(stbufnr(), { severity = vim.diagnostic.severity.INFO })
+
+    errors = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
+    warnings = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
+    hints = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
+    info = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
+
+    return errors .. warnings .. hints .. info
+  end
+
+  local LSP_progress = function()
+    if not rawget(vim, "lsp") or vim.lsp.status or not is_activewin() then
+      return ""
+    end
+
+    local Lsp = vim.lsp.util.get_progress_messages()[1]
+
+    if vim.o.columns < 120 or not Lsp then
+      return ""
+    end
+
+    if Lsp.done then
+      vim.defer_fn(function()
+        vim.cmd.redrawstatus()
+      end, 1000)
+    end
+
+    local msg = Lsp.message or ""
+    local percentage = Lsp.percentage or 0
+    local title = Lsp.title or ""
+    local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
+    local ms = vim.loop.hrtime() / 1000000
+    local frame = math.floor(ms / 120) % #spinners
+    local content = string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
+
+    return ("%#St_LspProgress#" .. content) or ""
+  end
+
+  local function mypath_formatter()
+    local project_root = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    local relative_path =
+      vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":~:.")
+    local file_name = vim.fn.fnamemodify(relative_path, ":t")
+    if vim.o.columns < 86 then
+      relative_path = "󰇘/" .. file_name
+    end
+    if vim.api.nvim_get_mode().mode == "t" then
+      root_sep = ""
+      this_is_the_paths_end = ""
+      return { root = "", path = "" }
+    end
+    return {
+      root = "  " .. project_root .. " %#St_Root_Sep_Right#",
+      path = relative_path,
+    }
+  end
+
+  local path_components = mypath_formatter()
+  -- tweak normal mode ( nvim logo is a fallback so no need to declare all)
+  modes["n"][3] = "N"
+  -- tweak visual modes
+  modes["v"][3] = "V"
+  modes["V"][3] = "V"
+  modes["Vs"][3] = "V"
+  modes["V"][3] = "V"
+  -- tweak insert modes
+  modes["i"][3] = "I"
+  modes["ic"][3] = "I"
+  modes["ix"][3] = "I"
+  -- tweak terminal mode
+  modes["t"][3] = "   Term mode baby!"
+  modules[1] = (function()
+    if not is_activewin() then
+      return ""
+    end
+
+    local m = vim.api.nvim_get_mode().mode
+    local current_mode = "%#"
+      .. modes[m][2]
+      .. "#"
+      .. " "
+      .. "%#"
+      .. modes[m][2]
+      .. "CustomTxt"
+      .. "#"
+      .. (modes[m][3] or "")
+      .. " "
+      .. "%#"
+      .. modes[m][2]
+      .. "_Root_Sep#"
+      .. root_sep
+      .. "%#St_Root#"
+      .. path_components["root"]
+      .. "%#"
+      .. modes[m][2]
+      .. "Text#"
+      .. path_components["path"]
+      .. "%#St_sep_r#"
+      .. this_is_the_paths_end
+      .. "%#St_EmptySpace#  "
+    return current_mode
+  end)()
+  modules[2] = git()
+  modules[3] = "%="
+  modules[4] = LSP_progress()
+  modules[5] = "%="
+  modules[6] = LSP_Diagnostics()
+  modules[7] = lsp_status()
+  modules[8] = cursor_position()
+end
+
+return statusline

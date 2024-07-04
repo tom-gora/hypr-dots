@@ -1,6 +1,8 @@
 local M = {}
 
 M.opts = {
+  silent = true,
+  noremap = true,
   init = function()
     vim.o.timeout = true
     vim.o.timeoutlen = 300

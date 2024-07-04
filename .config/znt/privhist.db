@@ -1,3 +1,4 @@
 cd ~
 xx
 journalctl | tail -n100
+sudo systemctl disable docker.socket

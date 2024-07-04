@@ -5,6 +5,7 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     javascript = { "prettier" },
+    zshrc = { "shfmt" },
     css = { "prettier" },
     html = { "prettier" },
     cshtml = { "prettier" },

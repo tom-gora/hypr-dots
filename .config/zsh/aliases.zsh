@@ -9,9 +9,9 @@ alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 alias zshconfig="nvim $ZDOTDIR/.zshrc"
 alias src="source $ZDOTDIR/.zshrc"
 
-#alias my-nvim="NVIM_APPNAME=my-nvim nvim"
+alias vi="NVIM_APPNAME=my-nvim nvim"
 # other nvim aliases
-alias vi="nvim"
+#alias vi="nvim"
 
 # eza instead of ls
 alias ll="eza -l --group-directories-first --group --header --icons always"
@@ -19,6 +19,9 @@ alias ls="eza -1 --group-directories-first --icons always"
 alias la="eza -la --group-directories-first --icons always"
 alias ld="eza -lD --group-directories-first --icons always"
 alias tree="eza --tree"
+
+#quick fetch
+alias ff="fastfetch"
 
 # one letter away from yazi
 alias y="yazi"
@@ -29,6 +32,9 @@ alias lg="lazygit"
 # bat instead of cat
 alias cat="bat"
 
+#zoxide instead of cd
+alias cd="z"
+
 # quick open
 alias xo="xdg-open"
 
@@ -37,11 +43,14 @@ alias xo="xdg-open"
 # navigation improvements
 
 alias hh="cd $HOME"
+alias ~="cd $HOME"
+alias /="cd /"
 alias rr="cd /"
 alias cfg="cd $XDG_CONFIG_HOME"
-alias ....="../.."
-alias ......="../../.."
-alias ........="../../../.."
+alias ..="cd .."
+alias ....="cd ../.."
+alias ......="cd ../../.."
+alias ........="cd ../../../.."
 alias qq="exit"
 alias xx="exit"
 # go to repos
