@@ -49,6 +49,11 @@ local modes = {
   ["!"] = { "SHELL", "St_TerminalMode" },
 }
 
+-- integrated module combining mode indicator and file name/path
+-- if path is longer than 40 chars it will get truncated in the style
+-- of the fish shell
+-- also on splits at least half the screen only file name will be displayed
+-- next to the root directory
 M.mode_plus_path = function()
   if not utils.is_activewin() then
     return ""
@@ -71,7 +76,7 @@ M.mode_plus_path = function()
   local path_end_sep = ""
   local path_components = utils.path_formatter(root_sep, path_end_sep )
   local m = vim.api.nvim_get_mode().mode
-  local current_mode = "%#"
+  local component_string = "%#"
     .. modes[m][2]
     .. "#"
     .. " "
@@ -94,7 +99,7 @@ M.mode_plus_path = function()
     .. "%#St_sep_r#"
     .. path_components["path_end_sep"]
     .. "%#St_EmptySpace#  "
-  return current_mode
+  return component_string
 end
 
 M.git = function()

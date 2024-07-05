@@ -22,18 +22,18 @@ M.path_formatter = function(root_sep, path_end_sep)
     --LOCAL HELPERS:
     -- reformat to "fish shell style
     local function fishify_path(path)
-      local components = {}
+      local dirs = {}
       for part in string.gmatch(path, "[^/]+") do
-        table.insert(components, part)
+        table.insert(dirs, part)
       end
 
-      local shortened_components = {}
-      for i = 1, #components - 1 do
-        table.insert(shortened_components, components[i]:sub(1, 1))
+      local shortened_dirs = {}
+      for i = 1, #dirs - 1 do
+        table.insert(shortened_dirs, dirs[i]:sub(1, 1))
       end
-      table.insert(shortened_components, components[#components])
+      table.insert(shortened_dirs, dirs[#dirs])
 
-      return table.concat(shortened_components, "/")
+      return table.concat(shortened_dirs, "/")
     end
 
     -- VARS
@@ -45,7 +45,7 @@ M.path_formatter = function(root_sep, path_end_sep)
     -- 
     -- if path itself is particularly long then reformat it
     -- in the style used in fish shell truncation of parent dirs names
-    if #relative_path > 35 then
+    if #relative_path > 40 then
       relative_path = fishify_path(relative_path)
     end
 

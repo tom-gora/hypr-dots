@@ -115,6 +115,8 @@ i_nonrecursive = {
 
 -- declare visual mode keymaps key:bindig -> value:command, value: opts table
 v_nonrecursive = {
+	-- exit back  to normal with jj
+	["jj"] = { "<Esc>", ignore },
 	--
 	-- toggle comment line in visual mode
 	["<leader>/"] = {
@@ -141,6 +143,7 @@ nv_nonrecursive = {
 	},
 	["<leader>oc"] = { "<cmd> e#<CR>", { desc = "Reopen Last Closed" } },
 	["<leader>or"] = { "<cmd>Telescope oldfiles<CR>", { desc = "Open Recent" } },
+	["<leader>ot"] = { "<Cmd>Telescope file_browser<CR>", { desc = "Open With Telescope" } },
 	--
 	-- whichkey close section
 	["<leader>q"] = { " Close" },

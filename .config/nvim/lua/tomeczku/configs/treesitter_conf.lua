@@ -1,6 +1,8 @@
 local M = {}
 
-M.opts = {
+M.config_function =  function()
+  local ts = require("nvim-treesitter.configs")
+  ts.setup({
 	ensure_installed = {
 		"vim",
 		"vimdoc",
@@ -28,9 +30,6 @@ M.opts = {
 	},
 	indent = {
 		enable = true,
-		-- disable = {
-		--   "python"
-		-- },
 	},
 	highlight = {
 		enable = true,
@@ -45,8 +44,23 @@ M.opts = {
 			node_decremental = "<C-bs>",
 		},
 	},
-}
+})
+end
 
-M.event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" }
+M.dependencies = {
+  {"windwp/nvim-ts-autotag",
+    opts = {
+      per_filetype = {
+        ["astro"] = {
+           enable_close = true,
+           enable_rename = true,
+           enable_close_on_slash = false,
+         }
+       }
+     }
+   }
+ }
+
+M.event = { "BufReadPre", "BufNewFile",}
 
 return M

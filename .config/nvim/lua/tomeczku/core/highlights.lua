@@ -134,6 +134,8 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
     mod_hl("St_lsp_txt", { bg = 2499633, fg = 11266483})
     mod_hl("St_sep_r", { fg = 2499633})
 
+    mod_hl("MiniIndentscopeSymbol", { link = "BufferVisibleSign", force = true })
+
 	end,
 })
 
