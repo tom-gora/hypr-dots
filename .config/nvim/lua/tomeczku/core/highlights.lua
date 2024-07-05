@@ -20,9 +20,10 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
 		mod_hl("BufferCurrentIndex", { bg = "#102a34", bold = true })
 		mod_hl("BufferCurrentMod", { fg = "#b4637a", bg = "#102a34" })
 		mod_hl("BufferDefaultTabpageFill", { bg = "#191724" })
-		mod_hl("BufferVisible", { fg = "#232136", bg = "#6e6a86", bold = true })
-		mod_hl("BufferVisibleSign", { bg = "#191724", fg = "#6e6a86" })
-		mod_hl("BufferVisibleIndex", { fg = "#232136", bg = "#6e6a86", bold = true })
+		mod_hl("BufferVisible", { fg = "#232136", bg = "#575279", bold = true })
+		mod_hl("BufferVisibleMod", { fg = "#4b242f", bg = "#575279" })
+		mod_hl("BufferVisibleSign", { bg = "#191724", fg = "#575279" })
+		mod_hl("BufferVisibleIndex", { fg = "#232136", bg = "#575279", bold = true })
     -- modifications to various float windows: telescope, oil etc
 		mod_hl("FloatBorder", { fg = "#56949f", bg = "#191724"})
 		mod_hl("Float", { bg = "#191724"})

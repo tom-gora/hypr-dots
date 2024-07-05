@@ -78,6 +78,26 @@ n_nonrecursive = {
 	["<leader>g8"] = { "<Cmd>BufferGoto 8<CR>", { desc = "Go to Buffer Index 8" } },
 	["<leader>g9"] = { "<Cmd>BufferGoto 9<CR>", { desc = "Go to Buffer Index 9" } },
 	["<leader>g0"] = { "<Cmd>BufferLast<CR>", { desc = "Go to Last Buffer" } },
+	--
+	-- whichkey find and telescope section
+	["<leader>f"] = { " Find" },
+	["<leader>ff"] = { "<cmd>Telescope find_files<CR>", { desc = "Find Files" } },
+	["<leader>fw"] = { "<cmd>Telescope grep_string<cr>", { desc = "Find Word Under Cursor/Selection" } },
+	-- Goto buffer in position...
+	["<leader>fo"] = { "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>", { desc = "Find in Opened Files" } },
+	["<leader>fb"] = { "<Cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Find in Current Buffer" } },
+	["<leader>fd"] = { "<Cmd>Telescope live_grep<CR>", { desc = "Find in CWD" } },
+	["<leader>fa"] = { "<Cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", { desc = "Find All Files (hidden etc.)" } },
+	["<leader>fp"] = { "<Cmd>Telescope pickers<CR>", { desc = "Recent Pickers" } },
+	["<leader>fh"] = { "<Cmd>Telescope search_history<CR>", { desc = "Search History" } },
+	["<leader>fu"] = { "<Cmd>Telescope undo<CR>", { desc = "Find in Undo Tree" } },
+	["<leader>fs"] = { "<Cmd>Telescope symbols<CR>", { desc = "Find Symbols" } },
+	["<leader>fe"] = { "<Cmd>Telescope file_browser<CR>", { desc = "Find in File Explorer" } },
+	["<C-h>"] = { "<C-w>h", ignore },
+	["<C-l>"] = { "<C-w>l", ignore },
+	["<C-j>"] = { "<C-w>j", ignore },
+	["<C-k>"] = { "<C-w>k", ignore },
+
 }
 
 -- declare insert mode keymaps key:bindig -> value:command, value: opts table

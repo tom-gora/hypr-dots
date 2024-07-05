@@ -1,87 +1,38 @@
 -- code lifted and modified per my needs from nvchad's "minimal" implementation. Skips all other themes and fluff
 -- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 --
-local config = {
-    theme = "default", -- default/vscode/vscode_colored/minimal
-    -- default/round/block/arrow separators work only for default statusline theme
-    -- round and block will work for minimal theme only
-    separator_style = "round",
-    overriden_modules = require("tomeczku.configs.statusline_conf"),
-  }
-
-local sep_style = config.separator_style
-
-sep_style = (sep_style ~= "round" and sep_style ~= "block") and "block" or sep_style
-
-
-local M = {}
-
-M.modes = {
-  ["n"] = { "NORMAL", "St_NormalMode" },
-  ["no"] = { "NORMAL (no)", "St_NormalMode" },
-  ["nov"] = { "NORMAL (nov)", "St_NormalMode" },
-  ["noV"] = { "NORMAL (noV)", "St_NormalMode" },
-  ["noCTRL-V"] = { "NORMAL", "St_NormalMode" },
-  ["niI"] = { "NORMAL i", "St_NormalMode" },
-  ["niR"] = { "NORMAL r", "St_NormalMode" },
-  ["niV"] = { "NORMAL v", "St_NormalMode" },
-  ["nt"] = { "NTERMINAL", "St_NTerminalMode" },
-  ["ntT"] = { "NTERMINAL (ntT)", "St_NTerminalMode" },
-
-  ["v"] = { "VISUAL", "St_VisualMode" },
-  ["vs"] = { "V-CHAR (Ctrl O)", "St_VisualMode" },
-  ["V"] = { "V-LINE", "St_VisualMode" },
-  ["Vs"] = { "V-LINE", "St_VisualMode" },
-  ["␖"] = { "V-BLOCK", "St_VisualMode" },
-
-  ["i"] = { "INSERT", "St_InsertMode" },
-  ["ic"] = { "INSERT (completion)", "St_InsertMode" },
-  ["ix"] = { "INSERT completion", "St_InsertMode" },
-
-  ["t"] = { "TERMINAL", "St_TerminalMode" },
-
-  ["R"] = { "REPLACE", "St_ReplaceMode" },
-  ["Rc"] = { "REPLACE (Rc)", "St_ReplaceMode" },
-  ["Rx"] = { "REPLACEa (Rx)", "St_ReplaceMode" },
-  ["Rv"] = { "V-REPLACE", "St_ReplaceMode" },
-  ["Rvc"] = { "V-REPLACE (Rvc)", "St_ReplaceMode" },
-  ["Rvx"] = { "V-REPLACE (Rvx)", "St_ReplaceMode" },
-
-  ["s"] = { "SELECT", "St_SelectMode" },
-  ["S"] = { "S-LINE", "St_SelectMode" },
-  ["␓"] = { "S-BLOCK", "St_SelectMode" },
-  ["c"] = { "COMMAND", "St_CommandMode" },
-  ["cv"] = { "COMMAND", "St_CommandMode" },
-  ["ce"] = { "COMMAND", "St_CommandMode" },
-  ["r"] = { "PROMPT", "St_ConfirmMode" },
-  ["rm"] = { "MORE", "St_ConfirmMode" },
-  ["r?"] = { "CONFIRM", "St_ConfirmMode" },
-  ["x"] = { "CONFIRM", "St_ConfirmMode" },
-  ["!"] = { "SHELL", "St_TerminalMode" },
-}
-
-
-
-
-M.run = function()
-  local modules = {
-    -- stripped og code and just pushing empty char that gets replaced by overriden_modules which is itself a function building my own statusline
-    " ",
-  }
-
-  if config.overriden_modules then
-    config.overriden_modules(modules)
-  end
-
-  return table.concat(modules)
+local function compose_statusline(modules)
+  -- import component functions
+local comps = require("tomeczku.core.statusline.components")
+  -- assign the components
+  modules[1] = comps.mode_plus_path()
+  modules[2] = comps.git()
+  modules[3] = "%="
+  modules[4] = comps.lsp_progress()
+  modules[5] = "%="
+  modules[6] = comps.lsp_diags()
+  modules[7] = comps.lsp_stat()
+  modules[8] = comps.cursor_pos()
 end
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LspProgressUpdate",
-  callback = function()
-    vim.cmd "redrawstatus"
-  end,
-})
+-- make sure lsp status updates itself
+-- (investigate? not sure if this works in my config at all and if I even need this indicator at all)
+vim.api.nvim_create_autocmd("LspProgress", {
+    callback = function(args)
+      if string.find(args.match, "end") then
+        vim.cmd "redrawstatus"
+      end
+      vim.cmd "redrawstatus"
+    end,
+  })
 
-return M
+-- return by calling a function explicitely mainly to ensure vim.g.statusline_winid gets set
+-- because this was a bitch of troubleshooting to fix -_-
+return {
+["compose_statusline"] = function()
+  local modules = {}
+    compose_statusline(modules)
+  return table.concat(modules)
+end
+}
 

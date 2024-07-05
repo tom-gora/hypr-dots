@@ -7,6 +7,6 @@ require("tomeczku.core.keymaps")
 -- my global functions
 require("tomeczku.core.global_functions")
 -- my autocmds
-require("tomeczku.core.autocommands")
+require("tomeczku.core.highlights")
 -- get statuslinme
 require("tomeczku.core.statusline")
