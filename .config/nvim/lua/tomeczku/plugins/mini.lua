@@ -1,5 +1,5 @@
 local M = {}
-local config = require "lua.tomeczku.configs.mini_conf"
+local config = require "tomeczku.configs.mini_conf"
 
 M = {
   "echasnovski/mini.indentscope",

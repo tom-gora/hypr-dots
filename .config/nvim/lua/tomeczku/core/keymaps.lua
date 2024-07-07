@@ -12,6 +12,7 @@ local nv_nonrecursive = {}
 
 -- declare normal mode keymaps key:bindig -> value:command, value: opts table
 n_nonrecursive = {
+  ["gf"] = { "<cmd>lua vim.lsp.buf.definition()<cr>", ignore },
 	["<leader>e"] = { "<Cmd>Oil --float<CR>", { desc = "󰏇 Toggle Oil"} },
 	-- toggle comment line in normal mode
 	["<leader>/"] = { "gcc", vim.tbl_deep_extend("force", ignore, { remap = true }) },
