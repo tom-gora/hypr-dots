@@ -80,7 +80,10 @@ function _G.set_terminal_keymaps()
   map('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 end
 
+-- NOTE:
 -- my own funcs automating using native search and replace
+
+-- init search for cword
 _G.SearchReplaceCword = function(ignore_case)
   local cword = vim.fn.expand("<cword>")
   local before_text = ":%s/"
@@ -94,6 +97,7 @@ _G.SearchReplaceCword = function(ignore_case)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), 'n', true)
 end
 
+-- init search for user input
 _G.SearchReplaceInit = function(ignore_case)
   local before_text = ":%s/"
   local after_text = "/gc"
@@ -107,6 +111,7 @@ _G.SearchReplaceInit = function(ignore_case)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), 'n', true)
 end
 
+-- pass visual selection as input for search and replace
 _G.SearchReplaceVisualSelection = function()
   local _, ls, cs = table.unpack(vim.fn.getpos("'<"))
   local _, le, ce = table.unpack(vim.fn.getpos("'>"))
@@ -129,6 +134,8 @@ _G.SearchReplaceVisualSelection = function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), 'n', true)
 end
 
+-- reverse of the above make a selection first and take input to search
+-- within this selection
 _G.SearchReplaceInsideVisualSelection = function(ignore_case)
   -- Get the range of the visual selection
   local _, ls, cs = table.unpack(vim.fn.getpos("'<"))
@@ -163,6 +170,8 @@ _G.SearchReplaceInsideVisualSelection = function(ignore_case)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), 'n', true)
 end
 
+-- search and replace within quickfix list
+-- (adds bfdo and can add | update to save right away)
 _G.SearchReplaceInQfManual = function(ignore_case, with_update)
   local cword = vim.fn.expand("<cword>")
   local before_text = ":cfdo %s/"

@@ -167,6 +167,7 @@ nv_nonrecursive = {
   ["<leader>oc"] = { "<cmd> e#<CR>", { desc = "Reopen Last Closed" } },
   ["<leader>or"] = { "<cmd>Telescope oldfiles<CR>", { desc = "Open Recent" } },
   ["<leader>ot"] = { "<Cmd>Telescope file_browser<CR>", { desc = "Open With Telescope" } },
+  ["<leader>oq"] = { "<Cmd>copen<CR>", { desc = "Open Quickfix List" } },
   --
   -- whichkey close section
   ["<leader>q"] = { " Close" },
