@@ -14,8 +14,8 @@ local modes = {
   ["niI"] = { "NORMAL i", "St_NormalMode" },
   ["niR"] = { "NORMAL r", "St_NormalMode" },
   ["niV"] = { "NORMAL v", "St_NormalMode" },
-  ["nt"] = { "NTERMINAL", "St_NTerminalMode" },
-  ["ntT"] = { "NTERMINAL (ntT)", "St_NTerminalMode" },
+  ["nt"] = { "NTERMINAL", "St_NTerminalMode", "T" },
+  ["ntT"] = { "NTERMINAL (ntT)", "St_NTerminalMode", "T" },
 
   ["v"] = { "VISUAL", "St_VisualMode" },
   ["vs"] = { "V-CHAR (Ctrl O)", "St_VisualMode" },
@@ -70,35 +70,35 @@ M.mode_plus_path = function()
   modes["ic"][3] = "I"
   modes["ix"][3] = "I"
   -- tweak terminal mode
-  modes["t"][3] = "   Term mode baby!"
-
+  modes["t"][3] = '%{&ft == "toggleterm" ? "  [".b:toggle_number."]" : ""}'
+  modes["nt"][3] = "T"
   local root_sep = ""
   local path_end_sep = ""
-  local path_components = utils.path_formatter(root_sep, path_end_sep )
+  local path_components = utils.path_formatter(root_sep, path_end_sep)
   local m = vim.api.nvim_get_mode().mode
   local component_string = "%#"
-    .. modes[m][2]
-    .. "#"
-    .. " "
-    .. "%#"
-    .. modes[m][2]
-    .. "CustomTxt"
-    .. "#"
-    .. (modes[m][3] or "")
-    .. " "
-    .. "%#"
-    .. modes[m][2]
-    .. "_Root_Sep#"
-    .. path_components["root_sep"]
-    .. "%#St_Root#"
-    .. path_components["root"]
-    .. "%#"
-    .. modes[m][2]
-    .. "Text#"
-    .. path_components["path"]
-    .. "%#St_sep_r#"
-    .. path_components["path_end_sep"]
-    .. "%#St_EmptySpace#  "
+      .. modes[m][2]
+      .. "#"
+      .. " "
+      .. "%#"
+      .. modes[m][2]
+      .. "CustomTxt"
+      .. "#"
+      .. (modes[m][3] or "")
+      .. " "
+      .. "%#"
+      .. modes[m][2]
+      .. "_Root_Sep#"
+      .. path_components["root_sep"]
+      .. "%#St_Root#"
+      .. path_components["root"]
+      .. "%#"
+      .. modes[m][2]
+      .. "Text#"
+      .. path_components["path"]
+      .. "%#St_sep_r#"
+      .. path_components["path_end_sep"]
+      .. "%#St_EmptySpace#  "
   return component_string
 end
 
@@ -137,11 +137,11 @@ M.lsp_progress = function()
     return ""
   end
 
-local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
-local ms = vim.loop.hrtime() / 1e6
-local frame = math.floor(ms / 100) % #spinners
+  local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
+  local ms = vim.loop.hrtime() / 1e6
+  local frame = math.floor(ms / 100) % #spinners
 
-return spinners[frame + 1] .. " " .. msg
+  return spinners[frame + 1] .. " " .. msg
 end
 
 M.lsp_diags = function()
@@ -174,16 +174,16 @@ M.lsp_stat = function()
   if rawget(vim, "lsp") then
     for _, client in ipairs(vim.lsp.get_active_clients()) do
       if
-        client.attached_buffers[vim.fn.winbufnr(vim.g.statusline_winid)]
-        and client.name ~= "null-ls"
+          client.attached_buffers[vim.fn.winbufnr(vim.g.statusline_winid)]
+          and client.name ~= "null-ls"
       then
         return (
           vim.o.columns > 86
           and "%#St_ConfirmMode#"
-            .. "%#St_ConfirmModeCustomTxt#"
-            .. " "
-            .. client.name
-            .. "%#St_ConfirmMode# "
+          .. "%#St_ConfirmModeCustomTxt#"
+          .. " "
+          .. client.name
+          .. "%#St_ConfirmMode# "
         ) or "%#St_ConfirmMode# "
       end
     end
@@ -204,7 +204,7 @@ M.cursor_pos = function()
   -- added padding function to make the module less "jumpy" in terms of width while navigating buffers
   -- now the only realistic "width jump" will appear when exceeding 99 lines position (or I guess 999) which is much less jarring
   local line_col = string.format("%2d/%-2d", vim.fn.line('.'), vim.fn.col('.'))
-    return "%#St_Pos_sep#" .."" .. "%#St_Pos_bg#" ..""..  "%#St_Pos_bg# " .. line_col .. "%#St_Pos_sep#" .. ""
-  end
+  return "%#St_Pos_sep#" .. "" .. "%#St_Pos_bg#" .. "" .. "%#St_Pos_bg# " .. line_col .. "%#St_Pos_sep#" .. ""
+end
 
 return M

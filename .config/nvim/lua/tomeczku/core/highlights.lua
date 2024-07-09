@@ -138,6 +138,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
     mod_hl("MiniIndentscopeSymbol", { link = "BufferVisibleSign", force = true })
     -- supermaven icon
     mod_hl("CmpItemKindSupermaven", { link = "DevIconXz", force = true })
+    mod_hl("ToggleTerm1StatusLine", { bg = "#191724", force = true })
   end,
 })
 

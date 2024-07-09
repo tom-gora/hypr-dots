@@ -10,3 +10,5 @@ require("tomeczku.core.global_functions")
 require("tomeczku.core.highlights")
 -- get statuslinme
 require("tomeczku.core.statusline")
+-- bring int autocommands
+require("tomeczku.core.autocommands")

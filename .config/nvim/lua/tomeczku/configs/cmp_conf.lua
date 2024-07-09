@@ -98,6 +98,8 @@ M.config_function = function()
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
       ["<C-h>"] = cmp.mapping.abort(),        -- close completion window
+      -- accept alternatively with enter or C-l
+      ["<CR>"] = cmp.mapping.confirm({ select = false }),
       ["<C-l>"] = cmp.mapping.confirm({ select = false }),
     }),
     -- sources for autocompletion
