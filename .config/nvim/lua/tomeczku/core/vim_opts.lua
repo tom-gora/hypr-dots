@@ -54,3 +54,6 @@ opt.signcolumn = "yes"
 -- ui tweaks
 opt.showtabline = 0
 opt.fillchars = { eob = "~" }
+
+-- enable undofile
+opt.undofile = true

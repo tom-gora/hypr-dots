@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
     mod_hl("BufferVisibleIndex", { fg = "#232136", bg = "#575279", bold = true })
     -- modifications to various float windows: telescope, oil etc
     mod_hl("FloatBorder", { fg = "#56949f", bg = "#191724" })
+    mod_hl("LspInfoBorder", { link = "FloatBorder", force = true })
     mod_hl("Float", { bg = "#191724" })
     mod_hl("NormalFloat", { bg = "#191724" })
     mod_hl("WhichKeyFloat", { bg = "#191724" })
@@ -139,28 +140,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
     -- supermaven icon
     mod_hl("CmpItemKindSupermaven", { link = "DevIconXz", force = true })
     mod_hl("ToggleTerm1StatusLine", { bg = "#191724", force = true })
+    -- adjust lspsaga beacon
+    mod_hl("SagaBeacon", { bg = "#3e8fb0", force = true })
   end,
-})
-
-vim.api.nvim_create_autocmd("QuitPre", {
-  callback = function()
-    local tree_wins = {}
-    local floating_wins = {}
-    local wins = vim.api.nvim_list_wins()
-    for _, w in ipairs(wins) do
-      local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
-      if bufname:match("NvimTree_") ~= nil then
-        table.insert(tree_wins, w)
-      end
-      if vim.api.nvim_win_get_config(w).relative ~= '' then
-        table.insert(floating_wins, w)
-      end
-    end
-    if 1 == #wins - #floating_wins - #tree_wins then
-      -- Should quit, so we close all invalid windows.
-      for _, w in ipairs(tree_wins) do
-        vim.api.nvim_win_close(w, true)
-      end
-    end
-  end
 })

@@ -1,6 +1,9 @@
 local M = {}
 
 M.config_fuction = function()
+  -- additionally configure lspinfo win border
+  require("lspconfig.ui.windows").default_options.border = "rounded"
+
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
   local lspconfig = require("lspconfig")
@@ -20,8 +23,14 @@ M.config_fuction = function()
       },
     },
   })
+
+  -- make bashls attach to additional filetypes
   lspconfig.bashls.setup({
     filetypes = { "sh", "zsh" },
+  })
+  -- make tsserver attach to additional filetypes
+  lspconfig.tsserver.setup({
+    filetypes = { "astro" },
   })
 
   -- setup hyprls
@@ -35,6 +44,14 @@ M.config_fuction = function()
         root_dir = vim.fn.getcwd(),
       }
     end
+  })
+  --pass path to typescript for astro to work
+  lspconfig.astro.setup({
+    init_options = {
+      typescript = {
+        tsdk = vim.fs.normalize("/usr/local/lib/node_modules/typescript/lib")
+      }
+    },
   })
 end
 

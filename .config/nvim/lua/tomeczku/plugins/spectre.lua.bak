@@ -1,8 +1,0 @@
-local M = {}
-
-M = {
-  "nvim-pack/nvim-spectre",
-  config = true,
-}
-
-return M

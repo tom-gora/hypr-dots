@@ -25,7 +25,6 @@ n_nonrecursive = {
   ["<leader>W"] = { "<cmd>wa<cr>", ignore },
   -- leader driven alias for c-w
   ["<leader>v"] = { "<cmd>lua vim.api.nvim_input('<c-w>')<cr>", { desc = " Splits" } },
-
   -- jump between bufs back and forth
   -- barbar with native nvim fallback
   ["<S-l>"] = {
@@ -42,27 +41,12 @@ n_nonrecursive = {
   },
   -- whichkey neovim section
   ["<leader>n"] = { " NeoVim" },
-  ["<leader>ns"] = {
-    "<cmd>lua _G.ClearSwap()<CR>",
-    { desc = "Clear the Swap" },
-  },
-  ["<leader>nl"] = {
-    "<cmd>Lazy<CR>",
-    { desc = "Open Lazy" },
-  },
-  ["<leader>nm"] = {
-    "<cmd>Mason<CR>",
-    { desc = "Open Mason" },
-  },
-
-  ["<leader>nc"] = {
-    "<cmd>checkhealth<CR>",
-    { desc = "Do Checkhealth" },
-  },
-  ["<leader>nh"] = {
-    "<cmd> Telescope highlights <CR>",
-    { desc = "Look up Highlight groups" },
-  },
+  ["<leader>ns"] = { "<cmd>lua _G.ClearSwap()<CR>", { desc = "Clear the Swap" } },
+  ["<leader>nl"] = { "<cmd>Lazy<CR>", { desc = "Open Lazy" } },
+  ["<leader>nm"] = { "<cmd>Mason<CR>", { desc = "Open Mason" } },
+  ["<leader>nc"] = { "<cmd>checkhealth<CR>", { desc = "Do Checkhealth" } },
+  ["<leader>nh"] = { "<cmd> Telescope highlights <CR>", { desc = "Look up HL Groups" } },
+  ["<leader>n?"] = { "<cmd> Telescope help_tags <CR>", { desc = "Help 󰋗 " } },
   --
   -- whichkey goto section
   ["<leader>g"] = { " Go To" },
@@ -116,6 +100,28 @@ n_nonrecursive = {
   ["<leader>rwp"] = { "<cmd>lua SearchReplaceCword(false)<cr>", { desc = "Replace Cword Preserve Case" } },
   ["<leader>rri"] = { "<cmd>lua SearchReplaceInit(true)<cr>", { desc = "Replace Ignore Case" } },
   ["<leader>rrp"] = { "<cmd>lua SearchReplaceInit(false)<cr>", { desc = "Replace Preserve Case" } },
+  --
+  -- name the mappings for text-case plugin to keep the consistent whichkey look
+  ["<leader>~"] = { "󰬴 TextCase" },
+  -- lspsaga section
+  ["<leader>l"] = { "  LSP" },
+  ["<leader>li"] = { "<cmd>LspInfo<cr>", { desc = "Lsp Info" } },
+  ["<leader>lD"] = { "<cmd>Lspsaga show_line_diagnostics<cr>", { desc = "Show Line Diagnostics" } },
+  ["<leader>ld"] = { "<cmd>Lspsaga show_workspace_diagnostics<cr>", { desc = "Show Diagnostics" } },
+  ["<leader>lb"] = { "<cmd>Lspsaga show_buf_diagnostics<cr>", { desc = "Show Diagnostics" } },
+  ["<leader>ll"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", { desc = "Next Diagnostic" } },
+  ["<leader>lh"] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Previous Diagnostic" } },
+  ["<leader>lk"] = { "<cmd>Lspsaga hover_doc<cr>", { desc = "Show Hover" } },
+  ["<leader>lw"] = { "<cmd>Lspsaga winbar_toggle<cr>", { desc = "Toggle Breadcrumbs" } },
+  ["<leader>lp"] = { "<cmd>Lspsaga peek_definition<cr>", { desc = "Peek Definition" } },
+  ["<leader>lP"] = { "<cmd>Lspsaga peek_type_definition<cr>", { desc = "Peek Type Definition" } },
+  ["<leader>lg"] = { "<cmd>Lspsaga goto_definition<cr>", { desc = "Goto Definition" } },
+  ["<leader>lG"] = { "<cmd>Lspsaga goto_type_definition<cr>", { desc = "Goto Type Definition" } },
+  ["<leader>lr"] = { "<cmd>Lspsaga rename<cr>", { desc = "Lsp Rename" } },
+  ["<leader>lo"] = { "<cmd>Lspsaga outline<cr>", { desc = "Show Outline" } },
+  ["<leader>lf"] = { "<cmd>Lspsaga finder<cr>", { desc = "Show Symbol Finder" } },
+  ["<leader>lL"] = { "<cmd>Lspsaga open_log<cr>", { desc = "Open LspSaga Log" } },
+  ["<leader>lc"] = { "<cmd>Lspsaga code_action<cr>", { desc = "Lsp Code Action" } },
 }
 
 -- declare insert mode keymaps key:bindig -> value:command, value: opts table
