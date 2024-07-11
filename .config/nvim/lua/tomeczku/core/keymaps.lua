@@ -8,6 +8,7 @@ local ignore = { desc = "which_key_ignore" }
 -- src for the latter: https://www.reddit.com/r/neovim/comments/ofg7tu/use_cj_and_ck_in_nvimcompe_instead_of_cp_cn/
 map("c", "<c-l>", "<right>", { noremap = false })
 map("c", "<c-h>", "<left>", { noremap = false })
+-- HACK: This worked,  dunno why??
 vim.cmd [[
 cmap <C-j> <C-n>
 cmap <C-k> <C-p>
@@ -25,7 +26,13 @@ local nv_nonrecursive = {}
 
 -- declare normal mode keymaps key:bindig -> value:command, value: opts table
 n_nonrecursive = {
+  --
+  -- select all quickly
+  ["<leader>a"] = { "ggVG", ignore, },
+  -- explicityly call native lsp action on go to file seems to fix
+  -- misbehavior relating to relative paths....
   ["gf"] = { "<cmd>lua vim.lsp.buf.definition()<cr>", ignore },
+  -- toggle oil pane
   ["<leader>e"] = { "<Cmd>Oil --float<CR>", { desc = "󰏇 Toggle Oil" } },
   -- toggle comment line in normal mode
   ["<leader>/"] = { "gcc", vim.tbl_deep_extend("force", ignore, { remap = true }) },
@@ -192,7 +199,7 @@ nv_nonrecursive = {
     end,
     { expr = true, desc = "Close Current Buffer" },
   },
-  ["<leader>qw"] = { "<cmd>q!<cr>", { desc = "Force Close Neovim" } },
+  ["<leader>qw"] = { "<cmd>qa!<cr>", { desc = "Force Close Neovim" } },
   ["<leader>qa"] = { "<cmd>%bd!<cr>", { desc = "Close All Buffers" } },
   ["<leader>qo"] = { "<cmd>BufferCloseAllButCurrent<cr>", { desc = "Close All Other Buffers" } },
   ["<leader>qu"] = { "<cmd>lua _G.CloseUnmodifiedBuffers()<CR>", { desc = "Close All Unmodified Buffers" } },
