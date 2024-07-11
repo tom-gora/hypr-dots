@@ -18,7 +18,7 @@ n_nonrecursive = {
   ["<leader>/"] = { "gcc", vim.tbl_deep_extend("force", ignore, { remap = true }) },
   -- clear search highlights
   ["<Esc>"] = { "<cmd> noh <CR>", ignore },
-  ["jk"] = { "<cmd> noh <CR>", ignore },
+  -- ["jk"] = { "<cmd> noh <CR>", ignore },
   -- write buffer
   ["<leader>w"] = { "<cmd>w<cr>", ignore },
   -- write all bufs
@@ -127,8 +127,6 @@ n_nonrecursive = {
 -- declare insert mode keymaps key:bindig -> value:command, value: opts table
 i_nonrecursive = {
   --
-  -- exit back  to normal with jk
-  ["jk"] = { "<Esc>", ignore },
   --
   -- navigate within insert mode
   ["<C-h>"] = { "<Left>", ignore },
@@ -139,8 +137,6 @@ i_nonrecursive = {
 
 -- declare visual mode keymaps key:bindig -> value:command, value: opts table
 v_nonrecursive = {
-  -- exit back  to normal with jj
-  ["jk"] = { "<Esc>", ignore },
   --
   -- toggle comment line in visual mode
   ["<leader>/"] = {

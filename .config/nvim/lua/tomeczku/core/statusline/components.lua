@@ -121,6 +121,21 @@ M.git = function()
   return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
 end
 
+M.macro_indicator = function()
+  if not utils.is_activewin() then
+    return ""
+  end
+
+  local recording_register = vim.fn.reg_recording()
+  if recording_register == "" then
+    return ""
+  else
+    return "%#St_macro_sep#%#BufferCurrentDELETED# " ..
+        recording_register .. "%#St_macro_sep#%#St_EmptySpace#  "
+  end
+  -- return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
+end
+
 M.lsp_progress = function()
   -- if narrow window don't even bother
   if utils.is_narrow_split() then

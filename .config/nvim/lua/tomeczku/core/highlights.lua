@@ -134,6 +134,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
     mod_hl("St_lsp_sep", { bg = 1644324, fg = 11266483 })
     mod_hl("St_lsp_txt", { bg = 2499633, fg = 11266483 })
     mod_hl("St_sep_r", { fg = 2499633 })
+    mod_hl("St_macro_sep", { fg = "#282c39", bg = "none" })
 
     -- miniindentscope indentation guides
     mod_hl("MiniIndentscopeSymbol", { link = "BufferVisibleSign", force = true })

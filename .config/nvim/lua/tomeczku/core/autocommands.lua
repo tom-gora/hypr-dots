@@ -70,6 +70,13 @@ autocmd("BufEnter", {
             style = "minimal"
           })
       end
+      if vim.bo.filetype == "mason" then
+        vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(),
+          {
+            title_pos = "left",
+            title = " 󰟾 Mason ",
+          })
+      end
     end)
   end
 })

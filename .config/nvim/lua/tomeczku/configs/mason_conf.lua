@@ -2,7 +2,6 @@ local M = {}
 
 M.mason = {
   ui = {
-
     border = "rounded",
     height = 0.8,
     width = 0.7,

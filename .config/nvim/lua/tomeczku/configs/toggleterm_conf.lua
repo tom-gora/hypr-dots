@@ -19,11 +19,11 @@ M.opts = {
       return math.floor(vim.o.columns * 0.45)
     end,
     height = function()
-      return math.floor(vim.o.lines * 0.86)
+      return math.floor(vim.o.lines * 0.92)
     end,
     col = function()
       local w = math.floor(vim.o.columns * 0.45)
-      return vim.o.columns - (w + math.floor(vim.o.columns / 15))
+      return vim.o.columns - (w + 3)
     end,
     row = function()
       return 1
@@ -80,22 +80,35 @@ M.config_function = function(_, opts)
     close_on_exit = false,
   }
 
+  local set_term_title = function(title)
+    if vim.bo.filetype == "toggleterm" then
+      vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(),
+        {
+          title = title,
+          title_pos = "left",
+        })
+    end
+  end
+
   -- functions to call them
   function _NODE_toggle()
     node_term:toggle()
+    set_term_title("  Node ")
   end
 
   function _LG_toggle()
     lazygit_term:toggle()
+    set_term_title(" 󰊢 LazyGit ")
   end
 
   function _BTOP_toggle()
     btop_term:toggle()
+    set_term_title("  BTOP ")
   end
 
-  function _DOTNET_RUNNER_toggle()
-    dotnet_run_term:toggle()
-  end
+  -- function _DOTNET_RUNNER_toggle()
+  --   dotnet_run_term:toggle()
+  -- end
 
   -- navigation set as per toggleterm docs
   vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
@@ -122,16 +135,16 @@ M.config_function = function(_, opts)
     { noremap = true, silent = true, desc = "Toggle BTOP terminal" }
   )
 
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>td",
-    "<cmd>lua _DOTNET_RUNNER_toggle()<CR>",
-    {
-      noremap = true,
-      silent = true,
-      desc = "Toggle basic DOTNET runner terminal",
-    }
-  )
+  -- vim.api.nvim_set_keymap(
+  --   "n",
+  --   "<leader>td",
+  --   "<cmd>lua _DOTNET_RUNNER_toggle()<CR>",
+  --   {
+  --     noremap = true,
+  --     silent = true,
+  --     desc = "Toggle basic DOTNET runner terminal",
+  --   }
+  -- )
 end
 
 return M
