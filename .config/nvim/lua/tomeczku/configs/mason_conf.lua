@@ -8,8 +8,7 @@ M.mason = {
   },
   automatic_installation = true,
   ensure_installed = {
-    -- lua stuff
-    "lua_ls",
+    -- lua stuff "lua_ls",
     "stylua",
     "luacheck",
 
@@ -70,6 +69,7 @@ M.mason_lspconfig = {
 
 M.dependencies = {
   "williamboman/mason.nvim",
+  cmd = { "Mason", "MasonInstall", "MasonUpdate", "MasonUninstall", "MasonUninstallAll" },
   config = function()
     local mason = M.mason
     require("mason").setup(mason)

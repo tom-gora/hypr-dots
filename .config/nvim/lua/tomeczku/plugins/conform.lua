@@ -4,8 +4,8 @@ local conf = require("tomeczku.configs.conform_conf")
 M = {
   "stevearc/conform.nvim",
   --  for users those who want auto-save conform + lazyloading!
-  lazy = false,
-  event = "BufWritePre",
+  -- lazy = false,
+  event = "LspAttach",
   config = conf.config_function
 }
 

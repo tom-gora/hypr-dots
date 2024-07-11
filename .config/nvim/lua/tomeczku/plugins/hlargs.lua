@@ -5,7 +5,7 @@ M = {
   "m-demare/hlargs.nvim",
   -- opts = opts
   opts = {
-    -- color = "#ea9d34",
+    event = "VeryLazy",
     highlight = { fg = "#ea9d34", italic = true, force = true },
     hl_priority = 500,
   },

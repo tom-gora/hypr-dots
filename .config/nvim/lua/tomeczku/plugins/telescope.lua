@@ -2,9 +2,10 @@ local M = {}
 local conf = require("tomeczku.configs.telescope_conf")
 
 M = {
-	"nvim-telescope/telescope.nvim",
+  "nvim-telescope/telescope.nvim",
+  event = "VeryLazy",
   branch = "0.1.x",
-	dependencies = conf.dependencies,
+  dependencies = conf.dependencies,
   config = conf.config_function,
 }
 

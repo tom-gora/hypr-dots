@@ -6,6 +6,7 @@ local conf = require("tomeczku.configs.cmp_conf")
 
 M = {
   "hrsh7th/nvim-cmp",
+  lazy = true,
   event = "InsertEnter",
   dependencies = conf.dependencies,
   config = conf.config_function,

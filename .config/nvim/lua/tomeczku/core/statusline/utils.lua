@@ -45,6 +45,7 @@ M.path_formatter = function(root_sep, path_end_sep)
   --
   -- if path itself is particularly long then reformat it
   -- in the style used in fish shell truncation of parent dirs names
+
   if #relative_path > 40 then
     relative_path = fishify_path(relative_path)
   end
@@ -60,9 +61,14 @@ M.path_formatter = function(root_sep, path_end_sep)
     path_end_sep = ""
     return { root = "", path = "", root_sep = root_sep, path_end_sep = path_end_sep }
   end
+  local root = "  " .. project_root .. " %#St_Root_Sep_Right#"
+  if vim.bo.filetype == "oil" then
+    root = " 󰏇  %#St_Root_Sep_Right#"
+    relative_path = " Oil "
+  end
 
   return {
-    root = "  " .. project_root .. " %#St_Root_Sep_Right#",
+    root = root,
     path = relative_path,
     root_sep = root_sep,
     path_end_sep = path_end_sep,

@@ -3,7 +3,7 @@ local config_function = require("tomeczku.configs.better_escape_conf").config_fu
 
 M = {
   "max397574/better-escape.nvim",
-  event = "VeryLazy",
+  event = "InsertEnter",
   config = config_function,
 }
 

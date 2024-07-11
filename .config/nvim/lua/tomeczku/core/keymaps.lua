@@ -1,5 +1,18 @@
+-- vim.api.nvim_set_keymap("c", "<c-l>", [[ wildmenumode() ? "c-l>" : "<right>" ]], { noremap = false, expr = true }) -- expr mapping
+-- vim.api.nvim_set_keymap("c", "<c-h>", [[ wildmenumode() ? "c-h>" : "<left> ]], { noremap = false, expr = true })   -- expr mapping
 local map = vim.keymap.set
 local ignore = { desc = "which_key_ignore" }
+--
+-- dedicated remap for command mode to use without arrow keys
+-- and c-j c-k addition for navigating compe completions
+-- src for the latter: https://www.reddit.com/r/neovim/comments/ofg7tu/use_cj_and_ck_in_nvimcompe_instead_of_cp_cn/
+map("c", "<c-l>", "<right>", { noremap = false })
+map("c", "<c-h>", "<left>", { noremap = false })
+vim.cmd [[
+cmap <C-j> <C-n>
+cmap <C-k> <C-p>
+]]
+-- map("c", "<c-k>", "<S-Tab>", { noremap = false })
 
 -- normal mode maps table
 local n_nonrecursive = {}
