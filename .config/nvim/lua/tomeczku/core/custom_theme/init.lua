@@ -3,7 +3,7 @@
 -- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 --
 local M = {}
-local theme = require("tomeczku.core.theme.theme")
+local theme = require("tomeczku.core.custom_theme.theme")
 
 M.setup = function()
   vim.cmd("hi clear")

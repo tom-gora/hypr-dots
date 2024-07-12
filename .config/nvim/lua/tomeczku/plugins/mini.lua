@@ -12,7 +12,13 @@ M = {
     version = "*",
     event = "VeryLazy",
     config = true,
-  }
+  },
+  {
+    'echasnovski/mini.move',
+    version = "*",
+    opts = config.move.opts,
+  },
+
 }
 
 return M

@@ -54,31 +54,6 @@ M.config_function = function(_, opts)
   local node_term = Terminal:new { cmd = "node", direction = "float" }
   -- btop terminal
   local btop_term = Terminal:new { cmd = "btop", direction = "float" }
-  --  lazygit terminal
-  local lazygit_term = Terminal:new {
-    cmd = "lazygit",
-    direction = "float",
-    float_opts = {
-      -- dynamic size of specifically lazygit float term
-      width = function()
-        return math.floor(vim.o.columns * 0.9)
-      end,
-      height = function()
-        return math.floor(vim.o.lines * 0.86)
-      end,
-      col = function()
-        local w = math.floor(vim.o.columns * 0.9)
-        return vim.o.columns - (w + math.floor(vim.o.columns / 15))
-      end,
-    },
-  }
-  -- dotnet runner terminal
-  local dotnet_run_term = Terminal:new {
-    cmd = "dotnet run",
-    direction = "float",
-    dir = "./",
-    close_on_exit = false,
-  }
 
   local set_term_title = function(title)
     if vim.bo.filetype == "toggleterm" then
@@ -96,19 +71,10 @@ M.config_function = function(_, opts)
     set_term_title("  Node ")
   end
 
-  function _LG_toggle()
-    lazygit_term:toggle()
-    set_term_title(" 󰊢 LazyGit ")
-  end
-
   function _BTOP_toggle()
     btop_term:toggle()
     set_term_title("  BTOP ")
   end
-
-  -- function _DOTNET_RUNNER_toggle()
-  --   dotnet_run_term:toggle()
-  -- end
 
   -- navigation set as per toggleterm docs
   vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
@@ -121,12 +87,6 @@ M.config_function = function(_, opts)
     { noremap = true, silent = true, desc = "Toggle NODE terminal" }
   )
 
-  vim.api.nvim_set_keymap(
-    "n",
-    "<leader>tg",
-    "<cmd>lua _LG_toggle()<CR>",
-    { noremap = true, silent = true, desc = "Toggle LazyGIT terminal" }
-  )
 
   vim.api.nvim_set_keymap(
     "n",
@@ -134,17 +94,6 @@ M.config_function = function(_, opts)
     "<cmd>lua _BTOP_toggle()<CR>",
     { noremap = true, silent = true, desc = "Toggle BTOP terminal" }
   )
-
-  -- vim.api.nvim_set_keymap(
-  --   "n",
-  --   "<leader>td",
-  --   "<cmd>lua _DOTNET_RUNNER_toggle()<CR>",
-  --   {
-  --     noremap = true,
-  --     silent = true,
-  --     desc = "Toggle basic DOTNET runner terminal",
-  --   }
-  -- )
 end
 
 return M

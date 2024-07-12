@@ -4,7 +4,7 @@ local conf = require("tomeczku.configs.autopairs_conf")
 
 M = {
   "windwp/nvim-autopairs",
-  event = { "InsertEnter" },
+  event = "InsertEnter",
   dependencies = conf.dependencies,
   config = conf.config_function,
 }

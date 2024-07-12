@@ -4,6 +4,7 @@ end
 local autocmd = vim.api.nvim_create_autocmd
 local win_adjustments = augroup("WinAdjustments")
 
+
 -- for highliting the text on yank
 autocmd('TextYankPost', {
   group = augroup('YankHighlight'),
@@ -77,12 +78,33 @@ autocmd("BufEnter", {
             title = " 󰟾 Mason ",
           })
       end
+
+      if vim.bo.filetype == "lazygit" then
+        vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(),
+          {
+            border = "rounded",
+            title_pos = "left",
+            title = " 󰊢 LazyGit ",
+          })
+      end
+      if vim.bo.filetype == "registers" then
+        local reg_win_height = math.floor(vim.o.lines * 0.3)
+        local offset = vim.o.columns - (reg_win_height + 3)
+        vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(),
+          {
+            relative = "cursor",
+            row = 0,
+            col = 2,
+            title_pos = "left",
+            title = "  Registers ",
+          })
+      end
     end)
   end
 })
 
 autocmd("BufLeave", {
-  group = binds_per_filetype_group,
+  group = win_adjustments,
   pattern = "*",
   callback = function()
     vim.schedule(function()
@@ -96,7 +118,7 @@ autocmd("BufLeave", {
 })
 
 
--- in windows at least half the screen width open help splits vertical with wrap
+-- in windows at least half the screen width open help as vertical float with wrap
 vim.api.nvim_create_autocmd({ "WinNew", "BufEnter" }, {
   group = augroup("UiHelpers"),
   callback = function()

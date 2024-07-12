@@ -3,7 +3,7 @@
 --
 local function compose_statusline(modules)
   -- import component functions
-  local comps = require("tomeczku.core.statusline.components")
+  local comps = require("tomeczku.core.custom_statusline.components")
   -- assign the components
   modules[1] = comps.mode_plus_path()
   modules[2] = comps.macro_indicator()

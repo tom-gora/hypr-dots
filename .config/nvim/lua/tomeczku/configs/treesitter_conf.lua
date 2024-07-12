@@ -27,7 +27,8 @@ M.config_function = function()
       "astro",
       "qmljs",
       "qmldir",
-      "hyprlang"
+      "hyprlang",
+      "regex",
     },
     indent = {
       enable = true,

@@ -20,18 +20,13 @@ M.indentscope = {
     vim.api.nvim_create_autocmd("FileType", {
       -- define table of buffers to skip
       pattern = {
-        "alpha",
-        "coc-explorer",
-        "dashboard",
         "fzf", -- fzf-lua
         "help",
         "lazy",
         "lazyterm",
         "lspsagafinder",
         "mason",
-        "nnn",
         "notify",
-        "NvimTree",
         "qf",
         "starter", -- mini.starter
         "toggleterm",
@@ -39,10 +34,8 @@ M.indentscope = {
         "neoai-input",
         "neoai-*",
         "neoai-output",
-        "neo-tree",
         "neo-*",
-        "noice",
-        "sourcegraph",
+        "oil",
       },
       callback = function()
         vim.b.miniindentscope_disable = true
@@ -55,6 +48,25 @@ M.indentscope = {
       end,
     })
   end,
+}
+
+M.move = {
+  opts = {
+    reindent_linewise = true,
+    mappings = {
+      -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+      left = '<a-h>',
+      right = '<a-l>',
+      down = '<a-j>',
+      up = '<a-k>',
+
+      -- Move current line in Normal mode
+      line_left = '<a-h>',
+      line_right = '<a-l>',
+      line_down = '<a-j>',
+      line_up = '<a-k>',
+    },
+  }
 }
 
 return M

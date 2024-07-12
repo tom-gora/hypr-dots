@@ -1,19 +1,22 @@
--- vim.api.nvim_set_keymap("c", "<c-l>", [[ wildmenumode() ? "c-l>" : "<right>" ]], { noremap = false, expr = true }) -- expr mapping
--- vim.api.nvim_set_keymap("c", "<c-h>", [[ wildmenumode() ? "c-h>" : "<left> ]], { noremap = false, expr = true })   -- expr mapping
 local map = vim.keymap.set
 local ignore = { desc = "which_key_ignore" }
+-- ADDITIONAL ISOLATED FIXES
+-- don't need to be put in a tables to map by iteration
 --
+--fix polluting clipboard on pasting over visual selection
+map("x", "p", "P", ignore)
 -- dedicated remap for command mode to use without arrow keys
 -- and c-j c-k addition for navigating compe completions
 -- src for the latter: https://www.reddit.com/r/neovim/comments/ofg7tu/use_cj_and_ck_in_nvimcompe_instead_of_cp_cn/
 map("c", "<c-l>", "<right>", { noremap = false })
 map("c", "<c-h>", "<left>", { noremap = false })
--- HACK: This worked,  dunno why??
+-- HACK: This worked! Dunno why tho??
 vim.cmd [[
 cmap <C-j> <C-n>
 cmap <C-k> <C-p>
 ]]
--- map("c", "<c-k>", "<S-Tab>", { noremap = false })
+
+-- maps in tables to iterate over
 
 -- normal mode maps table
 local n_nonrecursive = {}
@@ -26,9 +29,14 @@ local nv_nonrecursive = {}
 
 -- declare normal mode keymaps key:bindig -> value:command, value: opts table
 n_nonrecursive = {
-  --
-  -- select all quickly
+  --  fix polluting clipboard with non cutting operations
+  ["ciw"] = { '"_ciw', ignore, },
+  ["caw"] = { '"_caw', ignore, },
+  -- select all buf lines quickly
   ["<leader>a"] = { "ggVG", ignore, },
+  --
+  -- position the cursor after pasted in text
+  ["p"] = { "gp", ignore },
   -- explicityly call native lsp action on go to file seems to fix
   -- misbehavior relating to relative paths....
   ["gf"] = { "<cmd>lua vim.lsp.buf.definition()<cr>", ignore },
@@ -62,7 +70,7 @@ n_nonrecursive = {
   -- whichkey neovim section
   ["<leader>n"] = { " NeoVim" },
   ["<leader>ns"] = { "<cmd>lua _G.ClearSwap()<CR>", { desc = "Clear the Swap" } },
-  ["<leader>nl"] = { "<cmd>Lazy<CR>", { desc = "Open Lazy" } },
+  -- ["<leader>nl"] = { "<cmd>Lazy<CR>", { desc = "Open Lazy" } },
   ["<leader>nm"] = { "<cmd>Mason<CR>", { desc = "Open Mason" } },
   ["<leader>nc"] = { "<cmd>checkhealth<CR>", { desc = "Do Checkhealth" } },
   ["<leader>nh"] = { "<cmd> Telescope highlights <CR>", { desc = "Look up HL Groups" } },
@@ -83,6 +91,10 @@ n_nonrecursive = {
   ["<leader>g8"] = { "<Cmd>BufferGoto 8<CR>", { desc = "Go to Buffer Index 8" } },
   ["<leader>g9"] = { "<Cmd>BufferGoto 9<CR>", { desc = "Go to Buffer Index 9" } },
   ["<leader>g0"] = { "<Cmd>BufferLast<CR>", { desc = "Go to Last Buffer" } },
+  --
+  -- lazygit
+  ["<leader>G"] = { "<cmd>LazyGit<cr>", { desc = "󰊢 LazyGit" } },
+
   --
   -- whichkey find and telescope section
   ["<leader>f"] = { " Find" },
@@ -172,6 +184,9 @@ v_nonrecursive = {
 
 -- declare normal and visual mode keymaps key:bindig -> value:command, value: opts table
 nv_nonrecursive = {
+  ["c"] = { '"_c', ignore, },
+  ["x"] = { '"_x', ignore, },
+  ["d"] = { '"_d', ignore, },
   --
   -- quick visual line select
   ["<leader><leader>"] = { "V", ignore },

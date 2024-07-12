@@ -3,7 +3,7 @@
 --
 local M = {}
 -- bring my utils in
-local utils = require("tomeczku.core.statusline.utils")
+local utils = require("tomeczku.core.custom_statusline.utils")
 -- declare modes (declarations borrowed from nvchad)
 local modes = {
   ["n"] = { "NORMAL", "St_NormalMode" },
