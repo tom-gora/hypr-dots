@@ -20,6 +20,23 @@ local override = function(direction)
   error(string.format("Invalid direction: %s", direction))
 end
 
+M.no_spinner = function()
+  local format = require("noice.config.format")
+  local lsp_progress_new = {
+    {
+      "{progress}",
+      key = "progress.percentage",
+      contents = {
+        { "{data.progress.message} " },
+      },
+    },
+    -- "({data.progress.percentage}%) ",
+    { "{data.progress.title} ",  hl_group = "NoiceLspProgressTitle" },
+    { "{data.progress.client} ", hl_group = "NoiceLspProgressClient" },
+  }
+  format.builtin.lsp_progress = lsp_progress_new
+end
+
 M.opts = {
   lsp = {
     progress = { view = "notify" },
@@ -33,6 +50,7 @@ M.opts = {
   cmdline = {
     view = "cmdline",
   },
+  views = { notify = { merge = true } },
   presets = {
     lsp_doc_border = true,
     long_message_to_split = true,
@@ -82,7 +100,7 @@ M.dependencies = {
         WARN = " "
       },
       level = 2,
-      minimum_width = 35,
+      minimum_width = 40,
       max_width = 50,
       render = "wrapped-compact",
       -- stages = "fade_in_slide_out",

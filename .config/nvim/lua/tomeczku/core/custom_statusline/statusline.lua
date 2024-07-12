@@ -9,11 +9,9 @@ local function compose_statusline(modules)
   modules[2] = comps.macro_indicator()
   modules[3] = comps.git()
   modules[4] = "%="
-  modules[5] = comps.lsp_progress()
-  modules[6] = "%="
-  modules[7] = comps.lsp_diags()
-  modules[8] = comps.lsp_stat()
-  modules[9] = comps.cursor_pos()
+  modules[5] = comps.lsp_diags()
+  modules[6] = comps.lsp_stat()
+  modules[7] = comps.cursor_pos()
 end
 
 -- make sure lsp status updates itself

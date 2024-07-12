@@ -1,19 +1,11 @@
 local M = {}
+local conf = require("tomeczku.configs.lazygit_conf")
 
 M = {
   "kdheepak/lazygit.nvim",
-  cmd = {
-    "LazyGit",
-    "LazyGitConfig",
-    "LazyGitCurrentFile",
-    "LazyGitFilter",
-    "LazyGitFilterCurrentFile",
-  },
-  window_chars = { "", "", "", "", "", "", "", "", },
-  config = function()
-    vim.g.lazygit_floating_window_use_plenary = 0
-    vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' }
-  end
+  cmd = conf.cmd,
+  window_chars = conf.chars,
+  config = conf.config_function,
 }
 
 return M

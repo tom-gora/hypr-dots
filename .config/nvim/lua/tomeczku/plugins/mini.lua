@@ -14,11 +14,22 @@ M = {
     config = true,
   },
   {
-    'echasnovski/mini.move',
+    "echasnovski/mini.move",
     version = "*",
     opts = config.move.opts,
   },
-
+  {
+    "echasnovski/mini.pairs",
+    version = "*",
+    event = "VeryLazy",
+    config = true,
+  },
+  {
+    "echasnovski/mini.ai",
+    version = "*",
+    event = "VeryLazy",
+    config = true
+  },
 }
 
 return M

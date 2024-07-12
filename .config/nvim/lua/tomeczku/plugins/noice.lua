@@ -6,6 +6,7 @@ M = {
   event = "VeryLazy",
   opts = conf.opts,
   dependencies = conf.dependencies,
+  config = vim.schedule(conf.no_spinner)
 }
 
 return M

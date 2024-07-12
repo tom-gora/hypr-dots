@@ -136,28 +136,6 @@ M.macro_indicator = function()
   -- return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
 end
 
-M.lsp_progress = function()
-  -- if narrow window don't even bother
-  if utils.is_narrow_split() then
-    return ""
-  end
-
-  if not utils.is_activewin() then
-    return ""
-  end
-
-  local msg = vim.lsp.status()
-
-  if #msg == 0 or vim.o.columns < 120 then
-    return ""
-  end
-
-  local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
-  local ms = vim.loop.hrtime() / 1e6
-  local frame = math.floor(ms / 100) % #spinners
-
-  return spinners[frame + 1] .. " " .. msg
-end
 
 M.lsp_diags = function()
   if not utils.is_activewin() then

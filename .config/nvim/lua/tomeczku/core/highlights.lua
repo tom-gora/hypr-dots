@@ -138,6 +138,24 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
     mod_hl("St_lsp_txt", { bg = "#262431", fg = "#ABE9B3" })
     mod_hl("St_sep_r", { fg = "#262431" })
     mod_hl("St_macro_sep", { fg = "#282c39", bg = "none" })
+    --
+    -- nvim notify:
+    mod_hl("NotifyERRORBorder", { fg = "#d55176", force = true })
+    mod_hl("NotifyWARNBorder", { fg = "#e1a756", force = true })
+    mod_hl("NotifyINFOBorder", { fg = "#4f7a81", force = true })
+    mod_hl("NotifyDEBUGBorder", { fg = "#8986A1", force = true })
+    mod_hl("NotifyTRACEBorder", { fg = "#4F3552", force = true })
+    mod_hl("NotifyERRORIcon", { fg = "#EB6F92", force = true })
+    mod_hl("NotifyWARNIcon", { fg = "#F6C177", force = true })
+    mod_hl("NotifyINFOIcon", { fg = "#56949f", force = true })
+    mod_hl("NotifyDEBUGIcon", { fg = "#8986A1", force = true })
+    mod_hl("NotifyTRACEIcon", { fg = "#BB9EDE", force = true })
+    mod_hl("NotifyERRORTitle", { fg = "#EB6F92", force = true })
+    mod_hl("NotifyWARNTitle", { fg = "#F6C177", force = true })
+    mod_hl("NotifyINFOTitle", { fg = "#56949f", force = true })
+    mod_hl("NotifyDEBUGTitle", { fg = "#8986A1", force = true })
+    mod_hl("NotifyTRACETitle", { fg = "#BB9EDE", force = true })
+
 
     -- miniindentscope indentation guides
     mod_hl("MiniIndentscopeSymbol", { link = "BufferVisibleSign", force = true })

@@ -70,11 +70,12 @@ n_nonrecursive = {
   -- whichkey neovim section
   ["<leader>n"] = { " NeoVim" },
   ["<leader>ns"] = { "<cmd>lua _G.ClearSwap()<CR>", { desc = "Clear the Swap" } },
-  -- ["<leader>nl"] = { "<cmd>Lazy<CR>", { desc = "Open Lazy" } },
+  ["<leader>nl"] = { "<cmd>Lazy<CR>", { desc = "Open Lazy" } },
   ["<leader>nm"] = { "<cmd>Mason<CR>", { desc = "Open Mason" } },
   ["<leader>nc"] = { "<cmd>checkhealth<CR>", { desc = "Do Checkhealth" } },
-  ["<leader>nh"] = { "<cmd> Telescope highlights <CR>", { desc = "Look up HL Groups" } },
-  ["<leader>n?"] = { "<cmd> Telescope help_tags <CR>", { desc = "Help 󰋗 " } },
+  ["<leader>nh"] = { "<cmd>Telescope highlights <CR>", { desc = "Look up HL Groups" } },
+  ["<leader>n?"] = { "<cmd>Telescope help_tags <CR>", { desc = "Help 󰋗 " } },
+  ["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<CR>", { desc = "Dismiss Notifications" } },
   --
   -- whichkey goto section
   ["<leader>g"] = { " Go To" },
@@ -106,7 +107,7 @@ n_nonrecursive = {
   ["<leader>fd"] = { "<Cmd>Telescope live_grep<CR>", { desc = "Find in CWD" } },
   ["<leader>fa"] = { "<Cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", { desc = "Find All Files (hidden etc.)" } },
   ["<leader>fp"] = { "<Cmd>Telescope pickers<CR>", { desc = "Recent Pickers" } },
-  ["<leader>fh"] = { "<Cmd>Telescope search_history<CR>", { desc = "Search History" } },
+  ["<leader>fh"] = { "<Cmd>Telescope command_history<CR>", { desc = "Command History" } },
   ["<leader>fu"] = { "<Cmd>Telescope undo<CR>", { desc = "Find in Undo Tree" } },
   ["<leader>fs"] = { "<Cmd>Telescope symbols<CR>", { desc = "Find Symbols" } },
   ["<leader>fe"] = { "<Cmd>Telescope file_browser<CR>", { desc = "Find in File Explorer" } },
