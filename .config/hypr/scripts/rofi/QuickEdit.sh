@@ -17,26 +17,47 @@ main() {
 	choice=$(menu | rofi -dmenu -config ~/.config/rofi/config-compact.rasi | cut -d. -f1)
 	case $choice in
 	1)
-		kitty -e nvim "$configs/WindowRules.conf"
+		wezterm start -- nvim "$configs/WindowRules.conf"
 		;;
 	2)
-		kitty -e nvim "$configs/Startup_Apps.conf"
+		wezterm start -- nvim "$configs/Startup_Apps.conf"
 		;;
 	3)
-		kitty -e nvim "$configs/Settings.conf"
+		wezterm start -- nvim "$configs/Settings.conf"
 		;;
 	4)
-		kitty -e nvim "$configs/Keybinds.conf"
+		wezterm start -- nvim "$configs/Keybinds.conf"
 		;;
 	5)
-		kitty -e nvim "$configs/Submap_Keybinds.conf"
+		wezterm start -- nvim "$configs/Submap_Keybinds.conf"
 		;;
 	6)
-		kitty -e nvim "$configs/ENVariables.conf"
+		wezterm start -- nvim "$configs/ENVariables.conf"
 		;;
 	7)
-		kitty -e nvim "$configs/Monitors.conf"
+		wezterm start -- nvim "$configs/Monitors.conf"
 		;;
+	# 1)
+	# 	kitty -e nvim "$configs/WindowRules.conf"
+	# 	;;
+	# 2)
+	# 	kitty -e nvim "$configs/Startup_Apps.conf"
+	# 	;;
+	# 3)
+	# 	kitty -e nvim "$configs/Settings.conf"
+	# 	;;
+	# 4)
+	# 	kitty -e nvim "$configs/Keybinds.conf"
+	# 	;;
+	# 5)
+	# 	kitty -e nvim "$configs/Submap_Keybinds.conf"
+	# 	;;
+	# 6)
+	# 	kitty -e nvim "$configs/ENVariables.conf"
+	# 	;;
+	# 7)
+	# 	kitty -e nvim "$configs/Monitors.conf"
+	# 	;;
 	*) ;;
 	esac
 }
