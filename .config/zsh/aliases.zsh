@@ -4,14 +4,13 @@
 alias adb="HOME=$XDG_DATA_HOME/android adb"
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
 
-
 # configure zshrc
 alias zshconfig="nvim $ZDOTDIR/.zshrc"
 alias src="source $ZDOTDIR/.zshrc"
 
-alias vi="NVIM_APPNAME=my-nvim nvim"
+# alias vi="NVIM_APPNAME=my-nvim nvim"
 # other nvim aliases
-#alias vi="nvim"
+alias vi="nvim"
 
 # eza instead of ls
 alias ll="eza -l --group-directories-first --group --header --icons always"
@@ -61,7 +60,7 @@ alias aa="cd /var/www/html/"
 alias uni="cd ~/Documents/uni_dir/"
 
 # utils etc.
-alias fzf-here='fzfgrep_func() { grep -rl "$1" . | fzf | xargs -r nvim; }; fzfgrep_func'
+# alias fzf-here='fzfgrep_func() { grep -rl "$1" . | fzf | xargs -r nvim; }; fzfgrep_func'
 
 # for school quickly handle dotnet
 alias .r="dotnet run ."
@@ -80,5 +79,3 @@ alias clients="hyprctl clients"
 #shortcuts for permission fixes for apps:
 alias fix-code="sudo chown -R $(whoami) /usr/share/codium"
 alias fix-spicetify="sudo chmod a+wr /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify && sudo chmod a+wr -R /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/Apps && spicetify backup apply"
-
-

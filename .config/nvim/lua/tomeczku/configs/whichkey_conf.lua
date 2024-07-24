@@ -1,27 +1,37 @@
 local M = {}
 
-M.opts = {
-	window = { border = "rounded" },
-	layout = {
-		height = { min = 3, max = 25 },
-		width = { min = 20, max = 30 },
-		spacing = 3,
-		align = "center",
+local opts = {
+	preset = "modern",
+	icons = { separator = "", group = "", rules = false },
+	win = {
+		border = "rounded",
+		title_pos = "left",
+		title = true,
+		padding = { 1, 4 },
+		width = math.max(math.floor(vim.o.columns * 0.55), 50),
 	},
-	icons = {
-		separator = "",
-		group = "»  ",
+	layout = {
+		width = { min = 20 },
+		spacing = 5,
+		align = "right",
+	},
+	presets = {
+		text_objects = false,
+		operators = false,
+		motions = false,
+	},
+	triggers = {
+		{ "<auto>", mode = "nixsotc" },
 	},
 }
 
 M.init_function = function()
-		vim.o.timeout = true
-		vim.o.timeoutlen = 250
-	end
+	vim.o.timeout = true
+	vim.o.timeoutlen = 250
+end
 
-
-M.config_function = function(_, opts)
-  local wk = require("which-key")
+M.config_function = function()
+	local wk = require("which-key")
 	wk.setup(opts)
 end
 

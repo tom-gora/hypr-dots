@@ -4,6 +4,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.editorconfig = true
 
+opt.cursorline = true
 -- declare encoding
 vim.scriptencoding = "utf-8"
 opt.encoding = "utf-8"
@@ -57,3 +58,5 @@ opt.fillchars = { eob = "~" }
 
 -- enable undofile
 opt.undofile = true
+
+-- opt.path = vim.opt.path:append("**")

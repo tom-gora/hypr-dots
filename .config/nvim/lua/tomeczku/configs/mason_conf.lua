@@ -70,6 +70,13 @@ M.mason_lspconfig = {
 M.dependencies = {
   "williamboman/mason.nvim",
   cmd = { "Mason", "MasonInstall", "MasonUpdate", "MasonUninstall", "MasonUninstallAll" },
+  dependencies = {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+  opts = {
+    ensure_installed = M.mason.ensure_installed
+    },
+  },
+
   config = function()
     local mason = M.mason
     require("mason").setup(mason)

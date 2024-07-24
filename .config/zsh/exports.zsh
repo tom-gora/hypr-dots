@@ -25,7 +25,6 @@ export PATH="$HOME/.local/bin/.spicetify":$PATH
 export PATH="$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/tools/bin":$PATH
 export PATH="$HOME/.config/cargo/bin":$PATH
 
-
 # Manpath
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -47,7 +46,7 @@ export BAT_THEME='rose-pine-moon'
 # some wayland fixes
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
 
+export MOZ_ENABLE_WAYLAND=1
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-

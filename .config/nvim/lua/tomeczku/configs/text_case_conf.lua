@@ -23,7 +23,7 @@ M.config_function = function()
   require("textcase").setup(opts)
   require("telescope").load_extension("textcase")
   -- override the whichkey name registered in original plugin presets file
-  require("which-key").register({ "n", {
+  require("which-key").add({ "n", {
     [opts.prefix] = {
       name = "󰬴 TextCase",
       o = {

@@ -164,7 +164,6 @@
     "format": "{:%H:%M:%S}",
     "format-alt": "{:%H:%M   %Y, %d %B, %A}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
-	  "on-click-right": "gnome-calendar",
     "calendar": {
       "mode"          : "year",
       "mode-mon-col"  : 3,
@@ -180,6 +179,7 @@
                 }
     },              
     "actions":  {
+      "on-click": "~/.config/hypr/scripts/utils/Calendar.sh",
       "on-click-right": "mode",
       "on-click-forward": "tz_up",
       "on-click-backward": "tz_down",
