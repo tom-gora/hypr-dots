@@ -68,11 +68,10 @@ alias .br="dotnet build && echo '\n\033[1;35mOutput >>>>>>> \033[0m\n' && dotnet
 alias .b="dotnet build"
 
 # applications aliases
+alias spotify="flatpak run --socket=wayland com.spotify.Client --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto &"
 alias code="codium"
-alias ferdium="flatpak run org.ferdium.Ferdium %U"
 alias cpwd="pwd | wl-copy"
 alias cpl="fc -ln -1 | wl-copy"
-alias ungoogled="flatpak run com.github.Eloston.UngoogledChromium %U"
 alias intellij="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=idea com.jetbrains.IntelliJ-IDEA-Ultimate"
 alias clients="hyprctl clients"
 

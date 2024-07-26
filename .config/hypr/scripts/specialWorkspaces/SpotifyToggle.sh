@@ -11,7 +11,7 @@ SPOTIFY_OBJ=$(jq '.[] | select(.initialTitle == "Spotify Premium")' <<<"$OUTPUT"
 # Guard clause, if no Spotify client, launch one and exit then place it on current workspace
 if [ -z "$SPOTIFY_OBJ" ]; then
 	echo "Launching Spotify"
-  flatpak run --socket=wayland com.spotify.Client --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto &
+	flatpak run --socket=wayland com.spotify.Client --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto &
 	hyprctl dispatch movetoworkspace 'e-0','^(.*Spotify.*)$' &
 	hyprctl dispatch focuswindow '^(.*Spotify.*)$' &
 	exit 0
