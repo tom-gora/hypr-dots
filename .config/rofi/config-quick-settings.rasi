@@ -3,16 +3,12 @@ configuration {
     modi:                       "drun";
     font:                       "Ubuntu Nerd Font Medium 12";
     show-icons:                 false;
-    display-drun:               "";
-    display-run:                "";
-    display-filebrowser:        "";
-    display-window:             "";
-    drun-display-format:        " {name}";
+    drun-display-format:        "{name}";
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
-    window-format:              "{w} · {c} · {t}";
     dpi:						            1;
+    
 }
 
 @import "~/.config/rofi/pywal-color/pywal-theme.rasi"
@@ -42,16 +38,15 @@ mainbox {
     orientation:                vertical;
     border:                     2px;
     border-color:               @active-background;
+    padding:					          -2px;
     border-radius:              2px;
-    children:                   [ "icon-current-entry", "listview", "inputbar" ];
+    children:                   [ "imagebox", "listview", "inputbar" ];
 }
-
+                               
 /*  Imagebox  */               
-icon-current-entry  {                     
+imagebox {                     
     margin:                     0 -2px 0 -2px;
-    expand:                     false;
-    size: 50%;
-    vertical-align: 0;
+    background-image:           url("~/.config/rofi/.current_wallpaper", width);
     background-color:           transparent;
     orientation:                vertical;
 }
@@ -60,11 +55,11 @@ icon-current-entry  {
 /*  Listview  */
 listview {
   expand:                       true;
-  margin:                       -230px -2px 1px -2px;
+  padding:                      -66px 0 0 0;
+  margin:                       -32px -2px 1px -2px;
 	enabled:            			    true;
 	columns:            			    1;
-  lines:                        10;
-	dynamic:                      true;
+	dynamic:                      false;
 	cycle:                        true;
 	scrollbar:                    false;
 	layout:                       vertical;
@@ -76,7 +71,7 @@ listview {
 element {                      
     enabled:                    true;
     margin:                     -1px 0;
-    padding:                    8px 12px;
+    padding:                    8px;
     cursor:                     pointer;
     background-color:          	transparent;
 }                              
@@ -158,9 +153,9 @@ textbox-prompt-colon {
     enabled:                    true;
     expand:                     false;
     margin:                     6px 0 0 0;  
-    str:                        "  ";
+    str:                        "  ";
     text-color:                 inherit;
-    background-color:     			transparent;
+    background-color:			transparent;
 }
 
 
@@ -169,22 +164,11 @@ entry {
     padding:					          6px 0px 0px 0px;
     text-color:                 inherit;
     cursor:                     text;
-    placeholder:                "Wallpapers...";
+    placeholder:                "Hyprland...";
     placeholder-color:          inherit;
     background-color:			      transparent;
 }
-
-/* Message */
-message { background-color:     transparent; }
-
-textbox {
-    padding:                    16px 12px;
-    border:                     2px;
-    border-radius:              2px;
-    border-color:               @urgent-background;
-    background-color:      		  @background;
-    text-color:                 @foreground;
-}
+/* Message */ message { background-color:     transparent; } textbox { padding:                    16px 12px; border:                     2px; border-radius:              2px; border-color:               @urgent-background; background-color:      		  @background; text-color:                 @foreground; }
 
 error-message {
     background-color:      		  transparent;

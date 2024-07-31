@@ -4,17 +4,17 @@
 configs="$HOME/.config/hypr/configs"
 
 menu() {
-	printf "1. view Window-Rules\n"
-	printf "2. view Startup_Apps\n"
-	printf "3. view Settings\n"
-	printf "4. view Keybinds\n"
-	printf "5. view Submap Keybinds\n"
-	printf "6. view Env-variables\n"
-	printf "7. view Monitors\n"
+	printf "1. Window-Rules\n"
+	printf "2. Startup_Apps\n"
+	printf "3. Settings\n"
+	printf "4. Keybinds\n"
+	printf "5. Submap Keybinds\n"
+	printf "6. Env-variables\n"
+	printf "7. Monitors\n"
 }
 
 main() {
-	choice=$(menu | rofi -dmenu -config ~/.config/rofi/config-compact.rasi | cut -d. -f1)
+	choice=$(menu | rofi -dmenu -config ~/.config/rofi/config-quick-settings.rasi | cut -d. -f1)
 	case $choice in
 	1)
 		wezterm start -- nvim "$configs/WindowRules.conf"
