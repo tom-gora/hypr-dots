@@ -41,7 +41,8 @@ fi
 export BAT_THEME='rose-pine-moon'
 
 # Preferred browser
-# export BROWSER="one.ablaze.floorp.desktop"
+local BROWSER_CMD() {wayland-proxy $(which floorp)}
+export BROWSER="BROWSER_CMD"
 
 # some wayland fixes
 export HSA_OVERRIDE_GFX_VERSION=10.3.0

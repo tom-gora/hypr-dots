@@ -164,20 +164,22 @@ M.lsp_stat = function()
 	end
 
 	if rawget(vim, "lsp") then
-		for _, client in ipairs(vim.lsp.get_active_clients()) do
-			if client.attached_buffers[vim.fn.winbufnr(vim.g.statusline_winid)] and client.name ~= "null-ls" then
+		for _, client in ipairs(vim.lsp.get_clients()) do
+			local cname = client.name
+			local ok, str_components = pcall(utils.setLspStringComponents, client, cname)
+			if ok and str_components then
 				return (
 					vim.o.columns > 86
 					and "%#St_ConfirmMode#"
 						.. "%#St_ConfirmModeCustomTxt#"
-						.. " "
-						.. client.name
+						.. str_components.icon
+						.. str_components.name
 						.. "%#St_ConfirmMode# "
 				) or "%#St_ConfirmMode# "
 			end
 		end
 	end
-	-- just draw nothing if no lsp client
+	-- just draw nothing if no lsp client or err out with nil values for string
 	return ""
 end
 

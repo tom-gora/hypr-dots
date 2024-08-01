@@ -80,4 +80,52 @@ M.path_formatter = function(root_sep, path_end_sep)
 		path_end_sep = path_end_sep,
 	}
 end
+
+M.setLspStringComponents = function(client, cname)
+	if client.attached_buffers[vim.fn.winbufnr(vim.g.statusline_winid)] and cname ~= "null-ls" then
+		if cname == "lua_ls" then
+			return { name = cname, icon = " " }
+		elseif
+			(cname == "tsserver" or cname == "cssmodules_ls" or cname == "tailwindcss")
+			and (vim.bo.filetype == "javascript" or vim.bo.filetype == "typescript")
+		then
+			return { name = "tsserver", icon = "󰛦 " }
+		elseif (cname == "astro" or cname == "tailwindcss" or cname == "tsserver") and vim.bo.filetype == "astro" then
+			return { name = "astro-ls", icon = " " }
+		elseif cname == "bashls" then
+			return { name = cname, icon = " " }
+		elseif
+			(cname == "emmet_language_server" or cname == "html" or cname == "tailwindcss")
+			and vim.bo.filetype == "html"
+		then
+			return { name = "html-lsp", icon = "󰌝 " }
+		elseif
+			(cname == "emmet_language_server" or cname == "cssls" or cname == "tailwindcss")
+			and (
+				vim.bo.filetype == "css"
+				or vim.bo.filetype == "scss"
+				or vim.bo.filetype == "less"
+				or vim.bo.filetype == "sass"
+				or vim.bo.filetype == "less"
+			)
+		then
+			return { name = "cssls", icon = " " }
+		elseif cname == "jsonls" and vim.bo.filetype == "json" then
+			return { name = "jsonls", icon = "󰘦 " }
+		elseif cname == "hyprls" and vim.bo.filetype == "hyprlang" then
+			return { name = "hyprls", icon = " " }
+		elseif cname == "gopls" then
+			return { name = "gopls", icon = "󰟓 " }
+		elseif (cname == "intelephense" or cname == "tailwindcss") and vim.bo.filetype == "php" then
+			return { name = "intelephense", icon = " " }
+		elseif cname == "omnisharp" then
+			return { name = "omnisharp", icon = " " }
+		elseif cname == "lemminx" then
+			return { name = cname, icon = "󰗀 " }
+		else
+			return { name = cname, icon = "󰧑 " }
+		end
+	end
+	return nil
+end
 return M

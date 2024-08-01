@@ -57,7 +57,6 @@ M.mason_lspconfig = {
 		"emmet_language_server",
 		"cssls",
 		"cssmodules_ls",
-		"css_variables",
 		"html",
 		"jsonls",
 		"tsserver",
@@ -65,7 +64,7 @@ M.mason_lspconfig = {
 		"intelephense",
 		"astro",
 		"gopls",
-		-- "hyprlang",
+		-- "hyprls",
 	},
 }
 
