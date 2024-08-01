@@ -37,6 +37,9 @@ else
   export VISUAL='nvim'
 fi
 
+#set plugin dir for rofi
+# export ROFI_PLUGIN_PATH="/lib/rofi"
+
 # Force bat theme
 export BAT_THEME='rose-pine-moon'
 

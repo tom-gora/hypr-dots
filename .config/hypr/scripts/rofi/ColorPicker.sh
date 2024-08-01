@@ -85,6 +85,20 @@ menu() {
 }
 
 main() {
+	# Check for dependencies
+	DEPS=""
+	if ! command -v jq &>/dev/null; then
+		DEPS+="jq"
+	fi
+	if ! command -v pastel &>/dev/null; then
+		DEPS+=", pastel(cargo) "
+	fi
+
+	if [ -n "$DEPS" ]; then
+		send_notification "Missing dependencies: $DEPS"
+		exit 1
+	fi
+
 	prep_color
 	choice=$(menu | rofi -dmenu -config ~/.config/rofi/config-colors.rasi)
 	local JSON_INPUT=$(cat ~/.cache/.rofi-color-picker-current.json)

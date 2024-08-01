@@ -152,7 +152,7 @@ textbox-prompt-colon {
     enabled:                    true;
     expand:                     false;
     margin:                     6px 0 0 0;  
-    str:                        "󰦥 ";
+    str:                        "  ";
     text-color:                 inherit;
     background-color:			transparent;
 }
@@ -163,7 +163,7 @@ entry {
     padding:					          6px 0px 0px 0px;
     text-color:                 inherit;
     cursor:                     text;
-    placeholder:                "Emojis...";
+    placeholder:                "NF Glyphs...";
     placeholder-color:          inherit;
     background-color:			      transparent;
 }
