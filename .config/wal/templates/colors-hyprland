@@ -16,3 +16,4 @@ $color12 = 0xff{color12.strip}
 $color13 = 0xff{color13.strip}
 $color14 = 0xff{color14.strip}
 $color15 = 0xff{color15.strip}
+$color16 = 0x22{background.strip}

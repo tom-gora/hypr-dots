@@ -3,16 +3,17 @@ configuration {
     modi:                       "drun";
     font:                       "Ubuntu Nerd Font Medium 12";
     show-icons:                 true;
-    display-drun:               "";
-    display-run:                "";
-    display-filebrowser:        "";
-    display-window:             "";
     drun-display-format:        "{name}";
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
-    window-format:              "{w} · {c} · {t}";
     dpi:						            1;
+    /*slight vim-ish rebind */
+    kb-remove-to-eol:           "";
+    kb-mode-complete:           "";
+    kb-accept-entry:            "Return,Control+l";
+    kb-element-prev:            "Control+j";
+    kb-element-next:            "Control+k";
 }
 
 @import "~/.config/rofi/pywal-color/pywal-theme.rasi"

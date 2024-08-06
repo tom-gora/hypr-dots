@@ -8,7 +8,12 @@ configuration {
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
     dpi:						            1;
-    
+    /*slight vim-ish rebind */
+    kb-remove-to-eol:           "";
+    kb-mode-complete:           "";
+    kb-accept-entry:            "Return,Control+l";
+    kb-element-prev:            "Control+j";
+    kb-element-next:            "Control+k";
 }
 
 @import "~/.config/rofi/pywal-color/pywal-theme.rasi"

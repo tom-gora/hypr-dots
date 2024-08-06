@@ -6,25 +6,24 @@
   "control-center-layer": "top",
   "layer-shell": true,
   "cssPriority": "application",
-  "control-center-margin-top": 6,
-  "control-center-margin-bottom": 0,
-  "control-center-margin-right": 6,
+  "control-center-margin-top": 5,
+  "control-center-margin-bottom": 5,
+  "control-center-margin-right": 5,
   "control-center-margin-left": 0,
   "notification-2fa-action": true,
   "notification-inline-replies": true,
-  "notification-icon-size": 40,
+  "notification-icon-size": 36,
   "notification-body-image-height": 100,
   "notification-body-image-width": 200,
   "timeout": 6,
   "timeout-low": 3,
   "timeout-critical": 0,
-  "fit-to-screen": false,
-  "control-center-width": 470,
-  "control-center-height": 1029,
-  "notification-window-width": 520,
+  "fit-to-screen": true,
+  "control-center-width": 400,
+  "notification-window-width": 400,
   "keyboard-shortcuts": true,
   "image-visibility": "when-available",
-  "transition-time": 5,
+  "transition-time": 0,
   "hide-on-clear": true,
   "hide-on-action": true,
   "script-fail-notify": true,
@@ -40,14 +39,7 @@
       "run-on": "action"
     }
   },
-  "widgets": [
-    "title",
-    "notifications",
-    "dnd",
-    "mpris",
-    "volume",
-    "buttons-grid"
-  ],
+  "widgets": ["dnd", "notifications", "title", "buttons-grid"],
   "widget-config": {
     "title": {
       "text": "Notifications",
@@ -82,18 +74,6 @@
         {
           "label": "󰌾",
           "command": "~/.config/hypr/scripts/utils/LockScreen.sh"
-        },
-        {
-          "label": "󰍃",
-          "command": "hyprctl dispatch exit"
-        },
-        {
-          "label": "󰕾",
-          "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-        },
-        {
-          "label": "󰍬",
-          "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
         }
       ]
     }

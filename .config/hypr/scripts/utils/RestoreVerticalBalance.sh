@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 determine_monitor() {
 	monitors_metadata=$(hyprctl monitors -j)
@@ -44,5 +45,6 @@ if [ $(echo "$leftmost_address" | wc -l) -gt 1 ]; then
 		hyprctl dispatch resizewindowpixel exact 49%,address:"$address"
 	done
 else
+	echo $leftmost_address
 	hyprctl dispatch resizewindowpixel exact 49%,address:"$leftmost_address"
 fi

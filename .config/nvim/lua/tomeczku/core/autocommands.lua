@@ -63,6 +63,19 @@ vim.api.nvim_create_autocmd({ "WinNew", "BufEnter" }, {
 	end,
 })
 
+autocmd("BufWritePost", {
+	group = augroup("SwayncHack"),
+	pattern = {
+		"**/swaync/config.json",
+		"**/swaync/style.css",
+	},
+	callback = function()
+		print("saved swaync config")
+		vim.cmd("!swaync-client -R")
+		vim.cmd("!swaync-client -rs")
+	end,
+})
+
 -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 -- 	group = augroup("AstroLSP"),
 -- 	pattern = { "*.astro" },
