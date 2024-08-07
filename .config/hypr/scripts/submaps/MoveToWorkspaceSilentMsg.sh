@@ -1,16 +1,18 @@
 #!/bin/bash
 
-notify-send -t 60000 "Silently move to workspace 🤫" "┌───┰──────────────────────────────┐
-│<b> 1 </b>┃ move to 1                    │
-│<b> 2 </b>┃ move to 2                    │
-│<b> 3 </b>┃ move to 3                    │
-│<b> 4 </b>┃ move to 4                    │
-│<b> 5 </b>┃ move to 5                    │
-│<b> 6 </b>┃ move to 6                    │
-│<b> 7 </b>┃ move to 7                    │
-│<b> 8 </b>┃ move to 8                    │
-│<b> 9 </b>┃ move to 9                    │
-│<b> 0 </b>┃ move to 10                   │
-│<b> l </b>┃ move to next workspace       │
-│<b> h </b>┃ move to previous workspace   │
-└───┸──────────────────────────────┘"
+notif="$HOME/.config/swaync/images/move.svg"
+
+notify-send -t 60000 -i "$notif" "Silently move to workspace 🤫" "<span color='#3e8fb0'>┌───┰──────────────────────────────┐</span>
+<span color='#3e8fb0'>│<b> 1 </b>┃ </span>move to 1                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 2 </b>┃ </span>move to 2                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 3 </b>┃ </span>move to 3                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 4 </b>┃ </span>move to 4                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 5 </b>┃ </span>move to 5                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 6 </b>┃ </span>move to 6                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 7 </b>┃ </span>move to 7                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 8 </b>┃ </span>move to 8                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 9 </b>┃ </span>move to 9                    <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> 0 </b>┃ </span>move to 10                   <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> l </b>┃ </span>move to next workspace       <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>│<b> h </b>┃ </span>move to previous workspace   <span color='#3e8fb0'>│</span>
+<span color='#3e8fb0'>└───┸──────────────────────────────┘</span>"

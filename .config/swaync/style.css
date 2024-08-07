@@ -3,12 +3,12 @@
 @import "../../.cache/wal/colors-waybar.css";
 
 @define-color noti-border-color @color4;
-@define-color noti-bg rgba(13, 12, 18, 0.98);
-@define-color noti-bg-alt #232136;
+@define-color noti-bg @background;
+@define-color noti-bg-alt @color0;
 @define-color noti-bg-hover @color4;
 @define-color text-color @color4;
 @define-color text-color-alt @color7;
-@define-color text-color-disabled rgba(110, 106, 134, 0.96);
+@define-color text-color-disabled @foreground-alpha__0_6;
 
 * {
   font-family: "UbuntuMono Nerd Font";
@@ -23,15 +23,15 @@
 }
 
 .notification-row {
+  border-radius: 2px;
   outline: none;
-  margin: 0px;
   margin-top: -1px;
   margin-right: -7px;
 }
 
 .notification {
   border: 0px;
-  border-radius: 2px;
+  color: @text-color;
 }
 
 .notification-content {
@@ -54,7 +54,7 @@
   color: @noti-bg;
   text-shadow: none;
   padding: 0;
-  border-radius: 50px;
+  border-radius: 2px;
   margin-top: 10px;
   margin-right: 16px;
   font-size: 4px;
@@ -68,7 +68,6 @@
 }
 
 .notification-action {
-  border: 1px solid @noti-border-color;
   border-top: none;
   border-radius: 2px;
 }
@@ -107,7 +106,6 @@
   background: @noti-bg;
   color: @text-color;
   caret-color: @text-color;
-  border: 1px solid @noti-border-color;
   border-radius: 2px;
 }
 
@@ -115,7 +113,6 @@
   font-size: 0.5rem;
   margin-left: 4px;
   background: @noti-bg;
-  border: 1px solid @noti-border-color;
   border-radius: 2px;
   color: @text-color;
 }
@@ -161,7 +158,7 @@
 .body {
   font-size: 1rem;
   font-weight: 200;
-  background: transparent;
+  background: @noti-bg;
   color: @text-color;
   text-shadow: none;
   margin-bottom: 6px;
@@ -183,16 +180,28 @@
 }
 
 .floating-notifications {
+  border: 0px;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.floating-notifications > scrolledwindow > viewport > box {
   background: transparent;
 }
 
+.floating-notifications {
+  border: 0px;
+}
+
 .blank-window {
-  background: alpha(black, 0.1);
+  border: 0px;
+  border-radius: 2px;
+  background: alpha(#191724, 0.7);
 }
 
 .widget-title {
   color: @noti-border-color;
-  background: @noti-bg;
+  background: transparent;
   padding: 3px 6px;
   margin: 5px;
   font-size: 1rem;
@@ -226,7 +235,6 @@
 
 .widget-dnd > switch {
   border-radius: 2px;
-  /* border: 1px solid #7aa2f7; */
   background: @noti-border-color;
 }
 
@@ -252,34 +260,6 @@
 .widget-label > label {
   font-size: 1rem;
   color: @text-color;
-}
-
-.widget-mpris {
-  color: @text-color;
-  background: @noti-bg;
-  padding: 3px 6px;
-  margin: 5px;
-  border-radius: 2px;
-}
-
-.widget-mpris > box > button {
-  border-radius: 2px;
-}
-
-.widget-mpris-player {
-  background: transparent;
-  box-shadow: none;
-  padding: 3px 6px;
-  margin: 5px;
-}
-
-.widget-mpris-title {
-  font-weight: 100;
-  font-size: 1rem;
-}
-
-.widget-mpris-subtitle {
-  font-size: 0.75rem;
 }
 
 .widget-buttons-grid {
@@ -328,37 +308,6 @@
 .topbar-buttons > button {
   border: none;
   background: transparent;
-}
-
-.widget-volume {
-  background: @noti-bg-alt;
-  padding: 2px;
-  margin: 10px 10px 5px 10px;
-  border-radius: 2px;
-  font-size: x-large;
-  color: @text-color;
-}
-
-.widget-volume > box > button {
-  background: #7aa2f7;
-  border: none;
-}
-
-.per-app-volume {
-  background-color: @noti-bg;
-  padding: 4px 8px 8px;
-  margin: 0 8px 8px;
-  border-radius: 2px;
-  color: @text-color;
-}
-
-.widget-backlight {
-  background: @noti-bg-alt;
-  padding: 5px;
-  margin: 10px 10px 5px 10px;
-  border-radius: 2px;
-  font-size: x-large;
-  color: @text-color;
 }
 
 .low {
