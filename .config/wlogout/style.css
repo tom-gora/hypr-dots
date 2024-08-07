@@ -18,6 +18,7 @@ window > * > * {
   margin-right: 122px;
   margin-top: 96px;
   margin-bottom: 96px;
+  padding-bottom: 1em;
 }
 
 button {
