@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg fill="none" height="1024" id="svg1" inkscape:export-filename="lock.svg" inkscape:export-xdpi="96" inkscape:export-ydpi="96" inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)" sodipodi:docname="lock.svg" version="1.1" viewBox="0 0 24 24" width="1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs1">
+    <linearGradient id="linearGradient2">
+      <stop id="stop7" offset="0" style="stop-color:#286983;stop-opacity:1;"></stop>
+      <stop id="stop8" offset="0.85000002" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <linearGradient id="linearGradient2-1" inkscape:label="rosepine">
+      <stop id="stop2" offset="0" style="stop-color:#286983;stop-opacity:1;"></stop>
+      <stop id="stop3" offset="0.85000002" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <clipPath id="clip0_1276_7761">
+      <rect fill="white" height="24" id="rect1" width="24"></rect>
+    </clipPath>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient10" inkscape:collect="always" x1="1.9922323" x2="22.190821" xlink:href="#linearGradient2-1" y1="11.991774" y2="11.991774"></linearGradient>
+  </defs>
+  <sodipodi:namedview bordercolor="#000000" borderopacity="0.25" id="namedview1" inkscape:current-layer="svg1" inkscape:cx="9.9017144" inkscape:cy="8.9280001" inkscape:deskcolor="#d1d1d1" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:showpageshadow="2" inkscape:window-height="1070" inkscape:window-maximized="1" inkscape:window-width="1910" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="36.458333" pagecolor="#ffffff"></sodipodi:namedview>
+  <g id="g8" inkscape:export-filename="./lock.svg" inkscape:export-xdpi="96" inkscape:export-ydpi="96" style="stroke:url(#linearGradient10)">
+    <g id="SVGRepo_bgCarrier" stroke-width="0" style="stroke:url(#linearGradient10)"></g>
+    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" style="stroke:url(#linearGradient10)"></g>
+    <path d="m 20.989244,12.224307 c -0.01153,0.446299 -0.05619,0.889227 -0.132833,1.325342 -0.228926,1.302604 -0.743203,2.544411 -1.512399,3.633645 -1.026769,1.453951 -2.4615,2.570776 -4.122961,3.209344 -1.66132,0.638573 -3.474854,0.770176 -5.211066,0.37814 C 8.2737723,20.378743 6.6928725,19.480704 5.4670201,18.190227 4.2411685,16.89975 3.4254282,15.274801 3.1230447,13.520768 2.8206613,11.766735 3.0452157,9.9623848 3.7681681,8.3359761 4.4912002,6.7095058 5.6801982,5.3339917 7.1849582,4.3832314 8.6896679,3.4325054 10.442516,2.9492955 12.221845,2.9947027" id="path1-3" sodipodi:nodetypes="csccssscsc" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="stroke:url(#linearGradient10)"></path>
+    <g id="SVGRepo_bgCarrier-6" stroke-width="0" style="fill:none;stroke:url(#linearGradient10)"></g>
+    <g id="SVGRepo_tracerCarrier-0" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:url(#linearGradient10)"></g>
+    <g id="SVGRepo_iconCarrier" style="fill:none;stroke-width:2;stroke-dasharray:none;stroke:url(#linearGradient10)" transform="translate(-0.47689284,0.22128585)">
+      <path d="m 17.892571,10.445124 c 2.084955,0 3.775142,-1.6833372 3.775142,-3.7597847 0,-2.0764554 -1.690187,-3.7597526 -3.775142,-3.7597526 -2.085034,0 -3.775221,1.6832972 -3.775221,3.7597526 0,0.9617953 0.438975,1.6612806 0.438975,1.6612806 L 9.9910116,12.893302 c -0.204847,0.203995 -0.491651,0.734494 0,1.22413 l 0.5267704,0.524604 c 0.204848,0.174841 0.719893,0.419699 1.141313,0 l 0.614573,-0.612065 c 0.614534,0.612065 1.316927,0.262302 1.580264,-0.08746 0.438976,-0.612065 -0.08778,-1.22405 -0.08778,-1.22405 L 13.94179,12.54354 c 0.842824,0.839398 1.580264,0.349762 1.843682,0 0.438975,-0.612065 0,-1.22413 0,-1.22413 -0.175638,-0.349682 -0.526755,-0.349682 -0.08786,-0.786905 l 0.526834,-0.524604 c 0.421372,0.349762 1.287614,0.437223 1.668123,0.437223 z" id="path1-6" stroke="#1c274c" stroke-linejoin="round" stroke-width="1.19482" style="stroke-width:2;stroke-dasharray:none;stroke:url(#linearGradient10)"></path>
+    </g>
+  </g>
+</svg>

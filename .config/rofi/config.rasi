@@ -1,4 +1,3 @@
-/* main config */
 configuration {
     modi:                       "drun";
     font:                       "Ubuntu Nerd Font Medium 12";

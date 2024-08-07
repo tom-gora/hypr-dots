@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg fill="none" height="1024" id="svg1" inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)" sodipodi:docname="reboot-plain.svg" version="1.1" viewBox="0 0 24 24" width="1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs1">
+    <linearGradient id="linearGradient2">
+      <stop id="stop7" offset="0" style="stop-color:#53879c;stop-opacity:1;"></stop>
+      <stop id="stop8" offset="0.85000002" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <linearGradient id="linearGradient2-1" inkscape:label="rosepine">
+      <stop id="stop2" offset="0" style="stop-color:#53879c;stop-opacity:1;"></stop>
+      <stop id="stop3" offset="0.85000002" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <clipPath id="clip0_1276_7761">
+      <rect fill="white" height="24" id="rect1" width="24"></rect>
+    </clipPath>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient6" inkscape:collect="always" x1="3.0925155" x2="20.910086" xlink:href="#linearGradient2-1" y1="12.403694" y2="12.403694"></linearGradient>
+  </defs>
+  <sodipodi:namedview bordercolor="#000000" borderopacity="0.25" id="namedview1" inkscape:current-layer="svg1" inkscape:cx="-1558.8206" inkscape:cy="-761.856" inkscape:deskcolor="#d1d1d1" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:showpageshadow="2" inkscape:window-height="1070" inkscape:window-maximized="1" inkscape:window-width="1910" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="0.14241536" pagecolor="#ffffff"></sodipodi:namedview>
+  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+  <g id="g3" style="fill:none;stroke-width:1.82139;stroke-dasharray:none;stroke:#53879c;stroke-opacity:1" transform="matrix(1.1220769,0,0,1.0969934,-1.4691807,-2.0481503)">
+    <g id="SVGRepo_bgCarrier-3" stroke-width="0" style="stroke-width:1.82139;stroke-dasharray:none;stroke:#53879c;stroke-opacity:1"></g>
+    <g id="SVGRepo_tracerCarrier-5" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:1.82139;stroke-dasharray:none;stroke:#53879c;stroke-opacity:1"></g>
+    <g id="SVGRepo_iconCarrier" style="stroke-width:1.82139;stroke-dasharray:none;stroke:#53879c;stroke-opacity:1">
+      <g clip-path="url(#clip0_1276_7761)" id="g1" style="stroke-width:1.82139;stroke-dasharray:none;stroke:#53879c;stroke-opacity:1">
+        <path d="m 19.7285,10.9288 c 0.7128,2.669 0.0222,5.6347 -2.0716,7.7285 -2.4771,2.4771 -6.1743,2.9902 -9.1569,1.5393 M 18.364,8.05071 17.6569,7.3436 C 14.5327,4.21941 9.46736,4.21941 6.34316,7.3436 3.42964,10.2571 3.23318,14.8588 5.75376,18 M 18.364,8.05071 h -4.2427 m 4.2427,0 V 3.80807" id="path1-6" stroke="#1c274c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" style="stroke-width:1.82139;stroke-dasharray:none;stroke:#53879c;stroke-opacity:1"></path>
+      </g>
+      <defs id="defs1-2" style="stroke:url(#linearGradient6)">
+        <clipPath id="clipPath3" style="stroke:url(#linearGradient6)">
+          <rect fill="#ffffff" height="24" id="rect3" style="stroke:url(#linearGradient6)" width="24" x="0" y="0"></rect>
+        </clipPath>
+      </defs>
+    </g>
+  </g>
+</svg>

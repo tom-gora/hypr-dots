@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg fill="none" height="1024" id="svg1" inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)" sodipodi:docname="logout.svg" version="1.1" viewBox="0 0 24 24" width="1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs1">
+    <linearGradient id="linearGradient19" inkscape:label="rosepine">
+      <stop id="stop18" offset="0" style="stop-color:#286983;stop-opacity:1;"></stop>
+      <stop id="stop19" offset="1" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <linearGradient id="linearGradient2">
+      <stop id="stop7" offset="0" style="stop-color:#286983;stop-opacity:1;"></stop>
+      <stop id="stop8" offset="0.85000002" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <linearGradient id="linearGradient2-1" inkscape:label="rosepine">
+      <stop id="stop2" offset="0" style="stop-color:#286983;stop-opacity:1;"></stop>
+      <stop id="stop3" offset="0.85000002" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <clipPath id="clip0_1276_7761">
+      <rect fill="white" height="24" id="rect1" width="24"></rect>
+    </clipPath>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient11" inkscape:collect="always" x1="1.9922323" x2="22.190821" xlink:href="#linearGradient2-1" y1="11.991774" y2="11.991774"></linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient12" inkscape:collect="always" x1="1.9922323" x2="22.190821" xlink:href="#linearGradient2-1" y1="11.991774" y2="11.991774"></linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient14" inkscape:collect="always" x1="1.9922323" x2="22.190821" xlink:href="#linearGradient2-1" y1="11.991774" y2="11.991774"></linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient15" inkscape:collect="always" x1="1.9922323" x2="22.190821" xlink:href="#linearGradient2-1" y1="11.991774" y2="11.991774"></linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient25" inkscape:collect="always" x1="-29.297644" x2="45.254486" xlink:href="#linearGradient19" y1="44.560493" y2="44.560493"></linearGradient>
+  </defs>
+  <sodipodi:namedview bordercolor="#000000" borderopacity="0.25" id="namedview1" inkscape:current-layer="g24" inkscape:cx="-5.2366308" inkscape:cy="12.684283" inkscape:deskcolor="#d1d1d1" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:showpageshadow="2" inkscape:window-height="1070" inkscape:window-maximized="1" inkscape:window-width="1910" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="12.889967" pagecolor="#ffffff"></sodipodi:namedview>
+  <g id="SVGRepo_bgCarrier" stroke-width="0" style="stroke:url(#linearGradient11)"></g>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" style="stroke:url(#linearGradient12)"></g>
+  <g id="SVGRepo_bgCarrier-6" stroke-width="0" style="fill:none;stroke:url(#linearGradient14)"></g>
+  <g id="SVGRepo_tracerCarrier-0" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:url(#linearGradient15)"></g>
+  <g id="SVGRepo_bgCarrier-61" stroke-width="0" style="fill:none;stroke-width:5.29336;stroke-dasharray:none" transform="matrix(0.30529662,0,0,0.26302522,9.5642149,0.27946654)"></g>
+  <g id="SVGRepo_tracerCarrier-8" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke-width:5.29336;stroke-dasharray:none" transform="matrix(0.30529662,0,0,0.26302522,9.5642149,0.27946654)"></g>
+  <g id="SVGRepo_iconCarrier-7" style="fill:none;stroke-width:5.29336;stroke-dasharray:none" transform="matrix(0.30529662,0,0,0.26302522,9.5642149,0.27946654)">
+    <g id="g24" style="stroke:url(#linearGradient25)">
+      <path d="m -8.278543,69.121801 c 1.0496784,1.181774 2.1691716,2.266271 3.3479114,3.247193 3.5207128,2.929837 7.5699798,4.935531 11.8662584,5.848733 C 12.670502,79.436648 18.587699,78.65463 23.939635,75.9703 29.291252,73.28636 33.837409,68.820305 37.002677,63.137362 40.167951,57.45442 41.810205,50.809932 41.7222,44.043671 41.6342,37.277411 39.81988,30.693307 36.508254,25.123935 33.196628,19.554562 28.536398,15.250025 23.117417,12.754517 17.698107,10.259054 11.763266,9.6847128 6.0627078,11.104132 0.36234013,12.523513 -4.8474866,15.872964 -8.9079692,20.728918" id="path1-3" sodipodi:nodetypes="csccssscsc" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="7.05782" style="stroke:url(#linearGradient25)"></path>
+      <g id="g23" style="fill:none;stroke:#286983;stroke-opacity:1" transform="matrix(3.275503,0,0,3.8019168,-68.552569,0.36964227)">
+        <g id="SVGRepo_bgCarrier-92" stroke-width="0" style="stroke:#286983;stroke-opacity:1"></g>
+        <g id="SVGRepo_tracerCarrier-28" stroke-linecap="round" stroke-linejoin="round" style="stroke:#286983;stroke-opacity:1"></g>
+        <g id="SVGRepo_iconCarrier-9" style="stroke:#286983;stroke-opacity:1">
+          <g id="Arrow / Arrow_Left_SM" style="stroke:#286983;stroke-opacity:1">
+            <path d="m 22.984396,11.840143 h -10 m 0,0 4,4 m -4,-4 4,-3.9999996" id="Vector" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="stroke:#286983;stroke-opacity:1"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

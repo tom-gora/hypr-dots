@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg fill="none" height="1024" id="svg1" inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)" sodipodi:docname="poweroff.svg" version="1.1" viewBox="0 0 24 24" width="1024" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs1">
+    <linearGradient id="linearGradient2" inkscape:collect="always">
+      <stop id="stop2" offset="0" style="stop-color:#286983;stop-opacity:1;"></stop>
+      <stop id="stop3" offset="0.85000002" style="stop-color:#d7827e;stop-opacity:1;"></stop>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" id="linearGradient3" inkscape:collect="always" x1="2.0601857" x2="21.948084" xlink:href="#linearGradient2" y1="21.90027" y2="2.092021"></linearGradient>
+  </defs>
+  <sodipodi:namedview bordercolor="#000000" borderopacity="0.25" id="namedview1" inkscape:current-layer="svg1" inkscape:cx="11.986286" inkscape:cy="12" inkscape:deskcolor="#d1d1d1" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:showpageshadow="2" inkscape:window-height="1070" inkscape:window-maximized="1" inkscape:window-width="1910" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="36.458333" pagecolor="#ffffff"></sodipodi:namedview>
+  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+  <path d="m 12,3 v 9 m 6.3611,-6.35999 c 1.2584,1.25879 2.1153,2.86245 2.4623,4.60819 0.347,1.7458 0.1686,3.5552 -0.5127,5.1996 -0.6812,1.6443 -1.8348,3.0498 -3.3148,4.0386 -1.48,0.9888 -3.2199,1.5165 -4.9998,1.5165 -1.7799,0 -3.51985,-0.5277 -4.99983,-1.5165 C 5.51629,18.4976 4.36274,17.0921 3.68146,15.4478 3.00019,13.8034 2.82179,11.994 3.16882,10.2482 3.51584,8.50246 4.37272,6.8988 5.6311,5.64001" id="path1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="stroke:url(#linearGradient3)"></path>
+</svg>

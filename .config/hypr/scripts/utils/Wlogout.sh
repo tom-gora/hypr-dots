@@ -1,8 +1,6 @@
 #!/bin/bash
 # wlogout (Power, Screen Lock, Suspend, etc)
 
-/bin/bash "$HOME/.config/hypr/scripts/wallpaperAndStyle/RandomBG.sh"
-
 # Set variables for parameters
 A_2160=680
 B_2160=750
@@ -24,7 +22,12 @@ resolution=$(hyprctl -j monitors | jq -r '.[] | select(.focused==true) | .height
 hypr_scale=$(hyprctl -j monitors | jq -r '.[] | select(.focused==true) | .scale')
 
 echo "Detected Resolution: $resolution"
-
+btnCount=$(awk 'BEGIN {print "["} 
+               {print} 
+               END {print "]"}' ~/.config/wlogout/layout |
+	sed ':a;N;$!ba;s/},\n{/},\n{/g' |
+	jq length)
+echo "Detected Button Count: $btnCount"
 # Set parameters based on screen resolution and scaling factor
 if ((resolution >= 2160)); then
 	wlogout --protocol layer-shell -b 3 -T $(awk "BEGIN {printf \"%.0f\", $A_2160 * 2160 * $hypr_scale / $resolution}") -B $(awk "BEGIN {printf \"%.0f\", $B_2160 * 2160 * $hypr_scale / $resolution}") &

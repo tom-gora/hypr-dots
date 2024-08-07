@@ -1,36 +1,36 @@
 {
-    "label" : "lock",
-    "action" : "$HOME/.config/hypr/scripts/utils/LockScreen.sh",
-    "text" : "Lock [ l ]",
-    "keybind" : "l"
-}
+  "label": "shutdown",
+    "action": "systemctl poweroff",
+    "text": "  SHUTDOWN [s]  ",
+    "keybind": "s"
+},
 {
-    "label" : "reboot",
-    "action" : "reboot",
-    "text" : "Reboot [ r ]",
-    "keybind" : "r"
-}
+  "label": "reboot",
+  "action": "reboot",
+  "text": "   REBOOT [r]   ",
+  "keybind": "r"
+},
 {
-    "label" : "shutdown",
-    "action" : "systemctl poweroff",
-    "text" : "Shutdown [ s ]",
-    "keybind" : "s"
-}
+    "label": "lock",
+    "action": "$HOME/.config/hypr/scripts/utils/LockScreen.sh",
+    "text": "    LOCK [l]    ",
+    "keybind": "l"
+},
 {
-    "label" : "logout",
-    "action" : "hyprctl dispatch exit",
-    "text" : "Logout [ e ]",
-    "keybind" : "e"
-}
+    "label": "logout",
+    "action": "hyprctl dispatch exit",
+    "text": "   LOGOUT [e]   ",
+    "keybind": "e"
+},
 {
-    "label" : "suspend",
-    "action" : "swaylock -f && systemctl suspend",
-    "text" : "Suspend [ u ]",
-    "keybind" : "u"
-}
+    "label": "suspend",
+    "action": "swaylock -f && systemctl suspend",
+    "text": "   SUSPEND [u]  ",
+    "keybind": "u"
+},
 {
-    "label" : "hibernate",
-    "action" : "swaylock -f && systemctl hibernate",
-    "text" : "Hibernate [ h ]",
-    "keybind" : "h"
+    "label": "hibernate",
+    "action": "swaylock -f && systemctl hibernate",
+    "text": " HIBERNATE [h]  ",
+    "keybind": "h"
 }

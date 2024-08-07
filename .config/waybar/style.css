@@ -65,7 +65,7 @@ window#waybar.empty #window {
 }
 /* TOOLTIPS */
 tooltip {
-  background: @background-alpha__0_9;
+  background: @background-alpha__0_8;
   border-radius: 2px;
   border: none;
   padding: 0;

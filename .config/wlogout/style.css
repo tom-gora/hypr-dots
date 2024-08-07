@@ -1,77 +1,89 @@
-/* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
-/* pywal-wlogout */
+@import "../../.cache/wal/colors-waybar.css";
 
-/* Importing pywal colors */
-
-@import '../../.cache/wal/colors-waybar.css';
-
+@define-color bg_window @background-alpha__0_6;
+@define-color bg_main @background;
+@define-color fg_main @color6;
 window {
-    font-family: Ubuntu Nerd Font;
-    font-size: 1.4rem;
-    color: #cdd6f4; /* text */
-    background-color: rgba(30, 30, 46, 0.94);
+  font-family: UbuntuMono Nerd Font;
+  font-size: 1.4rem;
+  color: @fg_main;
+  background-color: @bg_window;
+}
+
+window > * > * {
+  border-radius: 2px;
+  border: 2px solid @fg_main;
+  background-color: @bg_main;
+  margin-left: 222px;
+  margin-right: 122px;
+  margin-top: 96px;
+  margin-bottom: 96px;
 }
 
 button {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 30%;
-    margin: 20px;
-    background-color: transparent;
-    border: transparent solid 2px;
-    border-radius: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30%;
+  margin: -2px;
+  background-color: transparent;
+  border-radius: 2px;
+  color: #286983;
 }
 
+button:hover,
 button:focus {
-  border: #8B87A5 solid 2px;
+  color: transparent;
 }
 
-button:hover {
-    background-color: @color2; 
-    color: #1e1e2e;
-    border: transparent solid 2px;
-    transition: all 0ms;
+button:hover > *,
+button:focus > * {
+  color: #d7827e;
 }
-
 
 #lock {
-    background-image: image(url("./icons/lock.png"));
+  background-image: image(url("./icons/lock-plain.svg"));
 }
-#lock:hover {
-    background-image: image(url("./icons/lock-hover.png"));
+#lock:hover,
+#lock:focus {
+  background-image: image(url("./icons/lock.svg"));
 }
 
 #logout {
-    background-image: image(url("./icons/logout.png"));
+  background-image: image(url("./icons/logout-plain.svg"));
 }
-#logout:hover {
-    background-image: image(url("./icons/logout-hover.png"));
+#logout:hover,
+#logout:focus {
+  background-image: image(url("./icons/logout.svg"));
 }
 
 #suspend {
-    background-image: image(url("./icons/sleep.png"));
+  background-image: image(url("./icons/suspend-plain.svg"));
 }
-#suspend:hover {
-    background-image: image(url("./icons/sleep-hover.png"));
+#suspend:hover,
+#suspend:focus {
+  background-image: image(url("./icons/suspend.svg"));
 }
 
 #shutdown {
-    background-image: image(url("./icons/power.png"));
+  background-image: image(url("./icons/poweroff-plain.svg"));
 }
-#shutdown:hover {
-    background-image: image(url("./icons/power-hover.png"));
+#shutdown:hover,
+#shutdown:focus {
+  background-image: image(url("./icons/poweroff.svg"));
 }
 
 #reboot {
-    background-image: image(url("./icons/restart.png"));
+  background-image: image(url("./icons/reboot-plain.svg"));
 }
-#reboot:hover {
-    background-image: image(url("./icons/restart-hover.png"));
+#reboot:hover,
+#reboot:focus {
+  background-image: image(url("./icons/reboot.svg"));
 }
 
 #hibernate {
-    background-image: image(url("./icons/hibernate.png"));
+  background-image: image(url("./icons/hibernate-plain.svg"));
 }
-#hibernate:hover {
-    background-image: image(url("./icons/hibernate-hover.png"));
+#hibernate:hover,
+#hibernate:focus {
+  background-image: image(url("./icons/hibernate.svg"));
 }
