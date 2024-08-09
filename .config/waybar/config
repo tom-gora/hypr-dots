@@ -26,6 +26,9 @@
   ],
   "modules-right": [
     "custom/separator#left_slant",
+    "group/localai",
+    "custom/separator#right_slant",
+    "custom/separator#left_slant",
     "group/motherboard",
     "custom/separator#right_slant",
     "custom/separator#left_slant",

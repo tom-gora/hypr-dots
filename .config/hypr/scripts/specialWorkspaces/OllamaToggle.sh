@@ -14,9 +14,7 @@ if [ -z "$OLLAMA_OBJ" ]; then
 	firefoxpwa site launch 01J4VCP1Y0M0HXJBSP8528JPKJ --protocol
 	sleep 1
 	hyprctl dispatch movetoworkspace "2","FFPWA-01J4VCP1Y0M0HXJBSP8528JPKJ"
-	hyprctl dispatch focuswindow "FFPWA-01J4VCP1Y0M0HXJBSP8528JPKJ"
-	# hyprctl dispatch movewindowpixel exact 5062 46, "FFPWA-01HMNRCK8N44H15ZX3C98E4KY9"
-	# hyprctl dispatch movewindow mon: current
+	# hyprctl dispatch focuswindow "FFPWA-01J4VCP1Y0M0HXJBSP8528JPKJ"
 	exit 0
 fi
 

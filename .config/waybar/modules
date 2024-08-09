@@ -14,6 +14,11 @@
     "orientation": "horizontal",
     "modules": ["hyprland/language", "keyboard-state"]
   },
+  
+  "group/localai": {
+      "orientation": "horizontal",
+      "modules": ["custom/ollama-model", "custom/ollama-state", "custom/gpu-usage" ],
+    },
 
   "group/finalspace": {
     "orientation": "horizontal",
@@ -80,6 +85,29 @@
     "interval": 1,
     "tooltip": "false",
     "on-click": "~/.config/hypr/scripts/utils/KillWfRecorder.sh"
+  },
+
+  "custom/ollama-model": {
+    "format": "{}",
+    "exec": "~/.config/hypr/scripts/utils/OllamaModel.sh",
+    "interval": 1,
+    "tooltip": "false",
+  },
+
+"custom/ollama-state": {
+    "format": "{}",
+    "exec": "~/.config/hypr/scripts/utils/OllamaState.sh",
+    "exec-if": "pgrep ollama",
+    "interval": 1,
+    "tooltip": "false",
+    "on-click": "~/.config/hypr/scripts/specialWorkspaces/OllamaToggle.sh"
+  },
+
+  "custom/gpu-usage": {
+    "exec": "echo $(cat /sys/class/drm/card1/device/gpu_busy_percent)",
+    "format": "       {}%",
+    "return-type": "",
+    "interval": 1
   },
 
   "idle_inhibitor": {
