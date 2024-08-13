@@ -20,8 +20,6 @@ M.mason = {
 		"tsserver",
 		"prettier",
 		"prettierd",
-		"htmlhint",
-		"stylelint",
 		"tailwindcss",
 		"intelephense",
 		"astro",
@@ -45,6 +43,12 @@ M.mason = {
 		-- hyprland configurations ls
 		-- "hyprls"
 		"gopls",
+		--
+		-- LINTERS
+		"htmlhint",
+		"revive",
+		"shellcheck",
+		"eslint_d",
 	},
 }
 

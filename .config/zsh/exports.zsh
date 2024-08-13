@@ -16,7 +16,8 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export PROMPT_EOL_MARK=""
 
 # Add Java to path
-CLASSPATH=/lib/jvm/java-17-openjdk-17.0.9.0.9-3.fc39.x86_64/bin
+export CLASSPATH=/lib/jvm/java-17-openjdk-17.0.9.0.9-3.fc39.x86_64/bin
+
 
 # Local binaries in path
 export PATH="$HOME/.local/bin":$PATH

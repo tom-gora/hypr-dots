@@ -319,7 +319,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
 		modify_hl_group("MiniIndentscopeSymbol", { link = "BufferVisibleSign", force = true })
 		-- supermaven icon
 		modify_hl_group("CmpItemKindSupermaven", { link = "DevIconXz", force = true })
-		modify_hl_group("ToggleTerm1Normal", { bg = purple_fg, force = true })
+		modify_hl_group("ToggleTerm1Normal", { bg = "NONE", force = true })
 		modify_hl_group("ToggleTerm1StatusLine", { bg = "NONE", force = true })
 		-- adjust lspsaga beacon
 		modify_hl_group("SagaBeacon", { bg = delimiters_teal, force = true })

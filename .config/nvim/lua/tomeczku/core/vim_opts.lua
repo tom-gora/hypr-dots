@@ -58,5 +58,3 @@ opt.fillchars = { eob = "~" }
 
 -- enable undofile
 opt.undofile = true
-
--- opt.path = vim.opt.path:append("**")

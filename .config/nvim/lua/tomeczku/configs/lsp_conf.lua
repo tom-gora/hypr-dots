@@ -90,6 +90,23 @@ M.config_fuction = function()
 			lspconfig.intelephense.setup({
 				filetypes = { "php" },
 			})
+		elseif lsp == "gopls" then
+			lspconfig.gopls.setup({
+				completeUnimported = true,
+				analyses = { unusedparams = true },
+				staticcheck = true,
+				on_attach = function()
+					-- "n" means normal mode
+					-- {buffer=0} means only for this buffer
+					-- <cmd> == :
+					-- <cr> == enter
+
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
+					vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = 0 })
+					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = 0 })
+				end,
+			})
 		else
 			lspconfig[lsp].setup({ capabilities = capabilities })
 		end

@@ -37,6 +37,12 @@ alias cd="z"
 # quick open
 alias xo="xdg-open"
 
+# easier dir removal
+# soft
+alias rmr="rm -r"
+# forced
+alias rmf="rm -rf"
+
 # php-server
 # alias php-server="php-server"
 # navigation improvements

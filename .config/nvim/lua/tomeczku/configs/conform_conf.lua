@@ -6,9 +6,13 @@ local opts = {
 	formatters_by_ft = {
 		lua = { "stylua" },
 		javascript = { "prettier" },
+		javascriptreact = { "prettier" },
+		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
+		html = { "prettier" },
+		markdown = { "prettier" },
 		zshrc = { "shfmt" },
 		css = { "prettier" },
-		html = { "prettier" },
 		cshtml = { "prettier" },
 		json = { "prettier" },
 		sh = { "shfmt" },
@@ -18,6 +22,7 @@ local opts = {
 		astro = { "prettier" },
 		php = { "prettier" },
 		svg = { "xmlformat" },
+		go = { "gfmt" },
 	},
 
 	-- adding same formatter for multiple filetypes can look too much work for some
@@ -25,7 +30,7 @@ local opts = {
 
 	format_on_save = {
 		-- These options will be passed to conform.format()
-		timeout_ms = 500,
+		timeout_ms = 1000,
 		lsp_fallback = true,
 	},
 }

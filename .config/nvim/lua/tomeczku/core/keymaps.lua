@@ -19,13 +19,13 @@ cmap <C-k> <C-p>
 -- maps in tables to iterate over
 
 -- normal mode maps table
-local n_nonrecursive = {}
+local n_nonrecursive
 -- visual mode maps table
-local v_nonrecursive = {}
+local v_nonrecursive
 -- insert mode maps table
-local i_nonrecursive = {}
+local i_nonrecursive
 -- normal && visual maps table
-local nv_nonrecursive = {}
+local nv_nonrecursive
 
 -- declare normal mode keymaps key:bindig -> value:command, value: opts table
 n_nonrecursive = {

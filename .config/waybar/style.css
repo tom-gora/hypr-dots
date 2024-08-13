@@ -170,27 +170,30 @@ tooltip label {
 
 .modules-left > *:nth-child(2),
 .modules-left > *:nth-child(3),
-.modules-right > *:nth-child(1),
+/* ai */
+.modules-right > *:nth-child(2),
+/* motherboard */
 .modules-right > *:nth-child(3),
-.modules-right > *:nth-child(4),
+.modules-right > *:nth-child(5),
+/* keyboard */
 .modules-right > *:nth-child(6),
-.modules-right > *:nth-child(7),
+.modules-right > *:nth-child(8),
+/* tray */
 .modules-right > *:nth-child(9),
-.modules-right > *:nth-child(10),
-.modules-right > *:nth-child(12),
-.modules-right > *:nth-child(13) {
+.modules-right > *:nth-child(11),
+.modules-right > *:nth-child(12) {
   padding: 0;
   font-size: 173%;
   background-color: transparent;
 }
 
 /*fixes for weird 1px gaps*/
-.modules-right > *:nth-child(1) > *,
+.modules-left > *:nth-child(2) > *,
 .modules-left > *:nth-child(3) > *,
-.modules-right > *:nth-child(4) > *,
-.modules-right > *:nth-child(7) > *,
-.modules-right > *:nth-child(10) > *,
-.modules-right > *:nth-child(13) > * {
+.modules-right > *:nth-child(3) > *,
+.modules-right > *:nth-child(6) > *,
+.modules-right > *:nth-child(9) > *,
+.modules-right > *:nth-child(12) > * {
   margin-right: -1px;
 }
 
@@ -247,26 +250,30 @@ tooltip label {
 
 /* RIGHT SECTION MODULES */
 /* HACK: slantend separators */
-
 .modules-right > *:nth-child(1) > * {
-  color: @accent2;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
 }
 
-.modules-right > *:nth-child(3) > * {
+.modules-right > *:nth-child(2) > * {
   color: @accent2;
 }
 
 .modules-right > *:nth-child(4) > * {
+  color: @accent2;
+}
+
+.modules-right > *:nth-child(5) > * {
   color: @accent7;
 }
 
-.modules-right > *:nth-child(7) > *,
-.modules-right > *:nth-child(9) > * {
+.modules-right > *:nth-child(6) > *,
+.modules-right > *:nth-child(8) > * {
   color: @background;
 }
 
-.modules-right > *:nth-child(10) > *,
-.modules-right > *:nth-child(12) > * {
+.modules-right > *:nth-child(9) > *,
+.modules-right > *:nth-child(11) > * {
   color: @accent4;
 }
 /* OLLAMA SECTION */
@@ -286,6 +293,7 @@ tooltip label {
 }
 
 #custom-gpu-usage {
+  min-width: 44px;
   background-position: left;
   background-repeat: no-repeat;
   background-size: 14px;

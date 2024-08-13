@@ -5,7 +5,7 @@ M.opts = {
 	direction = "horizontal",
 	persist_mode = false,
 	auto_scroll = true,
-	start_in_insert = true,
+	start_in_insert = false,
 	size = function(term)
 		if term.direction == "horizontal" then
 			return 20
@@ -35,10 +35,10 @@ M.opts = {
 	shade_terminals = false,
 	highlights = {
 		Normal = {
-			guibg = "NONE",
+			guibg = "#191724",
 		},
 		NormalFloat = {
-			guibg = "NONE",
+			guibg = "#191724",
 		},
 		FloatBorder = {
 			guifg = "#8bbec7",
@@ -48,49 +48,115 @@ M.opts = {
 
 M.config_function = function(_, opts)
 	require("toggleterm").setup(opts)
+	local api = vim.api
 	-- REGISTER MY CUSTOM TERMINALS:
 	local Terminal = require("toggleterm.terminal").Terminal
 	-- node terminal
 	local node_term = Terminal:new({ cmd = "node", direction = "float" })
 	-- btop terminal
 	local btop_term = Terminal:new({ cmd = "btop", direction = "float" })
+	-- go runner
+	local root_patterns = { ".git", ".clang-format", "go.mod", "package.json", "cargo.toml" }
+	local root_dir = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]) or vim.fn.cwd
+	print(root_dir)
 
-	local set_term_title = function(title)
+	local go_runner_term = Terminal:new({
+		float_opts = { focusable = false },
+		cmd = "go run " .. root_dir,
+		direction = "float",
+		close_on_exit = false,
+		auto_scroll = true,
+		start_in_insert = true,
+	})
+
+	local set_term_title = function(title, buf_title)
 		if vim.bo.filetype == "toggleterm" then
-			vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(), {
+			api.nvim_buf_set_name(0, buf_title)
+			api.nvim_win_set_config(api.nvim_get_current_win(), {
 				title = title,
 				title_pos = "left",
 			})
 		end
 	end
 
-	-- functions to call them
-	function _NODE_toggle()
-		node_term:toggle()
-		set_term_title("  Node ")
+	local spawn_go_runner = function()
+		vim.cmd("silent wa")
+		go_runner_term:toggle()
+		set_term_title("  Go Runner ", "go_runner")
+		vim.cmd("wincmd h")
 	end
 
-	function _BTOP_toggle()
+	api.nvim_create_user_command("SpawnNodeTerminal", function()
+		node_term:toggle()
+		set_term_title("  Node ", "node")
+	end, {
+		desc = "Spawn Node terminal",
+		bang = true,
+	})
+
+	api.nvim_create_user_command("SpawnBtopTerminal", function()
 		btop_term:toggle()
-		set_term_title("  BTOP ")
-	end
+		set_term_title("  BTOP ", "btop")
+	end, {
+		desc = "Spawn Btop terminal",
+		bang = true,
+	})
+
+	api.nvim_create_user_command("RunGoProject", function()
+		local winlist = api.nvim_list_wins()
+		local runner_on = { runner_win = nil, runner_buf = nil, found = false }
+		-- check if such term is already open
+		for _, win in ipairs(winlist) do
+			local bufname = api.nvim_buf_get_name(api.nvim_win_get_buf(win))
+			local bufnr = api.nvim_win_get_buf(win)
+			if string.find(bufname, "go_runner", 1, true) then
+				runner_on = { runner_win = win, runner_buf = bufnr, found = true }
+			end
+		end
+		if runner_on.found and runner_on.runner_win ~= nil and runner_on.runner_buf ~= nil then
+			api.nvim_win_close(runner_on.runner_win, true)
+			api.nvim_buf_delete(runner_on.runner_buf, { force = true })
+			spawn_go_runner()
+		else
+			spawn_go_runner()
+		end
+	end, {
+		bang = true,
+	})
+
+	-- for term navigation
 
 	-- navigation set as per toggleterm docs
-	vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+	local term_augroup = vim.api.nvim_create_augroup("termBinds", { clear = true })
+
+	api.nvim_create_autocmd("TermOpen", {
+		group = term_augroup,
+		callback = function()
+			local bind_opts = { buffer = 0 }
+			local map = vim.keymap.set
+			map("t", "<esc>", [[<C-\><C-n>]], bind_opts)
+			map("t", "jk", [[<C-\><C-n>]], bind_opts)
+			map("t", "<C-h>", [[<Cmd>wincmd h<CR>]], bind_opts)
+			map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], bind_opts)
+			map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], bind_opts)
+			map("t", "<C-l>", [[<Cmd>wincmd l<CR>]], bind_opts)
+			map("t", "<C-w>", [[<C-\><C-n><C-w>]], bind_opts)
+		end,
+	})
 
 	-- set keymaps for terms
-	vim.api.nvim_set_keymap(
+	api.nvim_set_keymap(
 		"n",
 		"<leader>tn",
-		"<cmd>lua _NODE_toggle()<CR>",
-		{ noremap = true, silent = true, desc = "Toggle NODE terminal" }
+		"<cmd>SpawnNodeTerminal<CR>",
+		{ noremap = true, silent = true, desc = "Open Node Terminal" }
 	)
 
-	vim.api.nvim_set_keymap(
+	api.nvim_set_keymap(
 		"n",
 		"<leader>tb",
-		"<cmd>lua _BTOP_toggle()<CR>",
-		{ noremap = true, silent = true, desc = "Toggle BTOP terminal" }
+		"<cmd> SpawnBtopTerminal <CR>",
+		{ noremap = true, silent = true, desc = "Open Btop" }
 	)
 end
 

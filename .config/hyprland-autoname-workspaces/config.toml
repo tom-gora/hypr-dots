@@ -55,10 +55,8 @@ pavucontrol = ""
 
 [exclude]
 "(?i)fcitx" = ".*"
-aProgram = "^$"
 "[Ss]team" = "^(Friends List.*)?$"
-"(?i)TestApp" = ""
-"" = "^$"
+"[Ww]ezterm" = ".*"
 
 [format]
 dedup = false

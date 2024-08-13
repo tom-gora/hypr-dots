@@ -11,17 +11,15 @@ source_if_exists() {
   fi
 }
 
-source_if_exists $HOME/.env.zsh
+source_if_exists "$HOME/.env.zsh"
 
-source_if_exists $XDG_CONFIG_HOME/zsh/main.zsh
-source_if_exists $XDG_CONFIG_HOME/zsh/exports.zsh
-source_if_exists $XDG_CONFIG_HOME/zsh/fzf_configs.zsh
-# changed from p10k to starship
-# source_if_exists $XDG_CONFIG_HOME/zsh/p10k_configs.zsh
-source_if_exists $XDG_CONFIG_HOME/zsh/aliases.zsh
-source_if_exists $XDG_CONFIG_HOME/zsh/plugins.zsh
-source_if_exists $XDG_CONFIG_HOME/zsh/functions.zsh
-source_if_exists $XDG_CONFIG_HOME/zsh/binds.zsh
+source_if_exists "$XDG_CONFIG_HOME/zsh/main.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/exports.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/fzf_configs.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/aliases.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/plugins.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/functions.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/binds.zsh"
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/tomeczku/.config/zsh/.zshrc'
@@ -30,8 +28,8 @@ autoload -Uz compinit promptinit
 compinit
 # End of lines added by compinstall
 
-eval $(thefuck --alias)
-eval $(thefuck --alias fk)
+eval "$(thefuck --alias)"
+eval "$(thefuck --alias fk)"
 eval "$(zoxide init zsh)"
 
 # exec oh-my-posh with my config
