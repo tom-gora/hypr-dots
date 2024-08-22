@@ -47,7 +47,7 @@ mainbox {
     children:                   [ "icon-current-entry", "listview", "inputbar" ];
 }
 
-/*  Imagebox  */               
+/*  img preview  */
 icon-current-entry  {                     
     margin:                     0 -2px 0 -2px;
     expand:                     false;

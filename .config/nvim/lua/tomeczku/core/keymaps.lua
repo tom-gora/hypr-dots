@@ -44,7 +44,7 @@ n_nonrecursive = {
 	["<leader>/"] = { "gcc", vim.tbl_deep_extend("force", ignore, { remap = true }) },
 	-- clear search highlights
 	["<Esc>"] = { "<cmd> noh <CR>", ignore },
-	-- ["jk"] = { "<cmd> noh <CR>", ignore },
+	["<leader>jk"] = { "<cmd> noh <CR>", ignore },
 	-- write buffer
 	["<leader>w"] = { "<cmd>w<cr>", ignore },
 	-- write all bufs

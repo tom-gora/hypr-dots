@@ -22,7 +22,7 @@ local opts = {
 		astro = { "prettier" },
 		php = { "prettier" },
 		svg = { "xmlformat" },
-		go = { "gfmt" },
+		go = { "gofumpt" },
 	},
 
 	-- adding same formatter for multiple filetypes can look too much work for some

@@ -43,6 +43,11 @@ alias rmr="rm -r"
 # forced
 alias rmf="rm -rf"
 
+# play yt in mpv
+alias ythi='mpv --ytdl-format="bestvideo[height<=1080]+bestaudio/best[height<=1080]" $1' # 720p
+alias ytmid='mpv --ytdl-format="bestvideo[height<=720]+bestaudio/best[height<=720]" $1'  # 720p
+alias ytlow='mpv --ytdl-format=18 $1'                                                    # 360p
+
 # php-server
 # alias php-server="php-server"
 # navigation improvements

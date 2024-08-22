@@ -41,8 +41,11 @@ M.mason = {
 		"lemminx",
 		"xmlformatter",
 		-- hyprland configurations ls
-		-- "hyprls"
+		"hyprls",
+		--go stuff
 		"gopls",
+		"gofumpt",
+
 		--
 		-- LINTERS
 		"htmlhint",

@@ -102,6 +102,28 @@ M.config_function = function(_, opts)
 		bang = true,
 	})
 
+	api.nvim_create_user_command("ToggleGoRunner", function()
+		local winlist = api.nvim_list_wins()
+		local runner_on = { runner_win = nil, runner_buf = nil, found = false }
+		-- check if such term is already open
+		for _, win in ipairs(winlist) do
+			local bufname = api.nvim_buf_get_name(api.nvim_win_get_buf(win))
+			local bufnr = api.nvim_win_get_buf(win)
+			if string.find(bufname, "go_runner", 1, true) then
+				runner_on = { runner_win = win, runner_buf = bufnr, found = true }
+			end
+		end
+		if runner_on.found and runner_on.runner_win ~= nil and runner_on.runner_buf ~= nil then
+			api.nvim_win_close(runner_on.runner_win, true)
+		else
+			go_runner_term:toggle()
+			set_term_title("  Go Runner ", "go_runner")
+			vim.cmd("wincmd h")
+		end
+	end, {
+		bang = true,
+	})
+
 	api.nvim_create_user_command("RunGoProject", function()
 		local winlist = api.nvim_list_wins()
 		local runner_on = { runner_win = nil, runner_buf = nil, found = false }

@@ -7,7 +7,6 @@ export LC_ALL=en_GB.UTF-8
 export ANDROID_HOME="$XDG_DATA_HOME/android"
 export ANDROID_AVD_HOME="$HOME/.var/app/com.google.AndroidStudio/config/.android/avd"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-export GOPATH="$XDG_CONFIG_HOME/go"
 export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
@@ -18,13 +17,15 @@ export PROMPT_EOL_MARK=""
 # Add Java to path
 export CLASSPATH=/lib/jvm/java-17-openjdk-17.0.9.0.9-3.fc39.x86_64/bin
 
-
 # Local binaries in path
 export PATH="$HOME/.local/bin":$PATH
 export PATH="/usr/local/bin":$PATH
 export PATH="$HOME/.local/bin/.spicetify":$PATH
 export PATH="$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/tools/bin":$PATH
 export PATH="$HOME/.config/cargo/bin":$PATH
+export GOPATH=$(go env GOPATH)
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
 
 # Manpath
 export MANPATH="/usr/local/man:$MANPATH"
@@ -45,8 +46,9 @@ fi
 export BAT_THEME='rose-pine-moon'
 
 # Preferred browser
-local BROWSER_CMD() {wayland-proxy $(which floorp)}
-export BROWSER="BROWSER_CMD"
+# local BROWSER_CMD() {wayland-proxy $(which floorp)}
+# export BROWSER="BROWSER_CMD"
+export BROWSER="floorp"
 
 # some wayland fixes
 export HSA_OVERRIDE_GFX_VERSION=10.3.0

@@ -67,7 +67,7 @@ M.path_formatter = function(root_sep, path_end_sep)
 		return { root = "", path = "", root_sep = root_sep, path_end_sep = path_end_sep }
 	end
 
-	local root = "  " .. project_root .. " %#St_Root_Sep_Right#"
+	local root = "  " .. project_root .. " %#St_Root_Sep_Right#"
 	if vim.bo.filetype == "oil" then
 		root = " 󰏇  %#St_Root_Sep_Right#"
 		relative_path = " Oil "

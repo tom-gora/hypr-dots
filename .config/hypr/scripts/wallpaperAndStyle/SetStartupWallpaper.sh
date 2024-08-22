@@ -9,7 +9,7 @@ WALLPAPER_DECIDED_BY_SDDM=$(cat /tmp/initial-wallpaper)
 REFRESH_SCRIPT="/home/tomeczku/.config/hypr/scripts/wallpaperAndStyle/RefreshNoWaybar.sh"
 
 #check if sddm service at startup managed to select img for display manager, if so store it to keep consistent img for wallpaper
-if [ ! -z "$WALLPAPER_DECIDED_BY_SDDM" ]; then
+if [ -n "$WALLPAPER_DECIDED_BY_SDDM" ]; then
 	#else fallback selected at the top of the script
 	WALLPAPER="$WALLPAPER_DECIDED_BY_SDDM"
 fi

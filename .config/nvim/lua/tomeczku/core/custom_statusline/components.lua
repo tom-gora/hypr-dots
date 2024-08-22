@@ -21,7 +21,7 @@ local modes = {
 	["vs"] = { "V-CHAR (Ctrl O)", "St_VisualMode" },
 	["V"] = { "V-LINE", "St_VisualMode" },
 	["Vs"] = { "V-LINE", "St_VisualMode" },
-	[""] = { "V-BLOCK", "Visual" },
+	[""] = { "V-BLOCK", "ST_VisualMode" },
 
 	["i"] = { "INSERT", "St_InsertMode" },
 	["ic"] = { "INSERT (completion)", "St_InsertMode" },
@@ -62,10 +62,9 @@ M.mode_plus_path = function()
 	modes["n"][3] = "N"
 	-- tweak visual modes
 	modes["v"][3] = "V"
-	modes["V"][3] = "V"
-	modes["Vs"][3] = "V"
-	modes["V"][3] = "V"
-	modes[""][3] = "V"
+	modes["Vs"][3] = "VL"
+	modes["V"][3] = "VL"
+	modes[""][3] = "VB"
 	-- tweak insert modes
 	modes["i"][3] = "I"
 	modes["ic"][3] = "I"
@@ -96,6 +95,7 @@ M.mode_plus_path = function()
 		.. "%#"
 		.. modes[m][2]
 		.. "Text#"
+		.. " "
 		.. path_components["path"]
 		.. "%#St_sep_r#"
 		.. path_components["path_end_sep"]
