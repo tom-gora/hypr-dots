@@ -14,7 +14,7 @@ if [ -z "$DISCORD_OBJ" ]; then
 	firefoxpwa site launch 01J5XK92QZXQ6R2W9S2JP0CDF1 --protocol
 	sleep 1
 	hyprctl dispatch movetoworkspace "e-0","FFPWA-01J5XK92QZXQ6R2W9S2JP0CDF1"
-	# hyprctl dispatch focuswindow "FFPWA-01J4VCP1Y0M0HXJBSP8528JPKJ"
+	# hyprctl dispatch focuswindow "FFPWA-01J5XK92QZXQ6R2W9S2JP0CDF1"
 	exit 0
 fi
 

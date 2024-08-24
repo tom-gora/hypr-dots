@@ -33,4 +33,10 @@ eval "$(thefuck --alias fk)"
 eval "$(zoxide init zsh)"
 
 # exec oh-my-posh with my config
-eval "$(oh-my-posh init zsh --config ~/.config/my_omp.json)"
+if [ -n "$SCRATCHPAD" ]; then
+  # If SCRATCHPAD is set, load the scratchpad config
+  eval "$(oh-my-posh init zsh --config ~/.config/my_scratchpad_omp.json)"
+else
+  # Otherwise, load the default config
+  eval "$(oh-my-posh init zsh --config ~/.config/my_omp.json)"
+fi

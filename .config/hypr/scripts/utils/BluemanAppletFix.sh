@@ -3,7 +3,7 @@
 # Initial attempt to start the blueman-applet
 blueman-applet &
 # Sleep for 5 seconds to make sure attempt executed
-sleep 5
+sleep 2
 # Do the first check and kill the first instance that fails to draw icon
 if pgrep -x "blueman-applet" >/dev/null; then
 	pkill -x "blueman-applet"

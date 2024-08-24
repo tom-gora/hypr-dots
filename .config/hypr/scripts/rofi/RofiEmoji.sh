@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed '1,/^### DATA ###$/d' $0 | 
+sed '1,/^### DATA ###$/d' "$0" | 
 rofi -dmenu -config ~/.config/rofi/config-emoji.rasi| 
 cut -d ' ' -f 1 | tr -d '\n' | wl-copy
 
