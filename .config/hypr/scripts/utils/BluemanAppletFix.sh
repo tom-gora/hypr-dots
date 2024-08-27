@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # Initial attempt to start the blueman-applet
+if pgrep -x "blueman-applet" >/dev/null; then
+	pkill -x "blueman-applet"
+	sleep 2
+fi
 blueman-applet &
 # Sleep for 5 seconds to make sure attempt executed
 sleep 2

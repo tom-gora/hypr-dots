@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 local ignore = { desc = "which_key_ignore" }
--- ADDITIONAL ISOLATED FIXES
--- don't need to be put in a tables to map by iteration
+-- NOTE: ADDITIONAL ISOLATED FIXES
+-- cannot be put in a tables to map by iteration
 --
 --fix polluting clipboard on pasting over visual selection
 map("x", "p", "P", ignore)
@@ -10,25 +10,35 @@ map("x", "p", "P", ignore)
 -- src for the latter: https://www.reddit.com/r/neovim/comments/ofg7tu/use_cj_and_ck_in_nvimcompe_instead_of_cp_cn/
 map("c", "<c-l>", "<right>", { noremap = false })
 map("c", "<c-h>", "<left>", { noremap = false })
--- HACK: This worked! Dunno why tho??
+-- HACK: This worked! with arcane vimscript! XD Dunno why but I'll take it
 vim.cmd([[
 cmap <C-j> <C-n>
 cmap <C-k> <C-p>
 ]])
+-- whichkey adjustments
+local wk = require("which-key")
+wk.add({
+	{ "<leader>v", proxy = "<c-w>", group = " Splits" },
+	{
+		mode = { "x" },
+		{ "<leader>ri", group = "Replace Inside Visual Selection" },
+		{ "<leader>~", group = "󰬴 TextCase" },
+	},
+})
 
 -- maps in tables to iterate over
 
 -- normal mode maps table
-local n_nonrecursive
+local nNore
 -- visual mode maps table
-local v_nonrecursive
+local xNore
 -- insert mode maps table
-local i_nonrecursive
+local iNore
 -- normal && visual maps table
-local nv_nonrecursive
+local nxNore
 
 -- declare normal mode keymaps key:bindig -> value:command, value: opts table
-n_nonrecursive = {
+nNore = {
 	--  fix polluting clipboard with non cutting operations
 	["ciw"] = { '"_ciw', ignore },
 	["caw"] = { '"_caw', ignore },
@@ -39,18 +49,16 @@ n_nonrecursive = {
 	["p"] = { "gp", ignore },
 	-- explicityly call native lsp action on go to file seems to fix
 	-- toggle oil pane
-	["<leader>e"] = { "<Cmd>Oil --float<CR>", { desc = "󰏇 Toggle Oil" } },
+	["<leader>e"] = { "<Cmd>Oil --float<cr>", { desc = "󰏇 Toggle Oil" } },
 	-- toggle comment line in normal mode
 	["<leader>/"] = { "gcc", vim.tbl_deep_extend("force", ignore, { remap = true }) },
 	-- clear search highlights
-	["<Esc>"] = { "<cmd> noh <CR>", ignore },
-	["<leader>jk"] = { "<cmd> noh <CR>", ignore },
+	["<Esc>"] = { "<cmd>noh<cr>", ignore },
+	["<leader>jk"] = { "<cmd>noh<cr>", ignore },
 	-- write buffer
 	["<leader>w"] = { "<cmd>w<cr>", ignore },
 	-- write all bufs
 	["<leader>W"] = { "<cmd>wa<cr>", ignore },
-	-- leader driven alias for c-w
-	["<leader>v"] = { "<cmd>lua vim.api.nvim_input('<c-w>')<cr>", { desc = " Splits" } },
 	-- jump between bufs back and forth
 	-- barbar with native nvim fallback
 	["<S-l>"] = {
@@ -67,55 +75,54 @@ n_nonrecursive = {
 	},
 	-- whichkey neovim section
 	["<leader>n"] = { " NeoVim" },
-	["<leader>ns"] = { "<cmd>lua _G.ClearSwap()<CR>", { desc = "Clear the Swap" } },
-	["<leader>nl"] = { "<cmd>Lazy<CR>", { desc = "Open Lazy" } },
-	["<leader>nm"] = { "<cmd>Mason<CR>", { desc = "Open Mason" } },
-	["<leader>nc"] = { "<cmd>checkhealth<CR>", { desc = "Do Checkhealth" } },
-	["<leader>nh"] = { "<cmd>Telescope highlights <CR>", { desc = "Look up HL Groups" } },
-	["<leader>n?"] = { "<cmd>Telescope help_tags <CR>", { desc = "Help 󰋗 " } },
-	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<CR>", { desc = "Dismiss Notifications" } },
+	["<leader>ns"] = { "<cmd>ClearSwap<cr>", { desc = "Clear the Swap" } },
+	["<leader>nl"] = { "<cmd>Lazy<cr>", { desc = "Open Lazy" } },
+	["<leader>nm"] = { "<cmd>Mason<cr>", { desc = "Open Mason" } },
+	["<leader>nc"] = { "<cmd>checkhealth<cr>", { desc = "Do Checkhealth" } },
+	["<leader>nh"] = { "<cmd>Telescope highlights <cr>", { desc = "Look up HL Groups" } },
+	["<leader>n?"] = { "<cmd>Telescope help_tags <cr>", { desc = "Help 󰋗 " } },
+	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", { desc = "Dismiss Notifications" } },
 	--
 	-- whichkey goto section
 	["<leader>g"] = { " Go To" },
-	["<leader>gb"] = { "<cmd>Telescope buffers<CR>", { desc = "Find Buffers" } },
+	["<leader>gb"] = { "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" } },
 	["<leader>gp"] = { "<cmd>BufferPick<cr>", { desc = "Pick Buffer from Tabline" } },
 	-- Goto buffer in position...
-	["<leader>g1"] = { "<Cmd>BufferGoto 1<CR>", { desc = "Go to Buffer Index 1" } },
-	["<leader>g2"] = { "<Cmd>BufferGoto 2<CR>", { desc = "Go to Buffer Index 2" } },
-	["<leader>g3"] = { "<Cmd>BufferGoto 3<CR>", { desc = "Go to Buffer Index 3" } },
-	["<leader>g4"] = { "<Cmd>BufferGoto 4<CR>", { desc = "Go to Buffer Index 4" } },
-	["<leader>g5"] = { "<Cmd>BufferGoto 5<CR>", { desc = "Go to Buffer Index 5" } },
-	["<leader>g6"] = { "<Cmd>BufferGoto 6<CR>", { desc = "Go to Buffer Index 6" } },
-	["<leader>g7"] = { "<Cmd>BufferGoto 7<CR>", { desc = "Go to Buffer Index 7" } },
-	["<leader>g8"] = { "<Cmd>BufferGoto 8<CR>", { desc = "Go to Buffer Index 8" } },
-	["<leader>g9"] = { "<Cmd>BufferGoto 9<CR>", { desc = "Go to Buffer Index 9" } },
-	["<leader>g0"] = { "<Cmd>BufferLast<CR>", { desc = "Go to Last Buffer" } },
+	["<leader>g1"] = { "<Cmd>BufferGoto 1<cr>", { desc = "Go to Buffer Index 1" } },
+	["<leader>g2"] = { "<Cmd>BufferGoto 2<cr>", { desc = "Go to Buffer Index 2" } },
+	["<leader>g3"] = { "<Cmd>BufferGoto 3<cr>", { desc = "Go to Buffer Index 3" } },
+	["<leader>g4"] = { "<Cmd>BufferGoto 4<cr>", { desc = "Go to Buffer Index 4" } },
+	["<leader>g5"] = { "<Cmd>BufferGoto 5<cr>", { desc = "Go to Buffer Index 5" } },
+	["<leader>g6"] = { "<Cmd>BufferGoto 6<cr>", { desc = "Go to Buffer Index 6" } },
+	["<leader>g7"] = { "<Cmd>BufferGoto 7<cr>", { desc = "Go to Buffer Index 7" } },
+	["<leader>g8"] = { "<Cmd>BufferGoto 8<cr>", { desc = "Go to Buffer Index 8" } },
+	["<leader>g9"] = { "<Cmd>BufferGoto 9<cr>", { desc = "Go to Buffer Index 9" } },
+	["<leader>g0"] = { "<Cmd>BufferLast<cr>", { desc = "Go to Last Buffer" } },
 	--
 	-- lazygit
 	["<leader>G"] = { "<cmd>LazyGit<cr>", { desc = "󰊢 LazyGit" } },
-
 	--
 	-- whichkey find and telescope section
 	["<leader>f"] = { " Find" },
-	["<leader>ff"] = { "<cmd>Telescope find_files<CR>", { desc = "Find Files" } },
+	["<leader>ff"] = { "<cmd>Telescope find_files<cr>", { desc = "Find Files" } },
 	["<leader>fw"] = { "<cmd>Telescope grep_string<cr>", { desc = "Find Word Under Cursor/Selection" } },
 	-- Goto buffer in position...
 	["<leader>fo"] = {
-		"<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>",
+		"<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>",
 		{ desc = "Find in Opened Files" },
 	},
-	["<leader>fb"] = { "<Cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Find in Current Buffer" } },
-	["<leader>fd"] = { "<Cmd>Telescope live_grep<CR>", { desc = "Find in CWD" } },
+	["<leader>fb"] = { "<Cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find in Current Buffer" } },
+	["<leader>fd"] = { "<Cmd>Telescope live_grep<cr>", { desc = "Find in CWD" } },
 	["<leader>fa"] = {
-		"<Cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+		"<Cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>",
 		{ desc = "Find All Files (hidden etc.)" },
 	},
-	["<leader>fp"] = { "<Cmd>Telescope pickers<CR>", { desc = "Recent Pickers" } },
-	["<leader>fh"] = { "<Cmd>Telescope command_history<CR>", { desc = "Command History" } },
-	["<leader>fu"] = { "<Cmd>Telescope undo<CR>", { desc = "Find in Undo Tree" } },
-	["<leader>fs"] = { "<Cmd>Telescope symbols<CR>", { desc = "Find Symbols" } },
-	["<leader>fe"] = { "<Cmd>Telescope file_browser<CR>", { desc = "Find in File Explorer" } },
-	["<leader>fc"] = { "<Cmd>TodoTelescope<CR>", { desc = "Find Todo Comments" } },
+	["<leader>fp"] = { "<Cmd>Telescope pickers<cr>", { desc = "Recent Pickers" } },
+	["<leader>fh"] = { "<Cmd>Telescope command_history<cr>", { desc = "Command History" } },
+	["<leader>fu"] = { "<Cmd>Telescope undo<cr>", { desc = "Find in Undo Tree" } },
+	["<leader>fs"] = { "<Cmd>Telescope symbols<cr>", { desc = "Find Symbols" } },
+	["<leader>fe"] = { "<Cmd>Telescope file_browser<cr>", { desc = "Find in File Explorer" } },
+	["<leader>fc"] = { "<Cmd>TodoTelescope<cr>", { desc = "Find Todo Comments" } },
 	--
 	-- whichkey terminal section
 	["<leader>t"] = { " Terminal" },
@@ -130,13 +137,13 @@ n_nonrecursive = {
 	["<C-k>"] = { "<C-w>k", ignore },
 
 	-- whichkey replace section
-	["<leader>r"] = { "李Replace" },
+	["<leader>r"] = { "󰛔 Replace" },
 	["<leader>rw"] = { "Replace Cword" },
 	["<leader>rr"] = { "Replace Init" },
-	["<leader>rwi"] = { "<cmd>lua SearchReplaceCword(true)<cr>", { desc = "Replace Cword Ignore Case" } },
-	["<leader>rwp"] = { "<cmd>lua SearchReplaceCword(false)<cr>", { desc = "Replace Cword Preserve Case" } },
-	["<leader>rri"] = { "<cmd>lua SearchReplaceInit(true)<cr>", { desc = "Replace Ignore Case" } },
-	["<leader>rrp"] = { "<cmd>lua SearchReplaceInit(false)<cr>", { desc = "Replace Preserve Case" } },
+	["<leader>rwi"] = { "<cmd>SearchReplaceCword true<cr>", { desc = "Replace Cword Ignore Case" } },
+	["<leader>rwp"] = { "<cmd>SearchReplaceCword false<cr>", { desc = "Replace Cword Preserve Case" } },
+	["<leader>rri"] = { "<cmd>SearchReplaceInit true<cr>", { desc = "Replace Ignore Case" } },
+	["<leader>rrp"] = { "<cmd>SearchReplaceInit false<cr>", { desc = "Replace Preserve Case" } },
 	--
 	-- name the mappings for text-case plugin to keep the consistent whichkey look
 	["<leader>~"] = { "󰬴 TextCase" },
@@ -159,10 +166,12 @@ n_nonrecursive = {
 	["<leader>lf"] = { "<cmd>Lspsaga finder<cr>", { desc = "Show Symbol Finder" } },
 	["<leader>lL"] = { "<cmd>Lspsaga open_log<cr>", { desc = "Open LspSaga Log" } },
 	["<leader>lc"] = { "<cmd>Lspsaga code_action<cr>", { desc = "Lsp Code Action" } },
+	-- my index fixing command
+	["gz"] = { "<cmd>MultiplyLineWithIndexing<cr>", { desc = "Multiply Line with Indexing" } },
 }
 
 -- declare insert mode keymaps key:bindig -> value:command, value: opts table
-i_nonrecursive = {
+iNore = {
 	--
 	--
 	-- navigate within insert mode
@@ -173,7 +182,7 @@ i_nonrecursive = {
 }
 
 -- declare visual mode keymaps key:bindig -> value:command, value: opts table
-v_nonrecursive = {
+xNore = {
 	--
 	-- toggle comment line in visual mode
 	["<leader>/"] = {
@@ -181,17 +190,19 @@ v_nonrecursive = {
 		vim.tbl_deep_extend("force", ignore, { remap = true }),
 	},
 	-- search and replace section
-	["<leader>r"] = { "李Replace" },
-	["<leader>rs"] = { ":lua SearchReplaceVisualSelection()<cr>", { desc = "Replace the Selection" } },
-	["<leader>rii"] = { ":lua SearchReplaceInsideVisualSelection(true)<cr>", { desc = "Inside Selection Ignore Case" } },
+	["<leader>r"] = { " Replace" },
+	["<leader>rs"] = { "<cmd>SearchReplaceVisualSelection<cr>", { desc = "Replace the Selection" } },
+	["<leader>rii"] = { "<cmd>SearchReplaceInsideVisualSelection true<cr>", { desc = "Inside Selection Ignore Case" } },
 	["<leader>rip"] = {
-		":lua SearchReplaceInsideVisualSelection(false)<cr>",
+		"<cmd>SearchReplaceInsideVisualSelection false<cr>",
 		{ desc = "Inside Selection Preserve Case" },
 	},
+	-- my index fixing command
+	["gz"] = { ":<c-u>ApplyIndexingOverSelection<cr>", { desc = "Index Lines Inside Selection" } },
 }
 
 -- declare normal and visual mode keymaps key:bindig -> value:command, value: opts table
-nv_nonrecursive = {
+nxNore = {
 	["c"] = { '"_c', ignore },
 	["x"] = { '"_x', ignore },
 	["d"] = { '"_d', ignore },
@@ -201,18 +212,18 @@ nv_nonrecursive = {
 	--
 	-- whichkey open section
 	["<leader>o"] = { " Open" },
-	["<leader>on"] = { "<cmd> enew <CR>", { desc = "Open New Buffer" } },
+	["<leader>on"] = { "<cmd> enew <cr>", { desc = "Open New Buffer" } },
 	["<leader>of"] = {
 		function()
-			local root_path = vim.fn.expand("%:p:h")
-			return ":e " .. root_path .. "/"
+			local rootPath = vim.fn.expand("%:p:h")
+			return ":e " .. rootPath .. "/"
 		end,
 		{ desc = "Open...", expr = true },
 	},
-	["<leader>oc"] = { "<cmd> e#<CR>", { desc = "Reopen Last Closed" } },
-	["<leader>or"] = { "<cmd>Telescope oldfiles<CR>", { desc = "Open Recent" } },
-	["<leader>oo"] = { "<Cmd>Telescope file_browser<CR>", { desc = "Open With Telescope" } },
-	["<leader>oq"] = { "<Cmd>copen<CR>", { desc = "Open Quickfix List" } },
+	["<leader>oc"] = { "<cmd> e#<cr>", { desc = "Reopen Last Closed" } },
+	["<leader>or"] = { "<cmd>Telescope oldfiles<cr>", { desc = "Open Recent" } },
+	["<leader>oo"] = { "<Cmd>Telescope file_browser<cr>", { desc = "Open With Telescope" } },
+	["<leader>oq"] = { "<Cmd>copen<cr>", { desc = "Open Quickfix List" } },
 	--
 	-- whichkey close section
 	["<leader>q"] = { " Close" },
@@ -225,25 +236,25 @@ nv_nonrecursive = {
 	["<leader>qw"] = { "<cmd>qa!<cr>", { desc = "Force Close Neovim" } },
 	["<leader>qa"] = { "<cmd>%bd!<cr>", { desc = "Close All Buffers" } },
 	["<leader>qo"] = { "<cmd>BufferCloseAllButCurrent<cr>", { desc = "Close All Other Buffers" } },
-	["<leader>qu"] = { "<cmd>lua _G.CloseUnmodifiedBuffers()<CR>", { desc = "Close All Unmodified Buffers" } },
+	["<leader>qu"] = { "<cmd>CloseUnmodifiedBuffers<cr>", { desc = "Close All Unmodified Buffers" } },
 }
 
--- loop over n_nonrecursive bindings and set the keymaps
-for k, v in pairs(n_nonrecursive) do
+-- loop over nNore bindings and set the keymaps
+for k, v in pairs(nNore) do
 	map("n", k, v[1], v[2])
 end
 
--- loop over i_nonrecursive bindings and set the keymaps
-for k, v in pairs(i_nonrecursive) do
+-- loop over iNore bindings and set the keymaps
+for k, v in pairs(iNore) do
 	map("i", k, v[1], v[2])
 end
 
--- loop over v_nonrecursive bindings and set the keymaps
-for k, v in pairs(v_nonrecursive) do
-	map("v", k, v[1], v[2])
+-- loop over xNore bindings and set the keymaps
+for k, v in pairs(xNore) do
+	map("x", k, v[1], v[2])
 end
 
--- loop over nv_nonrecursive bindings and set the keymaps
-for k, v in pairs(nv_nonrecursive) do
-	map({ "n", "v" }, k, v[1], v[2])
+-- loop over nxNore bindings and set the keymaps
+for k, v in pairs(nxNore) do
+	map({ "n", "x" }, k, v[1], v[2])
 end

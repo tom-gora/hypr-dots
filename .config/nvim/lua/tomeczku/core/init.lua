@@ -6,8 +6,8 @@ require("tomeczku.core.bootstrap_lazy")
 require("tomeczku.core.highlights")
 -- keymaps
 require("tomeczku.core.keymaps")
--- my global functions
-require("tomeczku.core.global_functions")
+-- my user commands
+require("tomeczku.core.user_commands")
 -- bring int autocommands
 require("tomeczku.core.autocommands")
 -- get statuslinme
