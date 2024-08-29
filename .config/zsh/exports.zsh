@@ -40,7 +40,7 @@ else
 fi
 
 #set plugin dir for rofi
-# export ROFI_PLUGIN_PATH="/lib/rofi"
+export ROFI_PLUGIN_PATH="/usr/lib64/rofi"
 
 # Force bat theme
 export BAT_THEME='rose-pine-moon'

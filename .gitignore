@@ -2,4 +2,4 @@
 .config/zsh/histfile
 .config/zsh/.zcompdump*
 .config/rofi/.current_wallpaper
-.config/btop/btop.log
+*.log
