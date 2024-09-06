@@ -1,21 +1,24 @@
-version = "1.1.14"
+version = "1.1.15"
 
 [class]
-DEFAULT = "󰖯"
-"(?i)jetbrains-studio" = "󰀴"
-"[Ff]irefox" = "󰈹"
-"[?i]*floorp" = "󰾔"
-"(?i)Steam" = "󰓓"
-"(?i)Thunar" = ""
-Brave-browser = ""
-"(?i)Joplin" = ""
-"(?i)Thunderbird" = ""
-"(?i)jetbrains-idea" = ""
-"(?i)Kitty" = ""
-"(?i)Wezterm" = ""
-"(?i)Codium" = "󰨞"
-pavucontrol = ""
+"[?i]*floorp" = "󰖟"
+"[?i]*zen-alpha" = "󰖟"
 "org.gnome.Calculator" = ""
+DEFAULT = "󰖯"
+"[Ff]irefox" = "󰈹"
+"(?i)Codium" = "󰨞"
+"(?i)Joplin" = ""
+"(?i)jetbrains-idea" = ""
+pavucontrol = ""
+"(?i)Steam" = "󰓓"
+Brave-browser = ""
+"(?i)Thunderbird" = ""
+"(?i)kitty" = "󰄛"
+"(?i)jetbrains-studio" = "󰀴"
+"(?i)Thunar" = ""
+"(?i)wezterm" = ""
+"(?i)scratchpad" = "󱞂"
+"(?i)inkscape" = ""
 
 [class_active]
 
@@ -24,19 +27,21 @@ pavucontrol = ""
 [initial_class_active]
 
 [workspaces_name]
-0 = "󰎡"
-1 = "󰎤"
-2 = "󰎧"
-3 = "󰎪"
+9 = "󰎼"
 4 = "󰎭"
+10 = "󰽽"
+0 = "󰎡"
+3 = "󰎪"
+2 = "󰎧"
 5 = "󰎱"
 6 = "󰎳"
+1 = "󰎤"
 7 = "󰎶"
 8 = "󰎹"
-9 = "󰎼"
-10 = "󰽽"
 
-[title_in_class]
+[title_in_class."FFPWA.*"]
+"Ollama Open WebUI" = " "
+"Discord" = "󰙯 "
 
 [title_in_class_active]
 
@@ -46,6 +51,8 @@ pavucontrol = ""
 
 [initial_title_in_class."^$"]
 "(?i)spotify" = ""
+"(?i)wezterm" = ""
+"(?i)kitty" = "󰄛"
 
 [initial_title_in_class_active]
 
@@ -54,9 +61,8 @@ pavucontrol = ""
 [initial_title_in_initial_class_active]
 
 [exclude]
-"(?i)fcitx" = ".*"
 "[Ss]team" = "^(Friends List.*)?$"
-"[Ww]ezterm" = ".*"
+"(?i)fcitx" = ".*"
 
 [format]
 dedup = false
@@ -67,3 +73,6 @@ workspace_empty = "<span color='#6e6a86' font-size='x-large' rise='-2300'>{name}
 client = "{icon}"
 client_fullscreen = "[<span font_size='7pt' >{icon}</span>]"
 client_active = "<span color='#d7827e'>{icon}</span>"
+client_dup = "{icon}{counter_sup}"
+client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused_sup}"
+client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused_sup}"

@@ -4,6 +4,7 @@ export EDITOR='nvim'
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
 export HISTFILE="$XDG_STATE_HOME/bash/history"
+export TERMINAL="wezterm"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -33,3 +34,4 @@ fi
 unset rc
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+eval "$(zoxide init bash)"

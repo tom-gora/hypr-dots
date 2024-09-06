@@ -46,9 +46,8 @@ export ROFI_PLUGIN_PATH="/usr/lib64/rofi"
 export BAT_THEME='rose-pine-moon'
 
 # Preferred browser
-# local BROWSER_CMD() {wayland-proxy $(which floorp)}
-# export BROWSER="BROWSER_CMD"
-export BROWSER="floorp"
+export BROWSER="flatpak run io.github.zen_browser.zen -P tomeczku"
+export TERMINAL="wezterm"
 
 # some wayland fixes
 export HSA_OVERRIDE_GFX_VERSION=10.3.0

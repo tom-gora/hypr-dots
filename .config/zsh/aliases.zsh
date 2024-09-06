@@ -12,6 +12,9 @@ alias src="source $ZDOTDIR/.zshrc"
 # other nvim aliases
 alias vi="nvim"
 
+#new browser
+# alias zen-browser="flatpak run io.github.zen_browser.zen -P tomeczku"
+
 # eza instead of ls
 alias ll="eza -l --group-directories-first --group --header --icons always"
 alias ls="eza -1 --group-directories-first --icons always"

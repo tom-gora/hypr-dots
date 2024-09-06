@@ -2,10 +2,11 @@
 # Rofi menu for Quick Edit
 
 configs="$HOME/.config/hypr/configs"
+iDIR="$HOME/.config/swaync/images"
 
 send_notification() {
 	local message=$1
-	notify-send -u normal "Color Picker" "$message"
+	notify-send -u low -i "$iDIR/dropper.svg" -a "Color Picker" "$message"
 }
 add_alpha() {
 	local color=$1
@@ -25,7 +26,7 @@ prep_color() {
 	local INPUT_CLR=$(hyprpicker --format hex)
 	#check for user cancelling pick process
 	if [[ -z "$INPUT_CLR" ]]; then
-		send_notification "Color picking cancelled 💔"
+		send_notification "Color picking cancelled "
 		exit 1
 	fi
 	#store bg for rofi
@@ -85,6 +86,9 @@ menu() {
 }
 
 main() {
+	send_notification "Pick a color..."
+	sleep 1
+	swaync-client -C
 	# Check for dependencies
 	DEPS=""
 	if ! command -v jq &>/dev/null; then

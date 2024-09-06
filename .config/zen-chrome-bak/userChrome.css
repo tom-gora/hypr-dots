@@ -1,0 +1,174 @@
+@-moz-document url-prefix("chrome:") {
+  /* this is my theme adjusted for rose pine colorscheme */
+  :root {
+    --zen-colors-primary: #393552 !important;
+    --zen-colors-secondary: #1f1d2e !important;
+    --zen-colors-tertiary: #191724 !important;
+    --zen-colors-border: #2a2838 !important;
+    --zen-primary-color: #393552 !important;
+    --zen-dialog-background: #191724 !important;
+    --zen-svg-color: #9ccfd8 !important;
+    --zen-text-color: #e0def4 !important;
+    --zen-uber-dark: #0f0e16 !important;
+    --zen-uber-dark-alpha: rgba(15, 14, 22, 0.9) !important;
+    --urlbar-box-bgcolor: #191724 !important;
+    /*reset for some fancy pants spacing and style on the actual box where sites
+     are being rendered, that I don't need */
+    .browserSidebarContainer {
+      margin: unset !important;
+      box-shadow: unset !important;
+      clip-path: unset !important;
+      border-radius: unset !important;
+      overflow: unset !important;
+    }
+  }
+  /*######################################################################*/
+  /*global reset for text color and radia*/
+  * {
+    border-radius: 2px !important;
+    color: var(--zen-text-color) !important;
+  }
+
+  /*######################################################################*/
+  /*Hide new tab button*/
+  #tabbrowser-tabs #newtab-button-container {
+    display: none !important;
+  }
+  /*######################################################################*/
+  /*more accent color for svg buttons icons etc in line with my rose pine system*/
+  .urlbar-input-container box *,
+  .urlbar-input-container hbox *,
+  toolbarbutton * {
+    fill: var(--zen-svg-color) !important;
+    stroke: var(--zen-svg-color) !important;
+  }
+
+  /*######################################################################*/
+  /*HACK: fix for weirdly large reload button (maybe bug and when fixed will need to go?)*/
+  #reload-button {
+    scale: 0.9 !important;
+  }
+
+  /*######################################################################*/
+  /*using custom extension so on newpage hiding indicator of extension resposible for my startpage*/
+  #urlbar #identity-box.extensionPage #identity-icon-label {
+    display: none !important;
+  }
+
+  /*######################################################################*/
+  /*more condensed urlbar (padding removed from toolbar)*/
+  #nav-bar > :not(.titlebar-buttonbox-container) {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /*######################################################################*/
+  /*hide description of extensions menu and make it more sleek*/
+  #unified-extensions-view box.panel-header,
+  #unified-extensions-description,
+  #unified-extensions-messages-container {
+    display: none !important;
+  }
+
+  #unified-extensions-view {
+    width: var(--menu-panel-width) !important;
+  }
+
+  panelview .unified-extensions-item-action-button {
+    padding-inline: 10px !important;
+    padding-block: 0px !important;
+  }
+
+  #unified-extensions-manage-extensions {
+    padding-inline: 10px !important;
+  }
+
+  #unified-extensions-panel .unified-extensions-item {
+    margin-block: 1px !important;
+  }
+
+  /*######################################################################*/
+  /*remove scrollbar from the sidebar*/
+  #tabbrowser-arrowscrollbox {
+    scrollbar-width: none;
+  }
+
+  /*######################################################################*/
+  /* web panel that is wide enough for shitty whatsapp (and other) responsive design 
+  but adjusts responsively in smaller tiled window as well */
+  #zen-sidebar-web-panel {
+    min-width: min(80vw, 900px) !important;
+  }
+
+  /*######################################################################*/
+  /* put web panel controls on the right so they don't interfere with a floating url bar */
+  #zen-sidebar-web-header {
+    flex-direction: row-reverse !important;
+    padding-left: 90% !important;
+    padding-right: 1rem !important;
+  }
+
+  /*######################################################################*/
+  /* hide unnecessary controls since using keyboard for toggling shit */
+  #zen-sidebar-web-header hbox:nth-child(3) {
+    display: none !important;
+  }
+
+  /*######################################################################*/
+  /* set vertical tabs container width to strict value that I like */
+  @media (-moz-bool-pref: "zen.view.sidebar-expanded") {
+    #navigator-toolbox {
+      --zen-navigation-toolbar-min-width: 140px !important;
+    }
+  }
+
+  @media (-moz-bool-pref: "zen.view.compact") {
+    /*######################################################################*/
+    /*make floating ui elements uniformly darker to stand out from pages
+    and look nicer with the black url input filed*/
+    #zen-sidebar-web-panel {
+      background: var(--zen-uber-dark) !important;
+      top: -2px;
+    }
+
+    #navigator-toolbox #titlebar {
+      background: var(--zen-uber-dark) !important;
+    }
+
+    #zen-appcontent-navbar-container {
+      background: var(--zen-uber-dark) !important;
+      box-shadow: 0 3rem 18rem 6rem var(--zen-uber-dark-alpha) !important;
+      border: 2px solid var(--zen-colors-border) !important;
+      width: 70vw !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      top: 8px !important;
+    }
+
+    /*######################################################################*/
+    /*displaying only core controls in the tabbar bottom section so align them nicer*/
+    #zen-sidebar-icons-wrapper {
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+    }
+
+    /*######################################################################*/
+    /*add a little breathing space between icons and divider*/
+    #zen-sidebar-icons-wrapper::before {
+      top: -8px !important;
+    }
+
+    /*######################################################################*/
+    /*rotate chevron in the tab mgmt button. popup shows above so slight ux improvement*/
+    #alltabs-button .toolbarbutton-badge-stack image {
+      transform: rotate(-90deg) !important;
+    }
+
+    /*######################################################################*/
+    /*responsive breathing space on the sides of the url input field between it and icons*/
+    #urlbar-container {
+      margin-inline: max(2em, 5vw) !important;
+    }
+  }
+}

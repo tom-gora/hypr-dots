@@ -2,7 +2,7 @@
 # Recordings scripts
 set -x
 
-icon="${HOME}/.config/swaync/images/screenshot.png"
+icon="${HOME}/.config/swaync/images/record.svg"
 time=$(date "+%d-%b_%H-%M-%S")
 dir="$(xdg-user-dir)/Videos/Recordings"
 file="Recording_${time}_${RANDOM}.mp4"
@@ -11,7 +11,7 @@ file="Recording_${time}_${RANDOM}.mp4"
 notify_view() {
 	local check_file="$dir/$file"
 	if [[ -e "$check_file" ]]; then
-		notify-send -u low -i ${icon} -c "Wf-recorder" "Recording saved." "Click to view\n\n${file}"
+		notify-send -u normal -i "$icon" -c "Wf-recorder" "Recording saved." "Click to view\n\n${file}"
 		echo "${check_file}" >/tmp/recent_recording.txt
 	fi
 }

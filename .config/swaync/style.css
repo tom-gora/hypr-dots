@@ -7,36 +7,71 @@
 @define-color text-color @color4;
 @define-color text-color-alt @color7;
 @define-color text-color-disabled @foreground-alpha__0_6;
-
+@define-color regular-theme-bg #08070b;
+@define-color regular-theme-fg #e0def4;
 * {
   font-family: "UbuntuMono Nerd Font";
   font-weight: bold;
+  border-radius: 2px;
+  transition: all 0.1s ease-in-out;
+  border: 0px;
+  outline: none;
+  box-shadow: none;
 }
 
-.control-center .notification-row:focus,
-.control-center .notification-row:hover {
-  opacity: 1;
-  background: @noti-bg;
+.control-center .notification-content {
   border-radius: 2px;
+  border: 1px solid @noti-border-color;
+}
+
+.control-center .notification:hover,
+.control-center .notification:focus,
+.control-center .notification-content,
+.control-center .notification-content * {
+  background: @regular-theme-bg;
+  box-shadow: none;
+}
+
+.control-center .notification {
+  background: @noti-border-color;
+}
+.control-center button {
+  color: @noti-border-color;
+  background: @regular-theme-bg;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.control-center button:hover,
+.control-center button:focus {
+  color: @regular-theme-fg;
+  background: @noti-bg-hover;
 }
 
 .notification-row {
   border-radius: 2px;
   outline: none;
+  border: 0px;
+  box-shadow: none;
   margin-top: -1px;
   margin-right: -7px;
 }
 
 .notification {
   border: 0px;
+  background: transparent;
+  border-radius: 2px;
   color: @text-color;
 }
 
 .notification-content {
   color: @text-color;
   background: @noti-bg;
-  padding: 3px 10px 3px 6px;
-  border-radius: 2px;
+  padding: 6px 10px 6px 6px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
   border: 0px;
   margin: 0px;
 }
@@ -61,18 +96,17 @@
 .close-button:hover {
   box-shadow: none;
   background: #eb6f92;
-  transition: all 0.15s ease-in-out;
   border: none;
 }
 
 .notification-action {
+  color: @regular-theme-bg;
   border-top: none;
   border-radius: 2px;
 }
 
 .notification-default-action:hover,
 .notification-action:hover {
-  color: @text-color;
   background: @color1;
 }
 
@@ -88,12 +122,10 @@
 
 .notification-action:first-child {
   border-bottom-left-radius: 2px;
-  background: #1b1b2b;
 }
 
 .notification-action:last-child {
   border-bottom-right-radius: 2px;
-  background: #1b1b2b;
 }
 
 .inline-reply {
@@ -215,7 +247,6 @@
 }
 
 .widget-title > button:hover {
-  background: #232136;
   color: @noti-border-color;
 }
 
@@ -227,7 +258,7 @@
   padding: 3px 6px;
   margin: 5px;
   border-radius: 2px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: @noti-border-color;
 }
 
@@ -238,7 +269,6 @@
 
 .widget-dnd > switch:checked {
   background: #f7768e;
-  border: 1px solid #f7768e;
 }
 
 .widget-dnd > switch slider {
@@ -285,8 +315,12 @@
   border-radius: 2px;
 }
 
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  background: @regular-theme-bg;
+  border-radius: 2px;
+}
 .widget-buttons-grid > flowbox > flowboxchild > button:hover > * {
-  color: #eb6f92;
+  color: @regular-theme-fg;
 }
 
 .widget-buttons-grid > flowbox > flowboxchild:last-child {

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Screenshots scripts
 
-icon="${HOME}/.config/swaync/images/screenshot.png"
+icon="${HOME}/.config/swaync/images/screenshot.svg"
 time=$(date "+%d-%b_%H-%M-%S")
 dir="$(xdg-user-dir)/Pictures/Screenshots"
 file="Screenshot_${time}_${RANDOM}.png"
