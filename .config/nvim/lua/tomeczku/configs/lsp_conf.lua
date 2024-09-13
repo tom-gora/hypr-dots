@@ -26,8 +26,8 @@ M.config_fuction = function()
 					},
 				},
 			})
-		elseif lsp == "tsserver" then
-			lspconfig.tsserver.setup({
+		elseif lsp == "tsserver" or lsp == "ts_ls" then
+			lspconfig.ts_ls.setup({
 				filetypes = {
 					"astro",
 					"typescript",

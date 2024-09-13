@@ -205,4 +205,11 @@ M.cursor_pos = function()
 		.. ""
 end
 
+M.ai_status = function()
+	if not vim.g.supermaven_enable then
+		return "%#St_gitIcons#  "
+	end
+	return "%#St_CommandModeSep#  "
+end
+
 return M

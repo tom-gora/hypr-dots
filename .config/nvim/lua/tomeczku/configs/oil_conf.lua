@@ -22,7 +22,7 @@ M.opts = {
 	delete_to_trash = false,
 	watch_for_changes = true,
 	use_default_keymaps = false,
-	is_hidden_file = function(name, bufnr)
+	is_hidden_file = function(name, _)
 		return vim.startswith(name, ".")
 	end,
 	view_options = {

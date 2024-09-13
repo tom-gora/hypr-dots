@@ -86,11 +86,11 @@ M.setLspStringComponents = function(client, cname)
 		if cname == "lua_ls" then
 			return { name = cname, icon = " " }
 		elseif
-			(cname == "tsserver" or cname == "cssmodules_ls" or cname == "tailwindcss")
+			(cname == "ts_ls" or cname == "cssmodules_ls" or cname == "tailwindcss")
 			and (vim.bo.filetype == "javascript" or vim.bo.filetype == "typescript")
 		then
-			return { name = "tsserver", icon = "󰛦 " }
-		elseif (cname == "astro" or cname == "tailwindcss" or cname == "tsserver") and vim.bo.filetype == "astro" then
+			return { name = "ts_ls", icon = "󰛦 " }
+		elseif (cname == "astro" or cname == "tailwindcss" or cname == "ts_ls") and vim.bo.filetype == "astro" then
 			return { name = "astro-ls", icon = " " }
 		elseif cname == "bashls" then
 			return { name = cname, icon = " " }

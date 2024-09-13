@@ -17,7 +17,7 @@ M.mason = {
 		"cssls",
 		"html",
 		"jsonls",
-		"tsserver",
+		"ts_ls",
 		"prettier",
 		"prettierd",
 		"tailwindcss",
@@ -66,7 +66,7 @@ M.mason_lspconfig = {
 		"cssmodules_ls",
 		"html",
 		"jsonls",
-		"tsserver",
+		"ts_ls",
 		"tailwindcss",
 		"intelephense",
 		"astro",
@@ -77,14 +77,8 @@ M.mason_lspconfig = {
 
 M.dependencies = {
 	"williamboman/mason.nvim",
+	lazy = false,
 	cmd = { "Mason", "MasonInstall", "MasonUpdate", "MasonUninstall", "MasonUninstallAll" },
-	dependencies = {
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		opts = {
-			ensure_installed = M.mason.ensure_installed,
-		},
-	},
-
 	config = function()
 		local mason = M.mason
 		require("mason").setup(mason)

@@ -363,3 +363,23 @@ api.nvim_create_user_command("SearchReplaceInQfManual", function(data)
 	local args = data.fargs
 	searchReplaceInQfManual(args[1], args[2])
 end, { nargs = "*" })
+
+-- custom toggle for supermaven
+local toggleSupermaven = function()
+	local sm_api = require("supermaven-nvim.api")
+	-- toggle global variable for stop condition
+	-- first toggle sets the none existing variable to true
+	vim.g.supermaven_enable = not vim.g.supermaven_enable
+	-- stop or start supermaven
+	local noti = require("notify")
+	local noti_opts = { title = "Supermaven", icon = "", timeout = 1000, hide_from_history = true }
+	if vim.g.supermaven_enable then
+		noti("ON", "info", noti_opts)
+		sm_api.start()
+	else
+		noti("OFF", "error", noti_opts)
+		sm_api.stop()
+	end
+end
+
+api.nvim_create_user_command("ToggleSupermaven", toggleSupermaven, { range = false })

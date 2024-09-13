@@ -61,15 +61,13 @@ M.config_function = function()
 end
 
 M.dependencies = {
-	{
-		"windwp/nvim-ts-autotag",
-		opts = {
-			per_filetype = {
-				["astro"] = {
-					enable_close = true,
-					enable_rename = true,
-					enable_close_on_slash = false,
-				},
+	"windwp/nvim-ts-autotag",
+	opts = {
+		per_filetype = {
+			["astro"] = {
+				enable_close = true,
+				enable_rename = true,
+				enable_close_on_slash = false,
 			},
 		},
 	},

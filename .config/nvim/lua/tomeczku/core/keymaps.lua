@@ -74,7 +74,7 @@ nNore = {
 		vim.tbl_deep_extend("force", ignore, { expr = true }),
 	},
 	-- AI toggler
-	["<leader>S"] = { "<cmd>SupermavenToggle<cr>", { desc = " Toggle Supermaven" } },
+	["<leader>S"] = { "<cmd>ToggleSupermaven<cr>", { desc = " Toggle Supermaven" } },
 	-- whichkey neovim section
 	["<leader>n"] = { " NeoVim" },
 	["<leader>ns"] = { "<cmd>ClearSwap<cr>", { desc = "Clear the Swap" } },

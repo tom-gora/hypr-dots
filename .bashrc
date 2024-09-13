@@ -34,4 +34,3 @@ fi
 unset rc
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-eval "$(zoxide init bash)"

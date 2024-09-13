@@ -46,7 +46,7 @@ export ROFI_PLUGIN_PATH="/usr/lib64/rofi"
 export BAT_THEME='rose-pine-moon'
 
 # Preferred browser
-export BROWSER="flatpak run io.github.zen_browser.zen -P tomeczku"
+# export BROWSER="zen-browser"
 export TERMINAL="wezterm"
 
 # some wayland fixes

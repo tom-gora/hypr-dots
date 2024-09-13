@@ -323,5 +323,14 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
 		modify_hl_group("ToggleTerm1StatusLine", { bg = "NONE", force = true })
 		-- adjust lspsaga beacon
 		modify_hl_group("SagaBeacon", { bg = delimiters_teal, force = true })
+
+		-- colorize gitignore to my liking because default theme does shit
+		modify_hl_group("@string.special.path.gitignore", { link = "Normal", force = true })
+		modify_hl_group("@punctuation.delimiter.gitignore", { link = "Added", force = true })
+		modify_hl_group("@punctuation.bracket.gitignore", { link = "Added", force = true })
+		modify_hl_group("@punctuation.special.gitignore", { link = "ErrorMsg", bold = true, force = true })
+		modify_hl_group("@constant.gitignore", { link = "Function", force = true })
+		modify_hl_group("@operator.gitignore", { link = "Function", force = true })
+		modify_hl_group("@character.special.gitignore", { link = "Keyword", force = true })
 	end,
 })

@@ -46,7 +46,7 @@ opt.smartcase = true
 opt.cmdheight = 0
 
 -- text editor tweaks
-opt.wrap = false
+opt.wrap = true
 opt.virtualedit = "block"
 opt.scrolloff = 999
 opt.cursorline = true

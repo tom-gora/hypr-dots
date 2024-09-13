@@ -20,3 +20,6 @@ zinit light jeffreytse/zsh-vi-mode
 
 # Add in oh-my-zsh snippets
 zinit snippet OMZP::colorize
+zinit snippet OMZP::dnf
+zinit snippet OMZP::extract
+zinit snippet OMZP::gitignore
