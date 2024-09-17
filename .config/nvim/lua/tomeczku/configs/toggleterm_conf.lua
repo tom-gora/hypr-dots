@@ -58,11 +58,37 @@ M.config_function = function(_, opts)
 	-- go runner
 	local root_patterns = { ".git", ".clang-format", "go.mod", "package.json", "cargo.toml" }
 	local root_dir = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]) or vim.fn.cwd
-	print(root_dir)
+	if not root_dir then
+		print("Error: Could not find the project's root directory.")
+	end
+
+	-- for go runner
+	local function find_main_go()
+		local main_go_files = vim.fs.find("main.go", { path = root_dir, type = "file", limit = 10 })
+		-- extra check if multiple main.go files found from any other packages....
+		for _, file in ipairs(main_go_files) do
+			-- confirm package declaration for "main" is in the located main.go
+			local fd = io.open(file, "r")
+			if fd then
+				local content = fd:read("*a")
+				fd:close()
+				if content:match("package%s+main") then
+					return file
+				end
+			end
+		end
+		return nil
+	end
+	local go_main_package_dir = find_main_go()
+
+	if not go_main_package_dir then
+		print("Error: Could not find the main.go file.")
+		return
+	end
 
 	local go_runner_term = Terminal:new({
-		float_opts = { focusable = false },
-		cmd = "go run " .. root_dir,
+		float_opts = { relative = "editor", focusable = false },
+		cmd = "go run " .. go_main_package_dir,
 		direction = "float",
 		close_on_exit = false,
 		auto_scroll = true,

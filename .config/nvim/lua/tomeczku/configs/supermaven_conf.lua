@@ -18,7 +18,7 @@ M.opts = {
 	disable_keymaps = true,
 	condition = function()
 		-- use global variable for stop condition
-		return vim.g.supermaven_enable and false or true
+		return not vim.g.supermaven_enable
 	end,
 }
 

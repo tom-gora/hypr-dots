@@ -150,12 +150,12 @@ M.lsp_diags = function()
 	local hints = #vim.diagnostic.get(utils.stbufnr(), { severity = vim.diagnostic.severity.HINT })
 	local info = #vim.diagnostic.get(utils.stbufnr(), { severity = vim.diagnostic.severity.INFO })
 
-	errors = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
-	warnings = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
-	hints = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
-	info = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
+	local e = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
+	local w = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
+	local h = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
+	local i = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
 
-	return errors .. warnings .. hints .. info
+	return e .. w .. h .. i
 end
 
 M.lsp_stat = function()
@@ -193,7 +193,8 @@ M.cursor_pos = function()
 		return ""
 	end
 	-- added padding function to make the module less "jumpy" in terms of width while navigating buffers
-	-- now the only realistic "width jump" will appear when exceeding 99 lines position (or I guess 999) which is much less jarring
+	-- now the only realistic "width jump" will appear when exceeding 99 lines position (or I guess 999)
+	-- result is much less jarring
 	local line_col = string.format("%2d/%-2d", vim.fn.line("."), vim.fn.col("."))
 	return "%#St_Pos_sep#"
 		.. ""
@@ -207,9 +208,9 @@ end
 
 M.ai_status = function()
 	if not vim.g.supermaven_enable then
-		return "%#St_gitIcons#  "
+		return "%#NonText#  "
 	end
-	return "%#St_CommandModeSep#  "
+	return "%#String#  "
 end
 
 return M

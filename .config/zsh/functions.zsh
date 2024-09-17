@@ -38,3 +38,8 @@ function clear-screen-and-scrollback() {
 }
 zle -N clear-screen-and-scrollback
 bindkey "^[^l" clear-screen-and-scrollback
+
+function new-script() {
+  SCRIPT_NAME=$1
+  touch "$SCRIPT_NAME" && chmod u+x "$SCRIPT_NAME"
+}
