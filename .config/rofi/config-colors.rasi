@@ -26,7 +26,7 @@ window {
     x-offset:                   0px;
     y-offset:                   0px;
     spacing:                    0px;
-    padding:                    16% 38% 0 38%;
+    padding:                    16% 38% 40% 38%;
     margin:                     0px; 
     cursor:                     "default";
     location:                   center;
@@ -39,7 +39,7 @@ window {
 
 /* main box */
 mainbox {
-    expand:                     false;
+    expand:                     true;
     enabled:                    true;
     orientation:                vertical;
     border:                     2px;
@@ -62,11 +62,11 @@ imagebox {
 /*  Listview  */
 listview {
   expand:                       true;
-  padding:                      -5.5em -2px 0 -2px;
+  padding:                      -1.5em -2px 0 -2px;
   margin:                       -3px -2px 1px -2px;
 	enabled:            			    true;
 	columns:            			    1;
-	dynamic:                      false;
+	dynamic:                      true;
 	cycle:                        true;
 	scrollbar:                    false;
 	layout:                       vertical;

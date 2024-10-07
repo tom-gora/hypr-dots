@@ -1,6 +1,9 @@
 #!/bin/bash
 # Rofi menu for Quick Edit
 
+#make sure pastel is being discovered even if run via shortcut by a non-login shell
+export PATH="$HOME/.config/cargo/bin":$PATH
+
 configs="$HOME/.config/hypr/configs"
 iDIR="$HOME/.config/swaync/images"
 
@@ -41,7 +44,7 @@ prep_color() {
 	local dec=$(hex_to_decimal "$INPUT_CLR")
 	#prep json str
 	local json_string=$(jq -n \
-		--arg hex "$INPUT_CLR" \
+		--arg hex "$hex" \
 		--arg rgb "$rgb" \
 		--arg rgba "$rgba" \
 		--arg hsl "$hsl" \
@@ -64,25 +67,29 @@ prep_color() {
 	echo "$json_string" >~/.cache/.rofi-color-picker-current.json
 }
 
+esc_commas() {
+	echo "$1" | sed 's/,/\,/g'
+}
+
 menu() {
 	local JSON_INPUT=$(cat ~/.cache/.rofi-color-picker-current.json)
 	HEX=$(echo "$JSON_INPUT" | jq -r '.hex')
 	RGB=$(echo "$JSON_INPUT" | jq -r '.rgb')
-	RGBA=$(echo "$JSON_INPUT" | jq -r '.rgba')
-	HSL=$(echo "$JSON_INPUT" | jq -r '.hsl')
-	HSLA=$(echo "$JSON_INPUT" | jq -r '.hsla')
-	CMYK=$(echo "$JSON_INPUT" | jq -r '.cmyk')
-	OKLAB=$(echo "$JSON_INPUT" | jq -r '.oklab')
-	DEC=$(echo "$JSON_INPUT" | jq -r '.dec')
+	RGBA=$(esc_commas "$(echo "$JSON_INPUT" | jq -r '.rgba')")
+	HSL=$(esc_commas "$(echo "$JSON_INPUT" | jq -r '.hsl')")
+	HSLA=$(esc_commas "$(echo "$JSON_INPUT" | jq -r '.hsla')")
+	CMYK=$(esc_commas "$(echo "$JSON_INPUT" | jq -r '.cmyk')")
+	OKLAB=$(esc_commas "$(echo "$JSON_INPUT" | jq -r '.oklab')")
+	DEC="decimal($(echo "$JSON_INPUT" | jq -r '.dec'))"
 
-	printf "${HEX}\n"
-	printf "${RGB}\n"
-	printf "${RGBA}\n"
-	printf "${HSL}\n"
-	printf "${HSLA}\n"
-	printf "${CMYK}\n"
-	printf "${OKLAB}\n"
-	printf "decimal(${DEC})\n"
+	printf "%s\n" "$HEX"
+	printf "%s\n" "$RGB"
+	printf "%s\n" "$RGBA"
+	printf "%s\n" "$HSL"
+	printf "%s\n" "$HSLA"
+	printf "%s\n" "$CMYK"
+	printf "%s\n" "$OKLAB"
+	printf "%s\n" "$DEC"
 }
 
 main() {

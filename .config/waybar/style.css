@@ -65,7 +65,7 @@ window#waybar.empty #window {
 }
 /* TOOLTIPS */
 tooltip {
-  background: @background-alpha__0_8;
+  background: @background-alpha__0_7;
   border-radius: 2px;
   border: none;
   padding: 0;
@@ -129,7 +129,7 @@ tooltip label {
 #workspaces button:hover {
   padding-left: 0.3rem;
   padding-right: 0.3rem;
-  background-color: @background-alpha__0_6;
+  background-color: @background-alpha__0_7;
   color: @accent3;
 }
 
@@ -243,11 +243,6 @@ tooltip label {
   margin: 2px 0.5rem 2px 2px;
 }
 
-#custom-menu {
-  color: #ffffff;
-  /*padding: 3px;*/
-}
-
 /* RIGHT SECTION MODULES */
 /* HACK: slantend separators */
 .modules-right > *:nth-child(1) > * {
@@ -342,6 +337,26 @@ tooltip label {
   margin-right: 0.5rem;
 }
 
+/* NATIVE WAYBAR MENU */
+menu {
+  padding: 1rem 0.5rem;
+  border-radius: 2px;
+  background: @background-alpha__0_7;
+  color: @foreground;
+}
+
+menuitem {
+  padding: 0.5rem 1rem;
+}
+
+menuitem:hover {
+  background-color: @accent4;
+}
+
+menuitem > * {
+  color: @foreground;
+}
+
 /* TRAY SECTION */
 #tray {
   padding: 2px 0.5rem;
@@ -360,6 +375,7 @@ tooltip label {
 }
 
 #tray widget window menu {
+  background: @background-alpha__0_7;
   padding-top: 1rem;
 }
 
@@ -370,9 +386,9 @@ tooltip label {
   border: none;
 }
 
-/* menu items  and hover state for  them */
+/* tray menu items  and hover state for  them */
 #tray widget window menu menuitem {
-  background: @background-alpha__0_9;
+  background: none;
   padding: 0.5rem 1rem;
 }
 

@@ -87,6 +87,19 @@
     "on-click": "~/.config/hypr/scripts/utils/KillWfRecorder.sh"
   },
 
+"custom/test": {
+    "format" : " ",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/power_menu.xml",
+    "menu-actions": {
+        "shutdown": "shutdown",
+        "reboot": "reboot",
+        "suspend": "systemctl suspend",
+        "hibernate": "systemctl hibernate",
+    },
+},
+
   "custom/ollama-model": {
     "format": "{}",
     "exec": "~/.config/hypr/scripts/utils/OllamaModel.sh",
@@ -205,6 +218,7 @@
     "format": "  {}",
     "format-en": " gb",
     "format-pl": " pl",
+    //"format-en": " us",
     "on-click": "~/.config/hypr/scripts/utils/SwitchKeyboardLayout.sh"
   },
 

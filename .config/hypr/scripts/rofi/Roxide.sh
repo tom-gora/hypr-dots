@@ -51,7 +51,7 @@ main() {
 
 	# query zoxide to build menu
 	if [[ ! $(pidof rofi) ]]; then
-		choice="$(query | rofi -dmenu)"
+		choice="$(query | rofi -dmenu -config ~/.config/rofi/config-roxide.rasi)"
 		if [[ -n "$choice" ]]; then
 			# get command as string
 			command="z $choice"

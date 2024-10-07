@@ -30,6 +30,7 @@ M.opts = {
 	},
 	keymaps = {
 		["g?"] = "actions.show_help",
+		["<C-a>"] = "actions.select",
 		["<C-l>"] = "actions.select",
 		["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
 		["<C-s>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },

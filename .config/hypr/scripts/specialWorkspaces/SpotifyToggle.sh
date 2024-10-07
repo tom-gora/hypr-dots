@@ -6,12 +6,12 @@ SPECIAL_WORKSPACE_NAME="special:spotify"
 # Grab clients as json
 OUTPUT=$(hyprctl clients -j)
 # Extract spotify client data
-SPOTIFY_OBJ=$(jq '.[] | select(.initialTitle == "Spotify Premium")' <<<"$OUTPUT")
+SPOTIFY_OBJ=$(jq -r '.[] | select(.initialTitle|test(".*Spotify.*"))' <<<"$OUTPUT")
 
 # Guard clause, if no Spotify client, launch one and exit then place it on current workspace
 if [ -z "$SPOTIFY_OBJ" ]; then
 	echo "Launching Spotify"
-	flatpak run --socket=wayland com.spotify.Client --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto &
+	firefoxpwa site launch 01J8M8WX1PNSJH0YN4A91SXSEX --protocol
 	hyprctl dispatch movetoworkspace 'e-0','^(.*Spotify.*)$' &
 	hyprctl dispatch focuswindow '^(.*Spotify.*)$' &
 	exit 0

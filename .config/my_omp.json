@@ -76,5 +76,6 @@
     "template": " "
   },
   "final_space": true,
-  "version": 2
+  "version": 2,
+  "auto_upgrade": true
 }

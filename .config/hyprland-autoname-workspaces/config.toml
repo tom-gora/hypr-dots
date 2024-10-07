@@ -17,8 +17,13 @@ Brave-browser = ""
 "(?i)jetbrains-studio" = "󰀴"
 "(?i)Thunar" = ""
 "(?i)wezterm" = ""
-"(?i)scratchpad" = "󱞂"
+"(?i)scratchpad" = "󰙨"
 "(?i)inkscape" = ""
+"(?i)tableplus" = "󰆼"
+"(?i)libreoffice-writer" = "󱩼"
+"(?i)libreoffice-calc" = "󰱾"
+"(?i)libreoffice-draw" = "󰇟"
+
 
 [class_active]
 
@@ -42,6 +47,8 @@ Brave-browser = ""
 [title_in_class."FFPWA.*"]
 "Ollama Open WebUI" = " "
 "Discord" = "󰙯 "
+"Spotify" = ""
+"Photopea" = ""
 
 [title_in_class_active]
 
@@ -50,7 +57,6 @@ Brave-browser = ""
 [title_in_initial_class_active]
 
 [initial_title_in_class."^$"]
-"(?i)spotify" = ""
 "(?i)wezterm" = ""
 "(?i)kitty" = "󰄛"
 

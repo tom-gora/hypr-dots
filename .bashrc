@@ -6,6 +6,14 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export HISTFILE="$XDG_STATE_HOME/bash/history"
 export TERMINAL="wezterm"
 
+#cargo setup
+export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
+export PATH="$CARGO_HOME/bin":$PATH
+source "$CARGO_HOME/env"
+
+export PATH="$HOME/.local/bin":$PATH
+export PATH="/usr/local/bin":$PATH
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -33,4 +41,4 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "/home/tomeczku/.config/cargo/env"

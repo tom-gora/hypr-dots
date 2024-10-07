@@ -3,11 +3,14 @@ export LANG=GB.UTF-8
 export LC_CTYPE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
 
-# XDG ninja fixes
+#cargo setup
+export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
+export PATH="$CARGO_HOME/bin":$PATH
+source "$CARGO_HOME/env"
+
 export ANDROID_HOME="$XDG_DATA_HOME/android"
 export ANDROID_AVD_HOME="$HOME/.var/app/com.google.AndroidStudio/config/.android/avd"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 
@@ -22,7 +25,6 @@ export PATH="$HOME/.local/bin":$PATH
 export PATH="/usr/local/bin":$PATH
 export PATH="$HOME/.local/bin/.spicetify":$PATH
 export PATH="$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/tools/bin":$PATH
-export PATH="$HOME/.config/cargo/bin":$PATH
 export GOPATH=$(go env GOPATH)
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN

@@ -13,23 +13,22 @@ source_if_exists() {
 
 source_if_exists "$HOME/.env.zsh"
 
-source_if_exists "$XDG_CONFIG_HOME/zsh/main.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/exports.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/fzf_configs.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/aliases.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/plugins.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/functions.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/binds.zsh"
-
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/tomeczku/.config/zsh/.zshrc'
 
-autoload -Uz compinit promptinit
-compinit
+autoload -U compinit promptinit && compinit
 # End of lines added by compinstall
 
-eval "$(thefuck --alias)"
-eval "$(thefuck --alias fk)"
+source_if_exists "$XDG_CONFIG_HOME/zsh/main.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/exports.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/aliases.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/functions.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/plugins.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/fzf_configs.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/binds.zsh"
+
+# eval "$(thefuck --alias)"
+# eval "$(thefuck --alias fk)"
 eval "$(zoxide init zsh)"
 
 # exec oh-my-posh with my config
@@ -40,3 +39,7 @@ else
   # Otherwise, load the default config
   eval "$(oh-my-posh init zsh --config ~/.config/my_omp.json)"
 fi
+
+# if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+#   exec tmux
+# fi

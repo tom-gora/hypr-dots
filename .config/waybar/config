@@ -17,7 +17,7 @@
     "custom/separator#right_slant",
     "custom/separator#left_slant",
     "group/audio",
-    "custom/recording"
+    "custom/recording",
   ],
   "modules-center": [
     "idle_inhibitor",

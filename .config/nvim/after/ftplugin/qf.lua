@@ -15,6 +15,13 @@ vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(), {
 	title_pos = "left",
 	style = "minimal",
 })
+vim.keymap.set("n", "<leader>q", function()
+	if vim.bo.filetype == "qf" then
+		vim.api.nvim_win_close(0, true)
+	else
+		return
+	end
+end, { desc = "which_key_ignore" })
 
 local map = vim.keymap.set
 map("n", "<leader>rq", "<nop>", { desc = "QF Replace", noremap = true, silent = true, buffer = 0 })

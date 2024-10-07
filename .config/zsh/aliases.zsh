@@ -43,6 +43,9 @@ alias rmr="rm -r"
 # forced
 alias rmf="rm -rf"
 
+#colored commands
+alias grep="grep --color=auto"
+
 # play yt in mpv
 alias ythi='mpv --ytdl-format="bestvideo[height<=1080]+bestaudio/best[height<=1080]" $1' # 720p
 alias ytmid='mpv --ytdl-format="bestvideo[height<=720]+bestaudio/best[height<=720]" $1'  # 720p
@@ -84,7 +87,7 @@ alias code="codium"
 alias cpwd="pwd | wl-copy"
 alias cpl="fc -ln -1 | wl-copy"
 alias intellij="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=idea com.jetbrains.IntelliJ-IDEA-Ultimate"
-alias clients="hyprctl clients"
+alias clients="hyprctl clients -j | less"
 
 #shortcuts for permission fixes for apps:
 alias fix-code="sudo chown -R $(whoami) /usr/share/codium"

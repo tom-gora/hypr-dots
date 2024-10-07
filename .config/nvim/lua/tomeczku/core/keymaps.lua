@@ -73,8 +73,13 @@ nNore = {
 		end,
 		vim.tbl_deep_extend("force", ignore, { expr = true }),
 	},
+	--
 	-- AI toggler
 	["<leader>S"] = { "<cmd>ToggleSupermaven<cr>", { desc = " Toggle Supermaven" } },
+	--
+	-- neovim help
+	["<leader>?"] = { "<cmd>Telescope help_tags <cr>", { desc = "󰋗 Help" } },
+
 	-- whichkey neovim section
 	["<leader>n"] = { " NeoVim" },
 	["<leader>ns"] = { "<cmd>ClearSwap<cr>", { desc = "Clear the Swap" } },
@@ -82,7 +87,6 @@ nNore = {
 	["<leader>nm"] = { "<cmd>Mason<cr>", { desc = "Open Mason" } },
 	["<leader>nc"] = { "<cmd>checkhealth<cr>", { desc = "Do Checkhealth" } },
 	["<leader>nh"] = { "<cmd>Telescope highlights <cr>", { desc = "Look up HL Groups" } },
-	["<leader>n?"] = { "<cmd>Telescope help_tags <cr>", { desc = "Help 󰋗 " } },
 	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", { desc = "Dismiss Notifications" } },
 	--
 	-- whichkey goto section

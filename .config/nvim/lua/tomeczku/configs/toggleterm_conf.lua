@@ -57,7 +57,7 @@ M.config_function = function(_, opts)
 	local btop_term = Terminal:new({ cmd = "btop", direction = "float" })
 	-- go runner
 	local root_patterns = { ".git", ".clang-format", "go.mod", "package.json", "cargo.toml" }
-	local root_dir = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]) or vim.fn.cwd
+	local root_dir = vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1]) or vim.uv.cwd()
 	if not root_dir then
 		print("Error: Could not find the project's root directory.")
 	end
