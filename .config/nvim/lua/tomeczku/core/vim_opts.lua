@@ -54,7 +54,20 @@ opt.signcolumn = "yes"
 
 -- ui tweaks
 opt.showtabline = 0
-opt.fillchars = { eob = "~" }
+opt.fillchars = {
+	eob = "◦",
+	horiz = "─",
+	horizup = "╨",
+	horizdown = "╥",
+	vert = "║",
+	vertleft = "╢",
+	vertright = "╟",
+	verthoriz = "╫",
+}
+-- opt.listchars = { eol = "↲" }
+-- opt.list = true
 
 -- enable undofile
 opt.undofile = true
+-- global statusline
+opt.laststatus = 3

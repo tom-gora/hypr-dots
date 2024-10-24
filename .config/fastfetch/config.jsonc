@@ -1,12 +1,12 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "source": "$HOME/.config/fastfetch/cute_tux.png",
+    "source": "$HOME/.config/fastfetch/smug_tux.png",
     "type": "iterm",
-    "width": 16,
+    "width": 13,
     "height": 7,
     "padding": {
-      "top": 3,
+      "top": 2,
       "right": 2,
       "left": 2
     },

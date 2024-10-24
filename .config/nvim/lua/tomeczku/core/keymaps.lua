@@ -15,7 +15,7 @@ vim.cmd([[
 cmap <C-j> <C-n>
 cmap <C-k> <C-p>
 ]])
--- whichkey adjustments
+
 local wk = require("which-key")
 wk.add({
 	{ "<leader>v", proxy = "<c-w>", group = " Splits" },
@@ -49,7 +49,28 @@ nNore = {
 	["p"] = { "gp", ignore },
 	-- explicityly call native lsp action on go to file seems to fix
 	-- toggle oil pane
-	["<leader>e"] = { "<Cmd>Oil --float<cr>", { desc = "󰏇 Toggle Oil" } },
+	["<leader>e"] = {
+		function()
+			-- if oil already opened and not focused then navigate to it
+			if _G._OilOpened and vim.bo.filetype ~= "oil" then
+				vim.fn.win_gotoid(_G._OilOpened)
+				return
+			end
+			-- else open it in dynamically adjusted vsplit and set global storage for winid of oil
+			local o = require("oil")
+			-- local u = require("oil.util")
+			vim.cmd("vsplit")
+			vim.api.nvim_win_set_width(0, math.max(math.ceil(vim.api.nvim_win_get_width(0) / 3), 45))
+
+			o.open()
+			-- u.run_after_load(0, function()
+			-- 	o.open_preview({ horizontal = true })
+			--
+			-- end)
+			_G._OilOpened = vim.fn.win_getid()
+		end,
+		{ desc = "󰏇 Toggle Oil" },
+	},
 	-- toggle comment line in normal mode
 	["<leader>/"] = { "gcc", vim.tbl_deep_extend("force", ignore, { remap = true }) },
 	-- clear search highlights
@@ -73,6 +94,8 @@ nNore = {
 		end,
 		vim.tbl_deep_extend("force", ignore, { expr = true }),
 	},
+	-- alternative close window closer to normal leader region than regular q
+	["<leader>vc"] = { "<cmd>lua vim.cmd('wincmd q')<cr>", { desc = "Quit a window" } },
 	--
 	-- AI toggler
 	["<leader>S"] = { "<cmd>ToggleSupermaven<cr>", { desc = " Toggle Supermaven" } },
@@ -136,12 +159,6 @@ nNore = {
 	["<leader>th"] = { "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Toggle horizontal TERM" } },
 	["<leader>tv"] = { "<cmd>ToggleTerm direction=vertical<cr>", { desc = "Toggle vertical TERM" } },
 	--
-	-- navigate splits
-	["<C-h>"] = { "<C-w>h", ignore },
-	["<C-l>"] = { "<C-w>l", ignore },
-	["<C-j>"] = { "<C-w>j", ignore },
-	["<C-k>"] = { "<C-w>k", ignore },
-
 	-- whichkey replace section
 	["<leader>r"] = { "󰛔 Replace" },
 	["<leader>rw"] = { "Replace Cword" },
@@ -239,7 +256,8 @@ nxNore = {
 		end,
 		{ expr = true, desc = "Close Current Buffer" },
 	},
-	["<leader>qw"] = { "<cmd>qa!<cr>", { desc = "Force Close Neovim" } },
+	["<leader>qw"] = { "<cmd>wqa!<cr>", { desc = "Force Close with Save" } },
+	["<leader>QQ"] = { "<cmd>qa!<cr>", ignore },
 	["<leader>qa"] = { "<cmd>%bd!<cr>", { desc = "Close All Buffers" } },
 	["<leader>qo"] = { "<cmd>BufferCloseAllButCurrent<cr>", { desc = "Close All Other Buffers" } },
 	["<leader>qu"] = { "<cmd>CloseUnmodifiedBuffers<cr>", { desc = "Close All Unmodified Buffers" } },

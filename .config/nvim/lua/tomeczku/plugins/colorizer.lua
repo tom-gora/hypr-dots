@@ -1,9 +1,13 @@
 local M = {}
-local opts = require("tomeczku.configs.colorizer_conf")
+local opts
+if not vim.g.vscode then
+	opts = require("tomeczku.configs.colorizer_conf")
+end
 
 M = {
 	"NvChad/nvim-colorizer.lua",
-  event = "VeryLazy",
+	cond = vim.g.vscode == nil,
+	event = "VeryLazy",
 	config = true,
 	opts = opts,
 }

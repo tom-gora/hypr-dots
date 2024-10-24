@@ -74,7 +74,7 @@ alias aa="cd /var/www/html/"
 alias uni="cd ~/Documents/uni_dir/"
 
 # utils etc.
-# alias fzf-here='fzfgrep_func() { grep -rl "$1" . | fzf | xargs -r nvim; }; fzfgrep_func'
+alias zel="$XDG_CONFIG_HOME/hypr/scripts/rofi/ZellijSessions.sh -t1"
 
 # for school quickly handle dotnet
 alias .r="dotnet run ."

@@ -233,153 +233,156 @@ local applyIndexingOverSelection = function()
 end
 api.nvim_create_user_command("ApplyIndexingOverSelection", applyIndexingOverSelection, { range = true })
 
--- INFO:my own funcs automating using native sed based search and replace
---
--- init search for cword
-local searchReplaceCword = function(ignoreCase)
-	local cword = fn.expand("<cword>")
-	local beforeCmdSubstr = ":%s/"
-	local afterCmdSubstr = "/gc"
-	if ignoreCase == "true" then
-		afterCmdSubstr = "/gci"
+if not vim.g.vscode then
+	-- INFO:my own funcs automating using native sed based search and replace
+	--
+	-- init search for cword
+	local searchReplaceCword = function(ignoreCase)
+		local cword = fn.expand("<cword>")
+		local beforeCmdSubstr = ":%s/"
+		local afterCmdSubstr = "/gc"
+		if ignoreCase == "true" then
+			afterCmdSubstr = "/gci"
+		end
+		local backtrack = string.rep("<Left>", #afterCmdSubstr)
+		local command = beforeCmdSubstr .. cword .. "/" .. afterCmdSubstr .. backtrack
+		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
 	end
-	local backtrack = string.rep("<Left>", #afterCmdSubstr)
-	local command = beforeCmdSubstr .. cword .. "/" .. afterCmdSubstr .. backtrack
-	api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
+	api.nvim_create_user_command("SearchReplaceCword", function(data)
+		local args = data.fargs
+		searchReplaceCword(args[1])
+	end, { nargs = "*" })
+
+	-- init search for user input
+	local searchReplaceInit = function(ignoreCase)
+		local beforeCmdSubstr = ":%s/"
+		local afterCmdSubstr = "/gc"
+		if ignoreCase == "true" then
+			afterCmdSubstr = "/gci"
+		end
+		local replace = fn.input("Provide string to replace: ")
+		local backtrack = string.rep("<Left>", #afterCmdSubstr)
+		local command = beforeCmdSubstr .. replace .. "/" .. afterCmdSubstr .. backtrack
+
+		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
+	end
+	api.nvim_create_user_command("SearchReplaceInit", function(data)
+		local args = data.fargs
+		searchReplaceInit(args[1])
+	end, { nargs = "*" })
+
+	-- pass visual selection as input for search and replace
+	local searchReplaceVisualSelection = function()
+		local _, ls, cs = table.unpack(fn.getpos("'<"))
+		local _, le, ce = table.unpack(fn.getpos("'>"))
+		local endLineLen = fn.getline(le):len()
+		if ce > endLineLen then
+			ce = endLineLen
+		end
+		cs = cs - 1
+		ce = ce - 1
+
+		local lines = api.nvim_buf_get_text(0, ls - 1, cs, le - 1, ce + 1, {})
+		local selection = table.concat(lines, "\n")
+		selection = escapeScecialChars(selection)
+		local beforeCmdSubstr = ":%s/\\v"
+		-- use ignore case to decrease sensitibity as multiline selections are already wonky enough
+		local afterCmdSubstr = "/gci"
+		local backtrack = string.rep("<Left>", #afterCmdSubstr)
+		local command = beforeCmdSubstr .. selection .. "/" .. afterCmdSubstr .. backtrack
+
+		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
+	end
+	api.nvim_create_user_command("SearchReplaceVisualSelection", function()
+		-- exit visual mode before the func call to update the marks with actual current range
+		api.nvim_feedkeys(api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
+		searchReplaceVisualSelection()
+	end, { range = true })
+
+	-- reverse of the above make a selection first and take input to search
+	-- within this selection
+	local searchReplaceInsideVisualSelection = function(ignoreCase)
+		-- Get the range of the visual selection
+		local _, ls, cs = table.unpack(fn.getpos("'<"))
+		local _, le, ce = table.unpack(fn.getpos("'>"))
+		local endLineLen = fn.getline(le):len()
+		if ce > endLineLen then
+			ce = endLineLen
+		end
+		cs = cs - 1
+		ce = ce - 1
+
+		local lines = api.nvim_buf_get_text(0, ls - 1, cs, le - 1, ce + 1, {})
+		local selection = table.concat(lines, "\n")
+
+		selection = escapeScecialChars(selection)
+		local replace = fn.input("Provide string to replace: ")
+		replace = escapeScecialChars(replace)
+
+		if not string.find(selection, replace) then
+			print("Pattern not found within the secection 󰇸")
+			return
+		end
+
+		local beforeCmdSubstr = ":'<,'>s/\\v"
+		local afterCmdSubstr = "/gc"
+		if ignoreCase == "true" then
+			afterCmdSubstr = "/gci"
+		end
+		local backtrack = string.rep("<Left>", #afterCmdSubstr)
+		local command = beforeCmdSubstr .. replace .. "/" .. afterCmdSubstr .. backtrack
+
+		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
+	end
+	api.nvim_create_user_command("SearchReplaceInsideVisualSelection", function(data)
+		local args = data.fargs
+
+		-- exit visual mode before the func call to update the marks with actual current range
+		api.nvim_feedkeys(api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
+		searchReplaceInsideVisualSelection(args[1])
+	end, { nargs = "*" })
+	--
+	-- search and replace within quickfix list
+	-- (adds bfdo and can add | update to save right away)
+	local searchReplaceInQfManual = function(ignoreCase, withUpdate)
+		local cword = fn.expand("<cword>")
+		local beforeCmdSubstr = ":cfdo %s/"
+		local afterCmdSubstr = "/gc"
+		if ignoreCase == "true" then
+			afterCmdSubstr = "/gci"
+		end
+		if withUpdate == "true" then
+			afterCmdSubstr = afterCmdSubstr .. " | update"
+		end
+		local backtrack = string.rep("<Left>", #afterCmdSubstr)
+		local command = beforeCmdSubstr .. cword .. "/" .. afterCmdSubstr .. backtrack
+
+		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
+	end
+
+	api.nvim_create_user_command("SearchReplaceInQfManual", function(data)
+		local args = data.fargs
+		searchReplaceInQfManual(args[1], args[2])
+	end, { nargs = "*" })
+
+	-- custom toggle for supermaven
+	local toggleSupermaven = function()
+		local sm_api = require("supermaven-nvim.api")
+		-- toggle global variable for stop condition
+		-- first toggle sets the none existing variable to true
+		vim.g.supermaven_enable = not vim.g.supermaven_enable
+		-- stop or start supermaven
+		local noti = require("notify")
+		local noti_opts = { title = "Supermaven", icon = "", timeout = 1000, hide_from_history = true }
+		if vim.g.supermaven_enable then
+			noti("ON", "info", noti_opts)
+			sm_api.start()
+		else
+			noti("OFF", "error", noti_opts)
+			sm_api.stop()
+		end
+	end
+
+	api.nvim_create_user_command("ToggleSupermaven", toggleSupermaven, { range = false })
 end
-api.nvim_create_user_command("SearchReplaceCword", function(data)
-	local args = data.fargs
-	searchReplaceCword(args[1])
-end, { nargs = "*" })
-
--- init search for user input
-local searchReplaceInit = function(ignoreCase)
-	local beforeCmdSubstr = ":%s/"
-	local afterCmdSubstr = "/gc"
-	if ignoreCase == "true" then
-		afterCmdSubstr = "/gci"
-	end
-	local replace = fn.input("Provide string to replace: ")
-	local backtrack = string.rep("<Left>", #afterCmdSubstr)
-	local command = beforeCmdSubstr .. replace .. "/" .. afterCmdSubstr .. backtrack
-
-	api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
-end
-api.nvim_create_user_command("SearchReplaceInit", function(data)
-	local args = data.fargs
-	searchReplaceInit(args[1])
-end, { nargs = "*" })
-
--- pass visual selection as input for search and replace
-local searchReplaceVisualSelection = function()
-	local _, ls, cs = table.unpack(fn.getpos("'<"))
-	local _, le, ce = table.unpack(fn.getpos("'>"))
-	local endLineLen = fn.getline(le):len()
-	if ce > endLineLen then
-		ce = endLineLen
-	end
-	cs = cs - 1
-	ce = ce - 1
-
-	local lines = api.nvim_buf_get_text(0, ls - 1, cs, le - 1, ce + 1, {})
-	local selection = table.concat(lines, "\n")
-	selection = escapeScecialChars(selection)
-	local beforeCmdSubstr = ":%s/\\v"
-	-- use ignore case to decrease sensitibity as multiline selections are already wonky enough
-	local afterCmdSubstr = "/gci"
-	local backtrack = string.rep("<Left>", #afterCmdSubstr)
-	local command = beforeCmdSubstr .. selection .. "/" .. afterCmdSubstr .. backtrack
-
-	api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
-end
-api.nvim_create_user_command("SearchReplaceVisualSelection", function()
-	-- exit visual mode before the func call to update the marks with actual current range
-	api.nvim_feedkeys(api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
-	searchReplaceVisualSelection()
-end, { range = true })
-
--- reverse of the above make a selection first and take input to search
--- within this selection
-local searchReplaceInsideVisualSelection = function(ignoreCase)
-	-- Get the range of the visual selection
-	local _, ls, cs = table.unpack(fn.getpos("'<"))
-	local _, le, ce = table.unpack(fn.getpos("'>"))
-	local endLineLen = fn.getline(le):len()
-	if ce > endLineLen then
-		ce = endLineLen
-	end
-	cs = cs - 1
-	ce = ce - 1
-
-	local lines = api.nvim_buf_get_text(0, ls - 1, cs, le - 1, ce + 1, {})
-	local selection = table.concat(lines, "\n")
-
-	selection = escapeScecialChars(selection)
-	local replace = fn.input("Provide string to replace: ")
-	replace = escapeScecialChars(replace)
-
-	if not string.find(selection, replace) then
-		print("Pattern not found within the secection 󰇸")
-		return
-	end
-
-	local beforeCmdSubstr = ":'<,'>s/\\v"
-	local afterCmdSubstr = "/gc"
-	if ignoreCase == "true" then
-		afterCmdSubstr = "/gci"
-	end
-	local backtrack = string.rep("<Left>", #afterCmdSubstr)
-	local command = beforeCmdSubstr .. replace .. "/" .. afterCmdSubstr .. backtrack
-
-	api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
-end
-api.nvim_create_user_command("SearchReplaceInsideVisualSelection", function(data)
-	local args = data.fargs
-
-	-- exit visual mode before the func call to update the marks with actual current range
-	api.nvim_feedkeys(api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
-	searchReplaceInsideVisualSelection(args[1])
-end, { nargs = "*" })
---
--- search and replace within quickfix list
--- (adds bfdo and can add | update to save right away)
-local searchReplaceInQfManual = function(ignoreCase, withUpdate)
-	local cword = fn.expand("<cword>")
-	local beforeCmdSubstr = ":cfdo %s/"
-	local afterCmdSubstr = "/gc"
-	if ignoreCase == "true" then
-		afterCmdSubstr = "/gci"
-	end
-	if withUpdate == "true" then
-		afterCmdSubstr = afterCmdSubstr .. " | update"
-	end
-	local backtrack = string.rep("<Left>", #afterCmdSubstr)
-	local command = beforeCmdSubstr .. cword .. "/" .. afterCmdSubstr .. backtrack
-
-	api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
-end
-
-api.nvim_create_user_command("SearchReplaceInQfManual", function(data)
-	local args = data.fargs
-	searchReplaceInQfManual(args[1], args[2])
-end, { nargs = "*" })
-
--- custom toggle for supermaven
-local toggleSupermaven = function()
-	local sm_api = require("supermaven-nvim.api")
-	-- toggle global variable for stop condition
-	-- first toggle sets the none existing variable to true
-	vim.g.supermaven_enable = not vim.g.supermaven_enable
-	-- stop or start supermaven
-	local noti = require("notify")
-	local noti_opts = { title = "Supermaven", icon = "", timeout = 1000, hide_from_history = true }
-	if vim.g.supermaven_enable then
-		noti("ON", "info", noti_opts)
-		sm_api.start()
-	else
-		noti("OFF", "error", noti_opts)
-		sm_api.stop()
-	end
-end
-
-api.nvim_create_user_command("ToggleSupermaven", toggleSupermaven, { range = false })
+-- building my custom navigation command that will allow jumping to and from splits easily

@@ -1,11 +1,15 @@
 local M = {}
-local conf = require("tomeczku.configs.lazygit_conf")
+local conf
+if not vim.g.vscode then
+	conf = require("tomeczku.configs.lazygit_conf")
+end
 
 M = {
-  "kdheepak/lazygit.nvim",
-  cmd = conf.cmd,
-  window_chars = conf.chars,
-  config = conf.config_function,
+	"kdheepak/lazygit.nvim",
+	cond = vim.g.vscode == nil,
+	cmd = conf.cmd,
+	window_chars = conf.chars,
+	config = conf.config_function,
 }
 
 return M

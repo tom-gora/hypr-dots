@@ -29,5 +29,6 @@ config.font_rules = {
 		font = wezterm.font("JetBrainsMono Nerd Font"),
 	},
 }
+config.disable_default_key_bindings = true
 
 return config

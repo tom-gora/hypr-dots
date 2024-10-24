@@ -1,44 +1,49 @@
 local M = {}
 local override = function(direction)
-	local top = 0
-	local bottom = vim.opt.lines:get() - (vim.opt.cmdheight:get() + (vim.opt.laststatus:get() > 0 and 1 or 0))
-	if vim.wo.winbar then
-		bottom = bottom - 1
+	if not vim.g.vscode then
+		local top = 0
+		local bottom = vim.opt.lines:get() - (vim.opt.cmdheight:get() + (vim.opt.laststatus:get() > 0 and 1 or 0))
+		if vim.wo.winbar then
+			bottom = bottom - 1
+		end
+		local left = 1
+		local right = vim.opt.columns:get()
+		if direction == "top_down" then
+			return top, bottom
+		elseif direction == "bottom_up" then
+			return bottom, top
+		elseif direction == "left_right" then
+			return left, right
+		elseif direction == "right_left" then
+			return right, left
+		end
+		error(string.format("Invalid direction: %s", direction))
 	end
-	local left = 1
-	local right = vim.opt.columns:get()
-	if direction == "top_down" then
-		return top, bottom
-	elseif direction == "bottom_up" then
-		return bottom, top
-	elseif direction == "left_right" then
-		return left, right
-	elseif direction == "right_left" then
-		return right, left
-	end
-	error(string.format("Invalid direction: %s", direction))
 end
 
 M.no_spinner = function()
-	local format = require("noice.config.format")
-	local lsp_progress_new = {
-		{
-			"{progress}",
-			key = "progress.percentage",
-			contents = {
-				{ "{data.progress.message} " },
+	if not vim.g.vscode then
+		local format = require("noice.config.format")
+		local lsp_progress_new = {
+			{
+				"{progress}",
+				key = "progress.percentage",
 			},
-		},
-		-- "({data.progress.percentage}%) ",
-		{ "{data.progress.title} ", hl_group = "NoiceLspProgressTitle" },
-		{ "{data.progress.client} ", hl_group = "NoiceLspProgressClient" },
-	}
-	format.builtin.lsp_progress = lsp_progress_new
+			{ " {spinner}  ", hl_group = "NoiceLspProgressSpinner" },
+			{ " {data.progress.percentage}  " },
+			{ " {data.progress.title} ", hl_group = "NoiceLspProgressTitle" },
+			{ " {data.progress.client} ", hl_group = "NoiceLspProgressClient" },
+		}
+		format.builtin.lsp_progress = lsp_progress_new
+	end
 end
 
 M.opts = {
 	lsp = {
-		progress = { view = "notify" },
+		progress = {
+			view = "notify",
+			throttle = 100,
+		},
 		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 		override = {
 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -49,7 +54,13 @@ M.opts = {
 	cmdline = {
 		view = "cmdline",
 	},
-	views = { notify = { merge = true } },
+	views = {
+		notify = {
+			replace = true,
+			merge = true,
+		},
+	},
+
 	presets = {
 		lsp_doc_border = true,
 		long_message_to_split = true,
@@ -114,4 +125,6 @@ M.dependencies = {
 	},
 }
 
-return M
+if not vim.g.vscode then
+	return M
+end

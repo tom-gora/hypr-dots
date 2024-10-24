@@ -1,8 +1,13 @@
 local M = {}
-local config = require("tomeczku.configs.mini_conf")
+local config
+if not vim.g.vscode then
+	config = require("tomeczku.configs.mini_conf")
+end
+
 M = {
 	{
 		"echasnovski/mini.indentscope",
+		cond = vim.g.vscode == nil,
 		event = "VeryLazy",
 		opts = config.indentscope.opts,
 		init = config.indentscope.init_function,
@@ -22,6 +27,7 @@ M = {
 	},
 	{
 		"echasnovski/mini.move",
+		cond = vim.g.vscode == nil,
 		version = "*",
 		opts = config.move.opts,
 	},
@@ -33,6 +39,7 @@ M = {
 	},
 	{
 		"echasnovski/mini.ai",
+		cond = vim.g.vscode == nil,
 		version = "*",
 		event = "VeryLazy",
 		config = true,

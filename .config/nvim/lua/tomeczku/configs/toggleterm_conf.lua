@@ -1,7 +1,11 @@
 local M = {}
+local open = nil
+if not vim.g.vscode then
+	open = [[<S-CR>]]
+end
 
 M.opts = {
-	open_mapping = [[<S-CR>]],
+	open_mapping = open,
 	direction = "horizontal",
 	persist_mode = false,
 	auto_scroll = true,

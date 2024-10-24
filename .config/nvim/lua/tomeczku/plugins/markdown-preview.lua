@@ -1,8 +1,13 @@
 local M = {}
-local conf = require("tomeczku.configs.markdown_preview_conf")
+local conf
+if not vim.g.vscode then
+	conf = require("tomeczku.configs.markdown_preview_conf")
+end
+
 M = {
 	{
 		"iamcco/markdown-preview.nvim",
+		cond = vim.g.vscode == nil,
 		lazy = true,
 		cmd = conf.cmd,
 		build = conf.build_cmd,

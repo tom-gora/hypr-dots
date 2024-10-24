@@ -46,10 +46,10 @@ M.config_function = function()
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				init_selection = "<C-CR>",
-				node_incremental = "<C-CR>",
+				init_selection = "<C-S-L>",
+				node_incremental = "<C-S-L>",
 				-- scope_incremental = "<S-Space>",
-				node_decremental = "<C-bs>",
+				node_decremental = "<C-S-H>",
 			},
 		},
 	})

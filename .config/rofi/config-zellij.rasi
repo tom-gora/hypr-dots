@@ -1,7 +1,7 @@
 configuration {
     modi:                       "drun";
     font:                       "Ubuntu Nerd Font Medium 12";
-    show-icons:                 true;
+    show-icons:                 false;
     drun-display-format:        "{name}";
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
@@ -125,12 +125,6 @@ element alternate.active {
     text-color:                 @foreground;
 }                              
                                
-element-icon {                 
-    background-color:           transparent;
-    text-color:                 inherit;
-    size:                       24px;
-    cursor:                     inherit;
-}                              
                                
 element-text {                 
     background-color:           transparent;

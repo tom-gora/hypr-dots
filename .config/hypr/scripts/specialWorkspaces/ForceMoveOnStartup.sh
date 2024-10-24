@@ -1,31 +1,50 @@
 #!/bin/bash
 
+get_discord_pid() {
+	OUTPUT=$(hyprctl clients -j)
+	DISCORD_OBJ=$(jq '.[] | select(.initialClass == "FFPWA-01J4VCP1Y0M0HXJBSP8528JPKJ")' <<<"$OUTPUT")
+	DISCORD_WINDOW_PID=$(jq -r '.pid' <<<"$DISCORD_OBJ")
+	echo "$DISCORD_WINDOW_PID"
+}
+
 get_ollama_pid() {
 	OUTPUT=$(hyprctl clients -j)
 	OLLAMA_OBJ=$(jq '.[] | select(.initialClass == "FFPWA-01J4VCP1Y0M0HXJBSP8528JPKJ")' <<<"$OUTPUT")
 	OLLAMA_WINDOW_PID=$(jq -r '.pid' <<<"$OLLAMA_OBJ")
-	echo $OLLAMA_WINDOW_PID
+	echo "$OLLAMA_WINDOW_PID"
 }
 
 get_thunderbird_pid() {
 	OUTPUT=$(hyprctl clients -j)
 	THUNDERBIRD_OBJ=$(jq '.[] | select(.initialClass == "org.mozilla.thunderbird")' <<<"$OUTPUT")
 	THUNDERBIRD_WINDOW_PID=$(jq -r '.pid' <<<"$THUNDERBIRD_OBJ")
-	echo $THUNDERBIRD_WINDOW_PID
+	echo "$THUNDERBIRD_WINDOW_PID"
 }
 
 get_spotify_pid() {
 	OUTPUT=$(hyprctl clients -j)
 	SPOTIFY_OBJ=$(jq '.[] | select(.initialTitle == "Spotify")' <<<"$OUTPUT")
 	SPOTIFY_WINDOW_PID=$(jq -r '.pid' <<<"$SPOTIFY_OBJ")
-	echo $SPOTIFY_WINDOW_PID
+	echo "$SPOTIFY_WINDOW_PID"
 }
 
+DISCORD_MOVED=false
 OLLAMA_MOVED=false
 THUNDERBIRD_MOVED=false
 SPOTIFY_MOVED=false
 
 while true; do
+	if ! $DISCORD_MOVED; then
+		DISCORD_PID=$(get_discord_pid)
+		if [ -n "$DISCORD_PID" ]; then
+			echo "discord started with pid $DISCORD_PID"
+			sleep 1
+			hyprctl dispatch movetoworkspacesilent "e,pid:$DISCORD_PID"
+			hyprctl dispatch movetoworkspacesilent "special:discord,pid:$DISCORD_PID"
+			DISCORD_MOVED=true
+		fi
+	fi
+
 	if ! $OLLAMA_MOVED; then
 		OLLAMA_PID=$(get_ollama_pid)
 		if [ -n "$OLLAMA_PID" ]; then
