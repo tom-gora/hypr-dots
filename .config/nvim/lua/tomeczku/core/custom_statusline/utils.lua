@@ -116,8 +116,10 @@ M.setLspStringComponents = function(client, cname)
 			return { name = "hyprls", icon = " " }
 		elseif cname == "gopls" then
 			return { name = "gopls", icon = "󰟓 " }
-		elseif (cname == "intelephense" or cname == "tailwindcss") and vim.bo.filetype == "php" then
-			return { name = "intelephense", icon = " " }
+		-- elseif (cname == "intelephese" or cname == "tailwindcss") and vim.bo.filetype == "php" then
+		-- 	return { name = "intelephense", icon = " " }
+		elseif (cname == "phpactor" or cname == "tailwindcss") and vim.bo.filetype == "php" then
+			return { name = "phpactor", icon = " " }
 		elseif cname == "omnisharp" then
 			return { name = "omnisharp", icon = " " }
 		elseif cname == "lemminx" then

@@ -1,4 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
+local lsp_hacks = vim.api.nvim_create_augroup("lspHacks", { clear = true })
 local ui_helpers = vim.api.nvim_create_augroup("UiHelpers", { clear = true })
 local yank_highlight = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 local swaync_hack = vim.api.nvim_create_augroup("SwayncHack", { clear = true })
@@ -70,6 +71,15 @@ autocmd({ "WinNew", "BufEnter" }, {
 			vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), help_buf)
 			vim.bo.bufhidden = bufhidden
 		end
+	end,
+})
+
+-- disable annoying diagnostic noise in .env files. those are not bash scripts
+autocmd({ "BufNewFile", "BufReadPost" }, {
+	group = lsp_hacks,
+	pattern = ".env*",
+	callback = function(e)
+		vim.diagnostic.enable(false, { bufnr = e.buf })
 	end,
 })
 

@@ -58,13 +58,17 @@ M.opts = {
 	view_options = {
 		natural_order = true,
 	},
+	preview_win = {
+		scratch_buffer = true,
+		limit_scratch_buffer = true,
+	},
 	keymaps = {
 		["g?"] = "actions.show_help",
 		["<C-a>"] = { desc = "Select item", callback = custom_oil_select_callback },
 		["<Esc>"] = "actions.refresh",
 		["<C-k>"] = "actions.parent",
 		["<C-d>"] = "actions.open_cwd",
-		["`"] = false,
+		["<C-p>"] = { "actions.preview", opts = { horizontal = true } },
 		["~"] = false,
 		["gs"] = "actions.change_sort",
 		["gx"] = false,

@@ -51,13 +51,17 @@ nNore = {
 	-- toggle oil pane
 	["<leader>e"] = {
 		function()
+			local o = require("oil")
 			-- if oil already opened and not focused then navigate to it
 			if _G._OilOpened and vim.bo.filetype ~= "oil" then
 				vim.fn.win_gotoid(_G._OilOpened)
 				return
+			elseif _G._OilOpened and vim.bo.filetype == "oil" then
+				o.close()
+				vim.api.nvim_win_close(_G._OilOpened, true)
+				return
 			end
 			-- else open it in dynamically adjusted vsplit and set global storage for winid of oil
-			local o = require("oil")
 			-- local u = require("oil.util")
 			vim.cmd("vsplit")
 			vim.api.nvim_win_set_width(0, math.max(math.ceil(vim.api.nvim_win_get_width(0) / 3), 45))

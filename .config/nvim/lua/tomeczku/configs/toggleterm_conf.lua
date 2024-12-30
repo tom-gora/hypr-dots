@@ -1,7 +1,7 @@
 local M = {}
 local open = nil
 if not vim.g.vscode then
-	open = [[<S-CR>]]
+	open = [[<C-T>]]
 end
 
 M.opts = {
@@ -9,6 +9,8 @@ M.opts = {
 	direction = "horizontal",
 	persist_mode = false,
 	auto_scroll = true,
+	insert_mappings = false,
+	termial_mappings = true,
 	start_in_insert = false,
 	size = function(term)
 		if term.direction == "horizontal" then
@@ -179,20 +181,19 @@ M.config_function = function(_, opts)
 	-- for term navigation
 
 	-- navigation set as per toggleterm docs
-	local term_augroup = vim.api.nvim_create_augroup("termBinds", { clear = true })
 
 	api.nvim_create_autocmd("TermOpen", {
-		group = term_augroup,
+		group = vim.api.nvim_create_augroup("TermBinds", { clear = true }),
 		callback = function()
-			local bind_opts = { buffer = 0 }
-			local map = vim.keymap.set
-			map("t", "<esc>", [[<C-\><C-n>]], bind_opts)
-			map("t", "jk", [[<C-\><C-n>]], bind_opts)
-			map("t", "<C-h>", [[<Cmd>wincmd h<CR>]], bind_opts)
-			map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], bind_opts)
-			map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], bind_opts)
-			map("t", "<C-l>", [[<Cmd>wincmd l<CR>]], bind_opts)
-			map("t", "<C-w>", [[<C-\><C-n><C-w>]], bind_opts)
+			local bind_opts = { noremap = true }
+			local map = vim.api.nvim_buf_set_keymap
+			map(0, "t", "<esc>", [[<C-\><C-n>]], bind_opts)
+			map(0, "t", "jk", [[<C-\><C-n>]], bind_opts)
+			map(0, "t", "<C-h>", [[<Cmd>wincmd h<CR>]], bind_opts)
+			map(0, "t", "<C-j>", [[<Cmd>wincmd j<CR>]], bind_opts)
+			map(0, "t", "<C-k>", [[<Cmd>wincmd k<CR>]], bind_opts)
+			map(0, "t", "<C-l>", [[<Cmd>wincmd l<CR>]], bind_opts)
+			map(0, "t", "<C-w>", [[<C-\><C-n><C-w>]], bind_opts)
 		end,
 	})
 

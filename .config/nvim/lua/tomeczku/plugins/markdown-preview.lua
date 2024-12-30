@@ -6,17 +6,22 @@ end
 
 M = {
 	{
-		"iamcco/markdown-preview.nvim",
+		-- clone from my backup fork of fixed package that wasn't merged
+		-- attribution for fix: Knyffen/markdown-preview.nvim
+		"tom-gora/markdown-preview.nvim",
 		cond = vim.g.vscode == nil,
-		lazy = true,
-		cmd = conf.cmd,
+		lazy = false,
+		-- cmd = conf.cmd,
 		build = conf.build_cmd,
 		config = conf.config,
 		ft = { "markdown" },
 	},
 	{
 		"OXY2DEV/markview.nvim",
-		ft = { "markdown" },
+		opts = {
+			initial_state = false,
+			filetypes = { "markdown" },
+		},
 	},
 }
 

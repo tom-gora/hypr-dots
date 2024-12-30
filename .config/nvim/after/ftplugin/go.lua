@@ -30,3 +30,7 @@ vim.api.nvim_set_keymap(
 	"<cmd>GoErrorQuickMap<cr>",
 	{ noremap = true, silent = true, desc = " Quick Go Error" }
 )
+
+-- load go snippets
+require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets/vscode/go/go.json" })
+require("luasnip.loaders.from_snipmate").lazy_load({ path = "~/.config/nvim/snippets/snipmate/go/go.snippets" })

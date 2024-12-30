@@ -6,6 +6,7 @@ end
 
 M = {
 	"neovim/nvim-lspconfig",
+
 	cond = vim.g.vscode == nil,
 	dependencies = { "williamboman/mason.nvim" },
 	cmd = { "LspInstall", "LspUninstall" },

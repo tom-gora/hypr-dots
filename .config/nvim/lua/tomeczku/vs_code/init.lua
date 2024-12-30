@@ -3,7 +3,7 @@ local M = {}
 M.vscode_plugins = {
 	{
 		"nat-418/boole.nvim",
-		-- cond = vim.g.vscode == nil,
+		lazy = false,
 		opts = {
 			mappings = {
 				increment = "<C-a>",
@@ -18,7 +18,7 @@ M.vscode_plugins = {
 	{
 		"echasnovski/mini.surround",
 		version = "*",
-		event = "VeryLazy",
+		lazy = false,
 		opts = {
 			highlight_duration = 1000,
 		},
@@ -48,20 +48,30 @@ M.vscode_plugins = {
 	{
 		"echasnovski/mini.pairs",
 		version = "*",
-		event = "VeryLazy",
+		lazy = false,
 		config = true,
 	},
 	{
 		"echasnovski/mini.ai",
 		version = "*",
-		event = "VeryLazy",
+		lazy = false,
 		config = true,
 	},
 }
 M.vscode_other = {
 	vim_opts_and_other_basics = function()
-		-- SILENCE, BUFFER!
+		-- clipboard
+		vim.opt.clipboard:prepend("unnamedplus")
+		--cmdline related
+
+		vim.opt.ignorecase = true
+		vim.opt.smartcase = true
 		vim.opt.cmdheight = 1
+		vim.opt.virtualedit = "block"
+		vim.opt.scrolloff = 999
+		vim.opt.cursorline = true
+		vim.opt.signcolumn = "yes"
+		-- SILENCE, BUFFER!
 		vim.opt.shortmess:append({
 			a = true,
 			S = true,
@@ -94,6 +104,8 @@ M.vscode_register_keymaps = function()
 	local map = vim.keymap.set
 	local opts = { silent = true, noremap = true }
 
+	-- test 1
+	-- tesr 2
 	--fixes to mappings
 	map("x", "p", "P", opts)
 	map("n", "ciw", '"_ciw', opts)
@@ -101,6 +113,8 @@ M.vscode_register_keymaps = function()
 	map("n", "<leader>a", "ggVG", opts)
 	map("n", "p", "gp", opts)
 	map({ "n", "x" }, "c", '"_c', opts)
+	map("n", "D", '"_D', opts)
+	map("n", "C", '"_C', opts)
 	map({ "n", "x" }, "x", '"_x', opts)
 	map({ "n", "x" }, "d", '"_d', opts)
 	-- hi reset
@@ -171,10 +185,15 @@ M.vscode_register_keymaps = function()
 	end, opts)
 	--saving
 	map("n", "<leader>w", function()
-		vscode.call("workbench.action.files.save")
+		local file = vim.fn.expand("%:t")
+		local timestamp = os.date("%Y-%m-%d %H:%M")
+		vim.notify("💾 `" .. file .. "` has been written. " .. timestamp)
+		vim.cmd("w")
 	end, opts)
 	map("n", "<leader>W", function()
-		vscode.call("workbench.action.files.saveFiles")
+		vim.cmd("wa")
+		local timestamp = os.date("%Y-%m-%d %H:%M")
+		vim.notify("💾  All files have been written. " .. timestamp)
 	end, opts)
 	map("n", "<leader>wa", function()
 		vscode.call("workbench.action.files.saveAs")

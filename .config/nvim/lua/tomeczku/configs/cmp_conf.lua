@@ -16,6 +16,20 @@ M.dependencies = {
 		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 		-- install jsregexp (optional!).
 		build = "make install_jsregexp",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			"benfowler/telescope-luasnip.nvim",
+		},
+		config = function(_, opts)
+			if opts then
+				require("luasnip").config.setup(opts)
+			end
+			vim.tbl_map(function(type)
+				require("luasnip.loaders.from_" .. type).lazy_load()
+			end, { "vscode", "snipmate", "lua" })
+			-- friendly-snippets - enable standardized comments snippets
+			require("luasnip").filetype_extend("php", { "blade" })
+		end,
 	},
 	-- for autocompletion
 	"saadparwaiz1/cmp_luasnip",
@@ -23,8 +37,7 @@ M.dependencies = {
 	{
 		"rafamadriz/friendly-snippets",
 		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip.loaders.from_snipmate").lazy_load()
+			-- TODO: load global snippets
 		end,
 	},
 	"onsails/lspkind.nvim", -- vs-code like pictograms
@@ -105,7 +118,24 @@ M.config_function = function()
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-			["<C-h>"] = cmp.mapping.abort(), -- close completion window
+			-- exit snippet alternatively with c-h or esc
+			["<C-h>"] = cmp.mapping.abort(),
+			-- jump to next slot
+			["<C-]>"] = cmp.mapping(function(fallback)
+				if luasnip.expand_or_locally_jumpable() then
+					luasnip.expand_or_jump()
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
+			-- jump to prev slot
+			["<C-[>"] = cmp.mapping(function(fallback)
+				if luasnip.locally_jumpable(-1) then
+					luasnip.jump(-1)
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
 			-- accept alternatively with enter or C-l, or c-a
 			["<CR>"] = cmp.mapping.confirm({ select = false }),
 			["<C-a>"] = cmp.mapping.confirm({ select = false }),

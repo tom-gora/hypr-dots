@@ -2,6 +2,7 @@ local M = {}
 
 M.config_function = function()
 	local ts = require("nvim-treesitter.configs")
+	local parsers_conf = require("nvim-treesitter.parsers").get_parser_configs()
 	ts.setup({
 		ensure_installed = {
 			"vim",
@@ -46,10 +47,10 @@ M.config_function = function()
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				init_selection = "<C-S-L>",
-				node_incremental = "<C-S-L>",
-				-- scope_incremental = "<S-Space>",
-				node_decremental = "<C-S-H>",
+				init_selection = "<C-S>",
+				node_incremental = "<C-S>",
+				scope_incremental = false,
+				node_decremental = "<C-A>",
 			},
 		},
 	})
@@ -58,6 +59,19 @@ M.config_function = function()
 	vim.filetype.add({
 		pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 	})
+	vim.filetype.add({
+		pattern = {
+			[".*%.blade%.php"] = "blade",
+		},
+	})
+	parsers_conf.blade = {
+		install_info = {
+			url = "https://github.com/EmranMR/tree-sitter-blade",
+			files = { "src/parser.c" },
+			branch = "main",
+		},
+		filetype = "blade",
+	}
 end
 
 M.dependencies = {

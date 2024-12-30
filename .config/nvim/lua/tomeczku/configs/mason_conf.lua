@@ -21,7 +21,6 @@ M.mason = {
 		"prettier",
 		"prettierd",
 		"tailwindcss",
-		"intelephense",
 		"astro",
 		-- "stimulus-language-server",
 
@@ -52,6 +51,7 @@ M.mason = {
 		"revive",
 		"shellcheck",
 		"eslint_d",
+		"blade-formatter",
 	},
 }
 
@@ -68,7 +68,8 @@ M.mason_lspconfig = {
 		"jsonls",
 		"ts_ls",
 		"tailwindcss",
-		"intelephense",
+		-- "intelephense",
+		"phpactor",
 		"astro",
 		"gopls",
 		-- "hyprls",

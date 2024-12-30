@@ -11,15 +11,56 @@ M.config_fuction = function()
 	local root_pattern = lspconfig.util.root_pattern
 	local mason_conf = require("tomeczku.configs.mason_conf")
 	local lsps = mason_conf.mason_lspconfig.ensure_installed
+
+	-- per lsp adjustments
+
 	for _, lsp in ipairs(lsps) do
 		if lsp == "bashls" then
 			-- make bashls attach to additional filetypes
 			lspconfig.bashls.setup({
+				capabilities = capabilities,
 				filetypes = { "sh", "zsh" },
+			})
+		elseif lsp == "emmet_language_server" then
+			lspconfig.emmet_language_server.setup({
+				capabilities = capabilities,
+				filetypes = {
+					"css",
+					"html",
+					"javascript",
+					"javascriptreact",
+					"less",
+					"sass",
+					"scss",
+					"typescriptreact",
+					"blade",
+				},
 			})
 		elseif lsp == "astro" then
 			--pass path to typescript for astro to work
 			lspconfig.astro.setup({
+				capabilities = capabilities,
+				init_options = {
+					typescript = {
+						tsdk = vim.fs.normalize("/usr/local/lib/node_modules/typescript/lib"),
+					},
+				},
+			})
+		elseif lsp == "phpactor" then
+			-- same extended filetype pool for phpactor to include blade files
+			lspconfig.phpactor.setup({
+				capabilities = capabilities,
+				filetypes = { "blade", "php" },
+			})
+		elseif lsp == "tailwindcss" then
+			lspconfig.tailwindcss.setup({
+				capabilities = capabilities,
+				filetypes = require("tailwind-tools.filetypes").get_all(),
+			})
+		elseif lsp == "astro" then
+			--pass path to typescript for astro to work
+			lspconfig.astro.setup({
+				capabilities = capabilities,
 				init_options = {
 					typescript = {
 						tsdk = vim.fs.normalize("/usr/local/lib/node_modules/typescript/lib"),
@@ -28,6 +69,7 @@ M.config_fuction = function()
 			})
 		elseif lsp == "tsserver" or lsp == "ts_ls" then
 			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
 				filetypes = {
 					"astro",
 					"typescript",
@@ -48,12 +90,12 @@ M.config_fuction = function()
 		elseif lsp == "lua_ls" then
 			-- hide annoying messages about globals from lua_ls
 			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
 				on_init = function(client)
 					local path = client.workspace_folders[1].name
 					if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
 						return
 					end
-
 					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 						runtime = {
 							-- Tell the language server which version of Lua you're using
@@ -80,6 +122,7 @@ M.config_fuction = function()
 		elseif lsp == "omnisharp" then
 			-- setup omnisharp
 			lspconfig.omnisharp.setup({
+				capabilities = capabilities,
 				cmd = { "dotnet", "/home/tomeczku/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
 				enable_editorconfig_support = true,
 				enable_ms_build_load_projects_on_demand = false,
@@ -109,10 +152,12 @@ M.config_fuction = function()
 			})
 		elseif lsp == "intelephense" then
 			lspconfig.intelephense.setup({
+				capabilities = capabilities,
 				filetypes = { "php" },
 			})
 		elseif lsp == "gopls" then
 			lspconfig.gopls.setup({
+				capabilities = capabilities,
 				completeUnimported = true,
 				analyses = { unusedparams = true },
 				staticcheck = true,
@@ -159,17 +204,17 @@ M.config_fuction = function()
 	})
 
 	-- and intelephense
-	vim.api.nvim_create_autocmd({ "FileType" }, {
-		group = lsp_hacks,
-		pattern = "php",
-		callback = function()
-			vim.lsp.start({
-				name = "intelephense",
-				cmd = { "intelephense", "--stdio" },
-				root_dir = vim.fn.getcwd(),
-			})
-		end,
-	})
+	-- vim.api.nvim_create_autocmd({ "FileType" }, {
+	-- 	group = lsp_hacks,
+	-- 	pattern = "php",
+	-- 	callback = function()
+	-- 		vim.lsp.start({
+	-- 			name = "intelephense",
+	-- 			cmd = { "intelephense", "--stdio" },
+	-- 			root_dir = vim.fn.getcwd(),
+	-- 		})
+	-- 	end,
+	-- })
 end
 
 return M

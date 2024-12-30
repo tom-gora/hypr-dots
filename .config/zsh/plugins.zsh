@@ -32,6 +32,10 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
+#artisan completions
+zinit ice depth=1
+zinit light jessarcher/zsh-artisan
+
 # configs
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # fzf-tab

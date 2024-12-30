@@ -111,7 +111,6 @@
 "custom/ollama-state": {
     "format": "{}",
     "exec": "~/.config/hypr/scripts/utils/OllamaState.sh",
-    "exec-if": "pgrep ollama",
     "interval": 10,
     "tooltip": "false",
     "on-click": "~/.config/hypr/scripts/specialWorkspaces/OllamaToggle.sh"

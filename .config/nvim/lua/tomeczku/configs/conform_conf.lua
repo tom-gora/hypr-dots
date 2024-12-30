@@ -3,24 +3,31 @@ local M = {}
 local opts = {
 	lsp_fallback = true,
 
+	formatters = {
+		pint = {
+			command = "./vendor/bin/pint",
+		},
+	},
+
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "prettier" },
-		javascriptreact = { "prettier" },
-		typescript = { "prettier" },
-		typescriptreact = { "prettier" },
-		html = { "prettier" },
-		markdown = { "prettier" },
+		javascript = { "prettierd" },
+		javascriptreact = { "prettierd" },
+		typescript = { "prettierd" },
+		typescriptreact = { "prettierd" },
+		html = { "prettierd" },
+		markdown = { "prettierd" },
 		zshrc = { "shfmt" },
-		css = { "prettier" },
-		cshtml = { "prettier" },
-		json = { "prettier" },
+		css = { "prettierd" },
+		cshtml = { "prettierd" },
+		json = { "prettierd" },
 		sh = { "shfmt" },
 		xml = { "xmlformatter" },
 		csproj = { "xmlformatter" },
 		java = { "google-java-format" },
-		astro = { "prettier" },
-		php = { "prettier" },
+		astro = { "prettierd" },
+		php = { "pint" },
+		blade = { "blade-formatter" },
 		svg = { "xmlformat" },
 		go = { "gofumpt" },
 	},
@@ -30,7 +37,7 @@ local opts = {
 
 	format_on_save = {
 		-- These options will be passed to conform.format()
-		timeout_ms = 1000,
+		timeout_ms = 3000,
 		lsp_fallback = true,
 	},
 }

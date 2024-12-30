@@ -148,7 +148,7 @@
   {
     "key": "ctrl+a",
     "command": "workbench.action.acceptSelectedQuickOpenItem",
-    "when": "inQuickInput && quickInputType == 'quickPick'"
+    "when": "inQuickInput && quickInputType == 'quickPick' && !inputFocus"
   },
   {
     "key": "ctrl+j",
@@ -864,5 +864,10 @@
     "key": "ctrl+k ctrl+8",
     "command": "-editor.foldAllMarkerRegions",
     "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "ctrl+a",
+    "command": "editor.action.selectAll",
+    "when": "inputFocus && !editorTextFocus"
   }
 ]

@@ -43,3 +43,9 @@ function new-script() {
   SCRIPT_NAME=$1
   touch "$SCRIPT_NAME" && chmod u+x "$SCRIPT_NAME"
 }
+
+nvim_here() {
+  local dir
+  dir="$(pwd)"
+  nvim "$dir"
+}

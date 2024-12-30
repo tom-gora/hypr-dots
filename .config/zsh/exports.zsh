@@ -26,8 +26,10 @@ export PATH="/usr/local/bin":$PATH
 export PATH="$HOME/.local/bin/.spicetify":$PATH
 export PATH="$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/tools/bin":$PATH
 export GOPATH=$(go env GOPATH)
+export PATH=$GOPATH:$PATH
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+export PATH="$XDG_CONFIG_HOME/composer/vendor/bin":$PATH
 
 # Manpath
 export MANPATH="/usr/local/man:$MANPATH"

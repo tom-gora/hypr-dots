@@ -46,6 +46,15 @@ alias rmf="rm -rf"
 #colored commands
 alias grep="grep --color=auto"
 
+#shorter php artisan
+alias pa="php artisan"
+
+#shorter composer dev server
+alias crd="composer run dev"
+
+# wezterm img preview
+alias wi="wezterm imgcat"
+
 # play yt in mpv
 alias ythi='mpv --ytdl-format="bestvideo[height<=1080]+bestaudio/best[height<=1080]" $1' # 720p
 alias ytmid='mpv --ytdl-format="bestvideo[height<=720]+bestaudio/best[height<=720]" $1'  # 720p
@@ -83,7 +92,7 @@ alias .b="dotnet build"
 
 # applications aliases
 alias spotify="flatpak run --socket=wayland com.spotify.Client --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto &"
-alias code="codium"
+alias code="codium --ozone-platform=wayland"
 alias cpwd="pwd | wl-copy"
 alias cpl="fc -ln -1 | wl-copy"
 alias intellij="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=idea com.jetbrains.IntelliJ-IDEA-Ultimate"
