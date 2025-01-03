@@ -36,6 +36,14 @@ alias cd="z"
 
 # quick open
 alias xo="xdg-open"
+# shallow clone
+alias gc1="git clone --depth 1"
+
+#tmux autoname session
+alias t='tmux new -A -s "$(basename "$PWD")-$(date +%y%m%d%H%M)"'
+alias ta='tmux attach -t'
+alias tls='tmux ls'
+alias tkill="tmux kill-session -t"
 
 # easier dir removal
 # soft

@@ -31,12 +31,5 @@ config.font_rules = {
 		font = wezterm.font("JetBrainsMono Nerd Font"),
 	},
 }
-config.keys = {
-	{
-		key = "l",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.DisableDefaultAssignment,
-	},
-}
 
 return config
