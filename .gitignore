@@ -3,4 +3,5 @@
 .config/zsh/.zcompdump*
 .config/rofi/.current_wallpaper
 .config/tmux/plugins/
+.config/tmux/plugins/tpm/
 *.log
