@@ -11,7 +11,7 @@ M = {
 		"tom-gora/markdown-preview.nvim",
 		cond = vim.g.vscode == nil,
 		lazy = false,
-		-- cmd = conf.cmd,
+		cmd = conf.cmd,
 		build = conf.build_cmd,
 		config = conf.config,
 		ft = { "markdown" },

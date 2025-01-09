@@ -4,16 +4,17 @@
 # setup fzf
 eval "$(fzf --zsh)"
 # setup for fzf etc
-alias fzf="fzf --multi --cycle --bind ctrl-l:accept-non-empty"
+alias fzf="fzf --multi --cycle"
 # -- MINE: setup rose-pine colors for fzf --
 export FZF_DEFAULT_OPTS="
-	--color=fg:#908caa,hl:#ea9a97,selected-fg:#e0def4
+	--color=bg:#07060a,fg:#c4a7e7,hl:#ea9a97,selected-fg:#e0def4
 	--color=fg+:bright-white,bg+:#2e2a42,hl+:#ea9a97,gutter:-1,selected-fg:#e0def4
-	--color=border:#44415a,header:#3e8fb0,border:bold
+	--color=border:#3e8fb0,header:#3e8fb0,border:bold
 	--color=spinner:#f6c177,info:#9ccfd8,separator:#44415a
-	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa
+	--color=pointer:#abe9b3,marker:#eb6f92,prompt:#908caa
   --preview-window right:60%:wrap
-  --bind ctrl-p:toggle-preview"
+  --bind ctrl-p:toggle-preview
+  --bind ctrl-j:down,ctrl-k:up,ctrl-a:accept-non-empty"
 
 export FZF_COMPLETION_TRIGGER="\`\`"
 

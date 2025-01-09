@@ -41,9 +41,17 @@ alias gc1="git clone --depth 1"
 
 #tmux autoname session
 alias t='tmux new -A -s "$(basename "$PWD")-$(date +%y%m%d%H%M)"'
-alias ta='tmux attach -t'
+alias tns='tmux new-session -s'
+alias tas='tmux attach -t'
 alias tls='tmux ls'
-alias tkill="tmux kill-session -t"
+alias txs="tmux kill-session -t"
+alias td='tmux detach'
+
+alias trestore='pgrep -vx tmux > /dev/null && \
+                  tmux new -d -s delete-me && \ 
+                  tmux run-shell $XDG_CONFIG_HOME/tmux/plugins/tmux-resurrect/scripts/restore.sh && \
+                  tmux kill-session -t delete-me && \
+                  tmux attach || tmux attach'
 
 # easier dir removal
 # soft

@@ -11,6 +11,6 @@ end
 
 M.build_cmd = "cd app && npm i"
 
--- M.cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" }
+M.cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" }
 
 return M

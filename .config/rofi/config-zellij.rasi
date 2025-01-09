@@ -162,7 +162,7 @@ entry {
     padding:					          6px 0px 0px 0px;
     text-color:                 inherit;
     cursor:                     text;
-    placeholder:                "Select Zellij Session...";
+    placeholder:                "Select Session...";
     placeholder-color:          inherit;
     background-color:			      transparent;
 }

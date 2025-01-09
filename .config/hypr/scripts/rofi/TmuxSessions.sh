@@ -2,6 +2,15 @@
 
 # Rofi menu for tmux sessions
 
+# kickstart tmux with a temp named session to the run the ressurect restoration having the server running
+if ! pgrep -vx tmux >/dev/null || [[ $(tmux list-sessions 2>/dev/null | wc -l) -eq 0 ]]; then
+	tmux new -d -s delete-me &&
+		tmux run-shell "$HOME"/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh
+fi
+
+# after ressurect ditch the temp session
+tmux kill-session -t delete-me
+
 sesh=$(which sesh)
 zoxide=$(which zoxide)
 fzf=$(which fzf)

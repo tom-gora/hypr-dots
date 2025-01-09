@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #determine terminal from environment
+set +x
 term="$TERMINAL"
 init_z() {
 	# first dependency check

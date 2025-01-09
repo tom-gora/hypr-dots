@@ -10,7 +10,7 @@ if not vim.g.vscode then
 	-- keymaps
 	require("tomeczku.core.keymaps")
 	-- winZap
-	require("tomeczku.core.winZap")
+	-- require("tomeczku.core.winZap")
 	-- bring int autocommands
 	require("tomeczku.core.autocommands")
 	-- get statuslinme

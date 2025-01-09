@@ -32,4 +32,7 @@ config.font_rules = {
 	},
 }
 
+config.window_close_confirmation = "NeverPrompt"
+config.default_prog = { "/usr/bin/zsh" }
+
 return config

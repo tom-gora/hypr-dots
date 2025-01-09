@@ -44,22 +44,20 @@ function new-script() {
   touch "$SCRIPT_NAME" && chmod u+x "$SCRIPT_NAME"
 }
 
-nvim_here() {
-  local dir
-  dir="$(pwd)"
-  nvim "$dir"
+function nvim_here() {
+  nvim "$(pwd)" +Oil
 }
 if [[ -z "$TMUX" ]]; then
-  my_sesh_call() {
+  function my_sesh_call() {
     {
       exec </dev/tty
       exec <&1
       local choice="$(sesh list --icons | fzf \
         --no-sort --ansi --height=16 --min-height=16 --border=rounded --border-label '󱗿 SESH ' \
         --border-label-pos=4 --prompt '  ' \
-        --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
-        --bind 'ctrl-j:down,ctrl-k:up' \
-        --bind 'ctrl-a:change-prompt(  )+reload(sesh list --icons)' \
+        --header '  ^e everything ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
+        --bind 'ctrl-j:down,ctrl-k:up,ctrl-a:accept-non-empty' \
+        --bind 'ctrl-e:change-prompt(  )+reload(sesh list --icons)' \
         --bind 'ctrl-t:change-prompt(  )+reload(sesh list -t --icons)' \
         --bind 'ctrl-g:change-prompt(  )+reload(sesh list -c --icons)' \
         --bind 'ctrl-x:change-prompt(  )+reload(sesh list -z --icons)' \
