@@ -23,6 +23,7 @@
     "idle_inhibitor",
     "clock#simpleclock",
     "custom/weather",
+    "custom/updates",
   ],
   "modules-right": [
     "group/localai",

@@ -6,6 +6,7 @@ end
 
 M = {
 	"supermaven-inc/supermaven-nvim",
+	-- ,nabled = false,
 	cond = vim.g.vscode == nil,
 	cmd = { "SupermavenStart", "SupermavenToggle" },
 	lazy = false,

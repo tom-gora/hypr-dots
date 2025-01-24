@@ -58,10 +58,10 @@
       "ignored-sinks": ["Easy Effects Sink"]
     },
     "scroll-step": 5.0,
-    "on-click": "~/.config/hypr/scripts/utils/Volume.sh --toggle",
+    "on-click": "$HOME/.config/hypr/scripts/utils/Volume.sh --toggle",
     "on-click-right": "pavucontrol -t 3",
-    "on-scroll-up": "~/.config/hypr/scripts/utils/Volume.sh --inc",
-    "on-scroll-down": "~/.config/hypr/scripts/utils/Volume.sh --dec",
+    "on-scroll-up": "$HOME/.config/hypr/scripts/utils/Volume.sh --inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/utils/Volume.sh --dec",
     "tooltip-format": "{icon} {desc} | {volume}%",
     "smooth-scrolling-threshold": 1
   },
@@ -70,10 +70,10 @@
     "format": " {format_source}",
     "format-source": " {volume}%",
     "format-source-muted": "",
-    "on-click": "~/.config/hypr/scripts/utils/Volume.sh --toggle-mic",
+    "on-click": "$HOME/.config/hypr/scripts/utils/Volume.sh --toggle-mic",
     "on-click-right": "pavucontrol -t 4",
-    "on-scroll-up": "~/.config/hypr/scripts/utils/Volume.sh --mic-inc",
-    "on-scroll-down": "~/.config/hypr/scripts/utils/Volume.sh --mic-dec",
+    "on-scroll-up": "$HOME/.config/hypr/scripts/utils/Volume.sh --mic-inc",
+    "on-scroll-down": "$HOME/.config/hypr/scripts/utils/Volume.sh --mic-dec",
     "tooltip-format": "{source_desc} | {source_volume}%",
     "scroll-step": 5
   },
@@ -84,14 +84,14 @@
     "exec-if": "pgrep wf-recorder",
     "interval": 1,
     "tooltip": "false",
-    "on-click": "~/.config/hypr/scripts/utils/KillWfRecorder.sh"
+    "on-click": "$HOME/.config/hypr/scripts/utils/KillWfRecorder.sh"
   },
 
 "custom/test": {
     "format" : " ",
     "tooltip": false,
     "menu": "on-click",
-    "menu-file": "~/.config/waybar/power_menu.xml",
+    "menu-file": "$HOME/.config/waybar/power_menu.xml",
     "menu-actions": {
         "shutdown": "shutdown",
         "reboot": "reboot",
@@ -102,18 +102,18 @@
 
   "custom/ollama-model": {
     "format": "{}",
-    "exec": "~/.config/hypr/scripts/utils/OllamaModel.sh",
+    "exec": "$HOME/.config/hypr/scripts/utils/OllamaModel.sh",
     "interval": 1,
     "tooltip": "false",
-    "on-click": "~/.config/hypr/scripts/specialWorkspaces/OllamaToggle.sh"
+    "on-click": "$HOME/.config/hypr/scripts/specialWorkspaces/OllamaToggle.sh"
   },
 
 "custom/ollama-state": {
     "format": "{}",
-    "exec": "~/.config/hypr/scripts/utils/OllamaState.sh",
+    "exec": "$HOME/.config/hypr/scripts/utils/OllamaState.sh",
     "interval": 10,
     "tooltip": "false",
-    "on-click": "~/.config/hypr/scripts/specialWorkspaces/OllamaToggle.sh"
+    "on-click": "$HOME/.config/hypr/scripts/specialWorkspaces/OllamaToggle.sh"
   },
 
   "custom/gpu-usage": {
@@ -151,9 +151,9 @@
         "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
     },
-    "on-click": "~/.config/hypr/scripts/utils/Calendar.sh",
+    "on-click": "$HOME/.config/hypr/scripts/utils/Calendar.sh",
     "actions": {
-      "on-click": "~/.config/hypr/scripts/utils/Calendar.sh",
+      "on-click": "$HOME/.config/hypr/scripts/utils/Calendar.sh",
       "on-click-right": "mode"
     }
   },
@@ -162,12 +162,21 @@
     "format": "{}",
     "format-alt": "Grangemouth: {}",
     "format-alt-click": "click",
-    "interval": 3600,
+    "interval": 1800,
     "return-type": "json",
-    "exec": "~/.config/hypr/scripts/utils/Weather.py",
+    "exec": "$HOME/.config/hypr/scripts/utils/Weather.py",
     "exec-if": "ping wttr.in -c1",
     "tooltip": true
   },
+
+ "custom/updates": {
+        "return-type": "json", 
+        "text": "<span foreground='#32728d'>{text}</span>",
+        "interval": 1800,
+        "exec": "$HOME/.config/hypr/scripts/utils/DnfUpdates.sh",
+        "tooltip": "{tooltip} ",
+        "on-click": " wezterm start --always-new-process --class 'wez-updater' -- $HOME/.config/hypr/scripts/utils/WezUpdater.sh; if [[ -n $(ls /tmp/my_updater.* 2>/dev/null) ]]; then content=$(cat $(ls /tmp/my_updater.* | head -n 1)); if [[ $content == *'in_progress'* ]] || [[ $content -eq 1 ]]; then notify-send -t 3000 -i $HOME/.config/swaync/images/fedora.svg 'DNF' 'Fedora failed to update.\n'; sleep 3; swaync-client --close-latest; for tidy_me in /tmp/my_updater.*; do rm -f $tidy_me; done; fi; fi",
+        },
 
   "cpu": {
     "format": "{usage}% 󰍛",
@@ -218,7 +227,7 @@
     "format-en": " gb",
     "format-pl": " pl",
     //"format-en": " us",
-    "on-click": "~/.config/hypr/scripts/utils/SwitchKeyboardLayout.sh"
+    "on-click": "$HOME/.config/hypr/scripts/utils/SwitchKeyboardLayout.sh"
   },
 
   "keyboard-state": {
@@ -239,17 +248,17 @@
   },
 
   "custom/swaync": {
-    "tooltip": true,
-    "format": "{icon} {}",
+    "tooltip": false,
+    "format": "{icon}<sup>{0}</sup>",
     "format-icons": {
-      "notification": " <span foreground='#eb6f92'><sup> 󰄯</sup></span>",
-      "none": "",
-      "dnd-notification": "<span foreground='red'><sup> 󰄯</sup></span>",
-      "dnd-none": "",
-      "inhibited-notification": "<span foreground='red'><sup> 󰄯</sup></span>",
-      "inhibited-none": "",
-      "dnd-inhibited-notification": "<span foreground='red'><sup> 󰄯</sup></span>",
-      "dnd-inhibited-none": ""
+      "notification": "<span foreground='#ff7e76'>󰂚 </span>",
+      "none": "<span foreground='#111e20'>󰂚 </span>",
+      "dnd-notification": "<span foreground='#d43e69'>󰂛 </span>",
+      "dnd-none": "<span foreground='#111e20'>󰂛 </span>",
+      "inhibited-notification": "<span foreground='#eca036'>󰹇 </span>",
+      "inhibited-none": "<span foreground='#111e20'>󰹇 </span>",
+      "dnd-inhibited-notification": "<span foreground='#d43e69'>󱠱 </span>",
+      "dnd-inhibited-none": "<span foreground='#111e20'>󱠱 </span>"
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
@@ -262,10 +271,10 @@
   "custom/power": {
     "format": "⏻",
     "exec": "echo ; echo 󰟡 power // blur",
-    "on-click": "~/.config/hypr/scripts/utils/Wlogout.sh",
-    "on-click-right": "~/.config/hypr/scripts/wallpaperAndStyle/ChangeBlur.sh",
+    "on-click": "$HOME/.config/hypr/scripts/utils/Wlogout.sh",
+    "on-click-right": "$HOME/.config/hypr/scripts/wallpaperAndStyle/ChangeBlur.sh",
     "interval": 86400,
-    "tooltip": true
+    "tooltip": false
   },
 
 // Separators

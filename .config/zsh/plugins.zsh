@@ -19,6 +19,8 @@ zinit ice depth=1
 zinit light zsh-users/zsh-completions
 zinit ice depth=1
 zinit light zsh-users/zsh-autosuggestions
+zinit ice depth=1
+zinit light lukechilds/zsh-better-npm-completion
 # zinit light jeffreytse/zsh-vi-mode # causing conflicts so disabled for the time
 
 # Add in oh-my-zsh snippets

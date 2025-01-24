@@ -34,5 +34,19 @@ config.font_rules = {
 
 config.window_close_confirmation = "NeverPrompt"
 config.default_prog = { "/usr/bin/zsh" }
+config.keys = {
+	{
+		key = "l",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+	{
+		key = "l",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action_callback(function(_, pane)
+			pane:send_text("clear\r") -- CTRL-L substitute since this is used for vim-like nav in tmux
+		end),
+	},
+}
 
 return config

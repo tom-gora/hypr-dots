@@ -5,7 +5,7 @@
 cache_dir="$HOME/.cache/swww/"
 
 # Get a list of monitor outputs
-monitor_outputs=($(ls "$cache_dir"))
+mapfile -t monitor_outputs < <(ls "$cache_dir")
 
 # Initialize a flag to determine if the ln command was executed
 ln_success=false
@@ -15,6 +15,9 @@ for output in "${monitor_outputs[@]}"; do
 	# Construct the full path to the cache file
 	cache_file="$cache_dir$output"
 
+	echo "1"
+	echo "$cache_file"
+	echo "2"
 	# Check if the cache file exists for the current monitor output
 	if [ -f "$cache_file" ]; then
 		# Get the wallpaper path from the cache file

@@ -243,6 +243,13 @@ tooltip label {
   margin: 2px 0.5rem 2px 2px;
 }
 
+#custom-updates {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  font-size: 110%;
+  color: @background;
+}
+
 /* RIGHT SECTION MODULES */
 /* HACK: slantend separators */
 .modules-right > *:nth-child(1) > * {
@@ -443,6 +450,7 @@ without access to height in gtk css XD */
 }
 
 #finalspace #custom-swaync {
+  font-size: 140%;
   padding-left: 0;
   min-width: 36px;
 }
