@@ -22,15 +22,15 @@
 
   "group/finalspace": {
     "orientation": "horizontal",
-    "modules": ["custom/swaync", "custom/power"]
+    "modules": [ "idle_inhibitor", "custom/swaync", "custom/power"]
   },
 
 // modules left -> right
 
 // workspaces > pulseaudio > screen_rec >
-//idle_inhibitor > clock > weather >
-//cpu > memory > temp > disk > kblang > kb_mod_indicator >
-//notifications > power
+// clock > weather > updates
+// cpu > memory > temp > disk > kblang > kb_mod_indicator >
+// idle_inhibitor > notifications > power
 
   "hyprland/workspaces": {
     "active-only": false,
@@ -123,14 +123,6 @@
     "interval": 1
   },
 
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": " ",
-      "deactivated": " "
-    }
-  },
-
   "clock#simpleclock": {
     "interval": 1,
     "format": "{:%H:%M:%S}",
@@ -173,9 +165,9 @@
         "return-type": "json", 
         "text": "<span foreground='#32728d'>{text}</span>",
         "interval": 1800,
-        "exec": "$HOME/.config/hypr/scripts/utils/DnfUpdates.sh",
-        "tooltip": "{tooltip} ",
-        "on-click": " wezterm start --always-new-process --class 'wez-updater' -- $HOME/.config/hypr/scripts/utils/WezUpdater.sh; if [[ -n $(ls /tmp/my_updater.* 2>/dev/null) ]]; then content=$(cat $(ls /tmp/my_updater.* | head -n 1)); if [[ $content == *'in_progress'* ]] || [[ $content -eq 1 ]]; then notify-send -t 3000 -i $HOME/.config/swaync/images/fedora.svg 'DNF' 'Fedora failed to update.\n'; sleep 3; swaync-client --close-latest; for tidy_me in /tmp/my_updater.*; do rm -f $tidy_me; done; fi; fi",
+        "exec": "$HOME/.config/hypr/scripts/utils/DnfUpdatesWaybar.sh",
+        "tooltip": true,
+        "on-click": "wezterm --config 'window_padding={left=20, right=20, top=10, bottom=10}' start --always-new-process --class 'wez-updater' -- $HOME/.config/hypr/scripts/utils/DnfSpawnWezUpdater.sh",
         },
 
   "cpu": {
@@ -245,6 +237,14 @@
     "icon-size": 12,
     "spacing": 12,
     "show-passive-items": false
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": " ",
+      "deactivated": " "
+    }
   },
 
   "custom/swaync": {

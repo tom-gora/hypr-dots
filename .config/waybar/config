@@ -20,7 +20,6 @@
     "custom/recording",
   ],
   "modules-center": [
-    "idle_inhibitor",
     "clock#simpleclock",
     "custom/weather",
     "custom/updates",

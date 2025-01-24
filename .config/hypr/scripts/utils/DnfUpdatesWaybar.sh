@@ -14,11 +14,11 @@ number=$(dnf check-update --refresh | awk 'NF < 4 {print $1}' | wc -l)
 # Get the packages with updates
 tooltip=$(dnf check-update --refresh | awk 'NF < 4 {print $1}')
 
-if [ "$number" == 0 ]; then
-	json_output=$(printf '{ "text": " ", "tooltip": "No pending updates", "class": "updates" }')
+if [ "$number" -eq 0 ]; then
+	json_output=$(echo -e '{ "text": " ", "tooltip": "No pending updates", "class": "updates" }')
 	echo "$json_output"
 	exit 0
 else
-	json_output=$(printf '{ "text": "%s  ", "tooltip": "%s", "class": "updates" }' "$number" "$(waybar_tooltip "$tooltip")")
+	json_output=$(printf '{ "text": " %s", "tooltip": "%s", "class": "updates" }' "$number" "$(waybar_tooltip "$tooltip")")
 	echo "$json_output"
 fi

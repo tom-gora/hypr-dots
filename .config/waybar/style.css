@@ -207,46 +207,35 @@ tooltip label {
 }
 /*---------------------------------------------------------*/
 /* MIDDLE SECTION MODULES */
-/* IDLE INHIBITOR */
 
 .modules-center {
   background-color: @accent14;
   border-radius: 2px;
 }
 
-#idle_inhibitor {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  border-radius: 2px 0 0 2px;
-  font-size: 0.8rem;
-  color: @background;
-}
-
-#idle_inhibitor.activated {
-  color: #eb6f92;
-}
-
 /* CLOCK */
 #clock {
-  font-size: 95%;
+  font-size: 110%;
+  font-weight: 400;
   color: @background;
-  padding-right: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: -1px;
 }
 
 #custom-weather {
-  font-size: 95%;
+  font-size: 100%;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  border-radius: 2px;
   color: @foreground;
-  background-color: @background-alpha__0_7;
-  margin: 2px 0.5rem 2px 2px;
+  background-color: @background-alpha__0_4;
+  margin-right: 0.25rem;
 }
 
 #custom-updates {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  font-size: 110%;
+  padding-left: 0.75rem;
+  padding-right: 1rem;
+  font-size: 120%;
   color: @background;
 }
 
@@ -447,6 +436,20 @@ without access to height in gtk css XD */
   color: @background;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+/* IDLE INHIBITOR */
+#finalspace #idle_inhibitor {
+  padding-left: 0.25rem;
+  padding-top: 0.15rem;
+  padding-right: 0.5rem;
+  border-radius: 2px 0 0 2px;
+  font-size: 120%;
+  color: @background;
+}
+
+#finalspace #idle_inhibitor.activated {
+  color: #eb6f92;
 }
 
 #finalspace #custom-swaync {
