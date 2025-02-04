@@ -42,7 +42,7 @@
   all: initial;
   color: @foreground;
   font-family: "Ubuntu Nerd Font";
-  font-weight: 500;
+  font-weight: 400;
   min-height: 4px;
   font-size: 96%;
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
@@ -65,7 +65,7 @@ window#waybar.empty #window {
 }
 /* TOOLTIPS */
 tooltip {
-  background: @background-alpha__0_7;
+  background: @background-alpha__0_9;
   border-radius: 2px;
   border: none;
   padding: 0;
@@ -74,49 +74,44 @@ tooltip {
 
 tooltip label {
   color: @accent6;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.25rem;
 }
 
 /* LEFT SECTION MODULES */
 /* WORKSPACES */
 #workspaces {
+  font-size: 110%;
   color: @bgcolor;
   background-color: @accent5;
   border-radius: 2px 0 0 2px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  margin-bottom: 1px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
 }
 
 #workspaces button {
+  padding-left: 0.4rem;
+  padding-right: 0.8rem;
   background-color: transparent;
   box-shadow: none;
   text-shadow: none;
   border-radius: 2px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-left: 2px;
-  margin-right: 2px;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  transition: all 0.4s ease-out;
 }
 
 #workspaces button:not(.active) > * {
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
   opacity: 0.6;
   color: @accent5;
 }
 
 #workspaces button:not(.active) {
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
-  background-color: @background-alpha__0_2;
+  background-color: @background-alpha__0_3;
 }
 
 #workspaces button.active {
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
   background-color: @background-alpha__0_7;
 }
 
@@ -127,15 +122,11 @@ tooltip label {
 
 #workspaces button.focused,
 #workspaces button:hover {
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
-  background-color: @background-alpha__0_7;
+  background-color: @background;
   color: @accent3;
 }
 
 #workspaces button.urgent {
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
   background-color: @critical;
   color: @foreground;
 }
@@ -143,13 +134,13 @@ tooltip label {
 /* PULSEAUDIO */
 /* pulseaudio wrapper */
 .modules-left > *:nth-child(4) > *:last-child {
-  margin-bottom: 1px;
   border-radius: 0 2px 2px 0;
   background-color: @accent9;
   padding-right: 0.5rem;
 }
 
 #pulseaudio {
+  font-size: 112%;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
   color: @color0;
@@ -158,7 +149,6 @@ tooltip label {
 
 #custom-recording {
   color: @background;
-  margin-bottom: 1px;
   margin-left: -2px;
   border-radius: 0 2px 2px 0;
   padding-left: 0.5rem;
@@ -215,28 +205,38 @@ tooltip label {
 
 /* CLOCK */
 #clock {
-  font-size: 110%;
-  font-weight: 400;
+  font-size: 120%;
+  font-weight: 500;
   color: @background;
   padding-left: 1rem;
   padding-right: 1rem;
-  margin-bottom: -1px;
 }
 
 #custom-weather {
-  font-size: 100%;
+  font-size: 112%;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   color: @foreground;
-  background-color: @background-alpha__0_4;
-  margin-right: 0.25rem;
+  background-color: @background-alpha__0_5;
+}
+
+#custom-weather:hover {
+  transition: all 0.4s ease-out;
+  background-color: @background-alpha__0_7;
 }
 
 #custom-updates {
-  padding-left: 0.75rem;
-  padding-right: 1rem;
-  font-size: 120%;
+  padding-left: 1rem;
+  padding-right: 0.6rem;
+  padding-top: 1px;
+  font-size: 134%;
   color: @background;
+}
+
+#custom-updates:hover {
+  transition: all 0.4s ease-out;
+  background-color: #e0def4;
+  color: #283f6e;
 }
 
 /* RIGHT SECTION MODULES */
@@ -271,31 +271,32 @@ tooltip label {
 
 #localai {
   background-color: @accent2;
-  margin-bottom: 1px;
+  padding-left: 0.5rem;
+  font-size: 112%;
 }
 
 #custom-ollama-state {
+  padding-right: 0.5rem;
   background-position: left;
   background-repeat: no-repeat;
-  background-size: 12px;
-  margin: 5px;
-  background-image: url("/home/tomeczku/.config/waybar/assets/ollama.svg");
+  background-size: 1.25rem;
+  background-image: url("./assets/ollama.svg");
   color: @background;
 }
 
 #custom-gpu-usage {
-  min-width: 44px;
+  min-width: 32px;
   background-position: left;
   background-repeat: no-repeat;
-  background-size: 14px;
-  margin: 5px;
+  background-size: 1rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
   background-image: url("/home/tomeczku/.config/waybar/assets/gpu.svg");
   color: @background;
 }
 
 #custom-ollama-model {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  margin-left: 0.25rem;
   color: @background;
 }
 
@@ -304,13 +305,13 @@ tooltip label {
 #memory,
 #temperature,
 #disk {
-  min-width: 36px;
+  font-size: 112%;
+  font-weight: 400;
+  min-width: 32px;
   background-color: @accent7;
   color: @background;
-  margin-bottom: 1px;
-  margin-bottom: 1px;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
 }
 
 #temperature.critical {
@@ -325,12 +326,14 @@ tooltip label {
 
 #keyboard {
   padding-left: 0.5rem;
-  margin-bottom: 1px;
   background-color: @background;
 }
 
 #language {
-  margin-right: 0.5rem;
+  font-weight: 900;
+  min-width: 32px;
+  margin-left: 0.25rem;
+  margin-right: 0.75rem;
 }
 
 /* NATIVE WAYBAR MENU */
@@ -356,7 +359,6 @@ menuitem > * {
 /* TRAY SECTION */
 #tray {
   padding: 2px 0.5rem;
-  margin-bottom: 1px;
   background-color: @accent4;
   color: @foreground;
 }
@@ -428,7 +430,6 @@ without access to height in gtk css XD */
 /* final section */
 #finalspace {
   background-color: @accent15;
-  margin-bottom: 1px;
   border-radius: 0 2px 2px 0;
 }
 
@@ -440,16 +441,20 @@ without access to height in gtk css XD */
 
 /* IDLE INHIBITOR */
 #finalspace #idle_inhibitor {
-  padding-left: 0.25rem;
-  padding-top: 0.15rem;
-  padding-right: 0.5rem;
-  border-radius: 2px 0 0 2px;
-  font-size: 120%;
+  padding-right: 1.25rem;
+  margin-left: 0.25rem;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  background-image: url("./assets/lock-clock.svg");
   color: @background;
 }
 
 #finalspace #idle_inhibitor.activated {
-  color: #eb6f92;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  background-image: url("./assets/lock-pause.svg");
 }
 
 #finalspace #custom-swaync {
@@ -459,12 +464,18 @@ without access to height in gtk css XD */
 }
 
 #finalspace #custom-power {
-  font-size: 85%;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  margin-right: 8px;
-  border-radius: 2px;
+  color: #47212c;
+  font-size: 150%;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 0 2px 2px 0;
+  background-color: @background-alpha__0_5;
+}
+
+#finalspace #custom-power:hover {
+  transition: all 0.4s ease-out;
   background-color: @background-alpha__0_7;
+  color: #eb6f92;
 }
 
 #network {
@@ -479,13 +490,17 @@ without access to height in gtk css XD */
   color: @critical;
 }
 
-#keyboard-state {
-  color: @accent6;
+#custom-capslock {
+  background-image: url("./assets/caps-unlocked.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-#keyboard-state label {
-  padding-left: 6px;
-  padding-right: 6px;
+#custom-capslock.locked {
+  background-image: url("./assets/caps-locked.svg");
 }
 
 #taskbar button.active {

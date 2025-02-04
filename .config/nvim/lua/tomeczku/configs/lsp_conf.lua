@@ -173,6 +173,22 @@ M.config_fuction = function()
 					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = 0 })
 				end,
 			})
+		elseif lsp == "yamlls" then
+			lspconfig.yamlls.setup({
+				on_attach = on_attach,
+				flags = lsp_flags,
+				capabilities = capabilities,
+				settings = {
+					yaml = {
+						format = {
+							enable = true,
+						},
+						schemaStore = {
+							enable = true,
+						},
+					},
+				},
+			})
 		else
 			lspconfig[lsp].setup({ capabilities = capabilities })
 		end

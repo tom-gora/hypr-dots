@@ -101,8 +101,10 @@ nNore = {
 	-- alternative close window closer to normal leader region than regular q
 	["<leader>vc"] = { "<cmd>lua vim.cmd('wincmd q')<cr>", { desc = "Quit a window" } },
 	--
-	-- AI toggler
+	-- AI
 	["<leader>S"] = { "<cmd>ToggleSupermaven<cr>", { desc = " Toggle Supermaven" } },
+	--
+	["<leader>O"] = { "<cmd>Oatmeal<cr>", { desc = " Start Oatmeal" } },
 	--
 	-- neovim help
 	["<leader>?"] = { "<cmd>Telescope help_tags <cr>", { desc = "󰋗 Help" } },

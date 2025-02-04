@@ -19,8 +19,7 @@ M = {
 	{
 		"OXY2DEV/markview.nvim",
 		opts = {
-			initial_state = false,
-			filetypes = { "markdown" },
+			preview = { enable = false, filetypes = { "md" } },
 		},
 	},
 }

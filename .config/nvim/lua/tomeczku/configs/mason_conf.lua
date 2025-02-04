@@ -44,6 +44,9 @@ M.mason = {
 		--go stuff
 		"gopls",
 		"gofumpt",
+		--yaml
+		"yamlls",
+		"docker_compose_language_service",
 
 		--
 		-- LINTERS

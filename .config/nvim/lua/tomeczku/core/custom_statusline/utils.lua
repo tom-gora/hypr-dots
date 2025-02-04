@@ -124,6 +124,10 @@ M.setLspStringComponents = function(client, cname)
 			return { name = "omnisharp", icon = " " }
 		elseif cname == "lemminx" then
 			return { name = cname, icon = "󰗀 " }
+		elseif cname == "yamlls" then
+			return { name = cname, icon = " " }
+		elseif cname == "docker_compose_language_service" then
+			return { name = "docker-compose-ls", icon = " " }
 		else
 			return { name = cname, icon = "󰧑 " }
 		end

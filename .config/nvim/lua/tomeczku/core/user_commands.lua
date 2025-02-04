@@ -107,7 +107,8 @@ local closeUnmodifiedBuffers = function()
 	local buf_list = api.nvim_list_bufs()
 	for _, buf in ipairs(buf_list) do
 		local modified = api.nvim_get_option_value("modified", { buf = buf })
-		if modified == false then
+		local listed = api.nvim_get_option_value("buflisted", { buf = buf })
+		if modified == false and listed == true then
 			api.nvim_buf_delete(buf, { force = true })
 		end
 	end

@@ -30,6 +30,8 @@ local opts = {
 		blade = { "blade-formatter" },
 		svg = { "xmlformat" },
 		go = { "gofumpt" },
+		yaml = { "prettierd" },
+		["yaml.docker-compose"] = { "prettierd" },
 	},
 
 	-- adding same formatter for multiple filetypes can look too much work for some
