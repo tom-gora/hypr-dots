@@ -2,6 +2,7 @@
 
 # Rofi menu for tmux sessions
 
+iDIR="$HOME/.config/swaync/images"
 # kickstart tmux with a temp named session to the run the ressurect restoration having the server running
 if ! pgrep -vx tmux >/dev/null || [[ $(tmux list-sessions 2>/dev/null | wc -l) -eq 0 ]]; then
 	tmux new -d -s delete-me &&
@@ -27,7 +28,7 @@ if [[ -z "$fzf" ]]; then
 fi
 
 if [[ ${#missing_deps[@]} -ne 0 ]]; then
-	rofi -e "Dependencies not found: \
+	notify-send -t 4000 -i "$iDIR/rofi-error.svg" "Rofi Error" "Dependencies not found: \
     ${missing_deps[*]} \
     Please install them first."
 fi

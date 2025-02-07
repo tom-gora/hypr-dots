@@ -1,3 +1,4 @@
+/* main config */
 configuration {
     modi:                       "drun";
     font:                       "Ubuntu Nerd Font Medium 12";
@@ -25,7 +26,7 @@ window {
     x-offset:                   0px;
     y-offset:                   0px;
     spacing:                    0px;
-    padding:                    16% 38% 0 38%;
+    padding:                    6% 38% 8% 38%;
     margin:                     0px; 
     cursor:                     "default";
     location:                   center;
@@ -38,32 +39,24 @@ window {
 
 /* main box */
 mainbox {
-    expand:                     false;
+    expand:                     true;
     enabled:                    true;
     orientation:                vertical;
     border:                     2px;
     border-color:               @active-background;
+    padding:					          -2px;
     border-radius:              2px;
-    children:                   [ "imagebox", "listview", "inputbar" ];
+    children:                   [ "listview", "inputbar" ];
 }
-
-/*  Imagebox  */               
-imagebox {                     
-    margin:                     0 -2px 0 -2px;
-    background-image:           url("~/.config/rofi/.current_wallpaper", width);
-    background-color:           transparent;
-    orientation:                vertical;
-}
-
+                               
 
 /*  Listview  */
 listview {
   expand:                       true;
-  margin:                       -2px -2px 1px -2px;
+  margin:                       0 -2px 1px -2px;
 	enabled:            			    true;
 	columns:            			    1;
-  lines:                        10;
-	dynamic:                      true;
+	dynamic:                      false;
 	cycle:                        true;
 	scrollbar:                    false;
 	layout:                       vertical;
@@ -75,13 +68,9 @@ listview {
 element {                      
     enabled:                    true;
     margin:                     -1px 0;
-    padding:                    8px 12px;
+    padding:                    8px;
     cursor:                     pointer;
     background-color:          	transparent;
-}                              
-
-element last-child {                      
-    background-color:          	red;
 }                              
                                
 element normal.normal {        
@@ -129,12 +118,18 @@ element alternate.active {
     text-color:                 @foreground;
 }                              
                                
+element-icon {                 
+    background-color:           transparent;
+    text-color:                 inherit;
+    size:                       24px;
+    cursor:                     inherit;
+}                              
                                
 element-text {                 
     background-color:           transparent;
     text-color:                 inherit;
     cursor:                     inherit;
-    vertical-align:             0.5;
+    vertical-align:             0;
     horizontal-align:           0;
 }
 
@@ -155,9 +150,9 @@ textbox-prompt-colon {
     enabled:                    true;
     expand:                     false;
     margin:                     6px 0 0 0;  
-    str:                        " 󰇐 ";
+    str:                        "󱥚  ";
     text-color:                 inherit;
-    background-color:     			transparent;
+    background-color:			transparent;
 }
 
 
@@ -166,22 +161,11 @@ entry {
     padding:					          6px 0px 0px 0px;
     text-color:                 inherit;
     cursor:                     text;
-    placeholder:                "Z Into Dirs...";
+    placeholder:                "Pick shades...";
     placeholder-color:          inherit;
     background-color:			      transparent;
 }
-
-/* Message */
-message { background-color:     transparent; }
-
-textbox {
-    padding:                    16px 12px;
-    border:                     2px;
-    border-radius:              2px;
-    border-color:               @urgent-background;
-    background-color:      		  @background;
-    text-color:                 @foreground;
-}
+/* Message */ message { background-color:     transparent; } textbox { padding:                    16px 12px; border:                     2px; border-radius:              2px; border-color:               @urgent-background; background-color:      		  @background; text-color:                 @foreground; }
 
 error-message {
     background-color:      		  transparent;

@@ -78,6 +78,7 @@ element {
     padding:                    8px 12px;
     cursor:                     pointer;
     background-color:          	transparent;
+    width:				            	100%;
 }                              
                                
 element normal.normal {        
