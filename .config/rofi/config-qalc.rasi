@@ -80,7 +80,7 @@ element {
     background-color:          	transparent;
 }                              
 
-element normal.normal {        
+lement normal.normal {        
     background-color:           inherit;
     text-color:                 @foreground;
 }                              
@@ -151,7 +151,7 @@ textbox-prompt-colon {
     enabled:                    true;
     expand:                     false;
     margin:                     6px 0 0 0;  
-    str:                        " 󰇐 ";
+    str:                        " 󱖦 ";
     text-color:                 inherit;
     background-color:     			transparent;
 }
@@ -162,7 +162,7 @@ entry {
     padding:					          6px 0px 0px 0px;
     text-color:                 inherit;
     cursor:                     text;
-    placeholder:                "Z Into Dirs...";
+    placeholder:                "Qalculate!";
     placeholder-color:          inherit;
     background-color:			      transparent;
 }

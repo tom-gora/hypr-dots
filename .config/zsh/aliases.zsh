@@ -31,6 +31,9 @@ alias lg="lazygit"
 # quick lazydocker
 alias ldo="lazydocker"
 
+#specify picker if using pastel
+alias pick="pastel --color-picker hyprpicker pick"
+
 # bat instead of cat
 alias cat="bat"
 

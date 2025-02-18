@@ -26,7 +26,7 @@ window {
     x-offset:                   0px;
     y-offset:                   0px;
     spacing:                    0px;
-    padding:                    6% 38% 8% 38%;
+    padding:                    6% 38% 14% 38%;
     margin:                     0px; 
     cursor:                     "default";
     location:                   center;
@@ -62,6 +62,7 @@ listview {
 	layout:                       vertical;
 	reverse:                      true;
   background-color:             @background-regular;
+  padding:                      0 0 10px 0;
 }                              
                                
 /*  Elements of Listview  */   
