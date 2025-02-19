@@ -1,6 +1,35 @@
-# init ssh-agent
-ssha() {
-  eval "$(ssh-agent -s)"
+# wrapper for lazygit to init ssh-agent
+lg() {
+  local IS_AGENT IS_IDENTIFIED FIRST_AVAILABLE
+  IS_AGENT="$(pgrep -u "$USER" ssh-agent)"
+  local PRIMARY_SSH_KEY="$HOME/.ssh/github_auth_primary"
+  local FALLBACK_SSH_KEY="$HOME/.ssh/github_auth_fallback"
+
+  if [ -f "$PRIMARY_SSH_KEY" ]; then
+    FIRST_AVAILABLE="$PRIMARY_SSH_KEY"
+  else
+    if [ -f "$FALLBACK_SSH_KEY" ]; then
+      FIRST_AVAILABLE="$FALLBACK_SSH_KEY"
+    else
+      echo "No SSH keys found. Exiting."
+      return 1
+    fi
+  fi
+
+  if [ -z "$IS_AGENT" ]; then
+    echo "SSH agent not running. Should have been bootstraped with the shell."
+    echo -e "Run \`eval \"\$(ssh-agent -s)\"\` to start it. Investigate why not running."
+    return 1
+  fi
+
+  IS_IDENTIFIED=$(ssh-add -l | grep "goratomasz@outlook.com")
+
+  if [ -z "$IS_IDENTIFIED" ] && [ -f "$FIRST_AVAILABLE" ]; then
+    /usr/bin/ssh-add "$FIRST_AVAILABLE" &&
+      lazygit
+  else
+    lazygit
+  fi
 }
 
 # edit neovim configs

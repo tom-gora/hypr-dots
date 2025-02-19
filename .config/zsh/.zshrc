@@ -26,6 +26,7 @@ source_if_exists "$XDG_CONFIG_HOME/zsh/functions.zsh"
 source_if_exists "$XDG_CONFIG_HOME/zsh/plugins.zsh"
 source_if_exists "$XDG_CONFIG_HOME/zsh/fzf_configs.zsh"
 source_if_exists "$XDG_CONFIG_HOME/zsh/binds.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/bootstrap-ssh.zsh"
 
 # eval "$(thefuck --alias)"
 # eval "$(thefuck --alias fk)"

@@ -26,7 +26,7 @@ alias ff="fastfetch"
 alias y="yazi"
 
 # quick lazygit
-alias lg="lazygit"
+# alias lg="lazygit"
 
 # quick lazydocker
 alias ldo="lazydocker"
