@@ -40,8 +40,23 @@ local opts = {
 	format_on_save = {
 		-- These options will be passed to conform.format()
 		timeout_ms = 3000,
-		lsp_fallback = true,
+		lsp_format = "fallback",
 	},
+	format_after_save = function()
+		local t_attached = vim.tbl_contains(
+			vim.tbl_map(function(c)
+				return c.name
+			end, vim.lsp.get_clients()),
+			"tailwindcss"
+		)
+		if not t_attached or not pcall(require, "tailwind-tools") then
+			return
+		end
+
+		vim.cmd("TailwindSort")
+		-- These options will be passed to conform.format()
+		return { lsp_format = "fallback" }
+	end,
 }
 
 M.config_function = function()

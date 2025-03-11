@@ -16,6 +16,24 @@ autocmd("TextYankPost", {
 	pattern = "*",
 })
 
+-- disable buggy anims in completion windows where snacks clash with blink
+autocmd("User", {
+	group = ui_helpers,
+	pattern = "BlinkCmpMenuOpen",
+	callback = function()
+		vim.g.snacks_animate = false
+	end,
+})
+
+autocmd("User", {
+	group = ui_helpers,
+	pattern = "BlinkCmpMenuClose",
+	callback = function()
+		vim.g.snacks_animate = true
+	end,
+})
+
+--
 -- visual hints for active split
 autocmd("WinEnter", {
 	group = ui_helpers,

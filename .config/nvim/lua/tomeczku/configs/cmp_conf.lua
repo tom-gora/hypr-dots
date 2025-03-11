@@ -1,15 +1,17 @@
 -- tailwind configs that work found here:
 -- https://github.com/Wansmer/nvim-config/blob/4d7fa6c02474f38755202e679cb7e398b5e96e44/lua/config/plugins/cmp.lua#L121
 --
+
 local M = {}
 
-M.dependencies = {
+M.cmp_dependencies = {
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-nvim-lua",
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
+	"luckasRanarison/tailwind-tools.nvim",
 	{
 		"L3MON4D3/LuaSnip",
 		-- follow latest release.
@@ -18,7 +20,6 @@ M.dependencies = {
 		build = "make install_jsregexp",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			"benfowler/telescope-luasnip.nvim",
 		},
 		config = function(_, opts)
 			if opts then
@@ -41,31 +42,9 @@ M.dependencies = {
 		end,
 	},
 	"onsails/lspkind.nvim", -- vs-code like pictograms
-	{
-		"luckasRanarison/tailwind-tools.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("tailwind-tools").setup({
-				document_color = {
-					enabled = true, -- can be toggled by commands
-					kind = "inline", -- "inline" | "foreground" | "background"
-					inline_symbol = " ", -- only used in inline mode
-					debounce = 200, -- in milliseconds, only applied in insert mode
-				},
-				conceal = {
-					enabled = true, -- can be toggled by commands
-					min_length = nil, -- only conceal classes exceeding the provided length
-					symbol = "󱏿", -- only a single character is allowed
-					highlight = { -- extmark highlight options, see :h 'highlight'
-						fg = "#239acb",
-					},
-				},
-			})
-		end,
-	},
 }
 
-M.config_function = function()
+M.cmp_config_function = function()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
 	local lspkind = require("lspkind")
@@ -74,7 +53,7 @@ M.config_function = function()
 		Text = "󰉿",
 		Method = "󰆧",
 		Function = "󰊕",
-		Color = " ",
+		Color = " ",
 		Constructor = "",
 		Field = "󰜢",
 		Variable = "󰀫",
@@ -174,6 +153,7 @@ M.config_function = function()
 					rg = "│rg  ",
 					["html-css"] = "│css ",
 				})[entry.source.name]
+
 				return vim_item
 			end,
 		},
@@ -187,5 +167,120 @@ M.config_function = function()
 	require("luasnip.loaders.from_vscode").lazy_load()
 	cmp.setup(opts)
 end
+
+M.blink_dependencies = {
+	"rafamadriz/friendly-snippets",
+	"luckasRanarison/tailwind-tools.nvim",
+	-- "supermaven-inc/supermaven-nvim",
+	{ "giuxtaposition/blink-cmp-copilot", after = { "copilot.lua" } },
+	{
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		build = "make install_jsregexp",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+		},
+		config = function(_, opts)
+			local ls = require("luasnip")
+			local vsc = require("luasnip.loaders.from_vscode")
+			ls.filetype_extend("php", { "blade" })
+			vsc.load_standalone({ path = "~/.config/nvim/snippets/vscode/go.code-snippets" })
+		end,
+	},
+	"jdrupal-dev/css-vars.nvim",
+	{
+		"saghen/blink.compat",
+		version = "*",
+		lazy = false,
+	},
+}
+
+M.blink_opts = {
+	enabled = function()
+		return not vim.tbl_contains({ "qf", "oil", "markdown" }, vim.bo.filetype)
+			and vim.bo.buftype ~= "prompt"
+			and vim.b.completion ~= false
+	end,
+	keymap = {
+		preset = "none",
+		["<C-k>"] = { "select_prev", "fallback" },
+		["<C-j>"] = { "select_next", "fallback" },
+		["<C-a>"] = { "select_and_accept" },
+		["<CR>"] = { "accept", "fallback" },
+
+		["<C-f>"] = { "scroll_documentation_up", "fallback" },
+		["<C-b>"] = { "scroll_documentation_down", "fallback" },
+
+		["<Tab>"] = { "snippet_forward", "fallback" },
+		["<S-Tab>"] = { "snippet_backward", "fallback" },
+
+		["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
+		["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
+	},
+	appearance = {
+		use_nvim_cmp_as_default = true,
+		nerd_font_variant = "mono",
+	},
+	completion = {
+		ghost_text = { enabled = false },
+		documentation = {
+			auto_show = true,
+			auto_show_delay_ms = 1000,
+			window = {
+				border = "rounded",
+				scrollbar = false,
+			},
+		},
+		menu = {
+			border = "rounded",
+			min_width = 18,
+			max_height = 12,
+			scrollbar = false,
+			direction_priority = { "s", "n" },
+
+			auto_show = true,
+			draw = {
+				gap = 2,
+				columns = {
+					{
+						"label",
+						"label_description",
+						gap = 2,
+					},
+					{ "kind", "kind_icon", gap = 2 },
+				},
+			},
+		},
+	},
+	signature = { window = { border = "rounded" } },
+	snippets = { preset = "luasnip" },
+	sources = {
+		default = { "lsp", "path", "snippets", "buffer", "copilot", "omni" },
+		min_keyword_length = 2,
+		providers = {
+			copilot = {
+				enabled = true,
+				name = "copilot",
+				module = "blink-cmp-copilot",
+				score_offset = -10,
+				async = true,
+			},
+			css_vars = {
+				name = "css-vars",
+				module = "css-vars.blink",
+				opts = {
+					-- WARNING: The search is not optimized to look for variables in JS files.
+					-- If you change the search_extensions you might get false positives and weird completion results.
+					search_extensions = { ".js", ".ts", ".jsx", ".tsx" },
+				},
+			},
+		},
+	},
+	fuzzy = {
+		implementation = "prefer_rust_with_warning",
+	},
+}
 
 return M

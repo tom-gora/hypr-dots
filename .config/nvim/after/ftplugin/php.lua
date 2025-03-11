@@ -16,7 +16,8 @@ if vim.fn.findfile("composer.json", ".;") ~= "" then
 				{ "<leader>LM", "<cmd>Laravel related<cr>", buffer = true, desc = "Related" },
 			})
 			-- load laravel snippets
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets/vscode/laravel/" })
+			local vsc = require("luasnip.loaders.from_vscode")
+			vsc.load_standalone({ path = "~/.config/nvim/snippets/vscode/laravel.code-snippets" })
 		end
 	end
 end

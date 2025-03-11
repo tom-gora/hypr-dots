@@ -300,9 +300,6 @@ theme.set_highlights = function()
 	hl(0, "CmpItemKindOperator", { fg = c.base05, bg = "NONE" })
 	hl(0, "CmpItemKindTypeParameter", { fg = c.red, bg = "NONE" })
 
-	-- ToggleTerm
-	hl(0, "ToggleTerm1FloatBorder", { fg = c.line, bg = "NONE" })
-
 	-- Illuminate
 	hl(0, "IlluminatedWordText", { fg = "NONE", bg = c.base02, sp = "NONE" })
 end

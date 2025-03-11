@@ -72,7 +72,7 @@ M.opts = {
 		["~"] = false,
 		["gs"] = "actions.change_sort",
 		["gx"] = false,
-		["<C-.>"] = "actions.toggle_hidden",
+		["<C-s>"] = "actions.toggle_hidden",
 		["g\\"] = false,
 	},
 }

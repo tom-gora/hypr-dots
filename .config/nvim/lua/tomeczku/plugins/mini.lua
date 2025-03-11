@@ -5,13 +5,13 @@ if not vim.g.vscode then
 end
 
 M = {
-	{
-		"echasnovski/mini.indentscope",
-		cond = vim.g.vscode == nil,
-		event = "VeryLazy",
-		opts = config.indentscope.opts,
-		init = config.indentscope.init_function,
-	},
+	-- {
+	-- 	"echasnovski/mini.indentscope",
+	-- 	cond = vim.g.vscode == nil,
+	-- 	event = "VeryLazy",
+	-- 	opts = config.indentscope.opts,
+	-- 	init = config.indentscope.init_function,
+	-- },
 	{
 		"echasnovski/mini.surround",
 		version = "*",
@@ -30,12 +30,6 @@ M = {
 		cond = vim.g.vscode == nil,
 		version = "*",
 		opts = config.move.opts,
-	},
-	{
-		"echasnovski/mini.pairs",
-		version = "*",
-		event = "VeryLazy",
-		config = true,
 	},
 	{
 		"echasnovski/mini.ai",

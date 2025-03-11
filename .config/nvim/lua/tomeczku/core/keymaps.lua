@@ -102,12 +102,10 @@ nNore = {
 	["<leader>vc"] = { "<cmd>lua vim.cmd('wincmd q')<cr>", { desc = "Quit a window" } },
 	--
 	-- AI
-	["<leader>S"] = { "<cmd>ToggleSupermaven<cr>", { desc = " Toggle Supermaven" } },
-	--
-	["<leader>O"] = { "<cmd>Oatmeal<cr>", { desc = " Start Oatmeal" } },
+	["<leader>C"] = { "<cmd>ToggleCopilot<cr>", { desc = " Toggle Copilot" } },
 	--
 	-- neovim help
-	["<leader>?"] = { "<cmd>Telescope help_tags <cr>", { desc = "󰋗 Help" } },
+	["<leader>?"] = { "<cmd>lua Snacks.picker.help()<cr>", { desc = "󰋗 Help" } },
 
 	-- whichkey neovim section
 	["<leader>n"] = { " NeoVim" },
@@ -115,55 +113,55 @@ nNore = {
 	["<leader>nl"] = { "<cmd>Lazy<cr>", { desc = "Open Lazy" } },
 	["<leader>nm"] = { "<cmd>Mason<cr>", { desc = "Open Mason" } },
 	["<leader>nc"] = { "<cmd>checkhealth<cr>", { desc = "Do Checkhealth" } },
-	["<leader>nh"] = { "<cmd>Telescope highlights <cr>", { desc = "Look up HL Groups" } },
+	["<leader>nh"] = { "<cmd>lua Snacks.picker.highlights()<cr>", { desc = "Look up HL Groups" } },
 	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", { desc = "Dismiss Notifications" } },
 	--
-	-- whichkey goto section
-	["<leader>g"] = { " Go To" },
-	["<leader>gb"] = { "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" } },
-	["<leader>gp"] = { "<cmd>BufferPick<cr>", { desc = "Pick Buffer from Tabline" } },
+	-- whichkey moveto section
+	["<leader>m"] = { " Move To" },
+	["<leader>mb"] = { "<cmd>lua Snacks.picker.buffers()<cr>", { desc = "Find Buffers" } },
 	-- Goto buffer in position...
-	["<leader>g1"] = { "<Cmd>BufferGoto 1<cr>", { desc = "Go to Buffer Index 1" } },
-	["<leader>g2"] = { "<Cmd>BufferGoto 2<cr>", { desc = "Go to Buffer Index 2" } },
-	["<leader>g3"] = { "<Cmd>BufferGoto 3<cr>", { desc = "Go to Buffer Index 3" } },
-	["<leader>g4"] = { "<Cmd>BufferGoto 4<cr>", { desc = "Go to Buffer Index 4" } },
-	["<leader>g5"] = { "<Cmd>BufferGoto 5<cr>", { desc = "Go to Buffer Index 5" } },
-	["<leader>g6"] = { "<Cmd>BufferGoto 6<cr>", { desc = "Go to Buffer Index 6" } },
-	["<leader>g7"] = { "<Cmd>BufferGoto 7<cr>", { desc = "Go to Buffer Index 7" } },
-	["<leader>g8"] = { "<Cmd>BufferGoto 8<cr>", { desc = "Go to Buffer Index 8" } },
-	["<leader>g9"] = { "<Cmd>BufferGoto 9<cr>", { desc = "Go to Buffer Index 9" } },
-	["<leader>g0"] = { "<Cmd>BufferLast<cr>", { desc = "Go to Last Buffer" } },
+	["<leader>m1"] = { "<Cmd>BufferGoto 1<cr>", { desc = "Move to Buffer Index 1" } },
+	["<leader>m2"] = { "<Cmd>BufferGoto 2<cr>", { desc = "Move to Buffer Index 2" } },
+	["<leader>m3"] = { "<Cmd>BufferGoto 3<cr>", { desc = "Move to Buffer Index 3" } },
+	["<leader>m4"] = { "<Cmd>BufferGoto 4<cr>", { desc = "Move to Buffer Index 4" } },
+	["<leader>m5"] = { "<Cmd>BufferGoto 5<cr>", { desc = "Move to Buffer Index 5" } },
+	["<leader>m6"] = { "<Cmd>BufferGoto 6<cr>", { desc = "Move to Buffer Index 6" } },
+	["<leader>m7"] = { "<Cmd>BufferGoto 7<cr>", { desc = "Move to Buffer Index 7" } },
+	["<leader>m8"] = { "<Cmd>BufferGoto 8<cr>", { desc = "Move to Buffer Index 8" } },
+	["<leader>m9"] = { "<Cmd>BufferGoto 9<cr>", { desc = "Move to Buffer Index 9" } },
+	["<leader>m0"] = { "<Cmd>BufferLast<cr>", { desc = "Move to Last Buffer" } },
 	--
 	-- lazygit
-	["<leader>G"] = { "<cmd>LazyGit<cr>", { desc = "󰊢 LazyGit" } },
-	--
-	-- whichkey find and telescope section
-	["<leader>f"] = { " Find" },
-	["<leader>ff"] = { "<cmd>Telescope find_files<cr>", { desc = "Find Files" } },
-	["<leader>fw"] = { "<cmd>Telescope grep_string<cr>", { desc = "Find Word Under Cursor/Selection" } },
-	-- Goto buffer in position...
-	["<leader>fo"] = {
-		"<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>",
-		{ desc = "Find in Opened Files" },
+	["<leader>g"] = { "󰊢 Git" },
+	["<leader>gg"] = { "<cmd>lua Snacks.lazygit.open()<cr>", { desc = "󰊢 LazyGit" } },
+	["<leader>gl"] = { "<cmd>lua Snacks.lazygit.log()<cr>", { desc = "LazyGit Logs" } },
+	["<leader>gL"] = {
+		"<cmd>lua Snacks.lazygit.log({args = { 'log', '-sm', 'full' }})<cr>",
+		{ desc = "LazyGit Logs Graph" },
 	},
-	["<leader>fb"] = { "<Cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find in Current Buffer" } },
-	["<leader>fd"] = { "<Cmd>Telescope live_grep<cr>", { desc = "Find in CWD" } },
+	["<leader>gs"] = { "<cmd>Gitsigns<cr>", { desc = "Gitsigns Picker" } },
+	--
+	-- pickers
+	["<leader>f"] = { " Find" },
+	["<leader>ff"] = { "<cmd>lua Snacks.picker.files()<cr>", { desc = "Find Files" } },
+	["<leader>fw"] = { "<cmd>lua Snacks.picker.grep_word()<cr>", { desc = "Find Word Under Cursor/Selection" } },
+	-- Goto buffer in position...
+	["<leader>fo"] = { "<cmd>lua Snacks.picker.grep_buffers()<cr>", { desc = "Find in Opened Files" } },
+	["<leader>fb"] = { "<cmd>lua Snacks.picker.lines()<cr>", { desc = "Current Buffer Lines" } },
+	["<leader>fd"] = { "<cmd>lua Snacks.picker.grep()<cr>", { desc = "Find in CWD" } },
 	["<leader>fa"] = {
-		"<Cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>",
+		"<cmd>lua Snacks.picker.files({hidden = true})<cr>",
 		{ desc = "Find All Files (hidden etc.)" },
 	},
-	["<leader>fp"] = { "<Cmd>Telescope pickers<cr>", { desc = "Recent Pickers" } },
-	["<leader>fh"] = { "<Cmd>Telescope command_history<cr>", { desc = "Command History" } },
-	["<leader>fu"] = { "<Cmd>Telescope undo<cr>", { desc = "Find in Undo Tree" } },
-	["<leader>fs"] = { "<Cmd>Telescope symbols<cr>", { desc = "Find Symbols" } },
-	["<leader>fe"] = { "<Cmd>Telescope file_browser<cr>", { desc = "Find in File Explorer" } },
-	["<leader>fc"] = { "<Cmd>TodoTelescope<cr>", { desc = "Find Todo Comments" } },
+	["<leader>fp"] = { "<cmd>lua Snacks.picker.pickers()<cr>", { desc = "Recent Pickers" } },
+	["<leader>fh"] = { "<cmd>lua Snacks.picker.command_history()<cr>", { desc = "Command History" } },
+	["<leader>fu"] = { "<cmd>lua Snacks.picker.undo()<cr>", { desc = "Find in Undo Tree" } },
+	["<leader>fc"] = { "<cmd>lua Snacks.picker.todo_comments()<cr>", { desc = "Find Todo Comments" } },
 	--
 	-- whichkey terminal section
-	["<leader>t"] = { " Terminal" },
-	["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", { desc = "Toggle floating TERM" } },
-	["<leader>th"] = { "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Toggle horizontal TERM" } },
-	["<leader>tv"] = { "<cmd>ToggleTerm direction=vertical<cr>", { desc = "Toggle vertical TERM" } },
+	["<C-t>"] = { "<cmd>lua  Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" } },
+	-- ["<leader>th"] = { "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Toggle horizontal TERM" } },
+	-- ["<leader>tv"] = { "<cmd>ToggleTerm direction=vertical<cr>", { desc = "Toggle vertical TERM" } },
 	--
 	-- whichkey replace section
 	["<leader>r"] = { "󰛔 Replace" },
@@ -176,27 +174,22 @@ nNore = {
 	--
 	-- name the mappings for text-case plugin to keep the consistent whichkey look
 	["<leader>~"] = { "󰬴 TextCase" },
-	-- lspsaga section
+	-- lsp section (configured in the lsp congfig)
 	["<leader>l"] = { "  LSP" },
-	["<leader>li"] = { "<cmd>LspInfo<cr>", { desc = "Lsp Info" } },
-	["<leader>lD"] = { "<cmd>Lspsaga show_line_diagnostics<cr>", { desc = "Show Line Diagnostics" } },
-	["<leader>ld"] = { "<cmd>Lspsaga show_workspace_diagnostics<cr>", { desc = "Show Diagnostics" } },
-	["<leader>lb"] = { "<cmd>Lspsaga show_buf_diagnostics<cr>", { desc = "Show Diagnostics" } },
-	["<leader>ll"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", { desc = "Next Diagnostic" } },
-	["<leader>lh"] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Previous Diagnostic" } },
-	["<leader>lk"] = { "<cmd>Lspsaga hover_doc<cr>", { desc = "Show Hover" } },
-	["<leader>lw"] = { "<cmd>Lspsaga winbar_toggle<cr>", { desc = "Toggle Breadcrumbs" } },
-	["<leader>lp"] = { "<cmd>Lspsaga peek_definition<cr>", { desc = "Peek Definition" } },
-	["<leader>lP"] = { "<cmd>Lspsaga peek_type_definition<cr>", { desc = "Peek Type Definition" } },
-	["<leader>lg"] = { "<cmd>Lspsaga goto_definition<cr>", { desc = "Goto Definition" } },
-	["<leader>lG"] = { "<cmd>Lspsaga goto_type_definition<cr>", { desc = "Goto Type Definition" } },
-	["<leader>lr"] = { "<cmd>Lspsaga rename<cr>", { desc = "Lsp Rename" } },
-	["<leader>lo"] = { "<cmd>Lspsaga outline<cr>", { desc = "Show Outline" } },
-	["<leader>lf"] = { "<cmd>Lspsaga finder<cr>", { desc = "Show Symbol Finder" } },
-	["<leader>lL"] = { "<cmd>Lspsaga open_log<cr>", { desc = "Open LspSaga Log" } },
-	["<leader>lc"] = { "<cmd>Lspsaga code_action<cr>", { desc = "Lsp Code Action" } },
+	--
 	-- my index fixing command
 	["gz"] = { "<cmd>MultiplyLineWithIndexing<cr>", { desc = "Multiply Line with Indexing" } },
+	--
+	-- quickfix List
+	["<leader>c"] = { " QuickFix List" },
+	["<leader>cc"] = { "<cmd>lua require('quicker').toggle()<cr>", { desc = "Toggle QuickFix List" } },
+	["<leader>cx"] = {
+		function()
+			vim.cmd("cexpr []")
+			vim.cmd("cclose")
+		end,
+		{ desc = "Force Clear QuickFix List" },
+	},
 }
 
 -- declare insert mode keymaps key:bindig -> value:command, value: opts table
@@ -228,6 +221,13 @@ xNore = {
 	},
 	-- my index fixing command
 	["gz"] = { ":<c-u>ApplyIndexingOverSelection<cr>", { desc = "Index Lines Inside Selection" } },
+
+	-- snapshots
+	["<leader>c"] = { " CodeSnap" },
+	["<leader>cs"] = { ":'<,'>CodeSnap<CR>", { desc = "CodeSnap (clipboard)" } },
+	["<leader>cS"] = { ":'<,'>CodeSnapSave<CR>", { desc = "CodeSnap (save)" } },
+	["<leader>ch"] = { ":'<,'>CodeSnapHighlight<CR>", { desc = "CodeSnap with highlight (clipboard)" } },
+	["<leader>cH"] = { ":'<,'>CodeSnapSaveHighlight<CR>", { desc = "CodeSnap with highlight (save)" } },
 }
 
 -- declare normal and visual mode keymaps key:bindig -> value:command, value: opts table
@@ -250,9 +250,7 @@ nxNore = {
 		{ desc = "Open...", expr = true },
 	},
 	["<leader>oc"] = { "<cmd> e#<cr>", { desc = "Reopen Last Closed" } },
-	["<leader>or"] = { "<cmd>Telescope oldfiles<cr>", { desc = "Open Recent" } },
-	["<leader>oo"] = { "<Cmd>Telescope file_browser<cr>", { desc = "Open With Telescope" } },
-	["<leader>oq"] = { "<Cmd>copen<cr>", { desc = "Open Quickfix List" } },
+	["<leader>or"] = { "<cmd>lua Snacks.picker.recent()<cr>", { desc = "Open Recent" } },
 	--
 	-- whichkey close section
 	["<leader>q"] = { " Close" },
@@ -288,3 +286,5 @@ end
 for k, v in pairs(nxNore) do
 	map({ "n", "x" }, k, v[1], v[2])
 end
+
+map("t", "<C-t>", "<cmd>lua  Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" })

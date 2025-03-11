@@ -1,11 +1,35 @@
 local M = {}
+local on_attach = function(_, bufnr)
+	local nmap = function(keys, func, desc)
+		if desc then
+			desc = "LSP: " .. desc
+		end
+		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+	end
+	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+	nmap("<leader>lp", vim.diagnostic.goto_prev, "Go to previous diagnostic message")
+	nmap("<leader>ln", vim.diagnostic.goto_next, "Go to next diagnostic message")
+	vim.keymap.set("i", "<leader>lg", vim.lsp.buf.signature_help, { buffer = 0 })
+	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+
+	nmap("<leader>lc", vim.lsp.buf.code_action, "LSP: Code Actions")
+	nmap("<leader>lR", vim.lsp.buf.rename, "LSP: Rename Symbol")
+
+	nmap("<leader>lf", vim.lsp.buf.format, "LSP: Format Buffer")
+	nmap("<leader>li", "<cmd>LspInfo<cr>", "LSP: Info")
+end
+local capabilities
+local ok, blink = pcall(require, "blink.cmp")
+if ok then
+	capabilities = require("blink.cmp").get_lsp_capabilities()
+else
+	capabilities = vim.lsp.protocol.make_client_capabilities()
+end
 
 M.config_fuction = function()
 	-- additionally configure lspinfo win border
-	require("lspconfig.ui.windows").default_options.border = "rounded"
+	require("lspconfig.ui.windows").default_options = { border = "rounded" }
 
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 	local lspconfig = require("lspconfig")
 
 	local root_pattern = lspconfig.util.root_pattern
@@ -13,18 +37,21 @@ M.config_fuction = function()
 	local lsps = mason_conf.mason_lspconfig.ensure_installed
 
 	-- per lsp adjustments
-
 	for _, lsp in ipairs(lsps) do
 		if lsp == "bashls" then
-			-- make bashls attach to additional filetypes
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
+				-- make it attach to additional filetypes
 				filetypes = { "sh", "zsh" },
 			})
 		elseif lsp == "emmet_language_server" then
 			lspconfig.emmet_language_server.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
+				-- make it attach to additional filetypes
 				filetypes = {
+					"astro",
 					"css",
 					"html",
 					"javascript",
@@ -40,6 +67,7 @@ M.config_fuction = function()
 			--pass path to typescript for astro to work
 			lspconfig.astro.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
 				init_options = {
 					typescript = {
 						tsdk = vim.fs.normalize("/usr/local/lib/node_modules/typescript/lib"),
@@ -47,29 +75,24 @@ M.config_fuction = function()
 				},
 			})
 		elseif lsp == "phpactor" then
-			-- same extended filetype pool for phpactor to include blade files
 			lspconfig.phpactor.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
+				-- same extended filetype pool for phpactor to include blade files
 				filetypes = { "blade", "php" },
 			})
 		elseif lsp == "tailwindcss" then
 			lspconfig.tailwindcss.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
+				-- same but expliocitly  get supported types from plugin helper function
 				filetypes = require("tailwind-tools.filetypes").get_all(),
-			})
-		elseif lsp == "astro" then
-			--pass path to typescript for astro to work
-			lspconfig.astro.setup({
-				capabilities = capabilities,
-				init_options = {
-					typescript = {
-						tsdk = vim.fs.normalize("/usr/local/lib/node_modules/typescript/lib"),
-					},
-				},
 			})
 		elseif lsp == "tsserver" or lsp == "ts_ls" then
 			lspconfig.ts_ls.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
+				-- same spiel
 				filetypes = {
 					"astro",
 					"typescript",
@@ -79,6 +102,7 @@ M.config_fuction = function()
 					"javascriptreact",
 					"javascript.jsx",
 				},
+				-- make it not confused in some non-standard projects
 				root_dir = root_pattern({
 					"tsconfig.json",
 					"package.json",
@@ -91,6 +115,7 @@ M.config_fuction = function()
 			-- hide annoying messages about globals from lua_ls
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
 				on_init = function(client)
 					local path = client.workspace_folders[1].name
 					if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
@@ -123,6 +148,7 @@ M.config_fuction = function()
 			-- setup omnisharp
 			lspconfig.omnisharp.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
 				cmd = { "dotnet", "/home/tomeczku/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
 				enable_editorconfig_support = true,
 				enable_ms_build_load_projects_on_demand = false,
@@ -135,8 +161,9 @@ M.config_fuction = function()
 		elseif lsp == "html" then
 			lspconfig.html.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
 				init_options = {
-					configurationSection = { "html", "css", "javascript" },
+					configurationSection = { "html", "javascript" },
 					embeddedLanguages = {
 						css = true,
 						javascript = true,
@@ -146,38 +173,22 @@ M.config_fuction = function()
 				single_file_support = true,
 				filetypes = {
 					"html",
-					"css",
 					"javascript",
 				},
-			})
-		elseif lsp == "intelephense" then
-			lspconfig.intelephense.setup({
-				capabilities = capabilities,
-				filetypes = { "php" },
 			})
 		elseif lsp == "gopls" then
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
+				on_attach = on_attach,
 				completeUnimported = true,
 				analyses = { unusedparams = true },
 				staticcheck = true,
-				on_attach = function()
-					-- "n" means normal mode
-					-- {buffer=0} means only for this buffer
-					-- <cmd> == :
-					-- <cr> == enter
-
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
-					vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = 0 })
-					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = 0 })
-				end,
 			})
 		elseif lsp == "yamlls" then
 			lspconfig.yamlls.setup({
+				capabilities = capabilities,
 				on_attach = on_attach,
 				flags = lsp_flags,
-				capabilities = capabilities,
 				settings = {
 					yaml = {
 						format = {
@@ -189,22 +200,48 @@ M.config_fuction = function()
 					},
 				},
 			})
+		elseif lsp == "cssls" then
+			-- custom capabilities for cssls because otherwise no completions work??
+			local c = vim.lsp.protocol.make_client_capabilities()
+			c.textDocument.completion.completionItem.snippetSupport = true
+			lspconfig.cssls.setup({
+				capabilities = c,
+				on_attach = on_attach,
+				filetypes = { "css", "scss", "less" },
+				provideFormatter = true,
+				single_file_support = true,
+				cmd = { "vscode-css-language-server", "--stdio" },
+				settings = {
+					css = {
+						validate = true,
+					},
+					less = {
+						validate = true,
+					},
+					scss = {
+						validate = true,
+					},
+				},
+			})
 		else
-			lspconfig[lsp].setup({ capabilities = capabilities })
+			lspconfig[lsp].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
 		end
 	end
 
 	local lsp_hacks = vim.api.nvim_create_augroup("LspHacks", { clear = true })
 
-	vim.api.nvim_create_autocmd("LspAttach", {
-		group = lsp_hacks,
-		callback = function(e)
-			local c = vim.lsp.get_client_by_id(e.data.client_id)
-			if c then
-				c.server_capabilities.semanticTokensProvider = nil
-			end
-		end,
-	})
+	-- vim.api.nvim_create_autocmd("LspAttach", {
+	-- 	group = lsp_hacks,
+	-- 	callback = function(e)
+	-- 		local c = vim.lsp.get_client_by_id(e.data.client_id)
+	-- 		if c then
+	-- 			c.server_capabilities.semanticTokensProvider = nil
+	-- 		end
+	-- 	end,
+	-- })
 
 	-- setup hyprls
 	vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -218,19 +255,6 @@ M.config_fuction = function()
 			})
 		end,
 	})
-
-	-- and intelephense
-	-- vim.api.nvim_create_autocmd({ "FileType" }, {
-	-- 	group = lsp_hacks,
-	-- 	pattern = "php",
-	-- 	callback = function()
-	-- 		vim.lsp.start({
-	-- 			name = "intelephense",
-	-- 			cmd = { "intelephense", "--stdio" },
-	-- 			root_dir = vim.fn.getcwd(),
-	-- 		})
-	-- 	end,
-	-- })
 end
 
 return M

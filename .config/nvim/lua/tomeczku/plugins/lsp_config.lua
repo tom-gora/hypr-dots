@@ -8,7 +8,9 @@ M = {
 	"neovim/nvim-lspconfig",
 
 	cond = vim.g.vscode == nil,
-	dependencies = { "williamboman/mason.nvim" },
+	dependencies = {
+		"williamboman/mason.nvim",
+	},
 	cmd = { "LspInstall", "LspUninstall" },
 	config = conf.config_fuction,
 }

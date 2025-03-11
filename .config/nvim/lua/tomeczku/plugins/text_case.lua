@@ -6,6 +6,7 @@ end
 
 M = {
 	"johmsalas/text-case.nvim",
+	enabled = true,
 	cond = vim.g.vscode == nil,
 	lazy = true,
 	dependencies = conf.dependencies,

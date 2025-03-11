@@ -122,6 +122,7 @@ local base_bg = get_color("Normal", "bg")
 if base_bg == "NONE" then
 	base_bg = 1644324
 end
+local low_dark_base_bg = darken(base_bg, 0.15)
 local dark_base_bg = darken(base_bg, 0.7)
 local winbar_accent_primary = darken(get_color("String", "fg"), 0.65)
 local err_bg
@@ -168,6 +169,7 @@ local delimiters_cyan = saturate(saturate(darken(purple_fg, 0.35), 1), 0.5)
 
 local line_nr_red = darken(get_color("ErrorMsg", "fg"), 0.2)
 local line_nr_teal = darken(get_color("Special", "fg"), 0.2)
+local indent_lines = darken(purple_fg, 0.3)
 
 -- HACK: upon more hacks upon hacks
 -- after all this magic fuckery I am left to assume that no errors in default no theme install of base nvim mean
@@ -317,14 +319,9 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
 		modify_hl_group("NotifyDEBUGTitle", { fg = muted_light_bg, force = true })
 		modify_hl_group("NotifyTRACETitle", { fg = purple_fg, force = true })
 
-		-- miniindentscope indentation guides
-		modify_hl_group("MiniIndentscopeSymbol", { link = "BufferVisibleSign", force = true })
-		-- supermaven icon
-		modify_hl_group("CmpItemKindSupermaven", { link = "DevIconXz", force = true })
-		modify_hl_group("ToggleTerm1Normal", { bg = "NONE", force = true })
-		modify_hl_group("ToggleTerm1StatusLine", { bg = "NONE", force = true })
-		-- adjust lspsaga beacon
-		modify_hl_group("SagaBeacon", { bg = delimiters_teal, force = true })
+		-- indentation guides
+		modify_hl_group("SnacksIndent", { link = "StatusLineTerm", force = true })
+		modify_hl_group("SnacksIndentScope", { fg = indent_lines, force = true })
 
 		-- colorize gitignore to my liking because default theme does shit
 		modify_hl_group("@string.special.path.gitignore", { link = "Normal", force = true })
@@ -344,5 +341,15 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
 		modify_hl_group("LineNrBelow", { link = "MyLineNrBelow", force = true })
 		-- recolor WinSeparator
 		modify_hl_group("WinSeparator", { link = "String", force = true })
+		--
+		-- blink
+		--
+		modify_hl_group("BlinkCmpMenu", { bg = base_bg, force = true })
+		modify_hl_group("BlinkCmpMenuBorder", { link = "FloatBorder", force = true })
+		modify_hl_group("BlinkCmpDoc", { bg = low_dark_base_bg, force = true })
+		modify_hl_group(
+			"BlinkCmpDocBorder",
+			{ fg = get_color("FloatBorder", "fg"), bg = low_dark_base_bg, force = true }
+		)
 	end,
 })

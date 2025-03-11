@@ -6,6 +6,8 @@ require("tomeczku.core.bootstrap_lazy")
 require("tomeczku.core.highlights")
 -- my user commands
 require("tomeczku.core.user_commands")
+-- extra filetypes registered
+require("tomeczku.core.extra_filetypes")
 if not vim.g.vscode then
 	-- keymaps
 	require("tomeczku.core.keymaps")

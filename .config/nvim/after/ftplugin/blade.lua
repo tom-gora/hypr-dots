@@ -10,5 +10,5 @@ wk.add({
 	{ "<leader>LM", "<cmd>Laravel related<cr>", buffer = true, desc = "Laravel Related" },
 })
 -- load laravel snippets
-require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets/vscode/laravel/blade.json" })
-require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets/vscode/blade/" })
+local vsc = require("luasnip.loaders.from_vscode")
+vsc.load_standalone({ path = "~/.config/nvim/snippets/vscode/blade.code-snippets" })

@@ -1,12 +1,6 @@
 -- settings specific to quickfix list
 vim.b.qf = true
 
-local qf_win_height = math.floor(vim.o.lines * 0.3)
-vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(), {
-	height = qf_win_height,
-	style = "minimal",
-})
-
 local map = vim.keymap.set
 map("n", "<leader>rq", "<nop>", { desc = "QF Replace", noremap = true, silent = true, buffer = 0 })
 map(

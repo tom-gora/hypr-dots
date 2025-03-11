@@ -2,7 +2,6 @@ local M = {}
 
 M.dependencies = {
 	"tpope/vim-dotenv",
-	"nvim-telescope/telescope.nvim",
 	"MunifTanjim/nui.nvim",
 	"kevinhwang91/promise-async",
 }
@@ -12,6 +11,7 @@ M.cmd = { "Laravel" }
 
 M.bladenav = {
 	"ricardoramirezr/blade-nav.nvim",
+	optional = true,
 	dependencies = {
 		"hrsh7th/nvim-cmp",
 	},
@@ -20,5 +20,4 @@ M.bladenav = {
 		close_tag_on_complete = true,
 	},
 }
-
 return M
