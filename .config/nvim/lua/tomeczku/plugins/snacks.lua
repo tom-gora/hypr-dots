@@ -18,7 +18,12 @@ M = {
 		} },
 		picker = {
 			enabled = true,
-			layout = { cycle = false, preset = "ivy" },
+			layout = {
+				cycle = false,
+				preset = function()
+					return vim.o.columns >= 106 and "ivy" or "right"
+				end,
+			},
 			prompt = " ",
 			matcher = { freecency = true },
 			win = {

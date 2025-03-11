@@ -257,19 +257,33 @@ M.blink_opts = {
 	signature = { window = { border = "rounded" } },
 	snippets = { preset = "luasnip" },
 	sources = {
-		default = { "lsp", "path", "snippets", "buffer", "copilot", "omni" },
-		min_keyword_length = 2,
+		default = { "lsp", "path", "snippets", "buffer", "copilot", "omni", "css_vars" },
 		providers = {
+			lsp = { min_keyword_length = 1 },
+			buffer = { min_keyword_length = 2 },
+			omni = { min_keyword_length = 3 },
+			snippets = { min_keyword_length = 2 },
+			path = {
+				enabled = true,
+				min_keyword_length = 0,
+				opts = {
+					get_cwd = function(_)
+						return vim.fn.getcwd()
+					end,
+				},
+			},
 			copilot = {
 				enabled = true,
 				name = "copilot",
 				module = "blink-cmp-copilot",
+				min_keyword_length = 2,
 				score_offset = -10,
 				async = true,
 			},
 			css_vars = {
 				name = "css-vars",
 				module = "css-vars.blink",
+				min_keyword_length = 2,
 				opts = {
 					-- WARNING: The search is not optimized to look for variables in JS files.
 					-- If you change the search_extensions you might get false positives and weird completion results.

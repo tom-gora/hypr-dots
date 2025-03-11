@@ -157,6 +157,7 @@ nNore = {
 	["<leader>fh"] = { "<cmd>lua Snacks.picker.command_history()<cr>", { desc = "Command History" } },
 	["<leader>fu"] = { "<cmd>lua Snacks.picker.undo()<cr>", { desc = "Find in Undo Tree" } },
 	["<leader>fc"] = { "<cmd>lua Snacks.picker.todo_comments()<cr>", { desc = "Find Todo Comments" } },
+	["<leader>fv"] = { "<cmd>lua Snacks.picker.cliphist()<cr>", { desc = "Find in OS Clipboard History." } },
 	--
 	-- whichkey terminal section
 	["<C-t>"] = { "<cmd>lua  Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" } },
