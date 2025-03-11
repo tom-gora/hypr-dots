@@ -221,13 +221,6 @@ xNore = {
 	},
 	-- my index fixing command
 	["gz"] = { ":<c-u>ApplyIndexingOverSelection<cr>", { desc = "Index Lines Inside Selection" } },
-
-	-- snapshots
-	["<leader>c"] = { " CodeSnap" },
-	["<leader>cs"] = { ":'<,'>CodeSnap<CR>", { desc = "CodeSnap (clipboard)" } },
-	["<leader>cS"] = { ":'<,'>CodeSnapSave<CR>", { desc = "CodeSnap (save)" } },
-	["<leader>ch"] = { ":'<,'>CodeSnapHighlight<CR>", { desc = "CodeSnap with highlight (clipboard)" } },
-	["<leader>cH"] = { ":'<,'>CodeSnapSaveHighlight<CR>", { desc = "CodeSnap with highlight (save)" } },
 }
 
 -- declare normal and visual mode keymaps key:bindig -> value:command, value: opts table
