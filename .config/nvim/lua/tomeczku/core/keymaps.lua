@@ -221,6 +221,27 @@ xNore = {
 	},
 	-- my index fixing command
 	["gz"] = { ":<c-u>ApplyIndexingOverSelection<cr>", { desc = "Index Lines Inside Selection" } },
+	--
+	-- silicon-nvim
+	["<leader>s"] = { " Silicon" },
+	["<leader>sc"] = {
+		function()
+			require("nvim-silicon").clip()
+		end,
+		{ desc = " -> To Clipboard" },
+	},
+	["<leader>sf"] = {
+		function()
+			require("nvim-silicon").file()
+		end,
+		{ desc = " -> To File" },
+	},
+	["<leader>ss"] = {
+		function()
+			require("nvim-silicon").shoot()
+		end,
+		{ desc = "  -> To Both" },
+	},
 }
 
 -- declare normal and visual mode keymaps key:bindig -> value:command, value: opts table
