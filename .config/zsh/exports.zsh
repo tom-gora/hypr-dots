@@ -8,10 +8,7 @@ export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 export PATH="$CARGO_HOME/bin":$PATH
 source "$CARGO_HOME/env"
 
-export ANDROID_HOME="$XDG_DATA_HOME/android"
-export ANDROID_AVD_HOME="$HOME/.var/app/com.google.AndroidStudio/config/.android/avd"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 
 # Get rid of unfinished line markers in C

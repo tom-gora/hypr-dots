@@ -114,6 +114,7 @@ nNore = {
 	["<leader>nm"] = { "<cmd>Mason<cr>", { desc = "Open Mason" } },
 	["<leader>nc"] = { "<cmd>checkhealth<cr>", { desc = "Do Checkhealth" } },
 	["<leader>nh"] = { "<cmd>lua Snacks.picker.highlights()<cr>", { desc = "Look up HL Groups" } },
+	["<leader>nk"] = { "<cmd>lua Snacks.picker.keymaps()<cr>", { desc = "Look up Key Mappings" } },
 	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", { desc = "Dismiss Notifications" } },
 	--
 	-- whichkey moveto section
