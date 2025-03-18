@@ -106,7 +106,8 @@
       "deepseek-r1:14b": "ollama run deepseek-r1:14b",
       "phi4:latest": "ollama run phi4:latest",
       "qwen2.5-coder:14b": "ollama run qwen2.5-coder:14b",
-      "codellama:7b": "ollama run codellama:7b"
+      "codellama:7b": "ollama run codellama:7b",
+      "gemma3:12b": "ollama run gemma3:12b"
     }
   },
   "custom/ollama-state": {

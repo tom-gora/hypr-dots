@@ -104,6 +104,8 @@ nNore = {
 	-- AI
 	["<leader>C"] = { "<cmd>ToggleCopilot<cr>", { desc = " Toggle Copilot" } },
 	--
+	-- zen
+	["<leader>z"] = { "<cmd>lua Snacks.zen()<cr>", { desc = " Toggle Zen Mode" } },
 	-- neovim help
 	["<leader>?"] = { "<cmd>lua Snacks.picker.help()<cr>", { desc = "󰋗 Help" } },
 

@@ -4,7 +4,6 @@ M = {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-	---@type snacks.Config
 	opts = {
 		styles = { lazygit = { border = "rounded" } },
 		-- only enable selected
@@ -93,6 +92,17 @@ M = {
 		statuscolumn = { enabled = false },
 		terminal = { enabled = true },
 		words = { enabled = false },
+		zen = {
+			enabled = true,
+			toggles = {
+				dim = false,
+				git_signs = true,
+			},
+			show = {
+				statusline = false,
+				tabline = false,
+			},
+		},
 	},
 }
 

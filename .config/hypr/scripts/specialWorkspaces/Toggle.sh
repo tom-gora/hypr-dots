@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # get the helpers
 . "$HOME/.config/hypr/scripts/specialWorkspaces/__helpers.sh"
 
@@ -33,11 +35,11 @@ if [ -z "$OBJ" ]; then
 		exit 0
 		;;
 	spotify)
-		firefoxpwa site launch 01J8M8WX1PNSJH0YN4A91SXSEX --protocol &
+		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=pjibgclleladliembfgfagdaldikeohf
 		exit 0
 		;;
 	discord)
-		firefoxpwa site launch 01J5XK92QZXQ6R2W9S2JP0CDF1 --protocol &
+		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=nebbmpibgobljecgkdipmcfonkkmcggn
 		exit 0
 		;;
 	joplin)
@@ -49,7 +51,7 @@ if [ -z "$OBJ" ]; then
 		exit 0
 		;;
 	ollama)
-		firefoxpwa site launch 01J4VCP1Y0M0HXJBSP8528JPKJ --protocol
+		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=lejoeijgcgldjekkomjapbnhhecipebo
 		exit 0
 		;;
 	*)

@@ -351,5 +351,6 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
 			"BlinkCmpDocBorder",
 			{ fg = get_color("FloatBorder", "fg"), bg = low_dark_base_bg, force = true }
 		)
+		modify_hl_group("Folded", { fg = muted_variant(base_blue), bg = muted_variant(base_bg), force = true })
 	end,
 })

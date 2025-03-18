@@ -23,9 +23,9 @@ end
 
 M = {
 	"saghen/blink.cmp",
+	version = "0.13.1",
 	event = "InsertEnter",
 	dependencies = conf.blink_dependencies,
-	version = "*",
 	build = "cargo build --release",
 	opts = conf.blink_opts,
 }

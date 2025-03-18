@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# helpers
-is_update_running() {
-	pgrep -f "wez-updater" >/dev/null
-}
+STATE_FILE_PATTERN="/tmp/my_updater.*"
+state_content=""
 
 notify_nothing_to_do() {
 	notify-send -t 3000 -i "$HOME/.config/swaync/images/fedora.svg" \
@@ -26,56 +24,40 @@ notify_failure() {
 	swaync-client --close-latest
 }
 
-#give the updater a chance to spin up
-sleep 0.5
-# wait for update to finish
-while is_update_running; do
-	sleep 1
+notify_failure_unexpected() {
+	notify-send -t 3000 -i "$HOME/.config/swaync/images/fedora.svg" \
+		"Unexpected state content: $1 n\DNF" "Fedora failed to update.\n"
+	sleep 3
+	swaync-client --close-latest
+}
+
+while pgrep -f "wez-updater" >/dev/null; do
+	latest_state_file=$(find /tmp -maxdepth 1 -name "my_updater.*" -type f | head -n 1)
+
+	if [[ -z $latest_state_file ]]; then
+		sleep 0.5
+		exit 1
+	fi
+
+	state_content=$(cat "$latest_state_file")
+	if [[ -z "$state_content" || "$state_content" == "in_progress" ]]; then
+		continue
+	else
+		break
+	fi
 done
-# don't read the file prematurely
-sleep 0.5
 
-#---
-# Unexpected execution end reuslt
-#---
-
-latest_result_cache=$(find /tmp/my_updater.* -mmin -5 -print | tail -n 1)
-# if updating script failed to write any state file
-if [[ -z $latest_result_cache ]]; then
-	notify_failure
+if [[ -z $state_content ]]; then
 	exit 1
-fi
-
-state=$(cat $"$latest_result_cache")
-# or mktemp'd it but wrote no contents
-if [[ -z $state ]]; then
-	notify_failure
-	exit 1
-	# basically indicating soomething failed and upd script routine failed
-	# but then also if wrote "in_progress" which mean it stated, but it never
-	# got overwritten indicating something died before results arrived from dnf upd
-elif [[ $state == *'in_progress'* ]]; then
-	notify_failure
-	exit 1
-fi
-
-#---
-# Non unexpected execution end reuslt
-#---
-
-# if dnf noot exited cleanly
-if [[ $state -ne 0 ]]; then
-	notify_failure
-	exit 1
-	# if nothing to do, then we can exit and notifier will receive the message
-elif [[ $state == *'Nothing to do.'* ]]; then
+elif [[ $state_content == "Nothing to do." ]]; then
 	notify_nothing_to_do
-	exit 0
-elif [[ $state -eq 0 ]]; then
-	notify_success
-	exit 0
+elif [[ $state_content =~ ^[0-9]+$ ]]; then
+	if [[ $state_content -eq 0 ]]; then
+		notify_success
+	else
+		notify_failure
+	fi
+else
+	notify_failure_unexpected "$state_content"
 fi
-
-# post-clean any potential leftovers
-for tidy_me in /tmp/my_updater.*; do rm -f "$tidy_me"; done
 exit 0
