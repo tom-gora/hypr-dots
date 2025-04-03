@@ -1,8 +1,20 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local conf
-if not vim.g.vscode then
-	conf = require("tomeczku.configs.lazy_conf")
+if vim.g.vscode then
+	return
 end
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+local conf = {
+	spec = {
+		import = "tomeczku.plugins",
+	},
+	ui = {
+		title = " 󰒲 Lazy ",
+		border = "rounded",
+		title_pos = "left",
+		size = { width = 0.7, height = 0.8 },
+	},
+}
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	vim.fn.system({
@@ -14,6 +26,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 		lazypath,
 	})
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- for nvim load regular setup

@@ -1,17 +1,10 @@
-local M = {}
-local config
-if not vim.g.vscode then
-	config = require("tomeczku.configs.mini_conf")
+if vim.g.vscode then
+	return
 end
 
+local M
+
 M = {
-	-- {
-	-- 	"echasnovski/mini.indentscope",
-	-- 	cond = vim.g.vscode == nil,
-	-- 	event = "VeryLazy",
-	-- 	opts = config.indentscope.opts,
-	-- 	init = config.indentscope.init_function,
-	-- },
 	{
 		"echasnovski/mini.surround",
 		version = "*",
@@ -29,7 +22,22 @@ M = {
 		"echasnovski/mini.move",
 		cond = vim.g.vscode == nil,
 		version = "*",
-		opts = config.move.opts,
+		opts = {
+			reindent_linewise = true,
+			mappings = {
+				-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+				left = "<a-h>",
+				right = "<a-l>",
+				down = "<a-j>",
+				up = "<a-k>",
+
+				-- Move current line in Normal mode
+				line_left = "<a-h>",
+				line_right = "<a-l>",
+				line_down = "<a-j>",
+				line_up = "<a-k>",
+			},
+		},
 	},
 	{
 		"echasnovski/mini.ai",

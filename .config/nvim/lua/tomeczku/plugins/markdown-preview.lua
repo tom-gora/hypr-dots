@@ -1,7 +1,16 @@
-local M
-local conf
-if not vim.g.vscode then
-	conf = require("tomeczku.configs.markdown_preview_conf")
+if vim.g.vscode then
+	return
+end
+
+local M, init_function
+
+init_function = function()
+	vim.g.mkdp_page_title = "󰝗${name}󰉾 "
+	vim.g.mkdp_open_ip = "127.0.0.1"
+	vim.g.mkdp_port = "8765"
+	vim.g.mkdp_echo_preview_url = 1
+	vim.g.mkdp_auto_start = 0
+	vim.g.mkdp_auto_close = 0
 end
 
 M = {
@@ -12,9 +21,9 @@ M = {
 		"tom-gora/markdown-preview.nvim",
 		cond = vim.g.vscode == nil,
 		lazy = false,
-		cmd = conf.cmd,
-		build = conf.build_cmd,
-		config = conf.config,
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && npm i",
+		init = init_function,
 		ft = { "markdown" },
 	},
 }

@@ -1,8 +1,13 @@
-local M = {}
-local opts
-if not vim.g.vscode then
-	opts = require("tomeczku.configs.hlargs_conf").opts
+if vim.g.vscode then
+	return
 end
+
+local M, opts
+
+opts = {
+	highlight = { fg = "#ea9d34", italic = true, force = true },
+	hl_priority = 500,
+}
 
 M = {
 	"m-demare/hlargs.nvim",

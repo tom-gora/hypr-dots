@@ -1,8 +1,19 @@
-local M = {}
-local opts
-if not vim.g.vscode then
-	opts = require("tomeczku.configs.cutlass_conf").opts
+if vim.g.vscode then
+	return
 end
+
+local M, opts
+
+opts = {
+	cut_key = "X",
+	override_del = true,
+	exclude = {},
+	registers = {
+		select = "_",
+		delete = "_",
+		change = "_",
+	},
+}
 
 M = {
 	"gbprod/cutlass.nvim",

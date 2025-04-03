@@ -81,7 +81,7 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldmethod = "expr"
 opt.foldcolumn = "0"
 opt.foldlevel = 99
-opt.foldlevelstart = 1
+opt.foldlevelstart = 99
 vim.wo.foldnestmax = 5
 vim.wo.foldminlines = 3
 

@@ -1,10 +1,13 @@
-local M = {}
+if vim.g.vscode then
+	return
+end
+
+local M
 
 M = {
 	"brenoprata10/nvim-highlight-colors",
-	event = "VeryLazy",
-	-- enabled = false,
 	cond = vim.g.vscode == nil,
+	event = "VeryLazy",
 	opts = {},
 }
 

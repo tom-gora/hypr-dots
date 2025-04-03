@@ -8,11 +8,17 @@ waybar_tooltip() {
 	done
 }
 
+result=$(dnf check-update --refresh 2>/dev/null)
 # Get the number of updates
-number=$(dnf check-update --refresh | awk 'NF < 4 {print $1}' | wc -l)
+#
+read -r number tooltip < <(echo "$result" | awk '
+    BEGIN {count = 0; tooltip = ""}
+    /^[[:alnum:]-]+\.[[:alnum:]]+/ {count++; if (count <= 10) tooltip = tooltip $0 "\n"}
+    END {print count, tooltip}
+')
 
-# Get the packages with updates
-tooltip=$(dnf check-update --refresh | awk 'NF < 4 {print $1}')
+# Trim trailing newline from tooltip
+tooltip=$(echo -e "$tooltip" | sed '$ d')
 
 if [ "$number" -eq 0 ]; then
 	json_output=$(echo -e '{ "text": " ", "tooltip": "No pending updates", "class": "updates" }')

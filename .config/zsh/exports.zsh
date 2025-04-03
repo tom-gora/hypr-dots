@@ -8,8 +8,11 @@ export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 export PATH="$CARGO_HOME/bin":$PATH
 source "$CARGO_HOME/env"
 
+# enforce extra XDG dirs compliance
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+export BUN_INSTALL="${XDG_STATE_HOME}/bun"
 
 # Get rid of unfinished line markers in C
 export PROMPT_EOL_MARK=""
@@ -20,13 +23,12 @@ export CLASSPATH=/lib/jvm/java-17-openjdk-17.0.9.0.9-3.fc39.x86_64/bin
 # Local binaries in path
 export PATH="$HOME/.local/bin":$PATH
 export PATH="/usr/local/bin":$PATH
-export PATH="$HOME/.local/bin/.spicetify":$PATH
-export PATH="$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/tools/bin":$PATH
 export GOPATH=$(go env GOPATH)
 export PATH=$GOPATH:$PATH
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 export PATH="$XDG_CONFIG_HOME/composer/vendor/bin":$PATH
+export PATH="$BUN_INSTALL/bin":$PATH
 
 # Manpath
 export MANPATH="/usr/local/man:$MANPATH"

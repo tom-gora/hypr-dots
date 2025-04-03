@@ -1,26 +1,15 @@
 {
   "group/audio": {
     "orientation": "horizontal",
-    "modules": [
-      "pulseaudio",
-      "pulseaudio#microphone"
-    ]
+    "modules": ["pulseaudio", "pulseaudio#microphone"]
   },
   "group/motherboard": {
     "orientation": "horizontal",
-    "modules": [
-      "cpu",
-      "memory",
-      "temperature",
-      "disk"
-    ]
+    "modules": ["cpu", "memory", "temperature", "disk"]
   },
   "group/keyboard": {
     "orientation": "horizontal",
-    "modules": [
-      "hyprland/language",
-      "custom/capslock"
-    ]
+    "modules": ["hyprland/language", "custom/capslock"]
   },
   "group/localai": {
     "orientation": "horizontal",
@@ -32,11 +21,7 @@
   },
   "group/finalspace": {
     "orientation": "horizontal",
-    "modules": [
-      "idle_inhibitor",
-      "custom/swaync",
-      "custom/power"
-    ]
+    "modules": ["idle_inhibitor", "custom/swaync", "custom/power"]
   },
   "hyprland/workspaces": {
     "active-only": false,
@@ -58,15 +43,8 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [
-        "",
-        "",
-        "󰕾",
-        ""
-      ],
-      "ignored-sinks": [
-        "Easy Effects Sink"
-      ]
+      "default": ["", "", "󰕾", ""],
+      "ignored-sinks": ["Easy Effects Sink"]
     },
     "scroll-step": 5.0,
     "on-click": "$HOME/.config/hypr/scripts/utils/Volume.sh --toggle",
@@ -173,16 +151,7 @@
     "interval": 1,
     "format-alt-click": "click",
     "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
-    "format-icons": [
-      "▁",
-      "▂",
-      "▃",
-      "▄",
-      "▅",
-      "▆",
-      "▇",
-      "█"
-    ],
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
     "on-click-right": "wezterm start -- btop"
   },
   "memory": {
@@ -204,9 +173,7 @@
     "critical-threshold": 82,
     "format-critical": "{temperatureC}°C {icon}",
     "format": "{temperatureC}°C {icon}",
-    "format-icons": [
-      "󰈸"
-    ],
+    "format-icons": ["󰈸"],
     "on-click-right": "wezterm start -- btop"
   },
   "disk": {

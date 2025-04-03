@@ -44,3 +44,6 @@ fi
 # if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
 #   exec tmux
 # fi
+
+# bun completions
+[ -s "/home/tomeczku/.bun/_bun" ] && source "/home/tomeczku/.bun/_bun"

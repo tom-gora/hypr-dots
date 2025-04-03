@@ -27,3 +27,6 @@ elseif vim.g.vscode == 1 then
 	-- keybinds triggered from nvim to avoid building complex when sections in vscodevscode-neovim
 	vs_code_things.vscode_register_keymaps()
 end
+
+vim.g.copilot_enabled = false
+vim.g.legacy_cmp = false
