@@ -59,8 +59,9 @@ function new-script() {
 }
 
 function nvim_here() {
-  nvim "$(pwd)" +Oil
+  nvim "$(pwd)"
 }
+
 if [[ -z "$TMUX" ]]; then
   function my_sesh_call() {
     {

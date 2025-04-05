@@ -28,5 +28,5 @@ elseif vim.g.vscode == 1 then
 	vs_code_things.vscode_register_keymaps()
 end
 
-vim.g.copilot_enabled = false
+vim.g.ai_completions_enabled = false
 vim.g.legacy_cmp = false

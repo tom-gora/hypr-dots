@@ -102,7 +102,7 @@ nNore = {
 	["<leader>vc"] = { "<cmd>lua vim.cmd('wincmd q')<cr>", { desc = "Quit a window" } },
 	--
 	-- AI
-	["<leader>C"] = { "<cmd>ToggleCopilot<cr>", { desc = " Toggle Copilot" } },
+	["<leader>S"] = { "<cmd>ToggleAi<cr>", { desc = " Toggle AI Completions" } },
 	--
 	-- zen
 	["<leader>z"] = { "<cmd>lua Snacks.zen()<cr>", { desc = " Toggle Zen Mode" } },

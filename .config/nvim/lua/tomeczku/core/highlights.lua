@@ -347,6 +347,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
 		modify_hl_group("BlinkCmpMenu", { bg = base_bg, force = true })
 		modify_hl_group("BlinkCmpMenuBorder", { link = "FloatBorder", force = true })
 		modify_hl_group("BlinkCmpDoc", { bg = low_dark_base_bg, force = true })
+		modify_hl_group("BlinkCmpGhostText", { fg = low_dark_base_bg, force = true })
 		modify_hl_group(
 			"BlinkCmpDocBorder",
 			{ fg = get_color("FloatBorder", "fg"), bg = low_dark_base_bg, force = true }

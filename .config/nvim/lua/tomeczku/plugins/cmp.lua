@@ -11,8 +11,19 @@ if not legacy or legacy == false then
 	local blink_dependencies = {
 		"rafamadriz/friendly-snippets",
 		"luckasRanarison/tailwind-tools.nvim",
-		-- "supermaven-inc/supermaven-nvim",
-		{ "giuxtaposition/blink-cmp-copilot", after = { "copilot.lua" } },
+		{
+			"supermaven-inc/supermaven-nvim",
+			opts = {
+				-- ignore_filetypes = { cpp = true }, -- or { "cpp", }
+				log_level = "off",
+				-- disable inline ai as I prefer using cmp suggestions
+				disable_inline_completion = true,
+				disable_keymaps = true,
+			},
+		},
+		{
+			"huijiro/blink-cmp-supermaven",
+		},
 		{
 			"L3MON4D3/LuaSnip",
 			-- follow latest release.
@@ -39,7 +50,7 @@ if not legacy or legacy == false then
 
 	local blink_opts = {
 		enabled = function()
-			return not vim.tbl_contains({ "qf", "oil", "markdown" }, vim.bo.filetype)
+			return not vim.tbl_contains({ "qf", "oil" }, vim.bo.filetype)
 				and vim.bo.buftype ~= "prompt"
 				and vim.b.completion ~= false
 		end,
@@ -64,7 +75,7 @@ if not legacy or legacy == false then
 			nerd_font_variant = "mono",
 		},
 		completion = {
-			ghost_text = { enabled = false },
+			ghost_text = { enabled = true },
 			documentation = {
 				auto_show = true,
 				auto_show_delay_ms = 1000,
@@ -82,6 +93,7 @@ if not legacy or legacy == false then
 
 				auto_show = true,
 				draw = {
+					padding = { 2, 2 },
 					gap = 2,
 					columns = {
 						{
@@ -97,7 +109,7 @@ if not legacy or legacy == false then
 		signature = { window = { border = "rounded" } },
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "copilot", "omni", "css_vars" },
+			default = { "lsp", "path", "snippets", "buffer", "supermaven", "omni", "css_vars" },
 			providers = {
 				lsp = { min_keyword_length = 1 },
 				buffer = { min_keyword_length = 2 },
@@ -112,13 +124,18 @@ if not legacy or legacy == false then
 						end,
 					},
 				},
-				copilot = {
+				supermaven = {
 					enabled = true,
-					name = "copilot",
-					module = "blink-cmp-copilot",
-					min_keyword_length = 2,
-					score_offset = -10,
+					name = "supermaven",
+					module = "blink-cmp-supermaven",
 					async = true,
+					transform_items = function(_, items)
+						for _, item in ipairs(items) do
+							item.kind_icon = ""
+							item.kind_name = "Supermaven"
+						end
+						return items
+					end,
 				},
 				css_vars = {
 					name = "css-vars",
@@ -140,7 +157,7 @@ if not legacy or legacy == false then
 	M = {
 		"saghen/blink.cmp",
 		cond = vim.g.vscode == nil,
-		version = "0.13.1",
+		version = "1.*",
 		event = "InsertEnter",
 		dependencies = blink_dependencies,
 		build = "cargo build --release",

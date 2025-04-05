@@ -207,10 +207,10 @@ M.cursor_pos = function()
 end
 
 M.ai_status = function()
-	if not vim.g.supermaven_enable then
-		return "%#NonText#  "
+	if not vim.g.ai_completions_enabled then
+		return "%#NonText#   "
 	end
-	return "%#String#  "
+	return "%#String#   "
 end
 
 return M
