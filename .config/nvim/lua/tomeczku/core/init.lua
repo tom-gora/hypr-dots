@@ -2,17 +2,13 @@
 require("tomeczku.core.vim_opts")
 -- bootstrap lazy.nvim
 require("tomeczku.core.bootstrap_lazy")
--- my hl groups overrides
-require("tomeczku.core.highlights")
 -- my user commands
 require("tomeczku.core.user_commands")
 -- extra filetypes registered
 require("tomeczku.core.extra_filetypes")
 if not vim.g.vscode then
 	-- keymaps
-	require("tomeczku.core.keymaps")
-	-- winZap
-	-- require("tomeczku.core.winZap")
+	require("tomeczku.core.keymaps").setup()
 	-- bring int autocommands
 	require("tomeczku.core.autocommands")
 	-- get statuslinme
@@ -28,5 +24,10 @@ elseif vim.g.vscode == 1 then
 	vs_code_things.vscode_register_keymaps()
 end
 
-vim.g.ai_completions_enabled = false
 vim.g.legacy_cmp = false
+
+-- stop ai completions by default on startup
+local ok, s_api = pcall(require, "supermaven-nvim.api")
+if ok and not s_api.is_running() then
+	vim.schedule(s_api.stop)
+end

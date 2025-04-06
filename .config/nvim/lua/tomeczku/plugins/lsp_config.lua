@@ -143,7 +143,7 @@ config_function = function()
 				settings = {
 					Lua = {
 						diagnostics = {
-							globals = { "vim" },
+							globals = { "vim", "vim.g" },
 						},
 					},
 				},

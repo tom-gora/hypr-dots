@@ -46,8 +46,6 @@ M.setup = function()
 		"StatusLine",
 		"StatusLineNC",
 		"EndOfBuffer",
-		"TelescopePromptPrefix",
-		"TelescopeNormal",
 	}
 	for _, v in ipairs(groups) do
 		local ok, prev_attrs = pcall(vim.api.nvim_get_hl, 0, { name = v })

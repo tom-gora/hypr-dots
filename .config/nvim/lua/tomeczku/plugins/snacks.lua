@@ -11,7 +11,7 @@ opts = {
 	dashboard = { enabled = false },
 	explorer = { enabled = false },
 	indent = { enabled = true },
-	input = { enabled = false },
+	input = { enabled = true },
 	lazygit = { enabled = true, opts = {
 		style = "lazygit",
 	} },
@@ -85,7 +85,21 @@ opts = {
 			},
 		},
 	},
-	notifier = { enabled = false },
+	notifier = {
+		enabled = true,
+		style = function(buf, notif, ctx)
+			-- override the minimaal style to do minimal WITH border
+			ctx.opts.border = "rounded"
+			local whl = ctx.opts.wo.winhighlight
+			ctx.opts.wo.winhighlight = whl:gsub(ctx.hl.msg, "SnacksNotifierMinimal")
+			vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(notif.msg, "\n"))
+			vim.api.nvim_buf_set_extmark(buf, ctx.ns, 0, 0, {
+				virt_text = { { notif.icon, ctx.hl.icon } },
+				virt_text_pos = "right_align",
+			})
+		end,
+		top_down = false,
+	},
 	quickfile = { enabled = false },
 	scope = { enabled = false },
 	scroll = { enabled = true },

@@ -69,14 +69,16 @@ end
 --
 -- INFO: quickly clear the swap directory if cluttered
 local clearSwap = function()
+	local noti_opts = { title = "Swap Cleanup", icon = "󰺝 ", timeout = 1000, hide_from_history = true }
+
 	local swap_dir = fn.stdpath("state") .. "/swap"
 	local is_empty = fn.empty(fn.glob(swap_dir .. "/*")) == 1
 
 	if fn.isdirectory(swap_dir) == 0 then
-		print("Failed to clear the directory! 󰇸")
+		vim.notify("Failed to clear the directory! 󰇸", vim.log.levels.ERROR, noti_opts)
 	else
 		if is_empty then
-			print("Swap directory is already empty! 󰇵")
+			vim.notify("Swap directory is already empty! 󰇵", vim.log.levels.WARN, noti_opts)
 			fn.timer_start(2000, function()
 				clearBothCmdLines()
 			end)
@@ -89,10 +91,10 @@ local clearSwap = function()
 
 			if res then
 				fn.system(attempt_deletion)
-				print("Cleared the content of the swap directory! 󰇵")
+				vim.notify("Cleared the content of the swap directory! 󰇵", vim.log.levels.INFO, noti_opts)
 				clearBothCmdLines()
 			else
-				print("Operation aborted")
+				vim.notify("Operation aborted", vim.log.levels.INFO, noti_opts)
 				clearBothCmdLines()
 			end
 		end
@@ -368,17 +370,13 @@ if not vim.g.vscode then
 	-- custom toggle for AI
 	local toggleAi = function()
 		local sm_api = require("supermaven-nvim.api")
-		-- toggle global variable for stop condition
-		-- first toggle sets the none existing variable to true
-		vim.g.ai_completions_enabled = not vim.g.ai_completions_enabled
-		-- stop or start supermaven
-		local noti = require("notify")
-		local noti_opts = { title = "Supermaven", icon = "", timeout = 1000, hide_from_history = true }
-		if vim.g.ai_completions_enabled then
-			noti("ON", "info", noti_opts)
+		local noti_opts = { title = "Supermaven", icon = " ", timeout = 1000, hide_from_history = true }
+
+		if vim.g.SUPERMAVEN_DISABLED == 1 then
+			vim.notify("Supermaven ON", vim.log.levels.INFO, noti_opts)
 			sm_api.start()
 		else
-			noti("OFF", "error", noti_opts)
+			vim.notify("Supermaven OFF", vim.log.levels.WARN, noti_opts)
 			sm_api.stop()
 		end
 	end
