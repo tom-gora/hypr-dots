@@ -5,23 +5,9 @@ end
 local M, on_attach, capabilities, config_function
 
 on_attach = function(_, bufnr)
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = "LSP: " .. desc
-		end
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-	end
+	local h = require("tomeczku.core.keymaps.helpers")
 	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-	nmap("<leader>lp", vim.diagnostic.goto_prev, "Go to previous diagnostic message")
-	nmap("<leader>ln", vim.diagnostic.goto_next, "Go to next diagnostic message")
-	vim.keymap.set("i", "<leader>lg", vim.lsp.buf.signature_help, { buffer = 0 })
-	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-
-	nmap("<leader>lc", vim.lsp.buf.code_action, "LSP: Code Actions")
-	nmap("<leader>lR", vim.lsp.buf.rename, "LSP: Rename Symbol")
-
-	nmap("<leader>lf", vim.lsp.buf.format, "LSP: Format Buffer")
-	nmap("<leader>li", "<cmd>LspInfo<cr>", "LSP: Info")
+	h.setupLspMappings(bufnr)
 end
 
 local ok, blink = pcall(require, "blink.cmp")
@@ -32,8 +18,10 @@ else
 end
 
 config_function = function()
-	-- additionally configure lspinfo win border
-	require("lspconfig.ui.windows").default_options = { border = "rounded" }
+	-- additionally configure lsp hover/signature borders
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true })
+	vim.lsp.handlers["textDocument/signatureHelp"] =
+		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", silent = true })
 
 	local lspconfig = require("lspconfig")
 

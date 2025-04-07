@@ -16,14 +16,15 @@ M = {
 	-- select all buf lines quickly
 	["<leader>a"] = { "ggVG", ignore },
 	--
-	-- position the cursor after pasted text
-	["p"] = { "gp", ignore },
+	-- yank the line without newline char
+	["<S-y>"] = { "mQ0y$`Q", ignore },
 	--
 	-- toggle comment line in normal mode
 	["<leader>/"] = { "gcc", vim.tbl_deep_extend("force", ignore, { remap = true }) },
 	--
 	-- clear search highlights
 	["<Esc>"] = { "<cmd>noh<cr>", ignore },
+	["jn"] = { "<cmd>noh<cr>", ignore },
 	--
 	-- write buffer
 	["<leader>w"] = { "<cmd>w<cr>", ignore },

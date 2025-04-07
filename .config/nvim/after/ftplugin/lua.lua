@@ -1,4 +1,7 @@
 vim.b.lua = true
+local maps = require("tomeczku.core.keymaps.filetype_specific")
 
--- misbehavior relating to relative paths....
-vim.keymap.set("n", "gf", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "which_key_ignore" })
+-- NOTE:
+-- fix misbehavior relating to relative paths....
+
+maps.lua()

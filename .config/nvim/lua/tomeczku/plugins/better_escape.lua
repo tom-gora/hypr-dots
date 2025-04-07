@@ -8,11 +8,11 @@ opts = {
 	default_mappings = false,
 	timeout = vim.o.timeoutlen,
 	mappings = {
-		i = { j = { k = "<Esc>" } },
-		c = { j = { k = "<Esc>" } },
-		t = { j = { k = "<Esc>" } },
-		x = { j = { k = "<Esc>" } },
-		s = { j = { k = "<Esc>" } },
+		i = { j = { n = "<Esc>" } },
+		c = { j = { n = "<C-c>" } },
+		t = { j = { n = "<Esc>" } },
+		x = { j = { n = "<Esc>" } },
+		s = { j = { n = "<Esc>" } },
 	},
 }
 

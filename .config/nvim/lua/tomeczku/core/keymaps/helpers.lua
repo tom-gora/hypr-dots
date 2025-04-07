@@ -41,9 +41,30 @@ M.clearQuickFixList = function()
 	vim.cmd("cclose")
 end
 
-M.openTheVimWay = function()
+M.openFileFromCmdLine = function()
 	local rootPath = vim.fn.expand("%:p:h")
 	return ":e " .. rootPath .. "/"
+end
+
+M.setupLspMappings = function(bufnr)
+	local nmap = function(keys, func, desc)
+		if desc then
+			desc = "LSP: " .. desc
+		end
+		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+	end
+	nmap("<leader>lp", vim.diagnostic.goto_prev, "Go to previous diagnostic message")
+	nmap("<leader>ln", vim.diagnostic.goto_next, "Go to next diagnostic message")
+	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+
+	nmap("<leader>lc", vim.lsp.buf.code_action, "Code Actions")
+	nmap("<leader>lR", vim.lsp.buf.rename, "Rename Symbol")
+
+	nmap("<leader>lf", vim.lsp.buf.format, "Format Buffer")
+	nmap("<leader>li", "<cmd>LspInfo<cr>", "Info")
+	vim.keymap.set("n", "K", function()
+		vim.lsp.buf.hover()
+	end, { buffer = 0 })
 end
 
 return M

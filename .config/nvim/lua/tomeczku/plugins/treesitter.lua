@@ -64,10 +64,10 @@ config_function = function()
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				init_selection = "<C-S>",
-				node_incremental = "<C-S>",
+				init_selection = "<M-]>",
+				node_incremental = "<M-]>",
 				scope_incremental = false,
-				node_decremental = "<C-A>",
+				node_decremental = "<M-[>",
 			},
 		},
 	})

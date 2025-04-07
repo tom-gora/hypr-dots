@@ -14,7 +14,6 @@ if not vim.g.vscode then
 	-- get statuslinme
 	require("tomeczku.core.custom_statusline")
 	-- miscellaneous
-	require("tomeczku.core.misc")
 elseif vim.g.vscode == 1 then
 	local vs_code_things = require("tomeczku.vs_code")
 	vs_code_things.vscode_other.vim_opts_and_other_basics()

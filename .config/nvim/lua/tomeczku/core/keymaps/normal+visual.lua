@@ -1,9 +1,14 @@
 local M, ignore, h = {}, { desc = "which_key_ignore" }, require("tomeczku.core.keymaps.helpers")
 
 M = {
+	-- fix polluting clipboard with non cutting operations with blackhole register
 	["c"] = { '"_c', ignore },
 	["x"] = { '"_x', ignore },
 	["d"] = { '"_d', ignore },
+	["D"] = { '"_D', ignore },
+	--
+	-- position the cursor after pasted text
+	["p"] = { "gP", ignore },
 	--
 	-- quick visual line select
 	["<leader><leader>"] = { "V", ignore },
@@ -12,7 +17,7 @@ M = {
 	["<leader>o"] = { " Open" },
 	["<leader>on"] = { "<cmd> enew <cr>", { desc = "Open New Buffer" } },
 	["<leader>of"] = {
-		h.openTheVimWay,
+		h.openFileFromCmdLine,
 		{ desc = "Open...", expr = true },
 	},
 	["<leader>oc"] = { "<cmd> e#<cr>", { desc = "Reopen Last Closed" } },

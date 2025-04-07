@@ -2,6 +2,9 @@ vim.filetype.add({
 	extension = {
 		["code-snippets"] = "json",
 	},
+	pattern = {
+		[".*/*.rasi"] = "rasi",
+	},
 	-- filename = {
 	-- 	[".foorc"] = "toml",
 	-- 	["/etc/foo/config"] = "toml",

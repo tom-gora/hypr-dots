@@ -3,6 +3,7 @@
 --
 local b46 = require("tomeczku.core.custom_theme.base46_palette")
 local h, mod = require("tomeczku.core.custom_theme.helpers"), require("tomeczku.core.custom_theme.modified_colors")
+vim.print(mod.base_bg())
 
 local hl = vim.api.nvim_set_hl
 local theme = {}
@@ -302,12 +303,7 @@ theme.set_highlights = function()
 	hl(0, "BufferVisibleSign", { bg = "NONE", fg = mod.muted_light_bg() })
 	hl(0, "BufferVisibleIndex", { fg = mod.dark_base_bg(), bg = mod.muted_light_bg(), bold = true })
 	hl(0, "BufferTabpageFill", { link = "none", bg = "none", force = true })
-	-- modifications to various float windows: telescope, oil etc
-	hl(0, "FloatBorder", { bg = "NONE" })
-	hl(0, "LspInfoBorder", { link = "FloatBorder", force = true })
-	hl(0, "Float", { bg = "NONE" })
-	hl(0, "NormalFloat", { bg = "NONE" })
-	hl(0, "WhichKeyFloat", { bg = "NONE" })
+	-- no lazy background
 	hl(0, "LazyBackdrop", { bg = "NONE", force = true })
 	-- costom rainbow-delimiters colors (base rose-pine with bumped up saturation)
 	hl(0, "RainbowDelimiterYellow", { fg = mod.delimiters_yellow(), force = true })
