@@ -5,6 +5,15 @@ end
 local M
 
 M = {
+	-- replacing snacks' scroll as the latter is buggy AF on repeated j/k movements
+	{
+		"echasnovski/mini.animate",
+		version = "*",
+		opts = {
+			open = { enable = false },
+			close = { enable = false },
+		},
+	},
 	{
 		"echasnovski/mini.surround",
 		version = "*",
@@ -16,7 +25,6 @@ M = {
 				["/"] = { output = { left = "/*\n", right = "\n*/" } },
 			},
 		},
-		config = true,
 	},
 	{
 		"echasnovski/mini.move",
@@ -44,7 +52,7 @@ M = {
 		cond = vim.g.vscode == nil,
 		version = "*",
 		event = "VeryLazy",
-		config = true,
+		opts = {},
 	},
 }
 

@@ -1,3 +1,6 @@
+vim.g.legacy_cmp = false
+vim.g.health = { style = "float" }
+
 -- vim options
 require("tomeczku.core.vim_opts")
 -- bootstrap lazy.nvim
@@ -22,6 +25,3 @@ elseif vim.g.vscode == 1 then
 	-- keybinds triggered from nvim to avoid building complex when sections in vscodevscode-neovim
 	vs_code_things.vscode_register_keymaps()
 end
-
-vim.g.legacy_cmp = false
-vim.g.health = { style = "float" }

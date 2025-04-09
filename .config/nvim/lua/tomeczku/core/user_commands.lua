@@ -39,13 +39,6 @@ local lpad = function(s, length, padChar)
 	return string.rep(padChar, pad_len) .. s
 end
 
--- a helper helper to clear cmdline properly even if ch is set to default 2 lines
-local clearBothCmdLines = function()
-	api.nvim_echo({}, true, {}) -- Clear the command-line
-	-- circumvent the "Press ENTER or type command to continue" prompt
-	api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)
-end
-
 -- ask user confirmation
 ---@param msg string
 ---@return boolean?
@@ -57,18 +50,15 @@ local askConfirmation = function(msg)
 		local input_lower = user_input:lower()
 
 		if input_lower == "y" or input_lower == "yes" then
-			clearBothCmdLines()
 			return true
 		end
 
 		if input_lower == "n" or input_lower == "no" then
-			clearBothCmdLines()
 			return false
 		end
 
 		-- Only reach here if the input was invalid
 		vim.notify("Invalid input. Please enter 'y' or 'n'.")
-		clearBothCmdLines()
 	end
 end
 
@@ -86,35 +76,48 @@ end
 --
 -- INFO: quickly clear the swap directory if cluttered
 local clearSwap = function()
-	local noti_opts = { title = "Swap Cleanup", icon = "󰺝 ", timeout = 1000, hide_from_history = true }
+	local noti_opts = {
+		title = "Swap Cleanup",
+		icon = "󰺝 ",
+		timeout = 1000,
+		hide_from_history = true,
+	}
 
 	local swap_dir = fn.stdpath("state") .. "/swap"
-	local is_empty = fn.empty(fn.glob(swap_dir .. "/*")) == 1
 
 	if fn.isdirectory(swap_dir) == 0 then
 		vim.notify("Failed to clear the directory! 󰇸", vim.log.levels.ERROR, noti_opts)
-	else
-		if is_empty then
-			vim.notify("Swap directory is already empty! 󰇵", vim.log.levels.WARN, noti_opts)
-			fn.timer_start(2000, function()
-				clearBothCmdLines()
-			end)
-		else
-			local target = swap_dir .. "/*"
-			local attempt_deletion = "bash -c 'rm -f " .. target .. "'"
-			local question = "Are you sure you want to clear the content of the swap dir?"
+		return -- Early exit
+	end
 
-			local res = askConfirmation(question)
+	local is_empty = fn.empty(fn.glob(swap_dir .. "/*")) == 1
 
-			if res then
-				fn.system(attempt_deletion)
-				clearBothCmdLines()
-				vim.notify("Cleared the content of the swap directory! 󰇵", vim.log.levels.INFO, noti_opts)
-			else
-				clearBothCmdLines()
-				vim.notify("Operation aborted", vim.log.levels.INFO, noti_opts)
-			end
+	if is_empty then
+		vim.notify("Swap directory is already empty! 󰇵", vim.log.levels.WARN, noti_opts)
+		fn.timer_start(2000, function() end)
+		return
+	end
+
+	local question = "Are you sure you want to clear the content of the swap dir?"
+	local res = askConfirmation(question)
+
+	if res then
+		local target = swap_dir .. "/*"
+		local attempt_deletion = "bash -c 'rm -f " .. target .. "'"
+		vim.fn.system(attempt_deletion)
+		local exit_code = vim.v.shell_error
+
+		if exit_code ~= 0 then
+			vim.notify(
+				"Failed to clear the directory! 󰇸  [Exit code: " .. tostring(exit_code) .. "]",
+				vim.log.levels.ERROR,
+				noti_opts
+			)
+			return
 		end
+		vim.notify("Cleared the content of the swap directory! 󰇵", vim.log.levels.INFO, noti_opts)
+	else
+		vim.notify("Operation aborted", vim.log.levels.INFO, noti_opts)
 	end
 end
 makeCmd("ClearSwap", clearSwap, { range = false })

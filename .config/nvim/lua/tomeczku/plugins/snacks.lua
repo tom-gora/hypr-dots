@@ -11,7 +11,7 @@ opts = {
 	dashboard = { enabled = false },
 	explorer = { enabled = false },
 	indent = { enabled = true },
-	input = { enabled = true },
+	input = { enabled = false },
 	lazygit = { enabled = true, opts = {
 		style = "lazygit",
 	} },
@@ -100,7 +100,7 @@ opts = {
 		end,
 		top_down = false,
 	},
-	quickfile = { enabled = false },
+	quickfile = { enabled = true },
 	scope = { enabled = false },
 	scroll = { enabled = false },
 	statuscolumn = { enabled = false },
