@@ -1,5 +1,3 @@
-local map = vim.keymap.set
-
 local n = require("tomeczku.core.keymaps.normal")
 local x = require("tomeczku.core.keymaps.visual")
 local i = require("tomeczku.core.keymaps.insert")
@@ -9,6 +7,7 @@ local o = require("tomeczku.core.keymaps.other")
 local M = {}
 
 M.setup = function()
+	local map = vim.keymap.set
 	-- loop over normal bindings and set the keymaps
 	for k, v in pairs(n) do
 		map("n", k, v[1], v[2])
@@ -33,6 +32,7 @@ M.setup = function()
 	o.setupCmdlineAndWildmenu()
 	o.nonDestructivePaste()
 	o.proxySplitsGroup()
+	o.disableDefaults()
 end
 
 return M

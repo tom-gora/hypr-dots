@@ -24,9 +24,4 @@ elseif vim.g.vscode == 1 then
 end
 
 vim.g.legacy_cmp = false
-
--- stop ai completions by default on startup
-local ok, s_api = pcall(require, "supermaven-nvim.api")
-if ok and not s_api.is_running() then
-	vim.schedule(s_api.stop)
-end
+vim.g.health = { style = "float" }

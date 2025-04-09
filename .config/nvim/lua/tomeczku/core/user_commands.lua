@@ -1,17 +1,22 @@
 local api = vim.api
 local fn = vim.fn
-local cmd = vim.cmd
 local v = vim.v
+local makeCmd = api.nvim_create_user_command
 
 -- NOTE: helpers
--- #############################################################################################
+--
+---@param line string
+---@return string?, string, string
 local lineBreakdownFactory = function(line)
+	if line == nil or line == "" then
+		return nil, "", ""
+	end
 	local index_start, index_end = string.find(line, "%d+")
 	if index_start then
 		-- extract the numeric substring
 		local index = string.sub(line, index_start, index_end)
 		-- get the substr before index and after index
-		local pre_index_str = string.sub(line, 1, (index_start > 1) and (index_start - 1) or 1)
+		local pre_index_str = string.sub(line, 1, index_start - 1)
 		local post_index_str = string.sub(line, index_end + 1)
 		return index, pre_index_str, post_index_str
 	else
@@ -21,50 +26,62 @@ local lineBreakdownFactory = function(line)
 end
 
 -- npm install --save-dev left-pad XD
+---@param s string
+---@param length integer
+---@param padChar string
+---@return string
 local lpad = function(s, length, padChar)
 	padChar = padChar or " "
-	local pad_len = length - #s
-	-- only pad if needed
-	if pad_len > 0 then
-		return string.rep(padChar, pad_len) .. s
-	else
+	if length <= 0 or #s >= length then
 		return s
 	end
+	local pad_len = length - #s
+	return string.rep(padChar, pad_len) .. s
 end
 
 -- a helper helper to clear cmdline properly even if ch is set to default 2 lines
 local clearBothCmdLines = function()
-	fn.timer_start(2000, function()
-		cmd("echo")
-		print("\n")
-		cmd("echo")
-	end)
+	api.nvim_echo({}, true, {}) -- Clear the command-line
+	-- circumvent the "Press ENTER or type command to continue" prompt
+	api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)
 end
 
 -- ask user confirmation
+---@param msg string
+---@return boolean?
 local askConfirmation = function(msg)
+	local prompt = msg .. " [y/n]: "
+
 	while true do
-		local user_input = fn.input(msg)
-		print(" ")
-		if user_input:lower() == "y" or user_input:lower() == "yes" then
-			return true
-		elseif user_input:lower() == "n" or user_input:lower() == "no" then
-			return false
-		else
-			print("Invalid input. Please enter 'y' or 'n'.")
+		local user_input = fn.input(prompt)
+		local input_lower = user_input:lower()
+
+		if input_lower == "y" or input_lower == "yes" then
 			clearBothCmdLines()
+			return true
 		end
+
+		if input_lower == "n" or input_lower == "no" then
+			clearBothCmdLines()
+			return false
+		end
+
+		-- Only reach here if the input was invalid
+		vim.notify("Invalid input. Please enter 'y' or 'n'.")
+		clearBothCmdLines()
 	end
 end
 
 -- escape chars that break sed regex when constructing a %s command string
+---@param str string
+---@return string, integer
 local escapeScecialChars = function(str)
 	-- NOTE: Chars to escape to be added in regex if discovered to break functionality
 	return str:gsub("([/\\%%^$*?.[()={\"`'+=<>|&~@-])", "\\%1"):gsub("\n", "\\n")
 end
 
 -- #############################################################################################
--- NOTE: functions
+-- NOTE: commands
 -- #############################################################################################
 --
 -- INFO: quickly clear the swap directory if cluttered
@@ -85,22 +102,22 @@ local clearSwap = function()
 		else
 			local target = swap_dir .. "/*"
 			local attempt_deletion = "bash -c 'rm -f " .. target .. "'"
-			local question = "Are you sure you want to clear the content of the swap dir? (y/n) "
+			local question = "Are you sure you want to clear the content of the swap dir?"
 
 			local res = askConfirmation(question)
 
 			if res then
 				fn.system(attempt_deletion)
+				clearBothCmdLines()
 				vim.notify("Cleared the content of the swap directory! 󰇵", vim.log.levels.INFO, noti_opts)
-				clearBothCmdLines()
 			else
-				vim.notify("Operation aborted", vim.log.levels.INFO, noti_opts)
 				clearBothCmdLines()
+				vim.notify("Operation aborted", vim.log.levels.INFO, noti_opts)
 			end
 		end
 	end
 end
-api.nvim_create_user_command("ClearSwap", clearSwap, { range = false })
+makeCmd("ClearSwap", clearSwap, { range = false })
 
 --
 -- INFO: close unmodified buffers
@@ -114,13 +131,15 @@ local closeUnmodifiedBuffers = function()
 		end
 	end
 end
-api.nvim_create_user_command("CloseUnmodifiedBuffers", closeUnmodifiedBuffers, { range = false })
+makeCmd("CloseUnmodifiedBuffers", closeUnmodifiedBuffers, { range = false })
 --
 -- INFO:
 -- take line and duplicate it taking vim-motion count with interated indexes
 -- (count indicates how many indexed lines is needed total with the source line
 -- and not how many inserions so effectively it's like count - 1)
 
+---@param count integer
+---@return any?
 local multiplyLineWithIndexing = function(count)
 	-- store the input line content to be used as base string
 	local line = fn.getline(".")
@@ -133,7 +152,7 @@ local multiplyLineWithIndexing = function(count)
 	end
 	-- how much lpad is needed and if to pad at all
 	local pad_len = 0
-	local question = "Do you want indexes left-padded with `0` where needed? (y/n) "
+	local question = "Do you want indexes left-padded with `0` where needed?"
 	local res = askConfirmation(question)
 	if res then
 		if count > 1000 - index then
@@ -163,7 +182,7 @@ local multiplyLineWithIndexing = function(count)
 	api.nvim_feedkeys(api.nvim_replace_termcodes(count - 1 .. "j", true, false, true), "n", true)
 end
 
-api.nvim_create_user_command("MultiplyLineWithIndexing", function()
+makeCmd("MultiplyLineWithIndexing", function()
 	local count = v.count
 	multiplyLineWithIndexing(count)
 end, { range = true, nargs = "?" })
@@ -173,6 +192,7 @@ end, { range = true, nargs = "?" })
 -- useful if copies of line to index have already beeen typed
 -- select the lines and call command to fix indexes to properly iterating and padded indexes
 
+---@return any?
 local applyIndexingOverSelection = function()
 	-- get the selection Scope
 	local _, ls, _ = table.unpack(fn.getpos("'<"))
@@ -204,7 +224,7 @@ local applyIndexingOverSelection = function()
 	end
 	-- how much lpad is needed and if to pad at all
 	local pad_len = 0
-	local question = "Do you want indexes left-padded with `0` where needed? (y/n) "
+	local question = "Do you want indexes left-padded with `0` where needed?"
 	local res = askConfirmation(question)
 	if res then
 		if lines_scope >= 1000 - index then
@@ -233,12 +253,13 @@ local applyIndexingOverSelection = function()
 	-- force the cursor to the end of selection
 	api.nvim_feedkeys(api.nvim_replace_termcodes(lines_scope + 1 .. "j", true, false, true), "n", true)
 end
-api.nvim_create_user_command("ApplyIndexingOverSelection", applyIndexingOverSelection, { range = true })
+makeCmd("ApplyIndexingOverSelection", applyIndexingOverSelection, { range = true })
 
 if not vim.g.vscode then
 	-- INFO:my own funcs automating using native sed based search and replace
 	--
 	-- init search for cword
+	---@param ignoreCase boolean
 	local searchReplaceCword = function(ignoreCase)
 		local cword = fn.expand("<cword>")
 		local before_cmd_substr = ":%s/"
@@ -250,12 +271,13 @@ if not vim.g.vscode then
 		local command = before_cmd_substr .. cword .. "/" .. after_cmd_substr .. backtrack
 		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
 	end
-	api.nvim_create_user_command("SearchReplaceCword", function(data)
+	makeCmd("SearchReplaceCword", function(data)
 		local args = data.fargs
 		searchReplaceCword(args[1])
 	end, { nargs = "*" })
 
 	-- init search for user input
+	---@param ignoreCase boolean
 	local searchReplaceInit = function(ignoreCase)
 		local before_cmd_substr = ":%s/"
 		local after_cmd_substr = "/gc"
@@ -268,7 +290,7 @@ if not vim.g.vscode then
 
 		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
 	end
-	api.nvim_create_user_command("SearchReplaceInit", function(data)
+	makeCmd("SearchReplaceInit", function(data)
 		local args = data.fargs
 		searchReplaceInit(args[1])
 	end, { nargs = "*" })
@@ -295,7 +317,7 @@ if not vim.g.vscode then
 
 		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
 	end
-	api.nvim_create_user_command("SearchReplaceVisualSelection", function()
+	makeCmd("SearchReplaceVisualSelection", function()
 		-- exit visual mode before the func call to update the marks with actual current range
 		api.nvim_feedkeys(api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
 		searchReplaceVisualSelection()
@@ -303,6 +325,7 @@ if not vim.g.vscode then
 
 	-- reverse of the above make a selection first and take input to search
 	-- within this selection
+	---@param ignoreCase boolean
 	local searchReplaceInsideVisualSelection = function(ignoreCase)
 		-- Get the range of the visual selection
 		local _, ls, cs = table.unpack(fn.getpos("'<"))
@@ -336,7 +359,7 @@ if not vim.g.vscode then
 
 		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
 	end
-	api.nvim_create_user_command("SearchReplaceInsideVisualSelection", function(data)
+	makeCmd("SearchReplaceInsideVisualSelection", function(data)
 		local args = data.fargs
 
 		-- exit visual mode before the func call to update the marks with actual current range
@@ -346,6 +369,8 @@ if not vim.g.vscode then
 	--
 	-- search and replace within quickfix list
 	-- (adds bfdo and can add | update to save right away)
+	---@param ignoreCase boolean
+	---@param withUpdate boolean
 	local searchReplaceInQfManual = function(ignoreCase, withUpdate)
 		local cword = fn.expand("<cword>")
 		local before_cmd_substr = ":cfdo %s/"
@@ -362,7 +387,7 @@ if not vim.g.vscode then
 		api.nvim_feedkeys(api.nvim_replace_termcodes(command, true, false, true), "n", true)
 	end
 
-	api.nvim_create_user_command("SearchReplaceInQfManual", function(data)
+	makeCmd("SearchReplaceInQfManual", function(data)
 		local args = data.fargs
 		searchReplaceInQfManual(args[1], args[2])
 	end, { nargs = "*" })
@@ -381,6 +406,6 @@ if not vim.g.vscode then
 		end
 	end
 
-	api.nvim_create_user_command("ToggleAi", toggleAi, { range = false })
+	makeCmd("ToggleAi", toggleAi, { range = false })
 end
 -- building my custom navigation command that will allow jumping to and from splits easily

@@ -13,16 +13,30 @@ if not legacy or legacy == false then
 		"luckasRanarison/tailwind-tools.nvim",
 		{
 			"supermaven-inc/supermaven-nvim",
-			opts = {
-				-- ignore_filetypes = { cpp = true }, -- or { "cpp", }
-				log_level = "off",
-				-- disable inline ai as I prefer using cmp suggestions
-				disable_inline_completion = true,
-				disable_keymaps = true,
-			},
+			lazy = true,
+			config = function()
+				require("supermaven-nvim").setup({
+					condition = function()
+						if vim.g.SUPERMAVEN_DISABLED == 1 then
+							return false
+						end
+						return true
+					end,
+					-- ignore_filetypes = { cpp = true }, -- or { "cpp", }
+					log_level = "off",
+					-- disable inline ai as I prefer using cmp suggestions
+					disable_inline_completion = true,
+					disable_keymaps = true,
+				})
+				-- HACK: use snacks to suppress the annoying popup about missing nvim-cmp
+				-- there is none, as blink is in use
+				require("snacks.notifier").hide()
+			end,
 		},
 		{
 			"huijiro/blink-cmp-supermaven",
+			lazy = true,
+			dependencies = { "supermaven-inc/supermaven-nvim" },
 		},
 		{
 			"L3MON4D3/LuaSnip",
@@ -33,7 +47,7 @@ if not legacy or legacy == false then
 			dependencies = {
 				"rafamadriz/friendly-snippets",
 			},
-			config = function(_, opts)
+			config = function()
 				local ls = require("luasnip")
 				local vsc = require("luasnip.loaders.from_vscode")
 				ls.filetype_extend("php", { "blade" })
@@ -41,11 +55,11 @@ if not legacy or legacy == false then
 			end,
 		},
 		"jdrupal-dev/css-vars.nvim",
-		{
-			"saghen/blink.compat",
-			version = "*",
-			lazy = false,
-		},
+		-- {
+		-- 	"saghen/blink.compat",
+		-- 	version = "*",
+		-- 	lazy = false,
+		-- },
 	}
 
 	local blink_opts = {

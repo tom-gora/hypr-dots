@@ -1,21 +1,18 @@
-local M, map = {}, vim.keymap.set
+local M, map, h = {}, vim.keymap.set, require("tomeczku.core.keymaps.helpers")
 
 M.lua = function()
-	map("n", "gf", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "which_key_ignore" })
+	map("n", "gf", "<cmd>lua vim.lsp.buf.definition()<cr>", h.setOpts({ desc = "which_key_ignore" }))
 end
 
 M.markdown = function()
-	map("n", "gm", "<cmd>MarkdownPreviewToggle<cr>", { desc = " Markdown Preview" })
-	-- move "line" at a time even on wrapped text
-	map("n", "j", "gj", { noremap = true, silent = true })
-	map("n", "k", "gk", { noremap = true, silent = true })
+	map("n", "gm", "<cmd>MarkdownPreviewToggle<cr>", h.setOpts({ desc = " Markdown Preview" }))
 end
 
 M.laravel = function()
 	map("n", "<leader>L", "", { desc = "󰫐 Laravel" })
-	map("n", "<leader>LA", "<cmd>Laravel artisan<cr>", { desc = "Laravel Artisan" })
-	map("n", "<leader>LR", "<cmd>Laravel routes<cr>", { desc = "Laravel Routes" })
-	map("n", "<leader>LM", "<cmd>Laravel related<cr>", { desc = "Laravel Related" })
+	map("n", "<leader>LA", "<cmd>Laravel artisan<cr>", h.setOpts({ desc = "Laravel Artisan" }))
+	map("n", "<leader>LR", "<cmd>Laravel routes<cr>", h.setOpts({ desc = "Laravel Routes" }))
+	map("n", "<leader>LM", "<cmd>Laravel related<cr>", h.setOpts({ desc = "Laravel Related" }))
 end
 
 M.help = function()
@@ -25,34 +22,34 @@ M.help = function()
 		else
 			return
 		end
-	end, { desc = "which_key_ignore" })
+	end, h.setOpts({ desc = "ignore" }))
 end
 
 M.quickfix = function()
-	map("n", "<leader>rq", "<nop>", { desc = "QF Replace", noremap = true, silent = true, buffer = 0 })
+	map("n", "<leader>rq", "<nop>", h.setOpts({ desc = "QF Replace", buffer = 0 }))
 	map(
 		"n",
 		"<leader>rq1",
 		"<cmd>SearchReplaceInQfManual true false<cr>",
-		{ desc = "Ignore Case Manual", noremap = true, silent = true, buffer = 0 }
+		h.setOpts({ desc = "Ignore Case Manual", buffer = 0 })
 	)
 	map(
 		"n",
 		"<leader>rq2",
 		"<cmd>SearchReplaceInQfManual true true<CR>",
-		{ desc = "Ignore Case Update", noremap = true, silent = true, buffer = 0 }
+		h.setOpts({ desc = "Ignore Case Update", buffer = 0 })
 	)
 	map(
 		"n",
 		"<leader>rq3",
 		"<cmd>SearchReplaceInQfManual false true<CR>",
-		{ desc = "Preserve Case Manual", noremap = true, silent = true, buffer = 0 }
+		h.setOpts({ desc = "Preserve Case Manual", buffer = 0 })
 	)
 	map(
 		"n",
 		"<leader>rq4",
 		"<cmd>SearchReplaceInQfManual false false<CR>",
-		{ desc = "Preserve Case Update", noremap = true, silent = true, buffer = 0 }
+		h.setOpts({ desc = "Preserve Case Update", buffer = 0 })
 	)
 end
 

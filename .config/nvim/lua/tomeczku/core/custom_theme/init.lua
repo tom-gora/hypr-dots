@@ -2,8 +2,7 @@
 -- than what official soho vibes provide
 -- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 --
-local M = {}
-local theme = require("tomeczku.core.custom_theme.theme")
+local M, theme = {}, require("tomeczku.core.custom_theme.theme")
 
 M.setup = function()
 	vim.cmd("hi clear")

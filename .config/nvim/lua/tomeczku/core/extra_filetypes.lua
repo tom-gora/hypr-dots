@@ -5,6 +5,8 @@ vim.filetype.add({
 	pattern = {
 		[".*/*.rasi"] = "rasi",
 	},
+	--
+	-- NOTE: DOCS SAMPLE just in case
 	-- filename = {
 	-- 	[".foorc"] = "toml",
 	-- 	["/etc/foo/config"] = "toml",

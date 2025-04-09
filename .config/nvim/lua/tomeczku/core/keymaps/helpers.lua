@@ -1,5 +1,36 @@
 local M = {}
 
+-- NOTE: setOpts() pass:
+-- no args for default opts
+-- desc = "ignore" for defaults but ignored by whichkey
+-- any other valid mapping opts table to be merged with defaults
+-- defaults are: { noremap = true, silent = true }
+
+---@param extra vim.keymap.set.Opts? Nothing for defaults or table of additional mapping opts ( desc = "ignore" short for "which_key_ignore" )
+---@return vim.keymap.set.Opts
+M.setOpts = function(extra)
+	local opts = { noremap = true, silent = true }
+	if not extra or extra.desc == "" or extra == nil then
+		return opts
+	elseif extra.desc == "ignore" then
+		return { noremap = true, silent = true, desc = "which_key_ignore" }
+	end
+	return vim.tbl_deep_extend("force", opts, extra)
+end
+
+M.yankAll = function()
+	-- compared to ggVG preserves cursor position
+	-- plus I grab the last message and redirect to notify
+	vim.cmd("%y")
+	local messages = vim.fn.execute("messages")
+	local it = vim.iter(vim.split(messages, "\n"))
+	vim.notify(
+		it:last(),
+		vim.log.levels.INFO,
+		{ title = "Yanked Buffer", icon = " ", timeout = 1500, hide_from_history = true }
+	)
+end
+
 M.toggleOil = function()
 	local ok, o = pcall(require, "oil")
 	if not ok then
@@ -24,14 +55,16 @@ M.toggleOil = function()
 	_G._OilOpened = vim.fn.win_getid()
 end
 
+---@return string
 M.nextBufWithFallback = function()
 	return pcall(require, "barbar") and "<cmd>BufferNext<cr>" or "<cmd>bnext<cr>"
 end
-
+---@return string
 M.prevBufWithFallback = function()
 	return pcall(require, "barbar") and "<cmd>BufferPrevious<cr>" or "<cmd>bprevious<cr>"
 end
 
+---@return string
 M.closeBufWithFallback = function()
 	return pcall(require, "barbar") and "<cmd>BufferClose<cr>" or "<cmd>bd<cr>"
 end
@@ -41,11 +74,13 @@ M.clearQuickFixList = function()
 	vim.cmd("cclose")
 end
 
+---@return string
 M.openFileFromCmdLine = function()
 	local rootPath = vim.fn.expand("%:p:h")
 	return ":e " .. rootPath .. "/"
 end
 
+---@param bufnr number
 M.setupLspMappings = function(bufnr)
 	local nmap = function(keys, func, desc)
 		if desc then

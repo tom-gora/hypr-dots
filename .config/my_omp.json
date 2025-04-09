@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
+    "bg": "",
     "closer": "#eb6f92",
     "orange": "#ea9a97",
     "os": "#3e8fb0",
@@ -29,7 +30,7 @@
           "leading_diamond": " \ue0b6",
           "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
           "foreground": "p:purple",
-          "background": "",
+          "background": "p:bg",
           "type": "git",
           "foreground_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}{{ end }}",
@@ -48,14 +49,14 @@
           "style": "plain",
           "template": "{{.Icon}} ",
           "foreground": "p:os",
-          "background": "",
+          "background": "p:bg",
           "type": "os"
         },
         {
           "style": "plain",
           "template": "{{ .UserName }}@{{ .HostName }} ",
           "foreground": "p:user",
-          "background": "",
+          "background": "p:bg",
           "type": "session"
         },
         {
@@ -67,14 +68,14 @@
           "style": "plain",
           "template": "{{ .Path }} ",
           "foreground": "p:orange",
-          "background": "",
+          "background": "p:bg",
           "type": "path"
         },
         {
           "style": "plain",
           "template": "\ueab6",
           "foreground": "p:closer",
-          "background": "",
+          "background": "p:bg",
           "type": "text"
         }
       ]

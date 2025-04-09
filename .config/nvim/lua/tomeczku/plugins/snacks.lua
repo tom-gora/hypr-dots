@@ -102,7 +102,7 @@ opts = {
 	},
 	quickfile = { enabled = false },
 	scope = { enabled = false },
-	scroll = { enabled = true },
+	scroll = { enabled = false },
 	statuscolumn = { enabled = false },
 	terminal = { enabled = true },
 	words = { enabled = false },

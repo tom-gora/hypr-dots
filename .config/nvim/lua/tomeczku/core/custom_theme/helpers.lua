@@ -2,36 +2,20 @@
 
 local M = {}
 
-local valid_hl_keys = {
-	fg = true,
-	bg = true,
-	bold = true,
-	italic = true,
-	underline = true,
-	undercurl = true,
-	strikethrough = true,
-	inverse = true,
-	nocombine = true,
-	link = true,
-	force = true,
-}
-
+---@param hl_name string
+---@param opts vim.highlight.range.Opts
 M.modify_hl_group = function(hl_name, opts)
 	local ok, _ = pcall(vim.api.nvim_get_hl, 0, { name = hl_name })
 	if ok then
-		local update = {}
 		for k, v in pairs(opts) do
-			if valid_hl_keys[k] then
-				update[k] = v
-			else
-				vim.notify("Invalid highlight key: " .. k, vim.log.levels.WARN)
-			end
+			vim.api.nvim_set_hl(0, hl_name, { [k] = v })
 		end
-
-		vim.api.nvim_set_hl(0, hl_name, update)
 	end
 end
 
+---@param hl_name string
+---@param arg string
+---@return vim.api.keyset.hl_info | string?
 M.get_color = function(hl_name, arg)
 	local ok, hl_def = pcall(vim.api.nvim_get_hl, 0, { name = hl_name })
 	if not ok then
@@ -40,10 +24,15 @@ M.get_color = function(hl_name, arg)
 	return hl_def[arg] or "NONE"
 end
 
+---@param x number
+---@return number
 local function clamp(x)
 	return math.floor(math.min(255, math.max(0, x)))
 end
 
+---@param color number
+---@param amount number
+---@return number
 M.darken = function(color, amount)
 	amount = math.min(math.max(amount, 0), 1)
 
@@ -58,6 +47,9 @@ M.darken = function(color, amount)
 	return bit.lshift(r, 16) + bit.lshift(g, 8) + b
 end
 
+---@param color number
+---@param amount number
+---@return number
 M.lighten = function(color, amount)
 	amount = math.min(math.max(amount, 0), 1)
 
@@ -72,6 +64,8 @@ M.lighten = function(color, amount)
 	return bit.lshift(r, 16) + bit.lshift(g, 8) + b
 end
 
+---@param color integer
+---@return vim.api.keyset.hl_info | integer
 M.muted_variant = function(color)
 	local r = bit.rshift(color, 16)
 	local g = bit.band(bit.rshift(color, 8), 255)
@@ -84,6 +78,9 @@ M.muted_variant = function(color)
 	return bit.lshift(r, 16) + bit.lshift(g, 8) + b
 end
 
+---@param color number
+---@param amount number
+---@return number
 M.saturate = function(color, amount)
 	amount = math.min(math.max(amount, 0), 1)
 

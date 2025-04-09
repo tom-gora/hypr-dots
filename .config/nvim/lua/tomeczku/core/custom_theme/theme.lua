@@ -3,7 +3,6 @@
 --
 local b46 = require("tomeczku.core.custom_theme.base46_palette")
 local h, mod = require("tomeczku.core.custom_theme.helpers"), require("tomeczku.core.custom_theme.modified_colors")
-vim.print(mod.base_bg())
 
 local hl = vim.api.nvim_set_hl
 local theme = {}
@@ -299,6 +298,7 @@ theme.set_highlights = function()
 	hl(0, "BufferCurrentIndex", { bg = mod.winbar_accent_primary(), bold = true })
 	hl(0, "BufferCurrentMod", { fg = mod.muted_err_bg(), bg = mod.winbar_accent_primary() })
 	hl(0, "BufferVisible", { fg = mod.dark_base_bg(), bg = mod.muted_light_bg(), bold = true })
+	---@diagnostic disable-next-line: param-type-mismatch
 	hl(0, "BufferVisibleMod", { fg = h.darken(mod.alt_err_bg(), 0.7), bg = mod.muted_light_bg() })
 	hl(0, "BufferVisibleSign", { bg = "NONE", fg = mod.muted_light_bg() })
 	hl(0, "BufferVisibleIndex", { fg = mod.dark_base_bg(), bg = mod.muted_light_bg(), bold = true })
@@ -322,6 +322,7 @@ theme.set_highlights = function()
 	hl(0, "St_SelectMode_Root_Sep", { bg = mod.dark_base_bg(), fg = mod.base_blue(), bold = false })
 	hl(0, "St_CommandMode_Root_Sep", { bg = mod.dark_base_bg(), fg = mod.green_fg(), bold = false })
 	hl(0, "St_ConfirmMode_Root_Sep", { bg = mod.dark_base_bg(), fg = mod.select_mode_teal(), bold = false })
+	---@diagnostic disable-next-line: param-type-mismatch
 	hl(0, "St_Root", { bg = mod.dark_base_bg(), fg = h.darken(mod.err_bg(), 0.2), bold = false })
 	hl(0, "St_Root_Sep_Right", { bg = mod.path_bg(), fg = mod.dark_base_bg(), bold = false })
 	hl(0, "St_NormalModeCustomTxt", { bg = mod.intense_pink(), fg = mod.base_bg(), bold = true })
@@ -428,6 +429,7 @@ theme.set_highlights = function()
 	hl(0, "BlinkCmpDoc", { bg = mod.low_dark_base_bg(), force = true })
 	hl(0, "BlinkCmpGhostText", { fg = mod.low_dark_base_bg(), force = true })
 	hl(0, "BlinkCmpDocBorder", { fg = h.get_color("FloatBorder", "fg"), bg = mod.low_dark_base_bg(), force = true })
+	---@diagnostic disable-next-line: param-type-mismatch
 	hl(0, "Folded", { fg = h.muted_variant(mod.base_blue()), bg = h.muted_variant(mod.base_bg()), force = true })
 end
 

@@ -54,6 +54,8 @@ local modes = {
 -- of the fish shell
 -- also on splits at least half the screen only file name will be displayed
 -- next to the root directory
+
+---@return string
 M.mode_plus_path = function()
 	if not utils.is_activewin() then
 		return ""
@@ -103,6 +105,7 @@ M.mode_plus_path = function()
 	return component_string
 end
 
+---@return string
 M.git = function()
 	if not utils.is_activewin() then
 		return ""
@@ -122,6 +125,7 @@ M.git = function()
 	return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
 end
 
+---@return string
 M.macro_indicator = function()
 	if not utils.is_activewin() then
 		return ""
@@ -136,6 +140,7 @@ M.macro_indicator = function()
 	-- return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
 end
 
+---@return string
 M.lsp_diags = function()
 	if not utils.is_activewin() then
 		return ""
@@ -158,6 +163,7 @@ M.lsp_diags = function()
 	return e .. w .. h .. i
 end
 
+---@return string
 M.lsp_stat = function()
 	if not utils.is_activewin() then
 		return ""
@@ -183,6 +189,7 @@ M.lsp_stat = function()
 	return ""
 end
 
+---@return string
 M.cursor_pos = function()
 	if not utils.is_activewin() then
 		return ""
@@ -206,6 +213,7 @@ M.cursor_pos = function()
 		.. ""
 end
 
+---@return string
 M.ai_status = function()
 	if vim.g.SUPERMAVEN_DISABLED == 1 then
 		return "%#NonText#   "

@@ -4,23 +4,30 @@
 local M = {}
 
 -- determine if window is an active one
+---@return boolean
 M.is_activewin = function()
 	return vim.api.nvim_get_current_win() == vim.g.statusline_winid
 end
 
 -- bufnr related to the statusline
+---@return integer
 M.stbufnr = function()
 	return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
 end
 
 -- determine if in a narrow split window (at least half the screen)
+---@return boolean
 M.is_narrow_split = function()
 	return vim.api.nvim_win_get_width(vim.g.statusline_winid or 0) <= 95
 end
 
+---@return  table
 M.path_formatter = function(root_sep, path_end_sep)
 	--LOCAL HELPERS:
 	-- reformat to "fish shell style
+
+	---@param path string
+	---@return string
 	local function fishify_path(path)
 		local dirs = {}
 		for part in string.gmatch(path, "[^/]+") do
@@ -81,6 +88,9 @@ M.path_formatter = function(root_sep, path_end_sep)
 	}
 end
 
+---@param client vim.lsp.Client
+---@param cname string
+---@return table?
 M.setLspStringComponents = function(client, cname)
 	if client.attached_buffers[vim.fn.winbufnr(vim.g.statusline_winid)] and cname ~= "null-ls" then
 		if cname == "lua_ls" then
