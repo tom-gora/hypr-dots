@@ -1,26 +1,16 @@
 #!/bin/bash
-# For manually starting xdg-desktop-portal
-start_portal() {
-	local path=$1
-	if [ -f "$path" ]; then
-		echo "Starting $path"
-		"$path" &
-	else
-		echo "Not found at location: $path"
-	fi
-}
-sleep 1
-killall -e xdg-desktop-portal-hyprland
-killall -e xdg-desktop-portal-wlr
-killall -e xdg-desktop-portal-gnome
-killall -e xdg-desktop-portal-kde
 
+sleep 1
+killall xdg-desktop-portal-hyprland
+killall xdg-desktop-portal-wlr
+killall xdg-desktop-portal-gnome
 killall xdg-desktop-portal
 sleep 1
-start_portal "/usr/lib/xdg-desktop-portal-hyprland"
-start_portal "/usr/libexec/xdg-desktop-portal-hyprland"
-sleep 2
-start_portal "/usr/lib/xdg-desktop-portal-hyprland"
-start_portal "/usr/libexec/xdg-desktop-portal"
-sleep 2
-systemctl --user start xdg-desktop-portal-hyprland.service
+/usr/libexec/xdg-desktop-portal-hyprland &
+
+if [ -f /usr/libexec/xdg-desktop-portal-gtk ]; then
+	/usr/libexec/xdg-desktop-portal-gtk &
+	sleep 1
+fi
+sleep 1
+/usr/libexec/xdg-desktop-portal &
