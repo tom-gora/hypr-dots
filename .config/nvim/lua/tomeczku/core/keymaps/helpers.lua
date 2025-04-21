@@ -1,5 +1,13 @@
 local M = {}
 
+M.operationNotifyHint = function(msg, title, icon)
+	vim.notify(
+		msg,
+		vim.log.levels.INFO,
+		{ title = title, icon = icon .. " ", timeout = 1500, hide_from_history = true }
+	)
+end
+
 -- NOTE: setOpts() pass:
 -- no args for default opts
 -- desc = "ignore" for defaults but ignored by whichkey
@@ -18,17 +26,22 @@ M.setOpts = function(extra)
 	return vim.tbl_deep_extend("force", opts, extra)
 end
 
+M.yankFromCursorToEOL = function()
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("y$", true, false, true), "n", false)
+end
+
 M.yankAll = function()
 	-- compared to ggVG preserves cursor position
 	-- plus I grab the last message and redirect to notify
 	vim.cmd("%y")
 	local messages = vim.fn.execute("messages")
 	local it = vim.iter(vim.split(messages, "\n"))
-	vim.notify(
-		it:last(),
-		vim.log.levels.INFO,
-		{ title = "Yanked Buffer", icon = " ", timeout = 1500, hide_from_history = true }
-	)
+	M.operationNotifyHint("Whole buffer: " .. it:last(), "Yanked Buffer", "")
+end
+
+M.clearAll = function()
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("ggVGd", true, false, true), "n", false)
+	M.operationNotifyHint("Cleared entire buffer", "Cleared Buffer", "")
 end
 
 M.toggleOil = function()
@@ -96,7 +109,7 @@ M.setupLspMappings = function(bufnr)
 	nmap("<leader>lR", vim.lsp.buf.rename, "Rename Symbol")
 
 	nmap("<leader>lf", vim.lsp.buf.format, "Format Buffer")
-	nmap("<leader>li", "<cmd>LspInfo<cr>", "Info")
+	nmap("<leader>li", "<cmd>checkhealth vim.lsp<cr>", "Info")
 	vim.keymap.set("n", "K", function()
 		vim.lsp.buf.hover()
 	end, { buffer = 0 })

@@ -9,6 +9,8 @@ require("tomeczku.core.bootstrap_lazy")
 require("tomeczku.core.user_commands")
 -- extra filetypes registered
 require("tomeczku.core.extra_filetypes")
+-- native lsp setup
+require("tomeczku.core.lsp").setup()
 if not vim.g.vscode then
 	-- keymaps
 	require("tomeczku.core.keymaps").setup()

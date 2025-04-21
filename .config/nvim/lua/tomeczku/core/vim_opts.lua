@@ -67,6 +67,9 @@ opt.fillchars = {
 -- opt.listchars = { eol = "↲" }
 -- opt.list = true
 
+-- globally set border for floats
+opt.winborder = "rounded"
+
 -- enable undofile
 opt.undofile = true
 -- global statusline

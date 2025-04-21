@@ -69,6 +69,7 @@ main() {
 		# check to throw and exit if any input values are invalid as final safeguard
 		# (may happen i.e. when interruped picker and pastel received invalid input.)
 		if ! final_validate_color_from_pastel "$line"; then
+			notify-send "$line"
 			notify-send -t 4000 -i "$NOTI_IMG" "Rofi Error" "Invalid color value encountered. Try again."
 			exit 1
 		fi

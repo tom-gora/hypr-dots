@@ -164,26 +164,27 @@ M.lsp_diags = function()
 end
 
 ---@return string
-M.lsp_stat = function()
+M.lsp_status = function()
 	if not utils.is_activewin() then
 		return ""
 	end
 
-	if rawget(vim, "lsp") then
-		for _, client in ipairs(vim.lsp.get_clients()) do
-			local cname = client.name
-			local ok, str_components = pcall(utils.setLspStringComponents, client, cname)
-			if ok and str_components then
-				return (
-					vim.o.columns > 86
-					and "%#St_ConfirmMode#"
-						.. "%#St_ConfirmModeCustomTxt#"
-						.. str_components.icon
-						.. str_components.name
-						.. "%#St_ConfirmMode# "
-				) or "%#St_ConfirmMode# "
-			end
-		end
+	local bufnr = vim.api.nvim_win_get_buf(vim.api.nvim_get_current_win() or 0)
+	local clients = vim.lsp.get_clients({ bufnr = bufnr })
+	if not clients or #clients == 0 then
+		return ""
+	end
+	local lsp_string = utils.makeLspString(bufnr, clients)
+	--
+	if lsp_string and lsp_string ~= "" then
+		return (
+			vim.o.columns > 86
+			and "%#St_ConfirmMode#"
+				.. "%#St_ConfirmModeCustomTxt#"
+				.. lsp_string.icon
+				.. lsp_string.name
+				.. "%#St_ConfirmMode# "
+		) or "%#St_ConfirmMode# "
 	end
 	-- just draw nothing if no lsp client or err out with nil values for string
 	return ""
@@ -219,6 +220,30 @@ M.ai_status = function()
 		return "%#NonText#   "
 	end
 	return "%#String#   "
+end
+
+--- @return string
+M.markdown_wordcounter = function()
+	if vim.b.markdown ~= true then
+		return ""
+	end
+	require("tomeczku.core.custom_statusline.markdown_wc.markdown_wc").setup()
+
+	-- read stored count set on a buf table
+	local count = vim.b.markdown_word_count
+	local result_text
+
+	if count == nil then
+		result_text = " ERR "
+	elseif count == -1 then
+		-- "loading state"
+		result_text = " Counting ..."
+	else
+		--  valid wordcount
+		result_text = " Words:" .. tostring(count)
+	end
+	-- set module string
+	return "%#St_SelectMode#" .. "" .. "%#St_SelectModeCustomTxt#" .. result_text .. "%#St_SelectMode#" .. " "
 end
 
 return M

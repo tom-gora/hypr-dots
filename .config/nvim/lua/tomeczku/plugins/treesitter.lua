@@ -2,7 +2,9 @@ if vim.g.vscode then
 	return
 end
 
-local M, config_function, dependencies, init_function
+local M, config_function, dependencies, init_function, required
+
+required = require("tomeczku.core.language_support").required_ts_parsers
 
 dependencies = {
 	"windwp/nvim-ts-autotag",
@@ -21,39 +23,7 @@ config_function = function()
 	local ts = require("nvim-treesitter.configs")
 	local parsers_conf = require("nvim-treesitter.parsers").get_parser_configs()
 	ts.setup({
-		ensure_installed = {
-			"vim",
-			"vimdoc",
-			"query",
-			"lua",
-			"html",
-			"css",
-			"javascript",
-			"typescript",
-			"tsx",
-			"c",
-			"markdown",
-			"markdown_inline",
-			"bash",
-			"c_sharp",
-			"json",
-			"java",
-			"php",
-			"sql",
-			"toml",
-			"xml",
-			"astro",
-			"qmljs",
-			"qmldir",
-			"hyprlang",
-			"regex",
-			"rasi",
-			"gomod",
-			"go",
-			"gosum",
-			"gowork",
-			"goctl",
-		},
+		ensure_installed = required,
 		indent = {
 			enable = true,
 		},

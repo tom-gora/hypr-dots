@@ -411,4 +411,5 @@ if not vim.g.vscode then
 
 	makeCmd("ToggleAi", toggleAi, { range = false })
 end
+
 -- building my custom navigation command that will allow jumping to and from splits easily
