@@ -13,13 +13,17 @@ M.lua_setup = function(capabilities, on_attach, name)
 					version = "LuaJIT",
 				},
 				diagnostics = {
-					globals = { "vim", "vim.g" },
+					globals = {
+						"vim",
+						"vim.g",
+						"init_debug", -- my custom bool toggling activation of debuggin nvim instance
+					},
 				},
 				workspace = {
 					library = {
-						vim.env.VIMRUNTIME,
+						vim.fn.expand("$VIMRUNTIME/lua"),
 						-- if messing around and want suggestions for absolutely all plugin scripts lazy keeps in the runtime path
-						-- vim.fn.stdpath("data") .. "/lazy",
+						vim.fn.expand(vim.fn.stdpath("data") .. "/lazy/?/?.lua"),
 						vim.fn.stdpath("config") .. "/lua",
 						vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
 						"${3rd}/luv/library",

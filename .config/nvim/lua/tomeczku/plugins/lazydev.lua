@@ -15,7 +15,7 @@ opts = {
 M = {
 	{
 		"folke/lazydev.nvim",
-		enabled = false,
+		enabled = true,
 		cond = vim.g.vscode == nil,
 		ft = "lua", -- only load on lua files
 		opts = opts,

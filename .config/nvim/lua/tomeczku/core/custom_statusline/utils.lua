@@ -93,7 +93,7 @@ end
 ---@param clients table<vim.lsp.client>?
 ---@return table?
 local setMainClient = function(bufnr, clients)
-	local buf_filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+	local buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 	if not clients or next(clients) == nil then
 		return nil
 	end
@@ -121,13 +121,13 @@ M.makeLspString = function(bufnr, clients)
 	end
 	local additional_lsps_count = ""
 	if #clients > 1 then
-		additional_lsps_count = "[+" .. #clients - 1 .. "]"
+		additional_lsps_count = " [+" .. #clients - 1 .. "]"
 	end
 	local icon = require("nvim-web-devicons").get_icon_by_filetype(main_client_data[2]) .. " " or " "
 	if #main_client_data[1].name > 10 then
-		return { name = main_client_data[2] .. "-lsp " .. additional_lsps_count, icon = icon }
+		return { name = main_client_data[2] .. "-lsp" .. additional_lsps_count, icon = icon }
 	else
-		return { name = main_client_data[1].name .. " " .. additional_lsps_count, icon = icon }
+		return { name = main_client_data[1].name .. additional_lsps_count, icon = icon }
 	end
 end
 

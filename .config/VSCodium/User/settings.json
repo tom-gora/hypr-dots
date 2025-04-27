@@ -24,7 +24,7 @@ ______ ______ _____ ______
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 12,
   "workbench.sideBar.location": "right",
-  "window.menuBarVisibility": "hidden",
+  "window.menuBarVisibility": "classic",
   "workbench.activityBar.location": "hidden",
   "window.commandCenter": false,
   "window.density.editorTabHeight": "compact",
@@ -520,5 +520,6 @@ ______ ______ _____ ______
   "codesnap.showWindowControls": false,
   "codesnap.showWindowTitle": true,
   "codesnap.backgroundColor": "#e0def4",
-  "codesnap.boxShadow": "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px"
+  "codesnap.boxShadow": "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
+  "window.titleBarStyle": "native"
 }
