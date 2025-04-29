@@ -123,7 +123,7 @@ if not legacy or legacy == false then
 		signature = { window = { border = "rounded" } },
 		snippets = { preset = "luasnip" },
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "supermaven", "omni", "css_vars" },
+			default = { "lazydev", "lsp", "path", "snippets", "buffer", "supermaven", "omni", "css_vars" },
 			providers = {
 				lsp = { min_keyword_length = 1 },
 				buffer = { min_keyword_length = 2 },
@@ -138,12 +138,12 @@ if not legacy or legacy == false then
 						end,
 					},
 				},
-				-- lazydev = {
-				-- 	name = "LazyDev",
-				-- 	module = "lazydev.integrations.blink",
-				-- 	-- make lazydev completions top priority (see `:h blink.cmp`)
-				-- 	score_offset = 100,
-				-- },
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					-- make lazydev completions top priority (see `:h blink.cmp`)
+					score_offset = 100,
+				},
 				supermaven = {
 					enabled = true,
 					name = "supermaven",

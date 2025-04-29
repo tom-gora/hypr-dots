@@ -1,10 +1,11 @@
 local M = {}
+-- local test = require("")
 
 M.lua_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name },
 		filetypes = { "lua" },
-		root_markers = { ".luarc.json", ".luarc.jsonc" },
+		root_markers = { "init.lua", ".luarc.json", ".luarc.jsonc" },
 		capabilities = capabilities,
 		on_attach = on_attach,
 		settings = {
@@ -23,9 +24,10 @@ M.lua_setup = function(capabilities, on_attach, name)
 					library = {
 						vim.fn.expand("$VIMRUNTIME/lua"),
 						-- if messing around and want suggestions for absolutely all plugin scripts lazy keeps in the runtime path
-						vim.fn.expand(vim.fn.stdpath("data") .. "/lazy/?/?.lua"),
+						-- vim.fn.expand(vim.fn.stdpath("data") .. "/lazy/?/?.lua"),
+						-- vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
+						vim.api.nvim_get_runtime_file("", true),
 						vim.fn.stdpath("config") .. "/lua",
-						vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
 						"${3rd}/luv/library",
 					},
 				},
