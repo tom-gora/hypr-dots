@@ -13,8 +13,13 @@ M = {
 	["ciw"] = { '"_ciw', h.setOpts({ desc = "ignore" }) },
 	["caw"] = { '"_caw', h.setOpts({ desc = "ignore" }) },
 	--
-	-- select all buf lines quickly
+	-- yank all buf lines quickly
 	["<leader>a"] = { h.yankAll, h.setOpts({ desc = "ignore" }) },
+	--
+	-- delete all buf lines quickly
+	["<leader>dd"] = { h.clearAll, h.setOpts({ desc = "ignore" }) },
+	--
+	["<S-Y>"] = { h.yankFromCursorToEOL, h.setOpts({ desc = "ignore" }) },
 	--
 	-- yank the line without newline char
 	["<S-y>"] = { "mQ0y$`Q", h.setOpts({ desc = "ignore" }) },

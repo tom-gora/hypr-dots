@@ -8,14 +8,18 @@ local function compose_modules(modules)
 	-- import component functions
 	local c = require("tomeczku.core.custom_statusline.components")
 	-- assign the components
-	modules[1] = c.mode_plus_path()
-	modules[2] = c.macro_indicator()
-	modules[3] = c.git()
-	modules[4] = "%="
-	modules[5] = c.ai_status()
-	modules[6] = c.lsp_stat()
-	modules[7] = c.lsp_diags()
-	modules[8] = c.cursor_pos()
+	table.insert(modules, c.mode_plus_path())
+	table.insert(modules, c.macro_indicator())
+	table.insert(modules, c.git())
+	table.insert(modules, "%=")
+	table.insert(modules, c.ai_status())
+	-- wordcounter for markdown files only
+	if vim.b.markdown == true then
+		table.insert(modules, c.markdown_wordcounter())
+	end
+	table.insert(modules, c.lsp_status())
+	table.insert(modules, c.lsp_diags())
+	table.insert(modules, c.cursor_pos())
 end
 
 -- return by calling a function explicitely mainly to ensure vim.g.statusline_winid gets set

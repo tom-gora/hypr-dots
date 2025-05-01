@@ -20,6 +20,7 @@ M = {
 		-- "Knyffen/markdown-preview.nvim",
 		"tom-gora/markdown-preview.nvim",
 		cond = vim.g.vscode == nil,
+		commit = "6891d41",
 		lazy = false,
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		build = "cd app && npm i",

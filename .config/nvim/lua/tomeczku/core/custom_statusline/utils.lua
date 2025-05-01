@@ -88,60 +88,47 @@ M.path_formatter = function(root_sep, path_end_sep)
 	}
 end
 
----@param client vim.lsp.Client
----@param cname string
+-- helper for picking the lsp to display consistently
+---@param bufnr integer
+---@param clients table<vim.lsp.client>?
 ---@return table?
-M.setLspStringComponents = function(client, cname)
-	if client.attached_buffers[vim.fn.winbufnr(vim.g.statusline_winid)] and cname ~= "null-ls" then
-		if cname == "lua_ls" then
-			return { name = cname, icon = " " }
-		elseif
-			(cname == "ts_ls" or cname == "cssmodules_ls" or cname == "tailwindcss")
-			and (vim.bo.filetype == "javascript" or vim.bo.filetype == "typescript")
-		then
-			return { name = "ts_ls", icon = "󰛦 " }
-		elseif (cname == "astro" or cname == "tailwindcss" or cname == "ts_ls") and vim.bo.filetype == "astro" then
-			return { name = "astro-ls", icon = " " }
-		elseif cname == "bashls" then
-			return { name = cname, icon = " " }
-		elseif
-			(cname == "emmet_language_server" or cname == "html" or cname == "tailwindcss")
-			and vim.bo.filetype == "html"
-		then
-			return { name = "html-lsp", icon = "󰌝 " }
-		elseif
-			(cname == "emmet_language_server" or cname == "cssls" or cname == "tailwindcss")
-			and (
-				vim.bo.filetype == "css"
-				or vim.bo.filetype == "scss"
-				or vim.bo.filetype == "less"
-				or vim.bo.filetype == "sass"
-				or vim.bo.filetype == "less"
-			)
-		then
-			return { name = "cssls", icon = " " }
-		elseif cname == "jsonls" and vim.bo.filetype == "json" then
-			return { name = "jsonls", icon = "󰘦 " }
-		elseif cname == "hyprls" and vim.bo.filetype == "hyprlang" then
-			return { name = "hyprls", icon = " " }
-		elseif cname == "gopls" then
-			return { name = "gopls", icon = "󰟓 " }
-		-- elseif (cname == "intelephese" or cname == "tailwindcss") and vim.bo.filetype == "php" then
-		-- 	return { name = "intelephense", icon = " " }
-		elseif (cname == "phpactor" or cname == "tailwindcss") and vim.bo.filetype == "php" then
-			return { name = "phpactor", icon = " " }
-		elseif cname == "omnisharp" then
-			return { name = "omnisharp", icon = " " }
-		elseif cname == "lemminx" then
-			return { name = cname, icon = "󰗀 " }
-		elseif cname == "yamlls" then
-			return { name = cname, icon = " " }
-		elseif cname == "docker_compose_language_service" then
-			return { name = "docker-compose-ls", icon = " " }
-		else
-			return { name = cname, icon = "󰧑 " }
+local setMainClient = function(bufnr, clients)
+	local buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+	if not clients or next(clients) == nil then
+		return nil
+	end
+	for _, client in pairs(clients) do
+		-- case as simple as braindead lsp name contains the filetype straight up return this client
+		if string.find(client.name:lower(), buf_filetype:lower()) then
+			return { client, buf_filetype }
+		-- fallback 1: if any clients has filetype in supported filetypes then grab first that matches
+		elseif clients and vim.tbl_contains(client.config.filetypes, buf_filetype) then
+			return { client, buf_filetype }
 		end
 	end
-	return nil
+	-- as a stupid last fallback return just first client attached to buf
+	return { clients[1], buf_filetype }
 end
+
+---@param bufnr integer
+---@param clients table<vim.lsp.client>?
+---@return table?
+M.makeLspString = function(bufnr, clients)
+	-- get the primary lsp attached to the buf
+	local main_client_data = setMainClient(bufnr, clients)
+	if not main_client_data then
+		return nil
+	end
+	local additional_lsps_count = ""
+	if #clients > 1 then
+		additional_lsps_count = " [+" .. #clients - 1 .. "]"
+	end
+	local icon = require("nvim-web-devicons").get_icon_by_filetype(main_client_data[2]) .. " " or " "
+	if #main_client_data[1].name > 10 then
+		return { name = main_client_data[2] .. "-lsp" .. additional_lsps_count, icon = icon }
+	else
+		return { name = main_client_data[1].name .. additional_lsps_count, icon = icon }
+	end
+end
+
 return M

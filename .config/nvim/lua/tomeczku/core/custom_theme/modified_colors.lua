@@ -152,6 +152,28 @@ M = {
 		local color = M.purple_fg()
 		return type(color) == "number" and h.darken(color, 0.3) or nil
 	end,
+
+	diag_bg_info = function()
+		local color = h.get_color("LspDiagnosticsFloatingInfo", "fg")
+		return type(color) == "number" and h.darken(color, 0.90)
+	end,
+
+	diag_bg_hint = function()
+		local color = h.get_color("LspDiagnosticsFloatingHint", "fg")
+		return type(color) == "number" and h.darken(color, 0.90)
+	end,
+
+	diag_bg_warn = function()
+		local color = h.get_color("LspDiagnosticsFloatingWarning", "fg")
+		return type(color) == "number" and h.darken(color, 0.90)
+	end,
+
+	diag_bg_error = function()
+		local color = h.get_color("LspDiagnosticsFloatingError", "fg")
+		return type(color) == "number" and h.muted_variant(h.darken(color, 0.90))
+	end,
+
+	-- diag_bg_error,
 }
 
 return M
