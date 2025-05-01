@@ -1,24 +1,27 @@
 local M = {}
-local on_attach, on_init, capabilities
+local on_attach, capabilities
 local lsps = require("tomeczku.core.language_support").mason_required_packages
+local h = require("tomeczku.core.keymaps.helpers")
+local d = require("tomeczku.core.lsp.diagnostics")
 local configs = require("tomeczku.core.lsp.configs")
 
-on_attach = function(_, bufnr)
-	local h = require("tomeczku.core.keymaps.helpers")
-	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-	h.setupLspMappings(bufnr)
-end
---
--- disable semanticTokens
-on_init = function(client, _)
+on_attach = function(client, bufnr)
+	-- disable semanticTokens
 	if client.supports_method("textDocument/semanticTokens") then
 		client.server_capabilities.semanticTokensProvider = nil
 	end
+
+	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+	-- if lsp is attached kick off native diagnostics
+	d.setup()
+	h.setupLspMappings(bufnr)
 end
 
+-- expand capabilities with blink
 local ok, blink = pcall(require, "blink.cmp")
 if ok then
-	capabilities = blink.get_lsp_capabilities()
+	capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = blink.get_lsp_capabilities(capabilities)
 else
 	capabilities = vim.lsp.protocol.make_client_capabilities()
 end
@@ -85,7 +88,6 @@ M.setup = function()
 					cmd = { bin_key },
 					filetypes = languages_to_ft,
 					capabilities = capabilities,
-					on_init = on_init,
 					on_attach = on_attach,
 				})
 				vim.lsp.enable(lsp)

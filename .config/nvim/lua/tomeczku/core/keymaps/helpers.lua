@@ -101,8 +101,6 @@ M.setupLspMappings = function(bufnr)
 		end
 		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
 	end
-	nmap("<leader>lp", vim.diagnostic.goto_prev, "Go to previous diagnostic message")
-	nmap("<leader>ln", vim.diagnostic.goto_next, "Go to next diagnostic message")
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 
 	nmap("<leader>lc", vim.lsp.buf.code_action, "Code Actions")
@@ -113,6 +111,28 @@ M.setupLspMappings = function(bufnr)
 	vim.keymap.set("n", "K", function()
 		vim.lsp.buf.hover()
 	end, { buffer = 0 })
+end
+
+M.setDiagnosticsMappings = function()
+	vim.g.__diagnostics_showing = true
+	vim.keymap.set("n", "<leader>lp", function()
+		vim.diagnostic.jump({ count = -1, float = false })
+	end, M.setOpts({ desc = "Go to previous diagnostic message" }))
+	vim.keymap.set("n", "<leader>ln", function()
+		vim.diagnostic.jump({ count = 1, float = false })
+	end, M.setOpts({ desc = "Go to next diagnostic message" }))
+	vim.keymap.set("n", "<leader>lk", function()
+		vim.diagnostic.open_float()
+	end, M.setOpts({ desc = "Open diagnostic float on a line" }))
+	vim.keymap.set("n", "<leader>lt", function()
+		if vim.g.__diagnostics_showing ~= true then
+			vim.diagnostic.show()
+			vim.g.__diagnostics_showing = not vim.g.__diagnostics_showing
+		else
+			vim.diagnostic.hide()
+			vim.g.__diagnostics_showing = not vim.g.__diagnostics_showing
+		end
+	end, M.setOpts({ desc = "Toggle Inline Diagnostics" }))
 end
 
 return M

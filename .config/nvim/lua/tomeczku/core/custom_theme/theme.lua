@@ -7,6 +7,7 @@ local h, mod = require("tomeczku.core.custom_theme.helpers"), require("tomeczku.
 local hl = vim.api.nvim_set_hl
 local theme = {}
 
+---@diagnostic disable: assign-type-mismatch
 theme.set_highlights = function()
 	--
 	-- ██████╗░░█████╗░░██████╗███████╗░░██╗██╗░█████╗░
@@ -200,11 +201,6 @@ theme.set_highlights = function()
 	hl(0, "LspDiagnosticsDefaultInformation", { fg = b46.sun, bg = "NONE" })
 	hl(0, "LspDiagnosticsDefaultInfo", { fg = b46.sun, bg = "NONE" })
 	hl(0, "LspDiagnosticsDefaultHint", { fg = b46.purple, bg = "NONE" })
-	hl(0, "LspDiagnosticsVirtualTextError", { fg = b46.base08, bg = "NONE" })
-	hl(0, "LspDiagnosticsVirtualTextWarning", { fg = b46.base09, bg = "NONE" })
-	hl(0, "LspDiagnosticsVirtualTextInformation", { fg = b46.sun, bg = "NONE" })
-	hl(0, "LspDiagnosticsVirtualTextInfo", { fg = b46.sun, bg = "NONE" })
-	hl(0, "LspDiagnosticsVirtualTextHint", { fg = b46.purple, bg = "NONE" })
 	hl(0, "LspDiagnosticsFloatingError", { fg = b46.base08, bg = "NONE" })
 	hl(0, "LspDiagnosticsFloatingWarning", { fg = b46.base09, bg = "NONE" })
 	hl(0, "LspDiagnosticsFloatingInformation", { fg = b46.sun, bg = "NONE" })
@@ -428,6 +424,18 @@ theme.set_highlights = function()
 	hl(0, "BlinkCmpDocBorder", { fg = h.get_color("FloatBorder", "fg"), bg = mod.low_dark_base_bg(), force = true })
 	---@diagnostic disable-next-line: param-type-mismatch
 	hl(0, "Folded", { fg = h.muted_variant(mod.base_blue()), bg = h.muted_variant(mod.base_bg()), force = true })
+
+	hl(0, "LspDiagnosticsVirtualTextError", { fg = b46.base08, bg = mod.diag_bg_error(), force = true })
+	hl(0, "LspDiagnosticsVirtualTextWarning", { fg = b46.base09, bg = mod.diag_bg_warn(), force = true })
+	hl(0, "LspDiagnosticsVirtualTextInformation", { fg = b46.sun, bg = mod.diag_bg_info(), force = true })
+	hl(0, "LspDiagnosticsVirtualTextInfo", { fg = b46.sun, bg = mod.diag_bg_info(), force = true })
+	hl(0, "LspDiagnosticsVirtualTextHint", { fg = b46.purple, bg = mod.diag_bg_hint(), force = true })
+	hl(0, "DiagnosticVirtualTextError", { fg = b46.base08, bg = mod.diag_bg_error(), force = true })
+	hl(0, "DiagnosticVirtualTextWarn", { fg = b46.base09, bg = mod.diag_bg_warn(), force = true })
+	hl(0, "DiagnosticVirtualTextWarning", { fg = b46.base09, bg = mod.diag_bg_warn(), force = true })
+	hl(0, "DiagnosticVirtualTextInformation", { fg = b46.sun, bg = mod.diag_bg_info(), force = true })
+	hl(0, "DiagnosticVirtualTextInfo", { fg = b46.sun, bg = mod.diag_bg_info(), force = true })
+	hl(0, "DiagnosticVirtualTextHint", { fg = b46.purple, bg = mod.diag_bg_hint(), force = true })
 end
 
 return theme
