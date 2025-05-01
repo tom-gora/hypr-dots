@@ -89,7 +89,8 @@ M = {
 		return h.get_color("DiagnosticWarn", "fg")
 	end,
 
-	---@return string | vim.api.keyset.hl_info?
+	---@diagnostic disable-next-line: undefined-doc-name
+	---@return string| vim.api.keyset.hl_info?
 	base_blue = function()
 		return h.get_color("DiffChange", "fg")
 	end,

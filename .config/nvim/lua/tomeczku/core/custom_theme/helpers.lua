@@ -3,7 +3,7 @@
 local M = {}
 
 ---@param hl_name string
----@param opts vim.highlight.range.Opts
+---@param opts vim.hl.range.Opts
 M.modify_hl_group = function(hl_name, opts)
 	local ok, _ = pcall(vim.api.nvim_get_hl, 0, { name = hl_name })
 	if ok then
@@ -15,7 +15,7 @@ end
 
 ---@param hl_name string
 ---@param arg string
----@return vim.api.keyset.hl_info | string?
+---@return vim.hl.range.Opts | string?
 M.get_color = function(hl_name, arg)
 	local ok, hl_def = pcall(vim.api.nvim_get_hl, 0, { name = hl_name })
 	if not ok then
@@ -65,7 +65,7 @@ M.lighten = function(color, amount)
 end
 
 ---@param color integer
----@return vim.api.keyset.hl_info | integer
+---@return vim.hl.range.Opts | integer
 M.muted_variant = function(color)
 	local r = bit.rshift(color, 16)
 	local g = bit.band(bit.rshift(color, 8), 255)

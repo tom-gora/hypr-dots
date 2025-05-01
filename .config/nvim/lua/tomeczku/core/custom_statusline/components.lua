@@ -214,9 +214,9 @@ end
 ---@return string
 M.ai_status = function()
 	if vim.g.SUPERMAVEN_DISABLED == 1 then
-		return "%#NonText#   "
+		return "%#NonText#  "
 	end
-	return "%#String#   "
+	return "%#String#  "
 end
 
 --- @return string

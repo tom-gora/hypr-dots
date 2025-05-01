@@ -90,7 +90,7 @@ end
 
 -- helper for picking the lsp to display consistently
 ---@param bufnr integer
----@param clients table<vim.lsp.client>?
+---@param clients table<vim.lsp.Client>?
 ---@return table?
 local setMainClient = function(bufnr, clients)
 	local buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
@@ -111,7 +111,7 @@ local setMainClient = function(bufnr, clients)
 end
 
 ---@param bufnr integer
----@param clients table<vim.lsp.client>?
+---@param clients table<vim.lsp.Client>?
 ---@return table?
 M.makeLspString = function(bufnr, clients)
 	-- get the primary lsp attached to the buf

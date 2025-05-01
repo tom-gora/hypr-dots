@@ -291,7 +291,6 @@ theme.set_highlights = function()
 	hl(0, "BufferCurrentIndex", { bg = mod.winbar_accent_primary(), bold = true })
 	hl(0, "BufferCurrentMod", { fg = mod.muted_err_bg(), bg = mod.winbar_accent_primary() })
 	hl(0, "BufferVisible", { fg = mod.dark_base_bg(), bg = mod.muted_light_bg(), bold = true })
-	---@diagnostic disable-next-line: param-type-mismatch
 	hl(0, "BufferVisibleMod", { fg = h.darken(mod.alt_err_bg(), 0.7), bg = mod.muted_light_bg() })
 	hl(0, "BufferVisibleSign", { bg = "NONE", fg = mod.muted_light_bg() })
 	hl(0, "BufferVisibleIndex", { fg = mod.dark_base_bg(), bg = mod.muted_light_bg(), bold = true })

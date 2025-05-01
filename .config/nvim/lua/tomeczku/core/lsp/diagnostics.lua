@@ -1,4 +1,5 @@
 local M, s = {}, vim.diagnostic.severity
+
 local icons = {
 	[s.ERROR] = "",
 	[s.INFO] = "",
@@ -6,6 +7,8 @@ local icons = {
 	[s.HINT] = "",
 }
 
+---@param diag vim.Diagnostic
+---@return string
 local setDiagnosticsFormat = function(diag)
 	if not string.match(diag.source:sub(-1), "[A-Za-z0-9]") then
 		diag.source = diag.source:sub(1, #diag.source - 1)
