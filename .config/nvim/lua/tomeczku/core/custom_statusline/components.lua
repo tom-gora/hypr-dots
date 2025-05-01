@@ -142,23 +142,20 @@ end
 
 ---@return string
 M.lsp_diags = function()
-	if not utils.is_activewin() then
+	if not utils.is_activewin() or not rawget(vim, "lsp") then
 		return ""
 	end
+	local s = vim.diagnostic.severity
 
-	if not rawget(vim, "lsp") then
-		return ""
-	end
+	local errors = #vim.diagnostic.get(utils.stbufnr(), { severity = s.ERROR })
+	local warnings = #vim.diagnostic.get(utils.stbufnr(), { severity = s.WARN })
+	local hints = #vim.diagnostic.get(utils.stbufnr(), { severity = s.HINT })
+	local info = #vim.diagnostic.get(utils.stbufnr(), { severity = s.INFO })
 
-	local errors = #vim.diagnostic.get(utils.stbufnr(), { severity = vim.diagnostic.severity.ERROR })
-	local warnings = #vim.diagnostic.get(utils.stbufnr(), { severity = vim.diagnostic.severity.WARN })
-	local hints = #vim.diagnostic.get(utils.stbufnr(), { severity = vim.diagnostic.severity.HINT })
-	local info = #vim.diagnostic.get(utils.stbufnr(), { severity = vim.diagnostic.severity.INFO })
-
-	local e = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
+	local e = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
 	local w = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
-	local h = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
-	local i = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
+	local h = (hints and hints > 0) and ("%#St_lspHints#" .. " " .. hints .. " ") or ""
+	local i = (info and info > 0) and ("%#St_lspInfo#" .. " " .. info .. " ") or ""
 
 	return e .. w .. h .. i
 end
@@ -217,9 +214,9 @@ end
 ---@return string
 M.ai_status = function()
 	if vim.g.SUPERMAVEN_DISABLED == 1 then
-		return "%#NonText#   "
+		return "%#NonText#   "
 	end
-	return "%#String#   "
+	return "%#String#   "
 end
 
 --- @return string
