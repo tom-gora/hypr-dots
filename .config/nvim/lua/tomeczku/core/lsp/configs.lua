@@ -78,7 +78,8 @@ end
 M.astro_setup = function(capabilities, on_attach, name)
 	--pass path to typescript for astro to work
 	vim.lsp.config[name] = {
-		cmd = { "astro-ls" },
+		cmd = { "astro-ls", "--stdio" },
+		root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
 		filetypes = { "astro" },
 		capabilities = capabilities,
 		on_attach = on_attach,

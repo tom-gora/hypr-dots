@@ -91,7 +91,7 @@ M = {
 	["<leader>nl"] = { "<cmd>Lazy<cr>", h.setOpts({ desc = "Open Lazy" }) },
 	["<leader>nm"] = { "<cmd>Mason<cr>", h.setOpts({ desc = "Open Mason" }) },
 	["<leader>nc"] = { "<cmd>checkhealth<cr>", h.setOpts({ desc = "Do Checkhealth" }) },
-	["<leader>nh"] = { "<cmd>lua Snacks.picker.highlights()<cr>", h.setOpts({ desc = "Look up HL Groups" }) },
+	["<leader>nh"] = { h.betterSnacksHlPicker, h.setOpts({ desc = "Look up HL Groups" }) },
 	["<leader>nk"] = { "<cmd>lua Snacks.picker.keymaps()<cr>", h.setOpts({ desc = "Look up Key Mappings" }) },
 	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", h.setOpts({ desc = "Dismiss Notifications" }) },
 	--

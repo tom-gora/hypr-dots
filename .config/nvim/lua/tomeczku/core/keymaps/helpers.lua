@@ -135,4 +135,125 @@ M.setDiagnosticsMappings = function()
 	end, M.setOpts({ desc = "Toggle Inline Diagnostics" }))
 end
 
+---@param color number|string
+---@return string
+local decToHexColor = function(color)
+	if type(color) ~= "string" or string.match(color, "^#") == nil then
+		return string.format("#%06X", color)
+	end
+	return tostring(color)
+end
+
+---@param hl_entry table
+---@param title string
+local notifyColors = function(hl_entry, title)
+	-- hide existing notifications
+	require("snacks.notifier").hide()
+	local i = vim.log.levels.INFO
+	vim.notify("", i, {
+		title = title,
+		keep = function(notif)
+			local n_winnr = notif.win.win -- spawned notification window
+			local width = vim.inspect(notif.win.opts.width) -- noti window width
+			-- predefined strings
+			local r_str_fg = "  foreground"
+			local r_str_bg = "  background"
+			local r_str_sp = "  special"
+			local footer = "Yank colors. 'Esc' / 'q' to close."
+			--
+			--
+			-- conditionally construct notification text based on what entries available
+			if hl_entry.fg and not hl_entry.bg then
+				local padding_len = width - (#tostring(hl_entry.fg) + 1 + #r_str_fg)
+				notif.msg = {
+					decToHexColor(hl_entry.fg) .. string.rep(" ", padding_len) .. r_str_fg,
+					string.rep("─", width - 2),
+					footer,
+				}
+			elseif hl_entry.bg and not hl_entry.fg then
+				local padding_len = width - (#tostring(hl_entry.bg) + 1 + #r_str_bg)
+				notif.msg = {
+					decToHexColor(hl_entry.bg) .. string.rep(" ", padding_len) .. r_str_bg,
+					string.rep("─", width - 2),
+					footer,
+				}
+			elseif hl_entry.bg and hl_entry.fg then
+				local padding_len_fg = width - (#tostring(hl_entry.fg) + 1 + #r_str_fg)
+				local padding_len_bg = width - (#tostring(hl_entry.bg) + 1 + #r_str_bg)
+				notif.msg = {
+					decToHexColor(hl_entry.fg) .. string.rep(" ", padding_len_fg) .. r_str_fg,
+					decToHexColor(hl_entry.bg) .. string.rep(" ", padding_len_bg) .. r_str_bg,
+					string.rep("─", width - 2),
+					footer,
+				}
+			elseif hl_entry.sp then
+				local padding_len = width - (#tostring(hl_entry.sp) + 1 + #r_str_sp)
+				notif.msg = {
+					decToHexColor(hl_entry.sp) .. string.rep(" ", padding_len) .. r_str_sp,
+					string.rep("─", width - 2),
+					footer,
+				}
+			else
+				-- fail with notification
+				vim.notify_once("Something went wrong extracting colors!", vim.log.levels.ERROR)
+				return false
+			end
+			vim.api.nvim_set_current_win(n_winnr) -- focus in the notification win
+			-- adding additional title because using "minimal" noti style
+			-- if redundant remove title key
+			vim.api.nvim_win_set_config(n_winnr, { title = " " .. title .. " ", height = #notif.msg })
+			local n_bufnr = vim.api.nvim_win_get_buf(n_winnr) -- notification's buffer
+			-- dirty modify in place buffer content and window props. set cursor before first color string
+			vim.keymap.set({ "n", "x" }, "<Esc>", function()
+				require("snacks.notifier").hide()
+			end, { silent = true, noremap = true, desc = "which_key_ignore", buffer = n_bufnr })
+			vim.api.nvim_set_option_value("modifiable", true, { buf = n_bufnr })
+			vim.api.nvim_put(notif.msg, "", false, true)
+			vim.api.nvim_win_set_cursor(n_winnr, { 1, 0 })
+			vim.api.nvim_set_option_value("modifiable", false, { buf = n_bufnr })
+			return false
+		end,
+	})
+end
+
+---@param picker any
+---@param item any
+local hlConfirmCallback = function(picker, item)
+	local hl_entry = nil
+	local hl_group = nil
+	-- get info from picker selection and parse as lua table
+	local item_table = assert(load("return " .. item.text))()
+	-- go over entries and extract colors either directly from item or tetrieving from linked group
+	for _, item_entry in ipairs(item_table) do
+		if item_entry.hl.fg or item_entry.hl.bg then
+			hl_entry = item_entry.hl
+			hl_group = item_entry.group
+			break
+		elseif item_entry.hl.link then
+			local linked = vim.api.nvim_get_hl(0, { name = item_entry.hl.link })
+			hl_entry = linked
+			hl_group = item_entry.hl.link
+			break
+		end
+	end
+	-- fail with notification
+	if hl_entry == nil or hl_group == nil then
+		vim.notify_once("No colors table found for this highlight.", vim.log.levels.WARN)
+		picker:close()
+		return
+	end
+	-- call notification wrapper-formatter
+	notifyColors(hl_entry, hl_group)
+	picker:close()
+end
+
+-- wrapper calls picker with custom confirm
+M.betterSnacksHlPicker = function()
+	local snacks = require("snacks")
+	snacks.picker.highlights({
+		confirm = hlConfirmCallback,
+		prompt = " ",
+	})
+end
+
 return M

@@ -25,7 +25,29 @@ M.help = function()
 	end, h.setOpts({ desc = "ignore" }))
 end
 
+M.trouble = function()
+	map("n", "<C-a>", function()
+		require("trouble").jump_close({})
+	end, h.setOpts({ desc = "ignore" }))
+	map("n", "<C-v>", function()
+		require("trouble").jump_vsplit_close({})
+	end, h.setOpts({ desc = "ignore" }))
+	map("n", "<C-s>", function()
+		require("trouble").jump_split_close({})
+	end, h.setOpts({ desc = "ignore" }))
+
+	map("n", "<C-k>", "<up>", h.setOpts({ desc = "ignore" }))
+	map("n", "<C-j>", "<down>", h.setOpts({ desc = "ignore" }))
+end
+
 M.quickfix = function()
+	map("n", "<C-a>", function()
+		vim.cmd("cc")
+		vim.cmd("cclose")
+	end, h.setOpts({ desc = "ignore" }))
+	map("n", "<C-k>", "<up>", h.setOpts({ desc = "ignore" }))
+	map("n", "<C-j>", "<down>", h.setOpts({ desc = "ignore" }))
+
 	map("n", "<leader>rq", "<nop>", h.setOpts({ desc = "QF Replace", buffer = 0 }))
 	map(
 		"n",

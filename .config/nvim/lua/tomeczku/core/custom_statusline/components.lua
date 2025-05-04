@@ -153,7 +153,7 @@ M.lsp_diags = function()
 	local info = #vim.diagnostic.get(utils.stbufnr(), { severity = s.INFO })
 
 	local e = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
-	local w = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
+	local w = (warnings and warnings > 0) and ("%#St_lspWarning#" .. " " .. warnings .. " ") or ""
 	local h = (hints and hints > 0) and ("%#St_lspHints#" .. " " .. hints .. " ") or ""
 	local i = (info and info > 0) and ("%#St_lspInfo#" .. " " .. info .. " ") or ""
 
@@ -214,9 +214,9 @@ end
 ---@return string
 M.ai_status = function()
 	if vim.g.SUPERMAVEN_DISABLED == 1 then
-		return "%#NonText#  "
+		return "%#NonText#   "
 	end
-	return "%#String#  "
+	return "%#String#   "
 end
 
 --- @return string
