@@ -18,7 +18,8 @@ if not vim.g.vscode then
 	require("tomeczku.core.autocommands")
 	-- get statuslinme
 	require("tomeczku.core.custom_statusline")
-	-- miscellaneous
+	-- call global diagnostics config last to override producers
+	require("tomeczku.core.lsp.diagnostics").setup()
 elseif vim.g.vscode == 1 then
 	local vs_code_things = require("tomeczku.vs_code")
 	vs_code_things.vscode_other.vim_opts_and_other_basics()

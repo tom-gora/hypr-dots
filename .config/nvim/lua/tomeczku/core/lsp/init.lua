@@ -2,7 +2,6 @@ local M = {}
 local on_attach, capabilities
 local lsps = require("tomeczku.core.language_support").mason_required_packages
 local h = require("tomeczku.core.keymaps.helpers")
-local d = require("tomeczku.core.lsp.diagnostics")
 local configs = require("tomeczku.core.lsp.configs")
 
 on_attach = function(client, bufnr)
@@ -10,10 +9,7 @@ on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/semanticTokens") then
 		client.server_capabilities.semanticTokensProvider = nil
 	end
-
 	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-	-- if lsp is attached kick off native diagnostics
-	d.setup()
 	h.setupLspMappings(bufnr)
 end
 
@@ -94,6 +90,7 @@ M.setup = function()
 			end
 		end
 	end
+	require("tomeczku.core.lsp.diagnostics").setup()
 end
 
 return M

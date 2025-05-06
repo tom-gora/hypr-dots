@@ -11,32 +11,38 @@ M.lua_setup = function(capabilities, on_attach, name)
 				local path = client.workspace_folders[1].name
 				if
 					path ~= vim.fn.stdpath("config")
-					and (vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc"))
+					---@diagnostic disable-next-line
+					and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
 				then
 					return
 				end
 			end
-		end,
-		on_attach = on_attach,
-		settings = {
-			Lua = {
+
+			---@diagnostic disable-next-line
+			client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 				runtime = {
 					version = "LuaJIT",
-				},
-				diagnostics = {
-					globals = {
-						"vim",
-						"vim.g",
+					path = {
+						"lua/?.lua",
+						"lua/?/init.lua",
 					},
 				},
 				workspace = {
 					checkThirdParty = false,
 					library = {
+						vim.env.VIMRUNTIME,
 						vim.fn.expand("$VIMRUNTIME/lua"),
 						vim.fn.stdpath("config") .. "/lua",
+						vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
+						-- vim.fn.stdpath("data") .. "/lazy",
+						-- vim.api.nvim_get_runtime_file('', true),
 					},
 				},
-			},
+			})
+		end,
+		on_attach = on_attach,
+		settings = {
+			Lua = {},
 		},
 	}
 	vim.lsp.enable(name)
@@ -77,6 +83,19 @@ end
 
 M.astro_setup = function(capabilities, on_attach, name)
 	--pass path to typescript for astro to work
+	local get_typescript_server_path = function(root_dir)
+		local project_roots = vim.fs.find("node_modules", { path = root_dir, upward = true, limit = math.huge })
+		for _, project_root in ipairs(project_roots) do
+			local typescript_path = project_root .. "/typescript"
+			---@diagnostic disable-next-line
+			local stat = vim.loop.fs_stat(typescript_path)
+			if stat and stat.type == "directory" then
+				return typescript_path .. "/lib"
+			end
+		end
+		return vim.fs.normalize("/usr/local/lib/node_modules/typescript/lib")
+	end
+
 	vim.lsp.config[name] = {
 		cmd = { "astro-ls", "--stdio" },
 		root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
@@ -84,21 +103,26 @@ M.astro_setup = function(capabilities, on_attach, name)
 		capabilities = capabilities,
 		on_attach = on_attach,
 		init_options = {
-			typescript = {
-				tsdk = vim.fs.normalize("/usr/local/lib/node_modules/typescript/lib"),
-			},
+			typescript = {},
 		},
+		---@class lsp.LSPObject.typescript
+		before_init = function(_, config)
+			if config.init_options and config.init_options.typescript and not config.init_options.typescript.tsdk then
+				config.init_options.typescript.tsdk = get_typescript_server_path(config.root_dir)
+			end
+		end,
 	}
 	vim.lsp.enable(name)
 end
 
 M.phpactor_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
-		cmd = { name },
+		cmd = { name, "language-server" },
 		-- same extended filetype pool for phpactor to include blade files
 		filetypes = { "blade", "php" },
 		capabilities = capabilities,
 		on_attach = on_attach,
+		root_markers = { "composer.json", ".git", ".phpactor.json", ".phpactor.yml" },
 	}
 	vim.lsp.enable(name)
 end

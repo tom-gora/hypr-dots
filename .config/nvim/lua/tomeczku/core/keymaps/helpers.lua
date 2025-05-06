@@ -65,7 +65,11 @@ M.toggleOil = function()
 	vim.api.nvim_win_set_width(0, math.max(math.ceil(vim.api.nvim_win_get_width(0) / 3), 45))
 
 	o.open()
-	_G._OilOpened = vim.fn.win_getid()
+	if vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_get_current_buf() }) == "oil" then
+		_G._OilOpened = vim.fn.win_getid()
+	else
+		_G._OilOpened = nil
+	end
 end
 
 ---@return string
@@ -121,8 +125,14 @@ M.setDiagnosticsMappings = function()
 	vim.keymap.set("n", "<leader>ln", function()
 		vim.diagnostic.jump({ count = 1, float = false })
 	end, M.setOpts({ desc = "Go to next diagnostic message" }))
-	vim.keymap.set("n", "<leader>lk", function()
-		vim.diagnostic.open_float()
+	vim.keymap.set("n", "ll", function()
+		local lnum = vim.fn.getcurpos()[2] - 1
+		local count = #vim.diagnostic.get(0, { lnum = lnum })
+		if count and count > 0 then
+			vim.diagnostic.open_float()
+		else
+			vim.cmd("normal! ll")
+		end
 	end, M.setOpts({ desc = "Open diagnostic float on a line" }))
 	vim.keymap.set("n", "<leader>lt", function()
 		if vim.g.__diagnostics_showing ~= true then

@@ -1,8 +1,11 @@
-local autocmd = vim.api.nvim_create_autocmd
-local lsp_hacks = vim.api.nvim_create_augroup("lspHacks", { clear = true })
-local ui_helpers = vim.api.nvim_create_augroup("UiHelpers", { clear = true })
-local yank_highlight = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-local swaync_hack = vim.api.nvim_create_augroup("SwayncHack", { clear = true })
+local api = vim.api
+local fn = vim.fn
+local autocmd = api.nvim_create_autocmd
+
+local lsp_hacks = api.nvim_create_augroup("lspHacks", { clear = true })
+local ui_helpers = api.nvim_create_augroup("UiHelpers", { clear = true })
+local yank_highlight = api.nvim_create_augroup("YankHighlight", { clear = true })
+local swaync_hack = api.nvim_create_augroup("SwayncHack", { clear = true })
 
 -- for highliting the text on yank
 autocmd("TextYankPost", {
@@ -53,15 +56,83 @@ autocmd("WinLeave", {
 	end,
 })
 
+-- helper for dynamically placing help buffer splits based on editor width
+local function handleSplitWindow(direction, proportion, buf)
+	local directions = { V = true, S = true }
+	if not directions[direction] then
+		return
+	end
+
+	local bufhidden = vim.bo.bufhidden
+	vim.bo.bufhidden = "hide"
+
+	local origin_win = fn.win_getid(fn.winnr("#"))
+	local old_win = api.nvim_get_current_win()
+
+	api.nvim_set_current_win(origin_win)
+	api.nvim_win_close(old_win, false)
+
+	if direction == "V" then
+		vim.cmd("vsplit")
+		local new_win = api.nvim_get_current_win()
+		local new_width = math.ceil(vim.o.columns * proportion)
+		api.nvim_win_set_config(new_win, { width = new_width, style = "minimal" })
+	elseif direction == "S" then
+		vim.cmd("split")
+		local new_win = api.nvim_get_current_win()
+		local new_height = math.ceil(vim.o.lines * proportion)
+		api.nvim_win_set_config(new_win, { height = new_height, style = "minimal" })
+	else
+		error("Unknown split direction: " .. tostring(direction))
+	end
+
+	vim.wo.wrap = true
+	api.nvim_win_set_buf(api.nvim_get_current_win(), buf)
+	vim.bo.bufhidden = bufhidden
+end
+
 -- in windows at least half the screen width open help as vertical float with wrap
-autocmd({ "WinNew", "BufEnter" }, {
+autocmd("VimResized", {
 	group = ui_helpers,
 	callback = function()
-		if vim.bo.buftype ~= "help" and vim.bo.filetype ~= "man" then
+		local help_buf = nil
+		local current_bufs = api.nvim_list_bufs()
+		for _, buf in ipairs(current_bufs) do
+			local buf_type = api.nvim_get_option_value("filetype", { buf = buf })
+			if buf_type == "help" or buf_type == "man" then
+				help_buf = buf
+				break
+			end
+		end
+
+		if not help_buf then
 			return
 		end
-		local origin_win = vim.fn.win_getid(vim.fn.winnr("#"))
-		local origin_buf = vim.api.nvim_win_get_buf(origin_win)
+
+		local origin_win = fn.win_getid(fn.winnr("#"))
+		local origin_buf = api.nvim_win_get_buf(origin_win)
+		local origin_textwidth = vim.bo[origin_buf].textwidth
+		if origin_textwidth == 0 then
+			origin_textwidth = 50
+		end
+
+		if api.nvim_win_get_width(origin_win) >= origin_textwidth + 50 then
+			handleSplitWindow("V", 0.4, help_buf)
+		else
+			handleSplitWindow("S", 0.45, help_buf)
+		end
+	end,
+})
+
+autocmd("BufWinEnter", {
+	group = ui_helpers,
+	callback = function(e)
+		local buf_type = api.nvim_get_option_value("filetype", { buf = e.buf })
+		if buf_type ~= "help" and buf_type ~= "man" then
+			return
+		end
+		local origin_win = fn.win_getid(fn.winnr("#"))
+		local origin_buf = api.nvim_win_get_buf(origin_win)
 		-- NOTE: this is because I still want it to split vertically when I have window
 		-- taking half the screen in a tiler and don't need to adhere to 80 columns
 		-- of traditional terminal width
@@ -69,25 +140,10 @@ autocmd({ "WinNew", "BufEnter" }, {
 		if origin_textwidth == 0 then
 			origin_textwidth = 50
 		end
-		if vim.api.nvim_win_get_width(origin_win) >= origin_textwidth + 50 then
-			local help_buf = vim.fn.bufnr()
-			local bufhidden = vim.bo.bufhidden
-			vim.bo.bufhidden = "hide"
-
-			local old_help_win = vim.api.nvim_get_current_win()
-			vim.api.nvim_set_current_win(origin_win)
-			vim.api.nvim_win_close(old_help_win, false)
-
-			vim.cmd("vsplit")
-			-- set my own dybamic width to the split
-			local help_win_width = math.ceil(vim.o.columns * 0.4)
-			vim.wo.wrap = true
-			vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(), {
-				width = help_win_width,
-				style = "minimal",
-			})
-			vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), help_buf)
-			vim.bo.bufhidden = bufhidden
+		if api.nvim_win_get_width(origin_win) >= origin_textwidth + 50 then
+			handleSplitWindow("V", 0.4, e.buf)
+		else
+			handleSplitWindow("S", 0.45, e.buf)
 		end
 	end,
 })
@@ -98,18 +154,5 @@ autocmd({ "BufNewFile", "BufReadPost" }, {
 	pattern = ".env*",
 	callback = function(e)
 		vim.diagnostic.enable(false, { bufnr = e.buf })
-	end,
-})
-
-autocmd("BufWritePost", {
-	group = swaync_hack,
-	pattern = {
-		"**/swaync/config.json",
-		"**/swaync/style.css",
-	},
-	callback = function()
-		print("saved swaync config")
-		vim.cmd("!swaync-client -R")
-		vim.cmd("!swaync-client -rs")
 	end,
 })

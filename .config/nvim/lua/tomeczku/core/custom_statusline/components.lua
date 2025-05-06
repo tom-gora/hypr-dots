@@ -122,6 +122,11 @@ M.git = function()
 	local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
 	local branch_name = " " .. git_status.head
 
+	local width = vim.api.nvim_win_get_width(0)
+	if width < 62 then
+		return "%#St_gitIcons#" .. added .. changed .. removed
+	end
+
 	return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
 end
 
@@ -142,7 +147,10 @@ end
 
 ---@return string
 M.lsp_diags = function()
-	if not utils.is_activewin() or not rawget(vim, "lsp") then
+	local bufnr = vim.api.nvim_win_get_buf(vim.api.nvim_get_current_win() or 0)
+	local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+	if not utils.is_activewin() or not rawget(vim, "lsp") or not clients or #clients == 0 then
 		return ""
 	end
 	local s = vim.diagnostic.severity
@@ -152,12 +160,22 @@ M.lsp_diags = function()
 	local hints = #vim.diagnostic.get(utils.stbufnr(), { severity = s.HINT })
 	local info = #vim.diagnostic.get(utils.stbufnr(), { severity = s.INFO })
 
+	local total = errors + warnings + hints + info
+	local width = vim.api.nvim_win_get_width(0)
+	if width < 56 and total > 0 then
+		return ""
+	end
+
+	if total == 0 then
+		return "   "
+	end
+
 	local e = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
 	local w = (warnings and warnings > 0) and ("%#St_lspWarning#" .. " " .. warnings .. " ") or ""
 	local h = (hints and hints > 0) and ("%#St_lspHints#" .. " " .. hints .. " ") or ""
 	local i = (info and info > 0) and ("%#St_lspInfo#" .. " " .. info .. " ") or ""
 
-	return e .. w .. h .. i
+	return " " .. e .. w .. h .. i
 end
 
 ---@return string
@@ -173,6 +191,11 @@ M.lsp_status = function()
 	end
 	local lsp_string = utils.makeLspString(bufnr, clients)
 	--
+	local width = vim.api.nvim_win_get_width(0)
+	if width < 62 then
+		return ""
+	end
+	--
 	if lsp_string and lsp_string ~= "" then
 		return (
 			vim.o.columns > 86
@@ -180,7 +203,7 @@ M.lsp_status = function()
 				.. "%#St_ConfirmModeCustomTxt#"
 				.. lsp_string.icon
 				.. lsp_string.name
-				.. "%#St_ConfirmMode# "
+				.. "%#St_ConfirmMode#"
 		) or "%#St_ConfirmMode# "
 	end
 	-- just draw nothing if no lsp client or err out with nil values for string
@@ -214,9 +237,9 @@ end
 ---@return string
 M.ai_status = function()
 	if vim.g.SUPERMAVEN_DISABLED == 1 then
-		return "%#NonText#   "
+		return "%#Comment#   "
 	end
-	return "%#String#   "
+	return "%#RainbowDelimiterViolet#   "
 end
 
 --- @return string
@@ -236,10 +259,8 @@ M.markdown_wordcounter = function()
 		-- "loading state"
 		result_text = " Counting ..."
 	else
-		--  valid wordcount
 		result_text = " Words:" .. tostring(count)
 	end
-	-- set module string
 	return "%#St_SelectMode#" .. "" .. "%#St_SelectModeCustomTxt#" .. result_text .. "%#St_SelectMode#" .. " "
 end
 
