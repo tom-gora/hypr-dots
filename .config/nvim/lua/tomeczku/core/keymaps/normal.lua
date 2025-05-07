@@ -1,5 +1,7 @@
 local M, h = {}, require("tomeczku.core.keymaps.helpers")
 
+-- TODO: FIx Oil!! PRimarily, checke if oil implemented split layout natrively to replace your shit hacks
+
 M = {
 	--  NOTE:
 	--          ░██████╗░░█████╗░██╗░░░░░
@@ -96,19 +98,20 @@ M = {
 	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", h.setOpts({ desc = "Dismiss Notifications" }) },
 	--
 	-- whichkey moveto section
-	["<leader>m"] = { " Move To" },
-	["<leader>mb"] = { "<cmd>lua Snacks.picker.buffers()<cr>", h.setOpts({ desc = "Find Buffers" }) },
+	["<leader>b"] = { " Buffers" },
+	["<leader>bb"] = { "<cmd>lua Snacks.picker.buffers()<cr>", h.setOpts({ desc = "Find Buffers" }) },
 	-- # Goto buffer in position...
-	["<leader>m1"] = { "<Cmd>BufferGoto 1<cr>", h.setOpts({ desc = "Move to Buffer Index 1" }) },
-	["<leader>m2"] = { "<Cmd>BufferGoto 2<cr>", h.setOpts({ desc = "Move to Buffer Index 2" }) },
-	["<leader>m3"] = { "<Cmd>BufferGoto 3<cr>", h.setOpts({ desc = "Move to Buffer Index 3" }) },
-	["<leader>m4"] = { "<Cmd>BufferGoto 4<cr>", h.setOpts({ desc = "Move to Buffer Index 4" }) },
-	["<leader>m5"] = { "<Cmd>BufferGoto 5<cr>", h.setOpts({ desc = "Move to Buffer Index 5" }) },
-	["<leader>m6"] = { "<Cmd>BufferGoto 6<cr>", h.setOpts({ desc = "Move to Buffer Index 6" }) },
-	["<leader>m7"] = { "<Cmd>BufferGoto 7<cr>", h.setOpts({ desc = "Move to Buffer Index 7" }) },
-	["<leader>m8"] = { "<Cmd>BufferGoto 8<cr>", h.setOpts({ desc = "Move to Buffer Index 8" }) },
-	["<leader>m9"] = { "<Cmd>BufferGoto 9<cr>", h.setOpts({ desc = "Move to Buffer Index 9" }) },
-	["<leader>m0"] = { "<Cmd>BufferLast<cr>", h.setOpts({ desc = "Move to Last Buffer" }) },
+	["<leader>b1"] = { "<Cmd>BufferGoto 1<cr>", h.setOpts({ desc = "Buffer Index 1" }) },
+	["<leader>b2"] = { "<Cmd>BufferGoto 2<cr>", h.setOpts({ desc = "Buffer Index 2" }) },
+	["<leader>b3"] = { "<Cmd>BufferGoto 3<cr>", h.setOpts({ desc = "Buffer Index 3" }) },
+	["<leader>b4"] = { "<Cmd>BufferGoto 4<cr>", h.setOpts({ desc = "Buffer Index 4" }) },
+	["<leader>b5"] = { "<Cmd>BufferGoto 5<cr>", h.setOpts({ desc = "Buffer Index 5" }) },
+	["<leader>b6"] = { "<Cmd>BufferGoto 6<cr>", h.setOpts({ desc = "Buffer Index 6" }) },
+	["<leader>b7"] = { "<Cmd>BufferGoto 7<cr>", h.setOpts({ desc = "Buffer Index 7" }) },
+	["<leader>b8"] = { "<Cmd>BufferGoto 8<cr>", h.setOpts({ desc = "Buffer Index 8" }) },
+	["<leader>b9"] = { "<Cmd>BufferGoto 9<cr>", h.setOpts({ desc = "Buffer Index 9" }) },
+	["<leader>bl"] = { "<Cmd>BufferLast<cr>", h.setOpts({ desc = "Last Buffer" }) },
+	["<leader>bh"] = { "<Cmd>BufferFirst<cr>", h.setOpts({ desc = "First Buffer" }) },
 	--
 	-- git stuff
 	["<leader>g"] = { "󰊢 Git" },
@@ -127,6 +130,7 @@ M = {
 		"<cmd>lua Snacks.picker.grep_word()<cr>",
 		h.setOpts({ desc = "Find Word Under Cursor/Selection" }),
 	},
+	["<leader>fj"] = { "<cmd>lua Snacks.picker.jumps()<cr>", h.setOpts({ desc = "Find in Vim Jumps History" }) },
 	["<leader>fo"] = { "<cmd>lua Snacks.picker.grep_buffers()<cr>", h.setOpts({ desc = "Find in Opened Files" }) },
 	["<leader>fb"] = { "<cmd>lua Snacks.picker.lines()<cr>", h.setOpts({ desc = "Current Buffer Lines" }) },
 	["<leader>fd"] = { "<cmd>lua Snacks.picker.grep()<cr>", h.setOpts({ desc = "Find in CWD" }) },

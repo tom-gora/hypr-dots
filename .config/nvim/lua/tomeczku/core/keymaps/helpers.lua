@@ -50,26 +50,33 @@ M.toggleOil = function()
 		vim.notify("Oil not available!", vim.log.levels.ERROR)
 		return
 	end
+	-- on startup oil opens default as only and main loaded buf - do not handle
+	-- another early return
+	if not _G._OilOpened and vim.bo.filetype == "oil" then
+		return
+	end
 	-- if oil already opened and not focused then navigate to it
 	if _G._OilOpened and vim.bo.filetype ~= "oil" then
 		vim.fn.win_gotoid(_G._OilOpened)
 		return
+	-- if opened and focused close and clear tracking global var
 	elseif _G._OilOpened and vim.bo.filetype == "oil" then
-		o.close()
-		vim.api.nvim_win_close(_G._OilOpened, true)
-		return
+		local ok_close, _ = pcall(vim.api.nvim_win_close, _G._OilOpened, true)
+		if ok_close then
+			_G._OilOpened = nil
+			return
+		end
 	end
-	-- else open it in dynamically adjusted vsplit and set global storage for winid of oil
-	-- local u = require("oil.util")
-	vim.cmd("vsplit")
-	vim.api.nvim_win_set_width(0, math.max(math.ceil(vim.api.nvim_win_get_width(0) / 3), 45))
-
-	o.open()
-	if vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_get_current_buf() }) == "oil" then
-		_G._OilOpened = vim.fn.win_getid()
-	else
-		_G._OilOpened = nil
-	end
+	-- last case toggle on, adjust split
+	vim.cmd("vs")
+	vim.api.nvim_win_set_width(0, math.max(math.ceil(vim.api.nvim_win_get_width(0) / 33), 40))
+	o.open(nil, nil, function()
+		if vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_get_current_buf() }) == "oil" then
+			_G._OilOpened = vim.fn.win_getid()
+		else
+			_G._OilOpened = nil
+		end
+	end)
 end
 
 ---@return string

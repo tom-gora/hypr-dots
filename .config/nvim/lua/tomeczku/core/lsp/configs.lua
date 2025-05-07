@@ -153,20 +153,12 @@ M.typesctipt_setup = function(capabilities, on_attach, name)
 		},
 		capabilities = capabilities,
 		on_attach = on_attach,
-		-- make it not confused in some non-standard projects
-		-- root_markers = function()
-		-- 	local markers = {
-		-- 		"tsconfig.json",
-		-- 		"package.json",
-		-- 		"jsconfig.json",
-		-- 	}
-		-- 	for _, marker in ipairs(markers) do
-		-- 		if vim.fn.findfile(marker, vim.fn.getcwd(), 0) ~= "" then
-		-- 			return markers
-		-- 		end
-		-- 	end
-		-- 	return { ".git" }
-		-- end,
+		root_markers = {
+			"tsconfig.json",
+			"package.json",
+			"jsconfig.json",
+			".git",
+		},
 	}
 	vim.lsp.enable(name)
 end
@@ -223,6 +215,7 @@ M.gopls_setup = function(capabilities, on_attach, name)
 		completeUnimported = true,
 		analyses = { unusedparams = true },
 		staticcheck = true,
+		root_markers = { "go.mod", ".git" },
 	}
 	vim.lsp.enable(name)
 end
