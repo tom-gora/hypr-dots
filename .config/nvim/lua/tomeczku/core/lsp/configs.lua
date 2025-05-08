@@ -1,53 +1,5 @@
 local M = {}
 
-M.lua_setup = function(capabilities, on_attach, name)
-	vim.lsp.config[name] = {
-		cmd = { name },
-		filetypes = { "lua" },
-		root_markers = { "init.lua", ".luarc.json", ".luarc.jsonc" },
-		capabilities = capabilities,
-		on_init = function(client)
-			if client.workspace_folders then
-				local path = client.workspace_folders[1].name
-				if
-					path ~= vim.fn.stdpath("config")
-					---@diagnostic disable-next-line
-					and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-				then
-					return
-				end
-			end
-
-			---@diagnostic disable-next-line
-			client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-				runtime = {
-					version = "LuaJIT",
-					path = {
-						"lua/?.lua",
-						"lua/?/init.lua",
-					},
-				},
-				workspace = {
-					checkThirdParty = false,
-					library = {
-						vim.env.VIMRUNTIME,
-						vim.fn.expand("$VIMRUNTIME/lua"),
-						vim.fn.stdpath("config") .. "/lua",
-						vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
-						-- vim.fn.stdpath("data") .. "/lazy",
-						-- vim.api.nvim_get_runtime_file('', true),
-					},
-				},
-			})
-		end,
-		on_attach = on_attach,
-		settings = {
-			Lua = {},
-		},
-	}
-	vim.lsp.enable(name)
-end
-
 M.bash_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name },

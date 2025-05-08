@@ -6,7 +6,7 @@ local icons = {
 	[s.WARN] = "",
 	[s.HINT] = "",
 }
---
+---@diagnostic disable-next-line: type-not-found
 ---@param diag vim.Diagnostic
 ---@return string
 local setDiagnosticsFormat = function(diag)
@@ -27,6 +27,7 @@ local diag_opts = {
 		prefix = "",
 		suffix = function()
 			local lnum = vim.fn.getcurpos()[2] - 1
+			---@diagnostic disable-next-line: param-type-not-match
 			local count = #vim.diagnostic.get(0, { lnum = lnum })
 			if count <= 1 then
 				return ""

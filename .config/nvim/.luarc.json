@@ -1,6 +1,6 @@
 {
-    "diagnostics.globals": [
-        "vim",
-        "MiniIndentscope"
+    "workspace.library": [
+        "/usr/share/nvim/runtime",
+        "/home/tomeczku/.config/nvim/lua",
     ]
 }

@@ -2,7 +2,9 @@ if vim.g.vscode then
 	return
 end
 
-local M, opts, config_function
+local M, opts, config_function, required
+
+required = require("tomeczku.core.language_support").required_formatters
 
 opts = {
 	lsp_fallback = true,
@@ -13,30 +15,7 @@ opts = {
 		},
 	},
 
-	formatters_by_ft = {
-		lua = { "stylua" },
-		javascript = { "prettierd" },
-		javascriptreact = { "prettierd" },
-		typescript = { "prettierd" },
-		typescriptreact = { "prettierd" },
-		html = { "prettierd" },
-		markdown = { "prettierd" },
-		zshrc = { "shfmt" },
-		css = { "prettierd" },
-		cshtml = { "prettierd" },
-		json = { "prettierd" },
-		sh = { "shfmt" },
-		xml = { "xmlformatter" },
-		csproj = { "xmlformatter" },
-		java = { "google-java-format" },
-		astro = { "prettier" },
-		php = { "pint" },
-		blade = { "blade-formatter" },
-		svg = { "xmlformat" },
-		go = { "gofumpt" },
-		yaml = { "prettierd" },
-		["yaml.docker-compose"] = { "prettierd" },
-	},
+	formatters_by_ft = required,
 
 	-- adding same formatter for multiple filetypes can look too much work for some
 	-- instead of the above code you could just use a loop! the config is just a table after all!

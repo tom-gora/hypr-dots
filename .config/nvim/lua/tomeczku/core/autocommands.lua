@@ -5,7 +5,6 @@ local autocmd = api.nvim_create_autocmd
 local lsp_hacks = api.nvim_create_augroup("lspHacks", { clear = true })
 local ui_helpers = api.nvim_create_augroup("UiHelpers", { clear = true })
 local yank_highlight = api.nvim_create_augroup("YankHighlight", { clear = true })
-local swaync_hack = api.nvim_create_augroup("SwayncHack", { clear = true })
 
 -- for highliting the text on yank
 autocmd("TextYankPost", {

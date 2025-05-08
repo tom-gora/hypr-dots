@@ -1,5 +1,7 @@
 local M = {}
 
+-- local autoMasonInstall = function
+
 M.mason_required_packages = {
 	"prettierd",
 	"bash-language-server",
@@ -7,7 +9,8 @@ M.mason_required_packages = {
 	"omnisharp",
 	"html-lsp",
 	"blade-formatter",
-	"lua-language-server",
+	-- "lua-language-server",
+	"emmylua_ls",
 	"gofumpt",
 	"prettier",
 	"revive",
@@ -67,6 +70,31 @@ M.required_ts_parsers = {
 	"gosum",
 	"gowork",
 	"goctl",
+}
+
+M.required_formatters = {
+	lua = { "stylua" },
+	javascript = { "prettierd" },
+	javascriptreact = { "prettierd" },
+	typescript = { "prettierd" },
+	typescriptreact = { "prettierd" },
+	html = { "prettierd" },
+	markdown = { "prettierd" },
+	zshrc = { "shfmt" },
+	css = { "prettierd" },
+	cshtml = { "prettierd" },
+	json = { "prettierd" },
+	sh = { "shfmt" },
+	xml = { "xmlformatter" },
+	csproj = { "xmlformatter" },
+	java = { "google-java-format" },
+	astro = { "prettier" },
+	php = { "pint" },
+	blade = { "blade-formatter" },
+	svg = { "xmlformat" },
+	go = { "gofumpt" },
+	yaml = { "prettierd" },
+	["yaml.docker-compose"] = { "prettierd" },
 }
 
 return M

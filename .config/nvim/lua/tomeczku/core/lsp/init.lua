@@ -1,4 +1,5 @@
 local M = {}
+
 local on_attach, capabilities
 local lsps = require("tomeczku.core.language_support").mason_required_packages
 local h = require("tomeczku.core.keymaps.helpers")
@@ -46,9 +47,7 @@ M.setup = function()
 		local lsp_spec = require("mason-registry").get_package(lsp).spec
 		if lsp_spec.categories[1] == "LSP" then
 			-- bring in customized setup functions conditionally
-			if lsp == "lua-language-server" then
-				configs.lua_setup(capabilities, on_attach, lsp)
-			elseif lsp == "bash-language-server" then
+			if lsp == "bash-language-server" then
 				configs.bash_setup(capabilities, on_attach, lsp)
 			elseif lsp == "emmet-language-server" then
 				configs.emmet_setup(capabilities, on_attach, lsp)
@@ -60,8 +59,11 @@ M.setup = function()
 				configs.tailwind_setup(capabilities, on_attach, lsp)
 			elseif lsp == "typescript-language-server" or lsp == "ts_ls" then
 				configs.typesctipt_setup(capabilities, on_attach, lsp)
-			elseif lsp == "omnisharp" then
-				configs.omnisharp_setup(capabilities, on_attach, lsp)
+				-- NOTE: if ever doing dotnet then maybe. for now running into binary problem
+				-- maybe because I ditched mono... ? so away you go and your errors
+				--
+				-- elseif lsp == "omnisharp" then
+				-- configs.omnisharp_setup(capabilities, on_attach, lsp)
 			elseif lsp == "html-lsp" then
 				configs.html_setup(capabilities, on_attach, lsp)
 			elseif lsp == "gopls" then
@@ -73,6 +75,7 @@ M.setup = function()
 			else
 				-- generic setup
 				local bin_key, languages_to_ft = nil, {}
+				---@diagnostic disable-next-line: param-type-not-match
 				for key, _ in pairs(lsp_spec.bin) do
 					bin_key = key
 					break
@@ -80,6 +83,7 @@ M.setup = function()
 				for _, lang in ipairs(lsp_spec.languages) do
 					table.insert(languages_to_ft, string.lower(lang))
 				end
+				---@diagnostic disable-next-line: param-type-not-match
 				vim.lsp.config(lsp, {
 					cmd = { bin_key },
 					filetypes = languages_to_ft,

@@ -9,13 +9,13 @@ require("tomeczku.core.bootstrap_lazy")
 require("tomeczku.core.user_commands")
 -- extra filetypes registered
 require("tomeczku.core.extra_filetypes")
--- native lsp setup
-require("tomeczku.core.lsp").setup()
 if not vim.g.vscode then
 	-- keymaps
 	require("tomeczku.core.keymaps").setup()
 	-- bring int autocommands
 	require("tomeczku.core.autocommands")
+	-- native lsp setup
+	require("tomeczku.core.lsp").setup()
 	-- get statuslinme
 	require("tomeczku.core.custom_statusline")
 	-- call global diagnostics config last to override producers
