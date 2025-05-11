@@ -41,7 +41,6 @@ M.autoMasonInstall = function()
 	local failed = ""
 	for _, pkg in ipairs(M.mason_required_packages) do
 		if not r.is_installed(pkg) then
-			-- local cmd = "MasonInstall " .. pkg
 			local ok, _ = pcall(m_api.MasonInstall, { pkg })
 			if not ok then
 				failed = failed .. ",\n " .. pkg
