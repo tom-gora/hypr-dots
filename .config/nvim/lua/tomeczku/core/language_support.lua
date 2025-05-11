@@ -51,6 +51,7 @@ M.autoMasonInstall = function()
 	vim.notify("Failed to autoinstall: \n" .. failed, vim.log.levels.ERROR, { timeout = 5000 })
 end
 
+-- these work via plugin's ensure_istalled table without manual installation call
 M.required_ts_parsers = {
 	"vim",
 	"vimdoc",
@@ -85,6 +86,7 @@ M.required_ts_parsers = {
 	"goctl",
 }
 
+-- these are just assignment declarations. formatters are installed by mason
 M.required_formatters = {
 	lua = { "stylua" },
 	javascript = { "prettierd" },
