@@ -6,7 +6,7 @@ M.bash_setup = function(capabilities, on_attach, name)
 		filetypes = { "sh", "zsh" },
 		capabilities = capabilities,
 		on_attach = on_attach,
-		-- make it attach to additional filetypes
+		-- Make it attach to additional filetypes
 	}
 	vim.lsp.enable(name)
 end
@@ -14,7 +14,7 @@ end
 M.emmet_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name, "--stdio" },
-		-- make it attach to additional filetypes
+		-- Make it attach to additional filetypes
 		filetypes = {
 			"astro",
 			"css",
@@ -34,12 +34,12 @@ M.emmet_setup = function(capabilities, on_attach, name)
 end
 
 M.astro_setup = function(capabilities, on_attach, name)
-	--pass path to typescript for astro to work
+	-- Pass path to typescript for astro to work
 	local get_typescript_server_path = function(root_dir)
 		local project_roots = vim.fs.find("node_modules", { path = root_dir, upward = true, limit = math.huge })
 		for _, project_root in ipairs(project_roots) do
 			local typescript_path = project_root .. "/typescript"
-			---@diagnostic disable-next-line
+			---@diagnostic disable-next-line: undefined-field, deprecated
 			local stat = vim.loop.fs_stat(typescript_path)
 			if stat and stat.type == "directory" then
 				return typescript_path .. "/lib"
@@ -70,7 +70,7 @@ end
 M.phpactor_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name, "language-server" },
-		-- same extended filetype pool for phpactor to include blade files
+		-- Same extended filetype pool for phpactor to include blade files
 		filetypes = { "blade", "php" },
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -82,7 +82,7 @@ end
 M.tailwind_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name },
-		-- same but expliocitly  get supported types from plugin helper function
+		-- Same but expliocitly  get supported types from plugin helper function
 		filetypes = require("tailwind-tools.filetypes").get_all(),
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -212,6 +212,68 @@ M.css_setup = function(capabilities, on_attach, name)
 			},
 			scss = {
 				validate = true,
+			},
+		},
+	}
+	vim.lsp.enable(name)
+end
+
+M.harper_setup = function(capabilities, on_attach, name)
+	vim.lsp.config[name] = {
+		cmd = { name, "--stdio" },
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {
+			"c",
+			"cpp",
+			"cs",
+			"gitcommit",
+			"go",
+			"html",
+			"java",
+			"javascript",
+			"lua",
+			"markdown",
+			"nix",
+			"python",
+			"ruby",
+			"rust",
+			"swift",
+			"toml",
+			"typescript",
+			"typescriptreact",
+			"haskell",
+			"cmake",
+			"typst",
+			"php",
+			"dart",
+		},
+		root_markers = { ".git" },
+		settings = {
+			["harper-ls"] = {
+				userDictPath = vim.o.spellfile,
+				linters = {
+					SpellCheck = false,
+					SpelledNumbers = false,
+					AnA = true,
+					SentenceCapitalization = false,
+					UnclosedQuotes = true,
+					WrongQuotes = false,
+					LongSentences = true,
+					RepeatedWords = true,
+					Spaces = true,
+					Matcher = true,
+					CorrectNumberSuffix = true,
+				},
+				codeActions = {
+					ForceStable = false,
+				},
+				markdown = {
+					IgnoreLinkTitle = false,
+				},
+				diagnosticSeverity = "hint",
+				isolateEnglish = false,
+				dialect = "British",
 			},
 		},
 	}

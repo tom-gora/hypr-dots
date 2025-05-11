@@ -1,15 +1,19 @@
 local M = {}
 
 local on_attach, capabilities
-local lsps = require("tomeczku.core.language_support").mason_required_packages
+local ls = require("tomeczku.core.language_support")
 local h = require("tomeczku.core.keymaps.helpers")
 local configs = require("tomeczku.core.lsp.configs")
+
+ls.autoMasonInstall()
 
 on_attach = function(client, bufnr)
 	-- disable semanticTokens
 	if client.supports_method("textDocument/semanticTokens") then
 		client.server_capabilities.semanticTokensProvider = nil
 	end
+	client.notify("", "workspace/didChangeConfiguration", { server_capabilities = client.server_capabilities })
+
 	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 	h.setupLspMappings(bufnr)
 end
@@ -43,7 +47,7 @@ capabilities.textDocument.completion.completionItem = {
 
 M.setup = function()
 	-- loop over my declared lsps and set them up
-	for _, lsp in ipairs(lsps) do
+	for _, lsp in ipairs(ls.mason_required_packages) do
 		local lsp_spec = require("mason-registry").get_package(lsp).spec
 		if lsp_spec.categories[1] == "LSP" then
 			-- bring in customized setup functions conditionally
@@ -72,6 +76,8 @@ M.setup = function()
 				configs.yaml_setup(capabilities, on_attach, lsp)
 			elseif lsp == "css-lsp" then
 				configs.css_setup(capabilities, on_attach, lsp)
+			elseif lsp == "harper-ls" then
+				configs.harper_setup(capabilities, on_attach, lsp)
 			else
 				-- generic setup
 				local bin_key, languages_to_ft = nil, {}

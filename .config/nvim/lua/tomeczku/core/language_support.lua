@@ -1,15 +1,11 @@
 local M = {}
 
--- local autoMasonInstall = function
-
 M.mason_required_packages = {
 	"prettierd",
 	"bash-language-server",
 	"emmet-language-server",
-	"omnisharp",
 	"html-lsp",
 	"blade-formatter",
-	-- "lua-language-server",
 	"emmylua_ls",
 	"gofumpt",
 	"prettier",
@@ -36,7 +32,25 @@ M.mason_required_packages = {
 	"cssmodules-language-server",
 	"css-lsp",
 	"markuplint",
+	"harper-ls",
 }
+
+M.autoMasonInstall = function()
+	local r = require("mason-registry")
+	local m_api = require("mason.api.command")
+	local failed = ""
+	for _, pkg in ipairs(M.mason_required_packages) do
+		if not r.is_installed(pkg) then
+			-- local cmd = "MasonInstall " .. pkg
+			local ok, _ = pcall(m_api.MasonInstall, { pkg })
+			if not ok then
+				failed = failed .. ",\n " .. pkg
+			end
+			vim.notify("Installing : " .. pkg, vim.log.levels.INFO)
+		end
+	end
+	vim.notify("Failed to autoinstall: \n" .. failed, vim.log.levels.ERROR, { timeout = 5000 })
+end
 
 M.required_ts_parsers = {
 	"vim",

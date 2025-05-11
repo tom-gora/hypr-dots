@@ -87,6 +87,7 @@ local function handleSplitWindow(direction, proportion, buf)
 
 	vim.wo.wrap = true
 	api.nvim_win_set_buf(api.nvim_get_current_win(), buf)
+	---@diagnostic disable-next-line: assign-type-mismatch
 	vim.bo.bufhidden = bufhidden
 end
 
@@ -147,11 +148,57 @@ autocmd("BufWinEnter", {
 	end,
 })
 
--- disable annoying diagnostic noise in .env files. those are not bash scripts
-autocmd({ "BufNewFile", "BufReadPost" }, {
+-- disable annoying diagnostic noise in `.env` files. those are not bash scripts
+autocmd({ "BufNewFile", "BufReadPost", "WinEnter" }, {
 	group = lsp_hacks,
 	pattern = ".env*",
 	callback = function(e)
 		vim.diagnostic.enable(false, { bufnr = e.buf })
+	end,
+})
+
+autocmd({ "BufEnter", "LspAttach" }, {
+	group = lsp_hacks,
+	callback = function(e)
+		local plain_text_filetypes =
+			{ "markdown", "markdown.mdx", "markdown.rmd", "markdown.pandoc", "tex", "txt", "log" }
+		local buf_ft = api.nvim_get_option_value("filetype", { buf = e.buf })
+		local buf_clients = vim.lsp.get_clients({ bufnr = e.buf })
+		if not vim.tbl_contains(plain_text_filetypes, buf_ft) or #buf_clients < 1 then
+			return
+		end
+		for _, c in pairs(buf_clients) do
+			if
+				c.config.name ~= "harper-ls"
+				-- early return if change has already been toggled
+				---@diagnostic disable-next-line: need-check-nil, inject-field, undefined-field
+				or c.config.settings["harper-ls"].linters.SentenceCapitalization == true
+			then
+				return
+			end
+			local new_linters = {
+				SpellCheck = true,
+				SpelledNumbers = false,
+				AnA = true,
+				SentenceCapitalization = true,
+				UnclosedQuotes = true,
+				WrongQuotes = false,
+				LongSentences = true,
+				RepeatedWords = true,
+				Spaces = true,
+				Matcher = true,
+				CorrectNumberSuffix = true,
+			}
+			---@diagnostic disable-next-line: need-check-nil, inject-field
+			c.config.settings["harper-ls"].linters = new_linters
+			---@diagnostic disable-next-line: param-type-not-match
+			local ok, _ = pcall(c.notify, "workspace/didChangeConfiguration", { settings = c.config.settings })
+			if ok then
+				vim.notify("Harper LSP settings adjusted to plain text linting levels. ", vim.log.levels.INFO)
+			else
+				vim.notify("Harper LSP failed to register settings for plain text linting. 󰇸", vim.log.levels.ERROR)
+			end
+			break
+		end
 	end,
 })
