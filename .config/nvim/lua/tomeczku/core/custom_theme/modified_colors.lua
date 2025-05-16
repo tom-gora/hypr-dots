@@ -173,8 +173,6 @@ M = {
 		local color = h.get_color("LspDiagnosticsFloatingError", "fg")
 		return type(color) == "number" and h.muted_variant(h.darken(color, 0.90))
 	end,
-
-	-- diag_bg_error,
 }
 
 return M

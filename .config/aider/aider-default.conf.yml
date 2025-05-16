@@ -1,0 +1,27 @@
+model: openrouter/openai/gpt-4o-mini
+weak-model: openrouter/qwen/qwen-2.5-coder-32b-instruct
+
+# code-theme: "github-dark"
+user-input-color: "#c4a7e7"
+tool-output-color: "#3e8fb0"
+tool-error-color: "#eb6f92"
+tool-warning-color: "#f6c177"
+assistant-output-color: "#9ccfd8"
+completion-menu-color: "#e0def4"
+completion-menu-bg-color: "#14161b"
+completion-menu-current-color: "#C18FFF"
+completion-menu-current-bg-color: "#14161b"
+
+cache-prompts: true
+cache-keepalive-pings: 6
+no-check-update: true
+no-auto-commits: true
+attribute-author: false
+attribute-committer: false
+vim: true
+chat-language: English
+analytics-disable: true
+watch-files: true
+notifications: true
+yes-always: true
+env-file: "~/.config/aider/.env"

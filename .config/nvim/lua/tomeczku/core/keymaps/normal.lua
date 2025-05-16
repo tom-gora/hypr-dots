@@ -1,7 +1,5 @@
 local M, h = {}, require("tomeczku.core.keymaps.helpers")
 
--- TODO: FIx Oil!! PRimarily, checke if oil implemented split layout natrively to replace your shit hacks
-
 M = {
 	--  NOTE:
 	--          ░██████╗░░█████╗░██╗░░░░░
@@ -16,7 +14,7 @@ M = {
 	["caw"] = { '"_caw', h.setOpts({ desc = "ignore" }) },
 	--
 	-- yank all buf lines quickly
-	["<leader>a"] = { h.yankAll, h.setOpts({ desc = "ignore" }) },
+	["<leader>ya"] = { h.yankAll, h.setOpts({ desc = "ignore" }) },
 	--
 	-- delete all buf lines quickly
 	["<leader>dd"] = { h.clearAll, h.setOpts({ desc = "ignore" }) },
@@ -279,6 +277,16 @@ M = {
 		"<cmd>lua require('textcase').lspRename('to_path_case')<CR>",
 		h.setOpts({ desc = "LSP Rename to Path Case" }),
 	},
+	-- aider integration
+	["<leader>a"] = { " Aider" },
+	["<leader>aa"] = { "<cmd>Aider toggle<cr>", h.setOpts({ desc = "Toggle Aider" }) },
+	["<leader>ac"] = { "<cmd>Aider command<cr>", h.setOpts({ desc = "Aider Commands" }) },
+	["<leader>ab"] = { "<cmd>Aider buffer<cr>", h.setOpts({ desc = "Send Buffer" }) },
+	["<leader>a+"] = { "<cmd>Aider add<cr>", h.setOpts({ desc = "Add File" }) },
+	["<leader>a-"] = { "<cmd>Aider drop<cr>", h.setOpts({ desc = "Drop File" }) },
+	["<leader>ar"] = { "<cmd>Aider add readonly<cr>", h.setOpts({ desc = "Add Read-Only" }) },
+	["<leader>aR"] = { "<cmd>Aider reset<cr>", h.setOpts({ desc = "Reset Session" }) },
+	["<leader>at"] = { h.toggleAiderModels, h.setOpts({ desc = "Writing Models" }) },
 }
 
 return M

@@ -1,3 +1,4 @@
+export TERM="xterm-256color"
 # language environment
 export LANG=GB.UTF-8
 export LC_CTYPE=en_GB.UTF-8
@@ -56,6 +57,14 @@ export TERMINAL="wezterm"
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
 
 export MOZ_ENABLE_WAYLAND=1
+export MOZ_WAYLAND=1
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# ollama
+export OLLAMA_API_BASE="http://127.0.0.1:11434"
+export OLLAMA_CONTEXT_LENGTH="8192"
+
+# zsh autosuggestions fallback from completions
+export ZSH_AUTOSUGGEST_STRATEGY=(
+  history
+  completion
+)

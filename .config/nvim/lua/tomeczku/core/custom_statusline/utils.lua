@@ -21,11 +21,11 @@ M.is_narrow_split = function()
 	return vim.api.nvim_win_get_width(vim.g.statusline_winid or 0) <= 95
 end
 
----@return  table
+---@return table
 M.path_formatter = function(root_sep, path_end_sep)
 	--LOCAL HELPERS:
-	-- reformat to "fish shell style
 
+	-- reformat to 'fish' shell style
 	---@param path string
 	---@return string
 	local function fishify_path(path)
@@ -90,6 +90,7 @@ end
 
 -- helper for picking the lsp to display consistently
 ---@param bufnr integer
+---@diagnostic disable-next-line: undefined-doc-name
 ---@param clients table<vim.lsp.Client>?
 ---@return table?
 local setMainClient = function(bufnr, clients)
@@ -97,12 +98,16 @@ local setMainClient = function(bufnr, clients)
 	if not clients or next(clients) == nil then
 		return nil
 	end
+	if buf_filetype == "markdown" then
+		return { clients[1], buf_filetype }
+	end
+
 	for _, client in pairs(clients) do
 		-- case as simple as braindead lsp name contains the filetype straight up return this client
-		if string.find(client.name:lower(), buf_filetype:lower()) then
+		if string.find(client.name:lower(), buf_filetype:lower()) and client.name ~= "harper-ls" then
 			return { client, buf_filetype }
 		-- fallback 1: if any clients has filetype in supported filetypes then grab first that matches
-		elseif clients and vim.tbl_contains(client.config.filetypes, buf_filetype) then
+		elseif clients and vim.tbl_contains(client.config.filetypes, buf_filetype) and client.name ~= "harper-ls" then
 			return { client, buf_filetype }
 		end
 	end
@@ -111,6 +116,7 @@ local setMainClient = function(bufnr, clients)
 end
 
 ---@param bufnr integer
+---@diagnostic disable-next-line: undefined-doc-name
 ---@param clients table<vim.lsp.Client>?
 ---@return table?
 M.makeLspString = function(bufnr, clients)
@@ -123,7 +129,14 @@ M.makeLspString = function(bufnr, clients)
 	if #clients > 1 then
 		additional_lsps_count = " [+" .. #clients - 1 .. "]"
 	end
-	local icon = require("nvim-web-devicons").get_icon_by_filetype(main_client_data[2]) .. " " or " "
+
+	-- get icons per filetype or provide fallback safely
+	local devicons = require("nvim-web-devicons")
+	local ok, icon = pcall(devicons.get_icon_by_filetype, main_client_data[2])
+	if not ok or icon == nil or #icon > 3 then
+		icon = ""
+	end
+	icon = icon .. " "
 	if #main_client_data[1].name > 10 then
 		return { name = main_client_data[2] .. "-lsp" .. additional_lsps_count, icon = icon }
 	else

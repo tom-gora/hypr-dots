@@ -26,7 +26,10 @@ hex_to_decimal() {
 
 prep_color() {
 	#hyprpick color
-	local INPUT_CLR=$(hyprpicker --format hex)
+  local PICKER_RESULT=$(hyprpicker -r --format hex 2>&1)
+  # hyprpicker might return additional errors. extract the hex color line only
+  local INPUT_CLR=$(echo "$PICKER_RESULT" | grep -i '^#[a-f0-9]\+$')
+
 	#check for user cancelling pick process
 	if [[ -z "$INPUT_CLR" ]]; then
 		send_notification "Color picking cancelled "
@@ -115,35 +118,35 @@ main() {
 	local JSON_INPUT=$(cat ~/.cache/.rofi-color-picker-current.json)
 	case $choice in
 	"#"*)
-		echo "$JSON_INPUT" | jq -r '.hex' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.hex' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.hex')"
 		;;
 	"rgb("*)
-		echo "$JSON_INPUT" | jq -r '.rgb' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.rgb' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.rgb')"
 		;;
 	"rgba("*)
-		echo "$JSON_INPUT" | jq -r '.rgba' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.rgba' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.rgba')"
 		;;
 	"hsl("*)
-		echo "$JSON_INPUT" | jq -r '.hsl' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.hsl' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.hsl')"
 		;;
 	"hsla("*)
-		echo "$JSON_INPUT" | jq -r '.hsla' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.hsla' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.hsla')"
 		;;
 	"cmyk("*)
-		echo "$JSON_INPUT" | jq -r '.cmyk' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.cmyk' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.cmyk')"
 		;;
 	"OkLab("*)
-		echo "$JSON_INPUT" | jq -r '.oklab' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.oklab' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.oklab')"
 		;;
 	"decimal("*)
-		echo "$JSON_INPUT" | jq -r '.dec' | wl-copy
+		echo "$JSON_INPUT" | jq -r '.dec' | tr -d '\n' | wl-copy
 		send_notification "Picked color value: $(echo "$JSON_INPUT" | jq -r '.dec')"
 		;;
 	*) ;; esac

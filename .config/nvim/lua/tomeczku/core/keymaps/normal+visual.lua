@@ -34,6 +34,8 @@ M = {
 	["<leader>qa"] = { "<cmd>%bd!<cr>", h.setOpts({ desc = "Force Close All Buffers" }) },
 	["<leader>qo"] = { "<cmd>BufferCloseAllButCurrent<cr>", h.setOpts({ desc = "Close All Other Buffers" }) },
 	["<leader>qu"] = { "<cmd>CloseUnmodifiedBuffers<cr>", h.setOpts({ desc = "Close All Unmodified Buffers" }) },
+	-- aider integration
+	["<leader>as"] = { "<cmd>Aider send<cr>", h.setOpts({ desc = "Send to Aider" }) },
 }
 
 return M

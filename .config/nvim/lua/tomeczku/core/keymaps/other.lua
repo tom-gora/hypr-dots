@@ -1,13 +1,14 @@
 local M, map, h = {}, vim.keymap.set, require("tomeczku.core.keymaps.helpers")
 
 -- proxy <c-w> to <leader>v through whichkey
-M.proxySplitsGroup = function()
+M.wkProxies = function()
 	local ok, wk = pcall(require, "which-key")
 	if not ok then
 		return
 	end
 	wk.add({
 		{ "<leader>v", proxy = "<c-w>", group = " Splits" },
+		{ "<leader>s", proxy = "z=", desc = "󰓆 Spell Suggestions" },
 		{
 			mode = { "x" },
 			{ "<leader>ri", group = "Replace Inside Visual Selection" },

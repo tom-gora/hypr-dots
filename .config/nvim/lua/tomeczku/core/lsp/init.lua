@@ -12,7 +12,6 @@ on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/semanticTokens") then
 		client.server_capabilities.semanticTokensProvider = nil
 	end
-	client.notify("", "workspace/didChangeConfiguration", { server_capabilities = client.server_capabilities })
 
 	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 	h.setupLspMappings(bufnr)
@@ -44,14 +43,15 @@ capabilities.textDocument.completion.completionItem = {
 		},
 	},
 }
-
 M.setup = function()
 	-- loop over my declared lsps and set them up
 	for _, lsp in ipairs(ls.mason_required_packages) do
 		local lsp_spec = require("mason-registry").get_package(lsp).spec
 		if lsp_spec.categories[1] == "LSP" then
 			-- bring in customized setup functions conditionally
-			if lsp == "bash-language-server" then
+			if lsp == "lua-language-server" then
+				configs.lua_setup(capabilities, on_attach, lsp)
+			elseif lsp == "bash-language-server" then
 				configs.bash_setup(capabilities, on_attach, lsp)
 			elseif lsp == "emmet-language-server" then
 				configs.emmet_setup(capabilities, on_attach, lsp)
@@ -78,10 +78,11 @@ M.setup = function()
 				configs.css_setup(capabilities, on_attach, lsp)
 			elseif lsp == "harper-ls" then
 				configs.harper_setup(capabilities, on_attach, lsp)
+			elseif lsp == "docker-compose-language-service" then
+				configs.dockerComposeSetup(capabilities, on_attach, lsp)
 			else
 				-- generic setup
 				local bin_key, languages_to_ft = nil, {}
-				---@diagnostic disable-next-line: param-type-not-match
 				for key, _ in pairs(lsp_spec.bin) do
 					bin_key = key
 					break
@@ -89,7 +90,6 @@ M.setup = function()
 				for _, lang in ipairs(lsp_spec.languages) do
 					table.insert(languages_to_ft, string.lower(lang))
 				end
-				---@diagnostic disable-next-line: param-type-not-match
 				vim.lsp.config(lsp, {
 					cmd = { bin_key },
 					filetypes = languages_to_ft,

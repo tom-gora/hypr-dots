@@ -1,12 +1,57 @@
 local M = {}
 
-M.bash_setup = function(capabilities, on_attach, name)
+M.lua_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name },
-		filetypes = { "sh", "zsh" },
+		filetypes = { "lua" },
 		capabilities = capabilities,
 		on_attach = on_attach,
-		-- Make it attach to additional filetypes
+		root_markers = {
+			".luarc.json",
+			".luarc.jsonc",
+			".luacheckrc",
+			".stylua.toml",
+			"stylua.toml",
+			"selene.toml",
+			"selene.yml",
+			".git",
+		},
+		workspace_required = true,
+		settings = {
+			Lua = {
+				version = "LuaJIT",
+				path = {
+					"lua/?.lua",
+					"lua/?/init.lua",
+				},
+				diagnostics = {
+					globals = { "vim", "vim.g" },
+				},
+			},
+			-- Make the server aware of Neovim runtime files
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
+				},
+			},
+		},
+	}
+	vim.lsp.enable(name)
+end
+
+M.bash_setup = function(capabilities, on_attach, name)
+	vim.lsp.config[name] = {
+		cmd = { name, "start" },
+		filetypes = { "bash", "sh", "zsh" },
+		capabilities = capabilities,
+		on_attach = on_attach,
+		root_markers = { ".git" },
+		settings = {
+			bashIde = {
+				globPattern = "*@(.sh|.inc|.bash|.command)",
+			},
+		},
 	}
 	vim.lsp.enable(name)
 end
@@ -82,7 +127,7 @@ end
 M.tailwind_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name },
-		-- Same but expliocitly  get supported types from plugin helper function
+		-- Same, but explicitly get all supported types using the plugin helper
 		filetypes = require("tailwind-tools.filetypes").get_all(),
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -161,24 +206,41 @@ end
 M.gopls_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name },
-		filetypes = { "go", "gomod" },
+		filetypes = { "go", "gomod", "gowork", "gotmpl" },
 		capabilities = capabilities,
 		on_attach = on_attach,
-		completeUnimported = true,
-		analyses = { unusedparams = true },
-		staticcheck = true,
 		root_markers = { "go.mod", ".git" },
+		settings = {
+			gopls = {
+				completeUnimported = true,
+				usePlaceholders = false,
+				analyses = {
+					unusedparams = true,
+					unreachable = true,
+				},
+				-- report vulnerabilities
+				vulncheck = "Imports",
+				staticcheck = true,
+				gofumpt = true,
+			},
+		},
 	}
 	vim.lsp.enable(name)
 end
 
 M.yaml_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
-		cmd = { name },
+		cmd = { name, "--stdio" },
 		filetypes = { "yaml" },
 		capabilities = capabilities,
 		on_attach = on_attach,
+		root_markers = { ".git" },
 		settings = {
+			redhat = {
+				telemetry = {
+					enabled = false,
+				},
+			},
 			yaml = {
 				format = {
 					enable = true,
@@ -276,6 +338,18 @@ M.harper_setup = function(capabilities, on_attach, name)
 				dialect = "British",
 			},
 		},
+	}
+	vim.lsp.enable(name)
+end
+
+M.dockerComposeSetup = function(capabilities, on_attach, name)
+	vim.lsp.config[name] = {
+		cmd = { "docker-compose-langserver", "--stdio" },
+		filetypes = { "yaml.docker-compose" },
+		root_markers = { "docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml" },
+		capabilities = capabilities,
+		on_attach = on_attach,
+		single_file_support = true,
 	}
 	vim.lsp.enable(name)
 end

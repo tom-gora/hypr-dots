@@ -42,8 +42,14 @@ main() {
 
 	# if color not in a clipboard fire up a picker tool
 	if [[ $EXIT_CODE -ne 0 ]]; then
-		SOURCE_COLOR="$(hyprpicker)"
+	 #hyprpick color
+   PICKER_RESULT=$(hyprpicker -r --format hex 2>&1)
+   # hyprpicker might return additional errors. extract the hex color line only
+   SOURCE_COLOR=$(echo "$PICKER_RESULT" | grep -i '^#[a-f0-9]\+$')
 	fi
+  
+  IS_ERR=$(echo "$SOURCE_COLOR" | wc -l)
+  notify-send "$IS_ERR"
 	# get gradient breakdown from pastel going from input color
 	# towards both black and white. then remove both of those as they are not really needed
 	# and also remove input colot from one of the blocks to not have it repeated twice when
@@ -89,7 +95,7 @@ main() {
 	CHOICE=$(echo "$MARKUP" | rofi -dmenu -config ~/.config/rofi/config-shades.rasi -markup-rows | grep -oE "#[0-9a-fA-F]{6}" | head -n 1)
 	# if selection made push it to clipboard
 	if [[ -n "$CHOICE" ]]; then
-		echo "$CHOICE" | wl-copy
+		echo "$CHOICE" | tr -d '\n' | wl-copy
 	fi
 
 }

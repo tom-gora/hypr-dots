@@ -273,4 +273,42 @@ M.betterSnacksHlPicker = function()
 	})
 end
 
+M.toggleAiderModels = function()
+	local at = require("nvim_aider.terminal")
+	if not vim.g._aider_writing or vim.g._aider_writing ~= true then
+		at.command("/model openrouter/google/gemini-2.5-flash-preview")
+		at.command("/weak-model openrouter/deepseek/deepseek-prover-v2:free")
+		-- vim.notify("Switched to writing models.", vim.log.levels.INFO)
+		local txt = "Switched to writing models."
+		local msg = txt:gsub('"', '\\"')
+		os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
+	else
+		at.command("/model openrouter/openai/gpt-4o-mini")
+		at.command("/weak-model openrouter/qwen/qwen-2.5-coder-32b-instruct")
+		-- vim.notify("Switched to coding models.", vim.log.levels.INFO)
+		local txt = "Switched to coding models."
+		local msg = txt:gsub('"', '\\"')
+		os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
+	end
+	vim.g._aider_writing = not vim.g._aider_writing
+end
+
+M.tmuxNavigateAwayFromTerminal = function()
+	local win_conf = vim.api.nvim_win_get_config(vim.api.nvim_get_current_win())
+	local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_get_current_buf() })
+	if not buf_ft or buf_ft ~= "snacks_terminal" then
+		return
+	end
+
+	if win_conf.split == "right" then
+		vim.cmd([[stopinsert]])
+		vim.cmd("TmuxNavigateLeft")
+		return
+	elseif win_conf.split == "below" then
+		vim.cmd([[stopinsert]])
+		vim.cmd("TmuxNavigateUp")
+		return
+	end
+end
+
 return M

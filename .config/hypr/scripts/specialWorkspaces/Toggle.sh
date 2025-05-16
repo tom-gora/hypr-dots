@@ -2,6 +2,14 @@
 
 set -x
 
+LOCKFILE="/tmp/special_workspace_toggle.lock"
+if [ -e "$LOCKFILE" ]; then
+	# Optionally, check if the PID inside the lock is still running.
+	exit 0
+fi
+echo $$ >"$LOCKFILE"
+trap 'rm -f "$LOCKFILE"' EXIT
+
 # get the helpers
 . "$HOME/.config/hypr/scripts/specialWorkspaces/__helpers.sh"
 
@@ -59,7 +67,7 @@ if [ -z "$OBJ" ]; then
 		exit 1
 		;;
 	esac &
-	sleep 1.5
+	sleep 5
 
 	# get win addr and if failed to start bail
 	WINDOW_ADDR="$(__toggle_get_win_params address "$QUERY_STRING")"

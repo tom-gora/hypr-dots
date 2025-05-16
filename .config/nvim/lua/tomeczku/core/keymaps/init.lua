@@ -2,6 +2,7 @@ local n = require("tomeczku.core.keymaps.normal")
 local x = require("tomeczku.core.keymaps.visual")
 local i = require("tomeczku.core.keymaps.insert")
 local nx = require("tomeczku.core.keymaps.normal+visual")
+local t = require("tomeczku.core.keymaps.term")
 local o = require("tomeczku.core.keymaps.other")
 
 local M = {}
@@ -28,10 +29,15 @@ M.setup = function()
 		map({ "n", "x" }, k, v[1], v[2])
 	end
 
+	-- loop over term bindings and set the keymaps
+	for k, v in pairs(t) do
+		map("t", k, v[1], v[2])
+	end
+
 	-- call other setups and hacks
 	o.setupCmdlineAndWildmenu()
 	o.nonDestructivePaste()
-	o.proxySplitsGroup()
+	o.wkProxies()
 	o.disableDefaults()
 end
 
