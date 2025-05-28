@@ -1,3 +1,44 @@
+local localHelpers = {
+	-- bootstrap spellfiles if not existing
+	setupSpellfiles = function()
+		local spell_dir = vim.fn.stdpath("data") .. "/site/spell"
+		if vim.fn.isdirectory(spell_dir) == 0 then
+			vim.fn.mkdir(spell_dir, "p")
+		end
+		local spellfile = spell_dir .. "/en.utf-8.add"
+
+		local spellfile_spl = spellfile .. ".spl"
+		if vim.fn.filereadable(spellfile) == 0 then
+			local ok, err = pcall(function()
+				local file = io.open(spellfile, "w")
+				if not file or file == nil then
+					return
+				end
+				file:write("# Vim spellfile\n# Added words will be placed below this line\n")
+				file:close()
+			end)
+
+			if not ok then
+				vim.notify("Failed to create spellfile: " .. err, vim.log.levels.WARN)
+			end
+		end
+
+		local spellfile_spl = spellfile .. ".spl"
+		if vim.fn.filereadable(spellfile) == 1 and vim.fn.filereadable(spellfile_spl) == 0 then
+			vim.cmd("mkspell! " .. spellfile)
+		end
+		return spellfile
+	end,
+	--
+	-- function formatting folds
+	foldText = function()
+		local line = vim.fn.getline(vim.v.foldstart)
+		local numOfLines = vim.v.foldend - vim.v.foldstart
+		local fillCount = vim.fn.winwidth("%") - #line - #tostring(numOfLines) - 14
+		return line .. "  " .. string.rep(".", fillCount) .. " (" .. numOfLines .. " L)"
+	end,
+}
+
 local opt = vim.opt
 -- map the leader
 vim.g.mapleader = " "
@@ -13,7 +54,7 @@ opt.fileencoding = "utf-8"
 -- netrw tree
 vim.cmd("let g:netrw_liststyle = 3")
 
--- set my line numbers to rel
+-- set my line numbers to relative
 opt.number = true
 opt.relativenumber = true
 opt.numberwidth = 1
@@ -30,7 +71,7 @@ opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
 
--- pretty colors
+-- pretty colours
 opt.termguicolors = true
 opt.background = "dark"
 opt.hlsearch = true
@@ -51,32 +92,30 @@ opt.scrolloff = 999
 opt.cursorline = true
 opt.signcolumn = "yes"
 
--- ui tweaks
+-- UI tweaks
 opt.showtabline = 0
 opt.fillchars = {
-	eob = "◦",
+	eob = "˜",
 	horiz = "─",
-	horizup = "╨",
-	horizdown = "╥",
-	vert = "║",
-	vertleft = "╢",
-	vertright = "╟",
-	verthoriz = "╫",
+	horizup = "┴",
+	horizdown = "┬",
+	vert = "│",
+	vertleft = "┤",
+	vertright = "├",
+	verthoriz = "┼",
 	fold = " ",
 }
--- opt.listchars = { eol = "↲" }
--- opt.list = true
 
 -- globally set border for floats
-opt.winborder = "rounded"
+opt.winborder = "solid"
 
--- enable undofile
+-- enable undo file
 opt.undofile = true
 -- global statusline
 opt.laststatus = 3
 -- disable mouse
 opt.mouse = ""
--- set autoread
+-- auto read files on change
 opt.autoread = true
 -- folding
 opt.foldenable = true
@@ -88,11 +127,7 @@ opt.foldlevelstart = 99
 vim.wo.foldnestmax = 5
 vim.wo.foldminlines = 3
 
-local function FoldText()
-	local line = vim.fn.getline(vim.v.foldstart)
-	local numOfLines = vim.v.foldend - vim.v.foldstart
-	local fillCount = vim.fn.winwidth("%") - #line - #tostring(numOfLines) - 14
-	return line .. "  " .. string.rep(".", fillCount) .. " (" .. numOfLines .. " L)"
-end
+opt.foldtext = localHelpers.foldText()
 
-opt.foldtext = FoldText()
+opt.spelllang = "en_gb"
+opt.spellfile = localHelpers.setupSpellfiles()

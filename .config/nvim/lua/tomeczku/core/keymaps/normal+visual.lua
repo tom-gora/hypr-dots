@@ -20,21 +20,19 @@ M = {
 		h.openFileFromCmdLine,
 		{ desc = "Open...", expr = true },
 	},
-	["<leader>oc"] = { "<cmd> e#<cr>", h.setOpts({ desc = "Reopen Last Closed" }) },
+	["<leader>oc"] = { "<cmd>e#<cr>", h.setOpts({ desc = "Reopen Last Closed" }) },
 	["<leader>or"] = { "<cmd>lua Snacks.picker.recent()<cr>", h.setOpts({ desc = "Open Recent" }) },
 	--
 	-- whichkey close section
 	["<leader>q"] = { " Close" },
-	["<leader>qq"] = {
-		h.closeBufWithFallback,
-		h.setOpts({ expr = true, desc = "Close Current Buffer" }),
-	},
-	["<leader>qw"] = { "<cmd>wqa!<cr>", h.setOpts({ desc = "Force Close with Save" }) },
+	["<leader>qq"] = { "<cmd>bd<cr>", h.setOpts({ desc = "Close Current Buffer" }) },
+	["<leader>qw"] = { "<cmd>wqa!<cr>", h.setOpts({ desc = "Save and Close All" }) },
 	["<leader>QQ"] = { "<cmd>qa!<cr>", h.setOpts({ desc = "ignore" }) },
 	["<leader>qa"] = { "<cmd>%bd!<cr>", h.setOpts({ desc = "Force Close All Buffers" }) },
-	["<leader>qo"] = { "<cmd>BufferCloseAllButCurrent<cr>", h.setOpts({ desc = "Close All Other Buffers" }) },
+	["<leader>qo"] = { "<cmd>CloseOtherBuffers<cr>", h.setOpts({ desc = "Close All Other Buffers" }) },
 	["<leader>qu"] = { "<cmd>CloseUnmodifiedBuffers<cr>", h.setOpts({ desc = "Close All Unmodified Buffers" }) },
 	-- aider integration
+	["<leader>a"] = { " AI" },
 	["<leader>as"] = { "<cmd>Aider send<cr>", h.setOpts({ desc = "Send to Aider" }) },
 }
 

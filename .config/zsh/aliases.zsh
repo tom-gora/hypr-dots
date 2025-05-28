@@ -9,6 +9,7 @@ alias src="source $ZDOTDIR/.zshrc"
 
 # alias vi="NVIM_APPNAME=my-nvim nvim"
 # other nvim aliases
+alias nvim="TERM=wezterm nvim"
 alias vi="nvim"
 
 # eza instead of ls

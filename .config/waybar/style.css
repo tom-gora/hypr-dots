@@ -44,7 +44,7 @@
   font-family: "Ubuntu Nerd Font";
   font-weight: 400;
   min-height: 4px;
-  font-size: 96%;
+  font-size: 95%;
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
 }
 
@@ -173,7 +173,8 @@ tooltip label {
 .modules-right > *:nth-child(11),
 .modules-right > *:nth-child(12) {
   padding: 0;
-  font-size: 173%;
+  margin-top: -4px;
+  font-size: 181%;
   background-color: transparent;
 }
 

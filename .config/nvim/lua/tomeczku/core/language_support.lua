@@ -1,39 +1,43 @@
 local M = {}
 
 M.mason_required_packages = {
-	"prettierd",
+	-- LSP (Language Servers)
 	"bash-language-server",
 	"emmet-language-server",
 	"html-lsp",
-	"blade-formatter",
-	"lua-language-server",
-	-- "emmylua_ls",
-	"gofumpt",
-	"prettier",
-	"revive",
+	-- "lua-language-server",
+	"emmylua_ls",
 	"docker-compose-language-service",
 	"yaml-language-server",
-	"xmlformatter",
 	"json-lsp",
 	"tailwindcss-language-server",
-	"shfmt",
 	"lemminx",
 	"phpactor",
-	"stylelint",
 	"hyprls",
 	"dockerfile-language-server",
-	"luacheck",
 	"gopls",
-	"htmlhint",
-	"stylua",
-	"shellcheck",
-	"eslint_d",
 	"typescript-language-server",
 	"astro-language-server",
+	"css-variables-language-server",
 	"cssmodules-language-server",
 	"css-lsp",
-	"markuplint",
 	"harper-ls",
+	-- Formatters
+	"prettierd",
+	"blade-formatter",
+	"gofumpt",
+	"prettier",
+	"xmlformatter",
+	"shfmt",
+	"stylua",
+	-- Linters
+	"revive",
+	"stylelint",
+	"luacheck",
+	"htmlhint",
+	"shellcheck",
+	"eslint_d",
+	"markuplint",
 }
 
 M.autoMasonInstall = function()
@@ -49,7 +53,9 @@ M.autoMasonInstall = function()
 			vim.notify("Installing : " .. pkg, vim.log.levels.INFO)
 		end
 	end
-	vim.notify("Failed to autoinstall: \n" .. failed, vim.log.levels.ERROR, { timeout = 5000 })
+	if #failed > 0 then
+		vim.notify("Failed to autoinstall: \n" .. failed, vim.log.levels.ERROR, { timeout = 5000 })
+	end
 end
 
 -- these work via plugin's ensure_istalled table without manual installation call

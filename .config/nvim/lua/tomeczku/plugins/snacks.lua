@@ -2,10 +2,75 @@ if vim.g.vscode then
 	return
 end
 
-local M, opts
+local M, opts, my_layouts
+
+my_layouts = {
+	["buffers-custom"] = {
+		preset = "dropdown",
+		preview = false,
+		reverse = true,
+		layout = {
+			backdrop = true,
+			row = 0.3,
+			width = 0.3,
+			min_width = 70,
+			height = 0.3,
+			border = "none",
+			box = "vertical",
+			{
+				box = "vertical",
+				border = "solid",
+				title = "{title} {live} {flags}",
+				title_pos = "right",
+				{ win = "list", border = "solid" },
+				{ win = "input", height = 1, border = "none" },
+			},
+		},
+	},
+	["borderless-ivy"] = {
+		layout = {
+			box = "vertical",
+			backdrop = false,
+			row = -1,
+			width = 0,
+			height = 0.3,
+			border = "solid",
+			title = " {title} {live} {flags}",
+			title_pos = "right",
+			{ win = "input", height = 1, border = "none" },
+			{
+				box = "horizontal",
+				{ win = "list", border = "solid" },
+				{ win = "preview", title = "{preview}", title_pos = "right", width = 0.6, border = "solid" },
+			},
+		},
+	},
+	["borderless-right"] = {
+		preset = "sidebar",
+		preview = "main",
+		layout = {
+			backdrop = false,
+			width = 40,
+			min_width = 40,
+			height = 0,
+			position = "right",
+			border = "none",
+			box = "vertical",
+			{
+				win = "input",
+				height = 1,
+				border = "solid",
+				title = "{title} {live} {flags}",
+				title_pos = "right",
+			},
+			{ win = "list", border = "none" },
+			{ win = "preview", title = "{preview}", title_pos = "right", height = 0.4, border = "solid" },
+		},
+	},
+}
 
 opts = {
-	styles = { lazygit = { border = "rounded" } },
+	styles = { lazygit = { border = "solid" } },
 	-- only enable selected
 	bigfile = { enabled = true },
 	dashboard = { enabled = false },
@@ -17,13 +82,23 @@ opts = {
 	} },
 	picker = {
 		enabled = true,
+		prompt = " ",
+		layouts = {
+			["buffers-custom"] = my_layouts["buffers-custom"],
+			["borderless-ivy"] = my_layouts["borderless-ivy"],
+			["borderless-right"] = my_layouts["borderless-right"],
+		},
+		sources = {
+			buffers = {
+				layout = "buffers-custom",
+			},
+		},
 		layout = {
 			cycle = false,
 			preset = function()
-				return vim.o.columns >= 106 and "ivy" or "right"
+				return vim.o.columns >= 106 and "borderless-ivy" or "borderless-right"
 			end,
 		},
-		prompt = " ",
 		matcher = { freecency = true },
 		win = {
 			input = {
@@ -76,7 +151,7 @@ opts = {
 					["<c-r><c-l>"] = false, -- { "insert_line", mode = "i" },
 					["<c-r><c-p>"] = false, -- { "insert_file_full", mode = "i" },
 					["<c-r><c-w>"] = false, -- { "insert_cword", mode = "i" },
-					["<c-w>H"] = false, -- "layout_left",
+					["<c-w>H"] = false, -- "layout_right",
 					["<c-w>J"] = false, -- "layout_bottom",
 					["<c-w>K"] = false, -- "layout_top",
 					["<c-w>L"] = false, -- "layout_right",
@@ -88,8 +163,8 @@ opts = {
 	notifier = {
 		enabled = true,
 		style = function(buf, notif, ctx)
-			-- override the minimaal style to do minimal WITH border
-			ctx.opts.border = "rounded"
+			-- -- override the minimal style to do minimal WITH border
+			-- ctx.opts.border = "solid"
 			local whl = ctx.opts.wo.winhighlight
 			ctx.opts.wo.winhighlight = whl:gsub(ctx.hl.msg, "SnacksNotifierMinimal")
 			vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(notif.msg, "\n"))

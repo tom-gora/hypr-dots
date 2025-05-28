@@ -37,7 +37,6 @@ opts = {
 		end
 
 		vim.cmd("TailwindSort")
-		-- These options will be passed to conform.format()
 		return { lsp_format = "fallback" }
 	end,
 }

@@ -26,5 +26,5 @@ bindkey '^x' history-search-forward
 bindkey -r "^H"
 bindkey -r "^J"
 bindkey -r "^K"
-bindkey -r "^L"
+# bindkey -r "^L" # that's ok - sending "clear" now via prefix c-l
 bindkey -r "^N"

@@ -1,10 +1,10 @@
 local M, s = {}, vim.diagnostic.severity
 
 local icons = {
-	[s.ERROR] = "",
-	[s.INFO] = "",
-	[s.WARN] = "",
-	[s.HINT] = "",
+	[s.ERROR] = "ᵉ",
+	[s.WARN] = "ʷ",
+	[s.INFO] = "ⁱ",
+	[s.HINT] = "󰨕",
 }
 ---@diagnostic disable-next-line: type-not-found
 ---@param diag vim.Diagnostic

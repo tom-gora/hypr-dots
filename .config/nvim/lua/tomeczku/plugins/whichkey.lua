@@ -5,19 +5,14 @@ end
 local M, opts, init_function
 
 opts = {
-	preset = "modern",
+	preset = "helix",
+	show_help = false,
 	icons = { separator = "", group = "", rules = false },
 	win = {
-		border = "rounded",
-		title_pos = "left",
+		border = "solid",
+		row = 1,
+		title_pos = "right",
 		title = true,
-		padding = { 1, 4 },
-		width = math.max(math.floor(vim.o.columns * 0.55), 50),
-	},
-	layout = {
-		width = { min = 20 },
-		spacing = 5,
-		align = "right",
 	},
 	presets = {
 		text_objects = false,

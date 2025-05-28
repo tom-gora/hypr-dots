@@ -1,5 +1,5 @@
 -- code lifted and modified per my needs from nvchad's "minimal" implementation. Skips all other themes and fluff
--- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
+-- I don't like Nvchad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 
 local M = {}
 
@@ -10,19 +10,21 @@ local function compose_modules(modules)
 	-- assign the components
 	table.insert(modules, c.mode_plus_path())
 	table.insert(modules, c.macro_indicator())
+	table.insert(modules, c.opened_buf_count())
 	table.insert(modules, c.git())
 	table.insert(modules, "%=")
+	table.insert(modules, c.lsp_diags())
+	table.insert(modules, c.lsp_status())
+	table.insert(modules, c.spelling_status())
 	table.insert(modules, c.ai_status())
-	-- wordcounter for markdown files only
+	table.insert(modules, c.cursor_pos())
+	-- world counter for markdown files only
 	if vim.b.markdown == true then
 		table.insert(modules, c.markdown_wordcounter())
 	end
-	table.insert(modules, c.lsp_status())
-	table.insert(modules, c.lsp_diags())
-	table.insert(modules, c.cursor_pos())
 end
 
--- return by calling a function explicitely mainly to ensure vim.g.statusline_winid gets set
+-- return by calling a function explicitly mainly to ensure vim.g.statusline_winid gets set
 -- because this was a bitch of troubleshooting to fix -_-
 
 ---@return string

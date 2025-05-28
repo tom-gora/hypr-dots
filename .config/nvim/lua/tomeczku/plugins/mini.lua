@@ -5,15 +5,6 @@ end
 local M
 
 M = {
-	-- -- replacing snacks' scroll as the latter is buggy AF on repeated j/k movements
-	-- {
-	-- 	"echasnovski/mini.animate",
-	-- 	version = "*",
-	-- 	opts = {
-	-- 		open = { enable = false },
-	-- 		close = { enable = false },
-	-- 	},
-	-- },
 	{
 		"echasnovski/mini.surround",
 		version = "*",
@@ -33,7 +24,6 @@ M = {
 		opts = {
 			reindent_linewise = true,
 			mappings = {
-				-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
 				left = "<a-h>",
 				right = "<a-l>",
 				down = "<a-j>",

@@ -1,4 +1,3 @@
-vim.g.legacy_cmp = false
 vim.g.health = { style = "float" }
 
 -- vim options

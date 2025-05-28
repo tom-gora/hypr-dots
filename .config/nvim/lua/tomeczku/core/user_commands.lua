@@ -136,6 +136,30 @@ local closeUnmodifiedBuffers = function()
 end
 makeCmd("CloseUnmodifiedBuffers", closeUnmodifiedBuffers, { range = false })
 --
+--
+-- INFO: close all other buffers
+local closeOtherBuffers = function()
+	local current_buf = api.nvim_get_current_buf()
+	if not api.nvim_get_option_value("buflisted", { buf = current_buf }) then
+		vim.notify("Not Focused In Editor. Skipping Closing Bufs.", vim.log.levels.WARN)
+		return
+	end
+	local buf_list = api.nvim_list_bufs()
+	for _, buf in ipairs(buf_list) do
+		if buf == current_buf then
+			goto continue
+		end
+		local modified = api.nvim_get_option_value("modified", { buf = buf })
+		local listed = api.nvim_get_option_value("buflisted", { buf = buf })
+		if modified == false and listed == true then
+			api.nvim_buf_delete(buf, { force = false })
+		end
+		::continue::
+	end
+end
+makeCmd("CloseOtherBuffers", closeOtherBuffers, { range = false })
+
+--
 -- INFO:
 -- take line and duplicate it taking vim-motion count with interated indexes
 -- (count indicates how many indexed lines is needed total with the source line
@@ -409,7 +433,5 @@ if not vim.g.vscode then
 		end
 	end
 
-	makeCmd("ToggleAi", toggleAi, { range = false })
+	makeCmd("ToggleAi", toggleAi, { range = true })
 end
-
--- building my custom navigation command that will allow jumping to and from splits easily

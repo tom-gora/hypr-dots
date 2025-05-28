@@ -8,7 +8,7 @@ M.wkProxies = function()
 	end
 	wk.add({
 		{ "<leader>v", proxy = "<c-w>", group = " Splits" },
-		{ "<leader>s", proxy = "z=", desc = "󰓆 Spell Suggestions" },
+		{ "<leader>so", proxy = "z=", desc = "Show Spell Options" },
 		{
 			mode = { "x" },
 			{ "<leader>ri", group = "Replace Inside Visual Selection" },

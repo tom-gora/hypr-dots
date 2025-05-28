@@ -26,10 +26,6 @@ M.setOpts = function(extra)
 	return vim.tbl_deep_extend("force", opts, extra)
 end
 
-M.yankFromCursorToEOL = function()
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("y$", true, false, true), "n", false)
-end
-
 M.yankAll = function()
 	-- compared to ggVG preserves cursor position
 	-- plus I grab the last message and redirect to notify
@@ -77,20 +73,6 @@ M.toggleOil = function()
 			_G._OilOpened = nil
 		end
 	end)
-end
-
----@return string
-M.nextBufWithFallback = function()
-	return pcall(require, "barbar") and "<cmd>BufferNext<cr>" or "<cmd>bnext<cr>"
-end
----@return string
-M.prevBufWithFallback = function()
-	return pcall(require, "barbar") and "<cmd>BufferPrevious<cr>" or "<cmd>bprevious<cr>"
-end
-
----@return string
-M.closeBufWithFallback = function()
-	return pcall(require, "barbar") and "<cmd>BufferClose<cr>" or "<cmd>bd<cr>"
 end
 
 M.clearQuickFixList = function()
@@ -173,9 +155,9 @@ local notifyColors = function(hl_entry, title)
 			local n_winnr = notif.win.win -- spawned notification window
 			local width = vim.inspect(notif.win.opts.width) -- noti window width
 			-- predefined strings
-			local r_str_fg = "  foreground"
-			local r_str_bg = "  background"
-			local r_str_sp = "  special"
+			local r_str_fg = "  foreground   "
+			local r_str_bg = "  background   "
+			local r_str_sp = "  special   "
 			local footer = "Yank colors. 'Esc' / 'q' to close."
 			--
 			--
@@ -218,7 +200,15 @@ local notifyColors = function(hl_entry, title)
 			vim.api.nvim_set_current_win(n_winnr) -- focus in the notification win
 			-- adding additional title because using "minimal" noti style
 			-- if redundant remove title key
-			vim.api.nvim_win_set_config(n_winnr, { title = " " .. title .. " ", height = #notif.msg })
+			vim.api.nvim_win_set_config(n_winnr, {
+				border = "solid",
+				title = " " .. title .. " ",
+				relative = "editor",
+				height = #notif.msg,
+				col = vim.o.columns,
+				row = vim.o.lines - (#notif.msg + 3),
+			})
+
 			local n_bufnr = vim.api.nvim_win_get_buf(n_winnr) -- notification's buffer
 			-- dirty modify in place buffer content and window props. set cursor before first color string
 			vim.keymap.set({ "n", "x" }, "<Esc>", function()
@@ -275,22 +265,33 @@ end
 
 M.toggleAiderModels = function()
 	local at = require("nvim_aider.terminal")
-	if not vim.g._aider_writing or vim.g._aider_writing ~= true then
-		at.command("/model openrouter/google/gemini-2.5-flash-preview")
-		at.command("/weak-model openrouter/deepseek/deepseek-prover-v2:free")
+	local models = _G.AIDER_MODELS
+	if not _G.AIDER_WRITING or _G.AIDER_WRITING ~= true then
+		at.command("/model " .. models.default_coding.model)
+		at.command("/weak-model " .. models.default_coding.weak_model)
 		-- vim.notify("Switched to writing models.", vim.log.levels.INFO)
 		local txt = "Switched to writing models."
 		local msg = txt:gsub('"', '\\"')
 		os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
 	else
-		at.command("/model openrouter/openai/gpt-4o-mini")
-		at.command("/weak-model openrouter/qwen/qwen-2.5-coder-32b-instruct")
+		at.command("/model " .. models.writing.model)
+		at.command("/weak-model " .. models.writing.weak_model)
 		-- vim.notify("Switched to coding models.", vim.log.levels.INFO)
 		local txt = "Switched to coding models."
 		local msg = txt:gsub('"', '\\"')
 		os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
 	end
-	vim.g._aider_writing = not vim.g._aider_writing
+	_G.AIDER_WRITING = not _G.AIDER_WRITING
+end
+
+M.toggleCopilot = function()
+	if not _G.COPILOT_ENABLED or _G.COPILOT_ENABLED == false then
+		vim.cmd("Copilot enable")
+		_G.COPILOT_ENABLED = not _G.COPILOT_ENABLED
+		return
+	end
+	vim.cmd("Copilot disable")
+	_G.COPILOT_ENABLED = not _G.COPILOT_ENABLED
 end
 
 M.tmuxNavigateAwayFromTerminal = function()

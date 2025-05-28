@@ -16,7 +16,7 @@ opts = {
 }
 
 M = {
-	"gbprod/cutlass.nvim",
+	"tom-gora/cutlass.nvim",
 	cond = vim.g.vscode == nil,
 	event = "BufReadPost",
 	opts = opts,

@@ -10,8 +10,8 @@ local conf = {
 	},
 	ui = {
 		title = " 󰒲 Lazy ",
-		border = "rounded",
-		title_pos = "left",
+		border = "solid",
+		title_pos = "right",
 		size = { width = 0.7, height = 0.8 },
 	},
 }

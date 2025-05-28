@@ -34,10 +34,10 @@ config_function = function()
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				init_selection = "<M-]>",
-				node_incremental = "<M-]>",
+				init_selection = "<S-l>",
+				node_incremental = "<S-l>",
 				scope_incremental = false,
-				node_decremental = "<M-[>",
+				node_decremental = "<S-h>",
 			},
 		},
 	})

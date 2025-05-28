@@ -55,6 +55,21 @@ autocmd("WinLeave", {
 	end,
 })
 
+autocmd({ "TermOpen", "TermClose", "TermLeave", "TermEnter" }, {
+	group = ui_helpers,
+	callback = function(e)
+		local term_file = e.file or e.match
+		if not term_file or not term_file:match("aider") then
+			return
+		end
+		if e.event == "TermClose" then
+			_G.AIDER_RUNNING = false
+		else
+			_G.AIDER_RUNNING = true
+		end
+	end,
+})
+
 -- helper for dynamically placing help buffer splits based on editor width
 local function handleSplitWindow(direction, proportion, buf)
 	local directions = { V = true, S = true }

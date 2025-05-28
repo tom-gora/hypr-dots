@@ -11,7 +11,7 @@ M = {
 
 	low_dark_base_bg = function()
 		local b = M.base_bg()
-		return type(b) == "number" and h.darken(b, 0.15) or nil
+		return type(b) == "number" and h.darken(b, 0.2) or nil
 	end,
 
 	dark_base_bg = function()

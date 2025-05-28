@@ -5,19 +5,19 @@ end
 local M, config_function
 
 config_function = function()
-	local todo_comments = require("todo-comments")
+	local td = require("todo-comments")
 	-- set keymaps
 	local map = vim.keymap.set -- for conciseness
 
 	map("n", "tl", function()
-		todo_comments.jump_next()
+		td.jump_next()
 	end, { desc = "Next todo comment" })
 
 	map("n", "th", function()
-		todo_comments.jump_prev()
+		td.jump_prev()
 	end, { desc = "Previous todo comment" })
 
-	todo_comments.setup()
+	td.setup()
 end
 
 M = {

@@ -63,18 +63,18 @@ M.path_formatter = function(root_sep, path_end_sep)
 
 	-- if in term adjust string elements as no path/filename is being displayed
 	if vim.api.nvim_get_mode().mode == "t" then
-		root_sep = "%#St_TerminalMode_Root_Sep#"
+		root_sep = "%#St_TerminalMode_Root_Sep#█"
 		path_end_sep = ""
 		return { root = "", path = "", root_sep = root_sep, path_end_sep = path_end_sep }
 	end
 
 	if vim.api.nvim_get_mode().mode == "nt" then
-		root_sep = "%#St_NTerminalMode_Root_Sep#"
+		root_sep = "%#St_NTerminalMode_Root_Sep#█"
 		path_end_sep = ""
 		return { root = "", path = "", root_sep = root_sep, path_end_sep = path_end_sep }
 	end
 
-	local root = "  " .. project_root .. " %#St_Root_Sep_Right#"
+	local root = " " .. project_root .. " %#St_Root_Sep_Right#"
 	if vim.bo.filetype == "oil" then
 		root = " 󰏇  %#St_Root_Sep_Right#"
 		relative_path = " Oil "
@@ -88,31 +88,68 @@ M.path_formatter = function(root_sep, path_end_sep)
 	}
 end
 
--- helper for picking the lsp to display consistently
+-- NOTE: helper for picking the lsp to display consistently
+-- prioritize dsplaying the lsp client associated with the filetype most directly
+
 ---@param bufnr integer
 ---@diagnostic disable-next-line: undefined-doc-name
 ---@param clients table<vim.lsp.Client>?
 ---@return table?
 local setMainClient = function(bufnr, clients)
-	local buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 	if not clients or next(clients) == nil then
 		return nil
 	end
+
+	local buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 	if buf_filetype == "markdown" then
 		return { clients[1], buf_filetype }
 	end
 
+	local clients_to_skip = {
+		"harper-ls",
+		"copilot",
+		"emmet-language-server",
+	}
+
 	for _, client in pairs(clients) do
+		if vim.tbl_contains(clients_to_skip, client.name) then
+			goto continue
+		end
 		-- case as simple as braindead lsp name contains the filetype straight up return this client
-		if string.find(client.name:lower(), buf_filetype:lower()) and client.name ~= "harper-ls" then
+		if string.find(client.name:lower(), buf_filetype:lower()) then
 			return { client, buf_filetype }
 		-- fallback 1: if any clients has filetype in supported filetypes then grab first that matches
-		elseif clients and vim.tbl_contains(client.config.filetypes, buf_filetype) and client.name ~= "harper-ls" then
+		elseif client.config.filetypes and vim.tbl_contains(client.config.filetypes, buf_filetype) then
+			-- ok damn special case stupid frameworks they make me look bad!
+			if buf_filetype == "blade" then
+				buf_filetype = "php"
+			end
 			return { client, buf_filetype }
 		end
+		::continue::
 	end
 	-- as a stupid last fallback return just first client attached to buf
 	return { clients[1], buf_filetype }
+end
+
+local superscript_map = {
+	["0"] = "⁰",
+	["1"] = "¹",
+	["2"] = "²",
+	["3"] = "³",
+	["4"] = "⁴",
+	["5"] = "⁵",
+	["6"] = "⁶",
+	["7"] = "⁷",
+	["8"] = "⁸",
+	["9"] = "⁹",
+}
+
+--@param value integer
+--@return string
+M.intToSuperscript = function(value)
+	local str = tostring(value)
+	return str:gsub("[0-9]", superscript_map)
 end
 
 ---@param bufnr integer
@@ -127,7 +164,7 @@ M.makeLspString = function(bufnr, clients)
 	end
 	local additional_lsps_count = ""
 	if #clients > 1 then
-		additional_lsps_count = " [+" .. #clients - 1 .. "]"
+		additional_lsps_count = "⁺" .. M.intToSuperscript(#clients - 1)
 	end
 
 	-- get icons per filetype or provide fallback safely

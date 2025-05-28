@@ -9,7 +9,7 @@ M = {
 	--          ░╚═██╔═╝░╚█████╔╝███████╗
 	--          ░░░╚═╝░░░░╚════╝░╚══════╝
 	--
-	-- fix polluting clipboard with non cutting operations with blackhole register
+	-- fix polluting clipboard with non cutting operations with black hole register
 	["ciw"] = { '"_ciw', h.setOpts({ desc = "ignore" }) },
 	["caw"] = { '"_caw', h.setOpts({ desc = "ignore" }) },
 	--
@@ -19,13 +19,14 @@ M = {
 	-- delete all buf lines quickly
 	["<leader>dd"] = { h.clearAll, h.setOpts({ desc = "ignore" }) },
 	--
-	["<S-Y>"] = { h.yankFromCursorToEOL, h.setOpts({ desc = "ignore" }) },
+	-- yank from the cursor to the end of line
+	["<S-Y>"] = { "y$", h.setOpts({ desc = "ignore" }) },
 	--
 	-- yank the line without newline char
-	["<S-y>"] = { "mQ0y$`Q", h.setOpts({ desc = "ignore" }) },
+	["<C-y>"] = { "mQ0y$`Q", h.setOpts({ desc = "ignore" }) },
 	--
 	-- toggle comment line in normal mode
-	["<leader>/"] = { "gcc", h.setOpts({ desc = "which_key_ignore", remap = true }) },
+	["<leader>/"] = { "gcc", h.setOpts({ desc = "ignore", remap = true }) },
 	--
 	-- move "line" at a time even on wrapped text
 	["j"] = { "gj", h.setOpts() },
@@ -38,7 +39,7 @@ M = {
 	-- write buffer
 	["<leader>w"] = { "<cmd>w<cr>", h.setOpts({ desc = "ignore" }) },
 	--
-	-- write all bufs
+	-- write all bufs vite
 	["<leader>W"] = { "<cmd>wa<cr>", h.setOpts({ desc = "ignore" }) },
 	--
 	-- alternative close window closer to normal leader region than regular q
@@ -67,21 +68,7 @@ M = {
 		h.setOpts({ desc = "󰏇 Toggle Oil" }),
 	},
 	--
-	-- jump between bufs back and forth
-	-- use barbar with native nvim fallback
-	["<S-l>"] = {
-		h.nextBufWithFallback,
-		h.setOpts({ desc = "which_key_ignore", expr = true }),
-	},
-	["<S-h>"] = {
-		h.prevBufWithFallback,
-		h.setOpts({ desc = "which_key_ignore", expr = true }),
-	},
-	--
-	-- AI
-	["<leader>S"] = { "<cmd>ToggleAi<cr>", h.setOpts({ desc = " Toggle Supermaven" }) },
-	--
-	-- zen from Snacks
+	-- Zen from Snacks
 	["<leader>z"] = { "<cmd>lua Snacks.zen()<cr>", h.setOpts({ desc = " Toggle Zen Mode" }) },
 
 	--
@@ -95,21 +82,20 @@ M = {
 	["<leader>nk"] = { "<cmd>lua Snacks.picker.keymaps()<cr>", h.setOpts({ desc = "Look up Key Mappings" }) },
 	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", h.setOpts({ desc = "Dismiss Notifications" }) },
 	--
-	-- whichkey moveto section
+	-- whichkey move to section
 	["<leader>b"] = { " Buffers" },
-	["<leader>bb"] = { "<cmd>lua Snacks.picker.buffers()<cr>", h.setOpts({ desc = "Find Buffers" }) },
-	-- # Goto buffer in position...
-	["<leader>b1"] = { "<Cmd>BufferGoto 1<cr>", h.setOpts({ desc = "Buffer Index 1" }) },
-	["<leader>b2"] = { "<Cmd>BufferGoto 2<cr>", h.setOpts({ desc = "Buffer Index 2" }) },
-	["<leader>b3"] = { "<Cmd>BufferGoto 3<cr>", h.setOpts({ desc = "Buffer Index 3" }) },
-	["<leader>b4"] = { "<Cmd>BufferGoto 4<cr>", h.setOpts({ desc = "Buffer Index 4" }) },
-	["<leader>b5"] = { "<Cmd>BufferGoto 5<cr>", h.setOpts({ desc = "Buffer Index 5" }) },
-	["<leader>b6"] = { "<Cmd>BufferGoto 6<cr>", h.setOpts({ desc = "Buffer Index 6" }) },
-	["<leader>b7"] = { "<Cmd>BufferGoto 7<cr>", h.setOpts({ desc = "Buffer Index 7" }) },
-	["<leader>b8"] = { "<Cmd>BufferGoto 8<cr>", h.setOpts({ desc = "Buffer Index 8" }) },
-	["<leader>b9"] = { "<Cmd>BufferGoto 9<cr>", h.setOpts({ desc = "Buffer Index 9" }) },
-	["<leader>bl"] = { "<Cmd>BufferLast<cr>", h.setOpts({ desc = "Last Buffer" }) },
-	["<leader>bh"] = { "<Cmd>BufferFirst<cr>", h.setOpts({ desc = "First Buffer" }) },
+	["<leader>bb"] = {
+		function()
+			Snacks.picker.buffers()
+		end,
+		-- "<cmd>lua Snacks.picker.buffers({ layout = { preset = 'vscode' }, win = {border = 'solid'} })<cr>",
+		h.setOpts({ desc = "Find Buffers" }),
+	},
+	["<leader>bc"] = { "<cmd>b#<cr>", h.setOpts({ desc = "Circle Previos Buffer" }) },
+	["<leader>bl"] = { "<cmd>bnext<cr>", h.setOpts({ desc = "Next Buffer" }) },
+	["<leader>bh"] = { "<cmd>bprevious<cr>", h.setOpts({ desc = "Previous Buffer" }) },
+
+	--
 	--
 	-- git stuff
 	["<leader>g"] = { "󰊢 Git" },
@@ -139,7 +125,7 @@ M = {
 	["<leader>fp"] = { "<cmd>lua Snacks.picker.pickers()<cr>", h.setOpts({ desc = "Recent Pickers" }) },
 	["<leader>fh"] = { "<cmd>lua Snacks.picker.command_history()<cr>", h.setOpts({ desc = "Command History" }) },
 	["<leader>fu"] = { "<cmd>lua Snacks.picker.undo()<cr>", h.setOpts({ desc = "Find in Undo Tree" }) },
-	["<leader>fc"] = { "<cmd>lua Snacks.picker.todo_comments()<cr>", h.setOpts({ desc = "Find Todo Comments" }) },
+	["<leader>ft"] = { "<cmd>lua Snacks.picker.todo_comments()<cr>", h.setOpts({ desc = "Find Todo Comments" }) },
 	["<leader>fv"] = {
 		"<cmd>lua Snacks.picker.cliphist()<cr>",
 		h.setOpts({ desc = "Find in OS Clipboard History." }),
@@ -165,7 +151,7 @@ M = {
 	["<leader>cc"] = { "<cmd>lua require('quicker').toggle()<cr>", h.setOpts({ desc = "Toggle QuickFix List" }) },
 	["<leader>cx"] = { h.clearQuickFixList, h.setOpts({ desc = "Force Clear QuickFix List" }) },
 	--
-	-- tmux navigator keymaps
+	-- tmux navigator keyMap
 	["<c-h>"] = { "<cmd>TmuxNavigateLeft<cr>", h.setOpts() },
 	["<c-j>"] = { "<cmd>TmuxNavigateDown<cr>", h.setOpts() },
 	["<c-k>"] = { "<cmd>TmuxNavigateUp<cr>", h.setOpts() },
@@ -194,7 +180,7 @@ M = {
 	},
 	["<leader>lq"] = { "<cmd>Trouble qflist toggle<cr>", h.setOpts({ desc = "Trouble Quickfix List" }) },
 	--
-	-- textcase case toggler for normal mode
+	-- text-case: case toggling plugin for normal mode
 	["<leader>~"] = { "󰬴 TextCase" },
 	["<leader>~u"] = {
 		"<cmd>lua require('textcase').current_word('to_upper_case')<CR>",
@@ -277,16 +263,71 @@ M = {
 		"<cmd>lua require('textcase').lspRename('to_path_case')<CR>",
 		h.setOpts({ desc = "LSP Rename to Path Case" }),
 	},
-	-- aider integration
-	["<leader>a"] = { " Aider" },
+	-- AI integration
 	["<leader>aa"] = { "<cmd>Aider toggle<cr>", h.setOpts({ desc = "Toggle Aider" }) },
-	["<leader>ac"] = { "<cmd>Aider command<cr>", h.setOpts({ desc = "Aider Commands" }) },
+	["<leader>ap"] = { "<cmd>Aider command<cr>", h.setOpts({ desc = "Aider Pick Command" }) },
 	["<leader>ab"] = { "<cmd>Aider buffer<cr>", h.setOpts({ desc = "Send Buffer" }) },
 	["<leader>a+"] = { "<cmd>Aider add<cr>", h.setOpts({ desc = "Add File" }) },
 	["<leader>a-"] = { "<cmd>Aider drop<cr>", h.setOpts({ desc = "Drop File" }) },
 	["<leader>ar"] = { "<cmd>Aider add readonly<cr>", h.setOpts({ desc = "Add Read-Only" }) },
 	["<leader>aR"] = { "<cmd>Aider reset<cr>", h.setOpts({ desc = "Reset Session" }) },
 	["<leader>at"] = { h.toggleAiderModels, h.setOpts({ desc = "Writing Models" }) },
+	--
+	-- blink completions
+	["<leader>ac"] = { h.toggleCopilot, h.setOpts({ desc = " Toggle Copilot" }) },
+	-- spelling
+	["<leader>s"] = { "󰓆 Spelling" },
+	["<leader>st"] = {
+		function()
+			if not vim.wo.spell then
+				vim.wo.spell = true
+				return
+			end
+			vim.wo.spell = not vim.wo.spell
+		end,
+		{ desc = "Toggle Spell" },
+	},
+	["<leader>ss"] = {
+		function()
+			vim.cmd("norm! 1z=")
+		end,
+		h.setOpts({ desc = "Correct Word" }),
+	},
+	["<leader>sa"] = {
+		function()
+			vim.cmd("norm! zg")
+		end,
+		h.setOpts({ desc = "Add Word to Spellfile" }),
+	},
+	["<leader>sr"] = {
+		function()
+			vim.cmd("norm! zug")
+		end,
+		h.setOpts({ desc = "Remove Word from Spellfile" }),
+	},
+	["<leader>sb"] = {
+		function()
+			local word = vim.fn.expand("<cWORD>")
+			vim.cmd("spellwrong! " .. word)
+		end,
+		h.setOpts({ desc = "Mark Word as Bad Spelling" }),
+	},
+	["<leader>sg"] = {
+		function()
+			local word = vim.fn.expand("<cWORD>")
+			vim.cmd("spellgood! " .. word)
+		end,
+		h.setOpts({ desc = "Mark Word as Good Spelling" }),
+	},
+	["<leader>sm"] = {
+		function()
+			vim.cmd("mkspell! %")
+		end,
+		h.setOpts({ desc = "Compile Binary Spellfile" }),
+	},
+	-- boole. setup manually cuz plugin config fails me
+	["<C-a>"] = { "<cmd>Boole increment<cr>", h.setOpts({ desc = "ignore" }) },
+	["<C-x>"] = { "<cmd>Boole decrement<cr>", h.setOpts({ desc = "ignore" }) },
 }
 
 return M

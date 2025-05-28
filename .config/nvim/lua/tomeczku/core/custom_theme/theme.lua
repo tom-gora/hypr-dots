@@ -42,12 +42,12 @@ theme.set_highlights = function()
 	hl(0, "Folded", { fg = b46.base03, bg = b46.base01 })
 	hl(0, "FoldColumn", { fg = b46.base0C, bg = b46.base01 })
 	hl(0, "LineNr", { fg = b46.grey, bg = "NONE" })
-	hl(0, "FloatBorder", { fg = b46.moon_teal, bg = "NONE" })
+	hl(0, "FloatBorder", { fg = b46.moon_teal, bg = mod.low_dark_base_bg() })
 	hl(0, "VertSplit", { fg = b46.line, bg = "NONE" })
 	hl(0, "CursorLine", { fg = "NONE", bg = b46.lighter_black })
 	hl(0, "CursorColumn", { fg = "NONE", bg = b46.black2 })
 	hl(0, "ColorColumn", { fg = "NONE", bg = b46.black2 })
-	hl(0, "NormalFloat", { fg = "NONE", bg = "NONE" })
+	hl(0, "NormalFloat", { fg = "NONE", bg = mod.low_dark_base_bg() })
 	hl(0, "Visual", { fg = "NONE", bg = b46.base02 })
 	hl(0, "VisualNOS", { fg = b46.base08, bg = "NONE" })
 	hl(0, "WarningMsg", { fg = b46.base08, bg = "NONE" })
@@ -63,7 +63,7 @@ theme.set_highlights = function()
 	hl(0, "Conceal", { fg = "NONE", bg = "NONE" })
 	hl(0, "Directory", { fg = b46.base0D, bg = "NONE" })
 	hl(0, "SpecialKey", { fg = b46.base03, bg = "NONE" })
-	hl(0, "Title", { fg = b46.base0D, bg = "NONE", sp = "NONE" })
+	hl(0, "Title", { fg = b46.base0D, bg = mod.low_dark_base_bg(), sp = "NONE" })
 	hl(0, "ErrorMsg", { fg = b46.base08, bg = b46.base00 })
 	hl(0, "Search", { fg = b46.base01, bg = b46.base0A })
 	hl(0, "IncSearch", { fg = b46.base01, bg = b46.base09 })
@@ -231,14 +231,17 @@ theme.set_highlights = function()
 	hl(0, "LspReferenceWrite", { fg = "NONE", bg = "#2e303b" })
 	hl(0, "LspCodeLens", { fg = b46.base04, bg = "NONE", italic = true })
 	hl(0, "LspCodeLensSeparator", { fg = b46.base04, bg = "NONE", italic = true })
-	-- Buffer
-	hl(0, "BufferCurrentTarget", { fg = b46.red, bg = b46.base00, bold = true })
-	hl(0, "BufferVisibleTarget", { fg = b46.red, bg = b46.base00, bold = true })
-	hl(0, "BufferInactive", { fg = b46.grey, bg = "NONE" })
-	hl(0, "BufferInactiveIndex", { fg = b46.grey, bg = "NONE" })
-	hl(0, "BufferInactiveMod", { fg = b46.sun, bg = "NONE" })
-	hl(0, "BufferInactiveSign", { fg = b46.grey, bg = "NONE" })
-	hl(0, "BufferInactiveTarget", { fg = b46.red, bg = "NONE", bold = true })
+	-- Simplify noti borders:
+	local snacks_noti_border_hls = {
+		"SnacksNotifierBorderDebug",
+		"SnacksNotifierBorderTrace",
+		"SnacksNotifierBorderInfo",
+		"SnacksNotifierBorderWarn",
+		"SnacksNotifierBorderError",
+	}
+	for _, key in ipairs(snacks_noti_border_hls) do
+		hl(0, key, { fg = mod.low_dark_base_bg(), bg = mod.low_dark_base_bg(), force = true })
+	end
 	-- Cmp
 	hl(0, "CmpItemAbbrDeprecated", { fg = b46.grey, bg = "NONE", strikethrough = true })
 	hl(0, "CmpItemAbbrMatch", { fg = b46.blue, bg = "NONE" })
@@ -284,17 +287,6 @@ theme.set_highlights = function()
 	-- ██║░░██║██║╚██████╔╝██║░░██║███████╗██║╚██████╔╝██║░░██║░░░██║░░░██████╔╝
 	-- ╚═╝░░╚═╝╚═╝░╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░
 	--
-	-- barbar colors
-	hl(0, "BufferCurrentSignRight", { bg = "NONE", fg = mod.winbar_accent_primary() })
-	hl(0, "BufferCurrentSign", { bg = "NONE", fg = mod.winbar_accent_primary() })
-	hl(0, "BufferCurrent", { bg = mod.winbar_accent_primary(), bold = true })
-	hl(0, "BufferCurrentIndex", { bg = mod.winbar_accent_primary(), bold = true })
-	hl(0, "BufferCurrentMod", { fg = mod.muted_err_bg(), bg = mod.winbar_accent_primary() })
-	hl(0, "BufferVisible", { fg = mod.dark_base_bg(), bg = mod.muted_light_bg(), bold = true })
-	hl(0, "BufferVisibleMod", { fg = h.darken(mod.alt_err_bg(), 0.7), bg = mod.muted_light_bg() })
-	hl(0, "BufferVisibleSign", { bg = "NONE", fg = mod.muted_light_bg() })
-	hl(0, "BufferVisibleIndex", { fg = mod.dark_base_bg(), bg = mod.muted_light_bg(), bold = true })
-	hl(0, "BufferTabpageFill", { link = "none", bg = "none", force = true })
 	-- no lazy background
 	hl(0, "LazyBackdrop", { bg = "NONE", force = true })
 	-- costom rainbow-delimiters colors (base rose-pine with bumped up saturation)
@@ -396,6 +388,10 @@ theme.set_highlights = function()
 	hl(0, "St_sep_r", { fg = mod.path_bg() })
 	hl(0, "St_macro_sep", { fg = mod.path_bg(), bg = "none" })
 	hl(0, "St_macro_reg", { bg = mod.path_bg(), fg = h.get_color("ErrorMsg", "fg") })
+	hl(0, "St_AI_Disabled", { bg = h.get_color("Comment", "fg"), fg = mod.base_bg(), force = true })
+	hl(0, "St_AI_Cmp_Enabled", { bg = h.get_color("Function", "fg"), fg = mod.base_bg(), force = true })
+	hl(0, "St_AI_Chat_Enabled", { bg = h.get_color("Function", "fg"), fg = mod.base_bg(), force = true })
+
 	-- snacks indentation guides
 	hl(0, "SnacksIndent", { link = "VertSplit", force = true })
 	hl(0, "SnacksIndentScope", { fg = mod.indent_lines(), force = true })
@@ -415,9 +411,9 @@ theme.set_highlights = function()
 	hl(0, "LineNrAbove", { link = "MyLineNrAbove", force = true })
 	hl(0, "LineNrBelow", { link = "MyLineNrBelow", force = true })
 	-- recolor WinSeparator
-	hl(0, "WinSeparator", { link = "String", force = true })
+	hl(0, "WinSeparator", { fg = mod.dark_base_bg(), bg = "none", force = true })
 	-- blink
-	hl(0, "BlinkCmpMenu", { bg = mod.base_bg(), force = true })
+	hl(0, "BlinkCmpMenu", { bg = mod.low_dark_base_bg(), force = true })
 	hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder", force = true })
 	hl(0, "BlinkCmpDoc", { bg = mod.low_dark_base_bg(), force = true })
 	hl(0, "BlinkCmpGhostText", { fg = mod.low_dark_base_bg(), force = true })

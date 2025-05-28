@@ -15,20 +15,55 @@ local function stripMarkdown(lines)
 	end
 
 	local stripped_lines = {}
+	local inside_frontmatter = { false, "" }
 	local inside_diagram_block = false
+	local is_first_non_empty_line = false
+	local first_line_handled = false
 
-	for _, line in ipairs(lines) do
+	for i, line in ipairs(lines) do
 		-- Normalize newlines
 		line = string.gsub(line, "[\r\n]", " ")
 
-		if inside_diagram_block then
-			if string.match(line, "^```") then
-				inside_diagram_block = false -- end of diagram block
+		if not first_line_handled then
+			if line:match("^%s*$") then
+				goto continue
+			else
+				is_first_non_empty_line = true
 			end
-			-- skip all lines inside diagram block
+		end
+
+		if is_first_non_empty_line == true then
+			if line:match("^---") then
+				inside_frontmatter = { true, "yaml" }
+				is_first_non_empty_line = false
+				first_line_handled = true
+				goto continue
+			elseif line:match("^+++") then
+				inside_frontmatter = { true, "toml" }
+				is_first_non_empty_line = false
+				first_line_handled = true
+				goto continue
+			end
+		end
+
+		if inside_frontmatter[1] == true and inside_frontmatter[2] == "yaml" then
+			if string.match(line, "^---") then
+				inside_frontmatter = { false, "" }
+			end
+			goto continue
+		elseif inside_frontmatter[1] == true and inside_frontmatter[2] == "toml" then
+			if string.match(line, "^+++") then
+				inside_frontmatter = { false, "" }
+			end
 			goto continue
 		end
 
+		if inside_diagram_block then
+			if string.match(line, "^```") then
+				inside_diagram_block = false
+			end
+			goto continue
+		end
 		-- Start of a code block
 		if string.match(line, "^```") then
 			if string.match(line, "mermaid") or string.match(line, "plantuml") then
@@ -90,7 +125,7 @@ local function calcWordCount(bufnr)
 		return
 	end
 
-	-- futher check if not markdown buf
+	-- further check if not markdown buf
 	if api.nvim_get_option_value("filetype", { buf = bufnr }) ~= "markdown" then
 		vim.b[bufnr].markdown_word_count = nil
 		return
@@ -104,7 +139,7 @@ local function calcWordCount(bufnr)
 	local word_count = 0
 	for word in string.gmatch(text, "%S+") do
 		if word ~= "" then
-			-- strip apostrophes as those add unwanted count inconsistend
+			-- strip apostrophes as those add unwanted count inconsistent
 			-- with standard counters like in MS Word on popular online solutions
 			word = string.gsub(word, "'s", "")
 			if string.match(word, "%w") then
@@ -165,7 +200,7 @@ local function attachBuf(bufnr)
 		end,
 	})
 
-	-- cleanup autocmd
+	-- clean-up autocmd
 	api.nvim_create_autocmd({ "BufLeave", "BufDelete" }, {
 		group = augroup,
 		buffer = bufnr,

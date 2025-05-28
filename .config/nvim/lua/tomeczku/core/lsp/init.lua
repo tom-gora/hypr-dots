@@ -8,6 +8,11 @@ local configs = require("tomeczku.core.lsp.configs")
 ls.autoMasonInstall()
 
 on_attach = function(client, bufnr)
+	-- override the full names to aliases to make it work where
+	-- nvim-lspconfig names are expected
+	if client.name == "tailwindcss-language-server" then
+		client.name = "tailwindcss"
+	end
 	-- disable semanticTokens
 	if client.supports_method("textDocument/semanticTokens") then
 		client.server_capabilities.semanticTokensProvider = nil
@@ -49,7 +54,7 @@ M.setup = function()
 		local lsp_spec = require("mason-registry").get_package(lsp).spec
 		if lsp_spec.categories[1] == "LSP" then
 			-- bring in customized setup functions conditionally
-			if lsp == "lua-language-server" then
+			if lsp == "emmylua_ls" then
 				configs.lua_setup(capabilities, on_attach, lsp)
 			elseif lsp == "bash-language-server" then
 				configs.bash_setup(capabilities, on_attach, lsp)
@@ -59,6 +64,8 @@ M.setup = function()
 				configs.astro_setup(capabilities, on_attach, lsp)
 			elseif lsp == "phpactor" then
 				configs.phpactor_setup(capabilities, on_attach, lsp)
+			elseif lsp == "css-variables-language-server" then
+				configs.css_variables_setup(capabilities, on_attach, lsp)
 			elseif lsp == "tailwindcss-language-server" then
 				configs.tailwind_setup(capabilities, on_attach, lsp)
 			elseif lsp == "typescript-language-server" or lsp == "ts_ls" then
@@ -76,10 +83,10 @@ M.setup = function()
 				configs.yaml_setup(capabilities, on_attach, lsp)
 			elseif lsp == "css-lsp" then
 				configs.css_setup(capabilities, on_attach, lsp)
-			elseif lsp == "harper-ls" then
-				configs.harper_setup(capabilities, on_attach, lsp)
 			elseif lsp == "docker-compose-language-service" then
 				configs.dockerComposeSetup(capabilities, on_attach, lsp)
+			elseif lsp == "harper-ls" then
+				configs.harper_setup(capabilities, on_attach, lsp)
 			else
 				-- generic setup
 				local bin_key, languages_to_ft = nil, {}

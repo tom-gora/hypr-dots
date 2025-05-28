@@ -2,7 +2,20 @@ if vim.g.vscode then
 	return
 end
 
-local M, opts
+local M, opts, init_function
+
+init_function = function()
+	-- override the lsp names because folke might never come back from this vacation XD
+	local supported_lua_lsps = { "lua_ls", "lua-language-server", "emmylua_ls" }
+	---@diagnostic disable-next-line: undefined-doc-name
+	---@param client vim.lsp.Client
+	local function _supports_override(client)
+		---@diagnostic disable-next-line: undefined-field
+		return client and vim.tbl_contains(supported_lua_lsps, client.name)
+	end
+	require("lazydev.lsp").supports = _supports_override
+	vim.g.lazydev_enabled = true
+end
 
 opts = {
 	runtime = vim.env.VIMRUNTIME,
@@ -14,6 +27,7 @@ opts = {
 	},
 	integrations = {
 		lspconfig = false,
+		coc = false,
 		cmp = false,
 		blink = true,
 	},
@@ -25,11 +39,9 @@ opts = {
 M = {
 	{
 		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
+		ft = "lua",
 		opts = opts,
-		init = function()
-			vim.g.lazydev_enabled = true
-		end,
+		init = init_function,
 	},
 }
 

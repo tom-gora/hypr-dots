@@ -1,5 +1,5 @@
 -- code lifted and modified per my needs from nvchad's "minimal" implementation. Skips all other themes and fluff
--- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
+-- I don't like NvChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 --
 local M = {}
 -- bring my utils in
@@ -52,7 +52,7 @@ local modes = {
 -- integrated module combining mode indicator and file name/path
 -- if path is longer than 40 chars it will get truncated in the style
 -- of the fish shell
--- also on splits at least half the screen only file name will be displayed
+-- also on splits at least half the screen only the filename will be displayed
 -- next to the root directory
 
 ---@return string
@@ -60,28 +60,33 @@ M.mode_plus_path = function()
 	if not utils.is_activewin() then
 		return ""
 	end
-	-- tweak normal mode ( nvim logo is a fallback so no need to declare all)
-	modes["n"][3] = "N"
+	-- tweak normal mode
+	modes["n"][3] = ""
 	-- tweak visual modes
-	modes["v"][3] = "V"
-	modes["Vs"][3] = "VL"
-	modes["V"][3] = "VL"
-	modes[""][3] = "VB"
+	modes["v"][3] = "󰬝"
+	modes["Vs"][3] = "󰬝"
+	modes["V"][3] = "󰬝"
+	modes[""][3] = "󰬝"
 	-- tweak insert modes
-	modes["i"][3] = "I"
-	modes["ic"][3] = "I"
-	modes["ix"][3] = "I"
+	modes["i"][3] = "󰬐"
+	modes["ic"][3] = "󰬐"
+	modes["ix"][3] = "󰬐"
 	-- tweak terminal mode
-	modes["t"][3] = '%{&ft == "toggleterm" ? "  [".b:toggle_number."]" : ""}'
-	modes["nt"][3] = '%#St_NTerminalModeCustomTxt#%{&ft == "toggleterm" ? "  [".b:toggle_number."]" : ""}'
+	modes["t"][3] = '%{&ft == "snacks_terminal" ? "  " : ""}'
+	modes["nt"][3] = '%#St_NTerminalModeCustomTxt#%{&ft == "snacks_terminal" ? "  " : ""}'
+
+	local is_modified = function()
+		return vim.bo.modified and " " or ""
+	end
+
 	local root_sep = ""
-	local path_end_sep = ""
+	local path_end_sep = " "
 	local path_components = utils.path_formatter(root_sep, path_end_sep)
 	local m = vim.api.nvim_get_mode().mode
 	local component_string = "%#"
 		.. modes[m][2]
 		.. "#"
-		.. " "
+		.. "█"
 		.. "%#"
 		.. modes[m][2]
 		.. "CustomTxt"
@@ -99,9 +104,9 @@ M.mode_plus_path = function()
 		.. "Text#"
 		.. " "
 		.. path_components["path"]
-		.. "%#St_sep_r#"
+		.. is_modified()
 		.. path_components["path_end_sep"]
-		.. "%#St_EmptySpace#  "
+		.. "%#St_EmptySpace#"
 	return component_string
 end
 
@@ -117,10 +122,16 @@ M.git = function()
 
 	local git_status = vim.b[utils.stbufnr()].gitsigns_status_dict
 
-	local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
-	local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed) or ""
-	local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed) or ""
-	local branch_name = " " .. git_status.head
+	local added = (git_status.added and git_status.added ~= 0)
+			and (" 󰐖 " .. utils.intToSuperscript(git_status.added))
+		or ""
+	local changed = (git_status.changed and git_status.changed ~= 0)
+			and (" 󱊩 " .. utils.intToSuperscript(git_status.changed))
+		or ""
+	local removed = (git_status.removed and git_status.removed ~= 0)
+			and (" 󰍵 " .. utils.intToSuperscript(git_status.removed))
+		or ""
+	local branch_name = "  " .. git_status.head
 
 	local width = vim.api.nvim_win_get_width(0)
 	if width < 62 then
@@ -140,9 +151,8 @@ M.macro_indicator = function()
 	if recording_register == "" then
 		return ""
 	else
-		return "%#St_macro_sep#%#St_macro_reg# " .. recording_register .. "%#St_macro_sep#%#St_EmptySpace#  "
+		return "%#St_macro_reg#  " .. recording_register .. " %#St_EmptySpace#"
 	end
-	-- return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
 end
 
 ---@return string
@@ -163,17 +173,17 @@ M.lsp_diags = function()
 	local total = errors + warnings + hints + info
 	local width = vim.api.nvim_win_get_width(0)
 	if width < 56 and total > 0 then
-		return ""
+		return " 󰀧 "
 	end
 
 	if total == 0 then
-		return "   "
+		return " 󰺦 "
 	end
 
-	local e = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
-	local w = (warnings and warnings > 0) and ("%#St_lspWarning#" .. " " .. warnings .. " ") or ""
-	local h = (hints and hints > 0) and ("%#St_lspHints#" .. " " .. hints .. " ") or ""
-	local i = (info and info > 0) and ("%#St_lspInfo#" .. " " .. info .. " ") or ""
+	local e = (errors and errors > 0) and ("%#St_lspError#" .. utils.intToSuperscript(errors) .. " ") or ""
+	local w = (warnings and warnings > 0) and ("%#St_lspWarning#" .. utils.intToSuperscript(warnings) .. " ") or ""
+	local h = (hints and hints > 0) and ("%#St_lspHints#" .. utils.intToSuperscript(hints) .. " ") or ""
+	local i = (info and info > 0) and ("%#St_lspInfo#" .. utils.intToSuperscript(info) .. " ") or ""
 
 	return " " .. e .. w .. h .. i
 end
@@ -197,14 +207,8 @@ M.lsp_status = function()
 	end
 	--
 	if lsp_string and lsp_string ~= "" then
-		return (
-			vim.o.columns > 86
-			and "%#St_ConfirmMode#"
-				.. "%#St_ConfirmModeCustomTxt#"
-				.. lsp_string.icon
-				.. lsp_string.name
-				.. "%#St_ConfirmMode#"
-		) or "%#St_ConfirmMode# "
+		return (vim.o.columns > 86 and "%#St_ConfirmModeCustomTxt# " .. lsp_string.icon .. lsp_string.name)
+			or "%#St_ConfirmMode#   "
 	end
 	-- just draw nothing if no lsp client or err out with nil values for string
 	return ""
@@ -223,23 +227,44 @@ M.cursor_pos = function()
 	-- added padding function to make the module less "jumpy" in terms of width while navigating buffers
 	-- now the only realistic "width jump" will appear when exceeding 99 lines position (or I guess 999)
 	-- result is much less jarring
-	local line_col = string.format("%2d/%-2d", vim.fn.line("."), vim.fn.col("."))
-	return "%#St_Pos_sep#"
-		.. ""
-		.. "%#St_Pos_bg#"
-		.. ""
-		.. "%#St_Pos_bg# "
-		.. line_col
-		.. "%#St_Pos_sep#"
-		.. ""
+	local line_col = string.format("%2d⏽%-2d", vim.fn.line("."), vim.fn.col("."))
+	return "%#St_Pos_bg# " .. line_col .. " "
+end
+
+M.opened_buf_count = function()
+	local bufs = vim.tbl_filter(function(bufnr)
+		return vim.api.nvim_buf_get_option(bufnr, "buflisted")
+	end, vim.api.nvim_list_bufs())
+	if #bufs <= 1 then
+		return ""
+	elseif #bufs >= 3 and #bufs < 6 then
+		return "%#Boolean# ⁺" .. utils.intToSuperscript(#bufs - 1)
+	elseif #bufs >= 6 then
+		return "%#ErrorMsg# ⁺" .. utils.intToSuperscript(#bufs - 1)
+	end
+	return "%#DiffAdd# ⁺" .. utils.intToSuperscript(#bufs - 1)
 end
 
 ---@return string
 M.ai_status = function()
-	if vim.g.SUPERMAVEN_DISABLED == 1 then
-		return "%#Comment#   "
+	local ai_completions = "%#St_AI_Disabled#  "
+	local aider = "%#St_AI_Disabled#▏󰭲 "
+	if _G.COPILOT_ENABLED and _G.COPILOT_ENABLED == true then
+		ai_completions = "%#St_AI_Cmp_Enabled#  "
 	end
-	return "%#RainbowDelimiterViolet#   "
+	if _G.AIDER_RUNNING and (not _G.AIDER_WRITING or _G.AIDER_WRITING == false) then
+		aider = "%#St_AI_Chat_Enabled#▏󰅴 "
+	elseif _G.AIDER_RUNNING and (_G.AIDER_WRITING and _G.AIDER_WRITING == true) then
+		aider = "%#St_AI_Chat_Enabled#▏󰛓 "
+	end
+	return ai_completions .. aider
+end
+
+M.spelling_status = function()
+	if utils.is_narrow_split() or not vim.wo.spell or vim.wo.spell == false then
+		return ""
+	end
+	return "%#St_file_bg# " .. vim.o.spelllang .. " "
 end
 
 --- @return string
@@ -257,11 +282,11 @@ M.markdown_wordcounter = function()
 		result_text = " ERR "
 	elseif count == -1 then
 		-- "loading state"
-		result_text = " Counting ..."
+		result_text = " ..."
 	else
-		result_text = " Words:" .. tostring(count)
+		result_text = "#" .. tostring(count) .. " "
 	end
-	return "%#St_SelectMode#" .. "" .. "%#St_SelectModeCustomTxt#" .. result_text .. "%#St_SelectMode#" .. " "
+	return "%#St_SelectModeCustomTxt# " .. result_text .. " "
 end
 
 return M

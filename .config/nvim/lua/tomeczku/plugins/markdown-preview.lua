@@ -16,12 +16,11 @@ end
 M = {
 	{
 		-- clone from my backup fork of fixed package that wasn't merged
-		-- attribution for fix: Knyffen/markdown-preview.nvim
+		-- attribution for fixes: Knyffen/markdown-preview.nvim
 		-- "Knyffen/markdown-preview.nvim",
 		"tom-gora/markdown-preview.nvim",
 		cond = vim.g.vscode == nil,
-		commit = "6891d41",
-		lazy = false,
+		lazy = true,
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		build = "cd app && npm i",
 		init = init_function,

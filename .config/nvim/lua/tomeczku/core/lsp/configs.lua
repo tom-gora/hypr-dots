@@ -25,7 +25,7 @@ M.lua_setup = function(capabilities, on_attach, name)
 					"lua/?/init.lua",
 				},
 				diagnostics = {
-					globals = { "vim", "vim.g" },
+					globals = { "vim", "vim.g", "Snacks", "_G" },
 				},
 			},
 			-- Make the server aware of Neovim runtime files
@@ -104,7 +104,7 @@ M.astro_setup = function(capabilities, on_attach, name)
 		},
 		---@class lsp.LSPObject.typescript
 		before_init = function(_, config)
-			if config.init_options and config.init_options.typescript and not config.init_options.typescript.tsdk then
+			if config.init_options and not config.init_options.typescript.tsdk then
 				config.init_options.typescript.tsdk = get_typescript_server_path(config.root_dir)
 			end
 		end,
@@ -126,11 +126,88 @@ end
 
 M.tailwind_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
-		cmd = { name },
+		cmd = { name, "--stdio" },
+		before_init = function(_, config)
+			if not config.settings then
+				config.settings = {}
+			end
+			if not config.settings.editor then
+				config.settings.editor = {}
+			end
+			if not config.settings.editor.tabSize then
+				config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop()
+			end
+		end,
+		workspace_required = true,
 		-- Same, but explicitly get all supported types using the plugin helper
 		filetypes = require("tailwind-tools.filetypes").get_all(),
 		capabilities = capabilities,
 		on_attach = on_attach,
+		root_markers = {
+			"tailwind.config.js",
+			"tailwind.config.cjs",
+			"tailwind.config.mjs",
+			"tailwind.config.ts",
+			"postcss.config.js",
+			"postcss.config.cjs",
+			"postcss.config.mjs",
+			"postcss.config.ts",
+		},
+		settings = {
+			tailwindCSS = {
+				validate = true,
+				lint = {
+					cssConflict = "warning",
+					invalidApply = "error",
+					invalidScreen = "error",
+					invalidVariant = "error",
+					invalidConfigPath = "error",
+					invalidTailwindDirective = "error",
+					recommendedVariantOrder = "warning",
+				},
+				classAttributes = {
+					"class",
+					"className",
+					"class:list",
+					"classList",
+					"ngClass",
+				},
+				includeLanguages = {
+					eelixir = "html-eex",
+					eruby = "erb",
+					templ = "html",
+					htmlangular = "html",
+				},
+			},
+		},
+	}
+	vim.lsp.enable(name)
+end
+
+M.css_variables_setup = function(capabilities, on_attach, name)
+	vim.lsp.config[name] = {
+		cmd = { name, "--stdio" },
+		filetypes = { "css", "scss", "less" },
+		root_markers = { "package.json", ".git" },
+		settings = {
+			cssVariables = {
+				blacklistFolders = {
+					"**/.cache",
+					"**/.DS_Store",
+					"**/.git",
+					"**/.hg",
+					"**/.next",
+					"**/.svn",
+					"**/bower_components",
+					"**/CVS",
+					"**/dist",
+					"**/node_modules",
+					"**/tests",
+					"**/tmp",
+				},
+				lookupFiles = { "**/*.less", "**/*.scss", "**/*.sass", "**/*.css" },
+			},
+		},
 	}
 	vim.lsp.enable(name)
 end
@@ -263,8 +340,11 @@ M.css_setup = function(capabilities, on_attach, name)
 		capabilities = c,
 		on_attach = on_attach,
 		filetypes = { "css", "scss", "less" },
-		provideFormatter = true,
+		init_options = {
+			provideFormatter = true,
+		},
 		single_file_support = true,
+		root_markers = { "package.json", ".git" },
 		settings = {
 			css = {
 				validate = true,

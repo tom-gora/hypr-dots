@@ -3,63 +3,16 @@ if vim.g.vscode then
 end
 
 local M, opts
+local required = require("tomeczku.core.language_support").mason_required_packages
 
 opts = {
 	ui = {
-		border = "rounded",
+		border = "solid",
 		height = 0.8,
 		width = 0.7,
 	},
 	automatic_installation = true,
-	ensure_installed = {
-		-- lua stuff "lua_ls",
-		"stylua",
-		"luacheck",
-
-		-- web dev stuff
-		"emmet_language_server",
-		"cssls",
-		"html",
-		"jsonls",
-		"ts_ls",
-		"prettier",
-		"prettierd",
-		"tailwindcss",
-		"astro",
-		-- "stimulus-language-server",
-
-		--shell
-		"bashls",
-		"shfmt",
-
-		-- OTHER
-		-- poor mans java ls
-		-- "jdtls",
-		-- and a formatter
-		-- "google-java-format",
-		-- c#
-		-- "csharp-language-server", -- damn wont do, schoo requires older .net
-		"omnisharp",
-		-- xml stuff
-		"lemminx",
-		"xmlformatter",
-		-- hyprland configurations ls
-		"hyprls",
-		--go stuff
-		"gopls",
-		"gofumpt",
-		--yaml
-		"yamlls",
-		"docker_compose_language_service",
-
-		--
-		-- LINTERS
-		"htmlhint",
-		"revive",
-		"shellcheck",
-		"eslint_d",
-		"blade-formatter",
-	},
+	ensure_installed = required,
 }
 
 M = {

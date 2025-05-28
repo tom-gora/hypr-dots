@@ -4,35 +4,82 @@ end
 
 local M
 
-local dependencies = {
+local copilot_config = function()
+	local opts = {
+		-- disable everything, copilot only to serve as cmp provider for blink
+		suggestion = { enabled = false },
+		panel = { enabled = false },
+		auto_trigger = false,
+		-- since not using traditional virtual text disable default maps
+		-- blink handles suggesion section
+		keymap = {
+			jump_prev = false,
+			jump_next = false,
+			accept = false,
+			refresh = false,
+			open = false,
+		},
+		filetypes = {
+			oil = false,
+			qf = false,
+			markdown = false,
+			help = false,
+			snacks_terminal = false,
+			-- never enable in env files
+			sh = function()
+				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
+					return false
+				end
+				return true
+			end,
+		},
+		-- never attach to env files
+		should_attach = function(_, bufname)
+			if string.match(bufname, "env") then
+				return false
+			end
+			return true
+		end,
+	}
+	local ok, _ = pcall(require("copilot").setup, opts)
+	-- if initialized ok disable by default
+	if ok then
+		require("copilot.command").disable()
+		_G.COPILOT_ENABLED = false
+		-- HACK: use snacks to hide the annoying copilot info popup right away
+		vim.defer_fn(function()
+			require("snacks.notifier").hide()
+		end, 100)
+	end
+end
+
+local copilot_source_opts = {
+	max_completions = 3,
+	max_attempts = 4,
+	kind_name = "Copilot",
+	kind_icon = " ",
+	kind_hl = "RainbowDelimiterBlue",
+	debounce = 300,
+	auto_refresh = {
+		-- disable auto refresh to reduce traffic, only blink requests new completions
+		-- rather than requesting on each cursor move
+		backward = false,
+		forward = false,
+	},
+}
+
+local blink_dependencies = {
 	"rafamadriz/friendly-snippets",
 	"luckasRanarison/tailwind-tools.nvim",
 	{
-		"supermaven-inc/supermaven-nvim",
-		lazy = true,
-		config = function()
-			require("supermaven-nvim").setup({
-				condition = function()
-					if vim.g.SUPERMAVEN_DISABLED == 1 then
-						return false
-					end
-					return true
-				end,
-				-- ignore_filetypes = { cpp = true }, -- or { "cpp", }
-				log_level = "off",
-				-- disable inline ai as I prefer using cmp suggestions
-				disable_inline_completion = true,
-				disable_keymaps = true,
-			})
-			-- HACK: use snacks to suppress the annoying popup about missing nvim-cmp
-			-- there is none, as blink is in use
-			require("snacks.notifier").hide()
-		end,
-	},
-	{
-		"huijiro/blink-cmp-supermaven",
-		lazy = true,
-		dependencies = { "supermaven-inc/supermaven-nvim" },
+		"fang2hou/blink-copilot",
+		dependencies = {
+			"zbirenbaum/copilot.lua",
+			cmd = "Copilot",
+			build = ":Copilot auth",
+			config = copilot_config,
+		},
+		opts = copilot_source_opts,
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -43,6 +90,8 @@ local dependencies = {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 		},
+		-- TODO: setup proper easy pipeline to load snippets,
+		-- ideally where snippets files can be just dumped into location and blink will work with those
 		config = function()
 			local ls = require("luasnip")
 			local vsc = require("luasnip.loaders.from_vscode")
@@ -51,16 +100,11 @@ local dependencies = {
 		end,
 	},
 	"jdrupal-dev/css-vars.nvim",
-	-- {
-	-- 	"saghen/blink.compat",
-	-- 	version = "*",
-	-- 	lazy = false,
-	-- },
 }
 
-local opts = {
+local blink_opts = {
 	enabled = function()
-		return not vim.tbl_contains({ "qf", "oil" }, vim.bo.filetype)
+		return not vim.tbl_contains({ "qf", "oil", "snacks_terminal" }, vim.bo.filetype)
 			and vim.bo.buftype ~= "prompt"
 			and vim.b.completion ~= false
 	end,
@@ -90,12 +134,14 @@ local opts = {
 			auto_show = true,
 			auto_show_delay_ms = 1000,
 			window = {
-				border = "rounded",
+				winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+				border = "solid",
 				scrollbar = false,
 			},
 		},
 		menu = {
-			border = "rounded",
+			border = "solid",
+			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
 			min_width = 18,
 			max_height = 12,
 			scrollbar = false,
@@ -116,12 +162,12 @@ local opts = {
 			},
 		},
 	},
-	signature = { window = { border = "rounded" } },
+	signature = { window = { border = "solid" } },
 	snippets = { preset = "luasnip" },
 	sources = {
-		default = { "lazydev", "lsp", "path", "snippets", "buffer", "supermaven", "omni", "css_vars" },
+		default = { "lazydev", "lsp", "path", "snippets", "buffer", "omni", "css_vars", "copilot" },
 		providers = {
-			lsp = { min_keyword_length = 1 },
+			lsp = { min_keyword_length = 1, opts = { tailwind_color_icon = "" } },
 			buffer = { min_keyword_length = 2 },
 			omni = { min_keyword_length = 3 },
 			snippets = { min_keyword_length = 2 },
@@ -137,24 +183,15 @@ local opts = {
 			lazydev = {
 				name = "LazyDev",
 				module = "lazydev.integrations.blink",
-				-- make lazydev completions top priority (see `:h blink.cmp`)
 				score_offset = 100,
 			},
-			supermaven = {
-				enabled = true,
-				name = "supermaven",
-				module = "blink-cmp-supermaven",
+			copilot = {
+				name = "copilot",
+				module = "blink-copilot",
+				score_offset = 50,
 				async = true,
-				transform_items = function(_, items)
-					for _, item in ipairs(items) do
-						item.kind_icon = ""
-						item.kind_name = "Supermaven"
-					end
-					return items
-				end,
 			},
 			css_vars = {
-
 				name = "css-vars",
 				module = "css-vars.blink",
 				min_keyword_length = 2,
@@ -176,9 +213,9 @@ M = {
 	cond = vim.g.vscode == nil,
 	version = "1.*",
 	event = "InsertEnter",
-	dependencies = dependencies,
+	dependencies = blink_dependencies,
 	build = "cargo build --release",
-	opts = opts,
+	opts = blink_opts,
 }
 
 return M

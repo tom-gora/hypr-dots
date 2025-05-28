@@ -8,8 +8,8 @@ vim.schedule(function()
 	if tostring(st.cmd[1]) == "lazygit" then
 		vim.b.lazygit = true
 		vim.api.nvim_win_set_config(vim.api.nvim_get_current_win(), {
-			border = "rounded",
-			title_pos = "left",
+			border = "solid",
+			title_pos = "right",
 			title = " 󰊢 LazyGit ",
 		})
 		return
