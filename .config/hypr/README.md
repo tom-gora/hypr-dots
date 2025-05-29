@@ -45,6 +45,8 @@ This configuration includes several Rofi scripts that provide pickers for some q
 
 (Config avalable here: [LINK](https://github.com/tom-gora/hypr-dots/tree/main/.config/wlogout))
 
+https://github.com/user-attachments/assets/0521b06c-9c7d-46e4-94c8-f9eddcd83351
+
 ## IMPORTANT
 
 This is very much not a distribution or a comprehensive setup. There is noo claim anything will work on a system other than mine. It started waaaaay back from JaKooLit's [LINK](https://github.com/JaKooLit/Fedora-Hyprland) dots as a base but significantly evolved away from this base and it is just my personal config that I maintain for myself. Feel free to get inspired but I do not recommend trying to comprehensively apply any of the dots willy-nilly, as those are very much specific to my machine.
