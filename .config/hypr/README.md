@@ -57,7 +57,7 @@ Hyprland's submap feature (define a binding that acts as a leader for second lay
 
 ## IMPORTANT
 
-This is very much not a distribution or a comprehensive setup. There is no claim anything will work on a system other than mine. It started waaaaay back from JaKooLit's [LINK](https://github.com/JaKooLit/Fedora-Hyprland) dots as a base but significantly evolved away from this base and it is just my personal config that I maintain for myself. Feel free to get inspired but I do not recommend trying to comprehensively apply any of the dots willy-nilly, as those are very much specific to my machine.
+This is very much not a distribution or a comprehensive setup. There is no claim anything will work on a system other than mine. It started waaaaay back from JaKooLit's dots [LINK](https://github.com/JaKooLit/Fedora-Hyprland) as a base but significantly evolved away from this base. The aim was to make it look, feel, and work nice for me and learn about the environment as I strip away provided fluff. It is just my personal config that I maintain for myself, however, feel free to get inspired or grab code. Remember, I do not recommend trying to comprehensively apply any of the dots willy-nilly, as those are very much specific to my machine with my hardware, installed dependencies and preferences.
 
 ## License
 
