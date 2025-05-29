@@ -1,7 +1,4 @@
-<div style="position: relative;">
-    <img style="position:absolute; width:100%; top: 10%;" src="https://raw.githubusercontent.com/hyprwm/Hyprland/main/assets/header.svg">
-    <img  style="border-radius:2rem; filter: darken:10%" src="https://github.com/tom-gora/hypr-dots/blob/main/.config/hypr-wallpapers/My-Astronaut.png?raw=true">
-</div>
+![header image](./repo_assets/header-with-bg.svg)
 
 # My Hyprland Configuration 🚀
 
