@@ -1,4 +1,9 @@
-# Hyprland Configuration
+<div style="position: relative;">
+    <img style="position:absolute; width:100%; top: 10%;" src="https://raw.githubusercontent.com/hyprwm/Hyprland/main/assets/header.svg">
+    <img  style="border-radius:2rem; filter: darken:10%" src="https://github.com/tom-gora/hypr-dots/blob/main/.config/hypr-wallpapers/My-Astronaut.png?raw=true">
+</div>
+
+# My Hyprland Configuration 🚀
 
 This is my custom configuration for Hyprland, a dynamic tiling Wayland compositor. This setup is designed to maximize productivity and streamline my workflow through powerful keybindings and custom scripts.
 
@@ -14,8 +19,9 @@ This is my custom configuration for Hyprland, a dynamic tiling Wayland composito
 
 This configuration includes several Rofi scripts that provide pickers for some quick access to various functionalities.
 
-- **ClipManager&period;sh**: Rofi front for `cliphist` system clipboard manager to list previously copied items, enabling quick pasting of previously yanked content.
-  ![rofi clipboard](./repo_assets/clipboard.png)
+- **ClipManager&period;sh**: Rofi front for `cliphist` system clipboard manager to list previously copied items, enabling quick pasting of previously yanked content.  
+   ![rofi clipboard](./repo_assets/clipboard.png)
+  <small>\* Screenshot to present the custom vertical `rofi` composition with current wallpaper included, that I use a basic picker style.</small>
 
 - **ColorPicker&period;sh**: A color picker to select color from the screen using `hyprpicker`. It provides various color formats (HEX, RGB, HSL, etc.) and allows to copy the selected color to the clipboard. Under the hood it uses `pastel` terminal color managament tool to convert to other color format strings and `imagemagick` to create temporary color-filled rectangle image that `rofi` uses to display picked color in the format selection part.
   ![rofi color picker](./repo_assets/color_picker.png)
