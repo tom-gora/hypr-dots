@@ -47,6 +47,12 @@ This configuration includes several Rofi scripts that provide pickers for some q
 
 https://github.com/user-attachments/assets/0521b06c-9c7d-46e4-94c8-f9eddcd83351
 
+#### Hyprland and SNC Notification Deamon
+
+Hyprland's submap feature (define a binding that acts as a leader for second layer of actions after additional keypress) work together with the help of `notify-send` and some bash glue code to use notifications to display hint popups for more complex actions (acting like which-key plugins from `neovim` or `vscode`) to provide further graphical hints and nice GUI experience.
+
+![submaps+notifications](./repo_assets/notifications.png)
+
 ## IMPORTANT
 
 This is very much not a distribution or a comprehensive setup. There is noo claim anything will work on a system other than mine. It started waaaaay back from JaKooLit's [LINK](https://github.com/JaKooLit/Fedora-Hyprland) dots as a base but significantly evolved away from this base and it is just my personal config that I maintain for myself. Feel free to get inspired but I do not recommend trying to comprehensively apply any of the dots willy-nilly, as those are very much specific to my machine.

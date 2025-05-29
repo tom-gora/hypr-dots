@@ -18,7 +18,7 @@ fi
 swww query >/dev/null
 if [ $? -eq 1 ]; then
 	# init wallpaper service then apply img with no transition effects
-	swww init
+	swww-daemon
 	swww img "$WALLPAPER" --transition-type none
 	$REFRESH_SCRIPT
 else

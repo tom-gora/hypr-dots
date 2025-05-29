@@ -17,7 +17,9 @@ DURATION=0.5
 BEZIER=".43,1.19,1,.4"
 SWWW_PARAMS="--transition-fps $FPS --transition-type $TYPE --transition-duration $DURATION --transition-bezier $BEZIER"
 
-swww query || swww init && swww img ${RANDOMPICS} $SWWW_PARAMS
+swww-daemon
+swww query
+swww img ${RANDOMPICS} $SWWW_PARAMS
 
 ${scriptsDir}/wallpaperAndStyle/PywalSwww.sh
 sleep 1
