@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center" style="border-radius:1.5rem !important">
     <img src="./repo_assets/header-with-bg.svg"  width="70%"/>
 </p>
 
