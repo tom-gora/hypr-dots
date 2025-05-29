@@ -1,5 +1,4 @@
 -- theme variation lifted from NvChad's base46 selection as I like their colors better
--- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 --
 local colors = {
 	black = "#191724",

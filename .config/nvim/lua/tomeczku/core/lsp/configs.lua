@@ -16,7 +16,7 @@ M.lua_setup = function(capabilities, on_attach, name)
 			"selene.yml",
 			".git",
 		},
-		workspace_required = true,
+		workspace_required = false,
 		settings = {
 			Lua = {
 				version = "LuaJIT",

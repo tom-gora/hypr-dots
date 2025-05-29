@@ -1,50 +1,80 @@
 # My Neovim configuration
 
-This is my private custom configuration for Neovim. No distros. Sub-40 plugins and shrinking 💪💪💪
+This is my private custom configuration for Neovim. No distros. Plenty of custom personal workflow enhancements. About 40 plugins and shrinking 💪💪💪
+![init.lua](./repo_assets/omn.png)
+![lazy](./repo_assets/lazy.png)
+![mason](./repo_assets/mason.png)
 
 ## Plugins
 
 Plugins managed by `lazy.nvim` while native package manager is still only on the roadmap:
 
-- barbar.nvim
-- better-escape.nvim
-- blink-cmp-supermaven
-- blink.cmp
-- boole.nvim
-- cmdline-hl.nvim
-- conform.nvim
-- css-vars.nvim
-- cutlass.nvim
-- friendly-snippets
-- gitsigns.nvim
-- hlargs.nvim
-- lazy.nvim
-- lazydev.nvim
-- LuaSnip
-- markdown-preview.nvim
-- mason.nvim
-- mini.ai
-- mini.move
-- mini.surround
-- nvim-aider
-- nvim-highlight-colors
-- nvim-treesitter
-- nvim-ts-autotag
-- nvim-web-devicons
-- oil.nvim
-- plenary.nvim
-- rainbow-delimiters.nvim
-- snacks.nvim
-- supermaven-nvim
-- tailwind-tools.nvim
-- todo-comments.nvim
-- ultimate-autopair.nvim
-- vim-tmux-navigator
-- which-key.nvim
-- nvim-silicon
-- quicker.nvim
-- text-case.nvim
-- trouble.nvim
+- #### nvim-aider
+  Cursor for those living in terminal.
+- #### blink.cmp
+  And all its dependencies providing various sources (\* Snippets setup is currently in the works).
+- #### friendly-snippets
+- #### LuaSnip
+- #### css-vars.nvim
+- #### tailwind-tools.nvim
+- #### blink-copilot
+- #### copilot.lua <br><br>
+- #### better-escape.nvim
+  `jn` to trigger &lt;Esc&gt; because I don't want to remap CapsLock system-wide and accidentally doing Escape while gaming, `jj` and `jk` too easy to hit unwillingly while navigating and `jn` is just FREE REAL ESTATE!
+- #### boole.nvim
+  Simpler than dial plugin. Just enough functionality for my taste.
+- #### cmdline-hl.nvim
+  No need to bring in entire `noice` baggage to only have nice icon indicating usage of cmdline.
+- #### conform.nvim
+  Formatters
+- #### cutlass.nvim
+  Vim heresy. Cuts are cuts and deletions go to the black hole register.
+- #### gitsigns.nvim
+  Git in the signcolumn.
+- #### hlargs.nvim
+  Highlight function arguments to immediately see where they are used.
+- #### lazy.nvim
+  Lazy package manager until native solution is here.
+- #### lazydev.nvim
+  For lua modules completions.
+- #### markdown-preview.nvim
+- Using fork with fixes from `Knyffen/markdown-preview.nvim` that works unlike the original package
+- #### mason.nvim
+- Language utilities installer.
+- #### mini&period;ai, mini.move, mini.surround, nvim-highlight-colors
+  A couple of useful utils from the `mini` library.
+- #### nvim-treesitter
+  The one and only.
+- #### nvim-ts-autotag
+  More webdev fluff...
+- #### oklch-color-picker.nvim
+  Pretty colors all around! Finally a plugin for a dirty webdev mouse-user ;)
+- #### nvim-web-devicons
+  Nice icons from nerdfont.
+- #### oil.nvim
+- The only file manager you need. Configured to show as right-hand "sidebar" split.
+- #### plenary.nvim
+  Everything depends on plenary. At this point why is this not core?
+- #### rainbow-delimiters.nvim
+  Because I like them. Also I configure base highlights with bumped up saturation for the brackets.
+- #### snacks.nvim
+  All-in-one. Only parts used: `bigfile`, `indent`, `lazygit`, `notifier`, `quickfile`, `terminal` and `zen` modules.
+- #### text-case.nvim
+  For quick toggling of text case.
+- #### todo-comments.nvim
+  Special purpose comment highlighter.
+- #### ultimate-autopair.nvim
+  It's good but every day I wonder more and more, do I really need this?
+- #### vim-tmux-navigator
+  Tmux pane/splits navigation
+- #### which-key.nvim
+  It's which-key. What else to say?
+- #### nvim-silicon
+  Code snippet as pretty images.
+- #### quicker.nvim
+  Nice (And readable!) UI for quickfix list.
+- #### trouble.nvim
+  For handling diagnostic errors and so and such, lsp something blah blah blah...
 
 ## Custom Features and Modules
 
@@ -79,18 +109,15 @@ To install this Neovim configuration:
 
 Screenshots showcasing the configuration's appearance and features will be added here.
 
-- Custom Keybindings: [[screenshot_needed]]
-- Statusline Modules:
-  - Integrated Mode/Root/Path
-  - Git
-  - AI Status
-  - Wordcounter for Markdown
-  - Attached LSPs
-  - Diagnostics Type and Count
-  - Cursor Position
-- LSP Integration: [[screenshot_needed]]
-- Custom Themes: [[screenshot_needed]]
-- Markdown Word Count: [[screenshot_needed]]
+- Custom Theme:
+  ![theme files](./repo_assets/theme.png)
+- Custom Statusline:
+  ![statusline details](./repo_assets/statusline.png)
+- Custom Keybindings built into mostly &lt;leader&gt; driven "submenus"  
+  ( inspired by AstroNvim's system )
+  ![whichkey main panel](./repo_assets/whichkey.png)
+- Markdown Word Count:
+  ![markdown counter module](./repo_assets/markdown.png)
 
 ## License
 

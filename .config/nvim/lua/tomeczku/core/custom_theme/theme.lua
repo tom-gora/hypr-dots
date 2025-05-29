@@ -1,5 +1,4 @@
 -- theme variation lifted from NvChad's base46 selection as I like their colors better thn defaault rose-pine
--- I don't like NnChad's BDFL and community so stealing this with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 --
 local b46 = require("tomeczku.core.custom_theme.base46_palette")
 local h, mod = require("tomeczku.core.custom_theme.helpers"), require("tomeczku.core.custom_theme.modified_colors")

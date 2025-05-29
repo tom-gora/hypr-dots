@@ -1,6 +1,5 @@
 -- theme variation lifted from NvChad's base46 selection as I like their colors better
 -- than what official soho vibes provide
--- I don't like NnChad's BDFL and community and stealing with pride 󱚞 󱚞 󱚞 󱚞 󱚞
 --
 local M, theme = {}, require("tomeczku.core.custom_theme.theme")
 

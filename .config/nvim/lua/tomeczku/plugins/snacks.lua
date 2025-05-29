@@ -92,6 +92,56 @@ opts = {
 			buffers = {
 				layout = "buffers-custom",
 			},
+			-- NOTE: Simple test on how to configure a picker
+			-- {
+			-- idea1 - model picker for aider and other tools
+			-- steps:
+			-- # on startup try and curl https://openrouter.ai/api/v1/models if valid json received store in vim.fn.stdpath("state")
+			-- # !!! parse once while caching to not perform this on and on (lua? fast enough? qf? better for fast json transofrmS?) to only store names
+			-- SCRATCH THAT. since they don't provide a way to pull sorted data from api some web scraping is very much needed. which IS a pain because the fucking
+			-- openrouter page is nothing but a div soup with a bunch of tailwind classes and literally  I think the sole thing you can target with CSS selectors are anchors with regex matchers on hrefs??
+			-- OK scratch the drama. worst case scenario just grab last div of section.main-content-container which is a div table!
+			-- even better. I only need links because each has a form that after removing .ai TLD bit and initial / turns into valid model name for aider :)
+			-- so again:
+			-- do this quick scrape (can lua parse html? dunno) since grabbing monthly top [i.e. https://openrouter.ai/rankings/programming?view=month] it can be done rarely
+			-- monthly or weekly. so could have a separate package in like go or shit that scrapes and stores cache for nvim
+			-- anyway obtain list of top models, parse the json from listing api to match with obtained scraped strings
+			-- for each grab metadata and then store for picker to use
+			--
+			--
+			--}
+			--
+			-- messages = {
+			-- 	title = "names",
+			-- 	confirm = { "copy", "close" },
+			-- 	format = "text",
+			-- 	layout = "buffers-custom",
+			-- 	finder = function(opts, ctx)
+			-- 		local mock_names = {
+			-- 			{ text = "Alice" },
+			-- 			{ text = "Bob" },
+			-- 			{ text = "Charlie" },
+			-- 			{ text = "Diana" },
+			-- 			{ text = "Edward" },
+			-- 			{ text = "Fiona" },
+			-- 			{ text = "George" },
+			-- 			{ text = "Hannah" },
+			-- 			{ text = "Ivy" },
+			-- 			{ text = "Jack" },
+			-- 			{ text = "Karen" },
+			-- 			{ text = "Liam" },
+			-- 			{ text = "Mia" },
+			-- 			{ text = "Noah" },
+			-- 			{ text = "Olivia" },
+			-- 			{ text = "Peter" },
+			-- 			{ text = "Quinn" },
+			-- 			{ text = "Rachel" },
+			-- 			{ text = "Sam" },
+			-- 			{ text = "Tina" },
+			-- 		}
+			-- 		return mock_names
+			-- 	end,
+			-- },
 		},
 		layout = {
 			cycle = false,

@@ -1,5 +1,9 @@
 local M = {}
 
+---@param msg string: Message for notification to display
+---@param title string: notification window title
+---@param icon string: icon/symbol to display in notification
+---@return void: Wrapper with predefined opts for longer lasting warn notification
 M.operationNotifyHint = function(msg, title, icon)
 	vim.notify(
 		msg,
@@ -26,13 +30,13 @@ M.setOpts = function(extra)
 	return vim.tbl_deep_extend("force", opts, extra)
 end
 
+---@return void
 M.yankAll = function()
-	-- compared to ggVG preserves cursor position
+	-- compared to ggVGy preserves cursor position
 	-- plus I grab the last message and redirect to notify
 	vim.cmd("%y")
-	local messages = vim.fn.execute("messages")
-	local it = vim.iter(vim.split(messages, "\n"))
-	M.operationNotifyHint("Whole buffer: " .. it:last(), "Yanked Buffer", "")
+	local last_msg = vim.api.nvim_get_vvar("statusmsg")
+	M.operationNotifyHint("Whole buffer: " .. last_msg, "Yanked Buffer", "")
 end
 
 M.clearAll = function()
@@ -107,7 +111,7 @@ M.setupLspMappings = function(bufnr)
 end
 
 M.setDiagnosticsMappings = function()
-	vim.g.__diagnostics_showing = true
+	_G.diagnostics_showing = true
 	vim.keymap.set("n", "<leader>lp", function()
 		vim.diagnostic.jump({ count = -1, float = false })
 	end, M.setOpts({ desc = "Go to previous diagnostic message" }))
@@ -116,6 +120,7 @@ M.setDiagnosticsMappings = function()
 	end, M.setOpts({ desc = "Go to next diagnostic message" }))
 	vim.keymap.set("n", "ll", function()
 		local lnum = vim.fn.getcurpos()[2] - 1
+		---@diagnostic disable-next-line: param-type-not-match
 		local count = #vim.diagnostic.get(0, { lnum = lnum })
 		if count and count > 0 then
 			vim.diagnostic.open_float()
@@ -124,12 +129,12 @@ M.setDiagnosticsMappings = function()
 		end
 	end, M.setOpts({ desc = "Open diagnostic float on a line" }))
 	vim.keymap.set("n", "<leader>lt", function()
-		if vim.g.__diagnostics_showing ~= true then
+		if not _G.diagnostics_showing or _G.diagnostics_showing ~= true then
 			vim.diagnostic.show()
-			vim.g.__diagnostics_showing = not vim.g.__diagnostics_showing
+			_G.diagnostics_showing = not _G.diagnostics_showing
 		else
 			vim.diagnostic.hide()
-			vim.g.__diagnostics_showing = not vim.g.__diagnostics_showing
+			_G.diagnostics_showing = not _G.diagnostics_showing
 		end
 	end, M.setOpts({ desc = "Toggle Inline Diagnostics" }))
 end
@@ -153,7 +158,7 @@ local notifyColors = function(hl_entry, title)
 		title = title,
 		keep = function(notif)
 			local n_winnr = notif.win.win -- spawned notification window
-			local width = vim.inspect(notif.win.opts.width) -- noti window width
+			local width = vim.fn.winwidth(n_winnr) --get width
 			-- predefined strings
 			local r_str_fg = "  foreground   "
 			local r_str_bg = "  background   "
@@ -163,7 +168,7 @@ local notifyColors = function(hl_entry, title)
 			--
 			-- conditionally construct notification text based on what entries available
 			if hl_entry.fg and not hl_entry.bg then
-				local padding_len = width - (#tostring(hl_entry.fg) + 1 + #r_str_fg)
+				local padding_len = math.ceil(width - (#tostring(hl_entry.fg) + 1 + #r_str_fg))
 				notif.msg = {
 					decToHexColor(hl_entry.fg) .. string.rep(" ", padding_len) .. r_str_fg,
 					string.rep("─", width - 2),
@@ -176,6 +181,7 @@ local notifyColors = function(hl_entry, title)
 					string.rep("─", width - 2),
 					footer,
 				}
+			---@diagnostic disable-next-line: unnecessary-if
 			elseif hl_entry.bg and hl_entry.fg then
 				local padding_len_fg = width - (#tostring(hl_entry.fg) + 1 + #r_str_fg)
 				local padding_len_bg = width - (#tostring(hl_entry.bg) + 1 + #r_str_bg)

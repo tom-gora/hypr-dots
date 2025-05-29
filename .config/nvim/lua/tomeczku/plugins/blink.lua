@@ -35,21 +35,30 @@ local copilot_config = function()
 		},
 		-- never attach to env files
 		should_attach = function(_, bufname)
-			if string.match(bufname, "env") then
+			if string.match(bufname, "env") or string.match(bufname, "oil") then
 				return false
 			end
 			return true
 		end,
 	}
+	--
+	-- HACK: first override copilots logger function to kill the annoying
+	-- and noisy notifications when disabling it by default on startup
+	local silence_copilot, logger = pcall(require, "copilot.logger")
+	if silence_copilot then
+		logger.warn = function(msg, ...)
+			if msg == "copilot is disabled" then
+				return
+			end
+			logger.log(vim.log.levels.WARN, msg, ...)
+		end
+	end
+
 	local ok, _ = pcall(require("copilot").setup, opts)
 	-- if initialized ok disable by default
 	if ok then
 		require("copilot.command").disable()
 		_G.COPILOT_ENABLED = false
-		-- HACK: use snacks to hide the annoying copilot info popup right away
-		vim.defer_fn(function()
-			require("snacks.notifier").hide()
-		end, 100)
 	end
 end
 
