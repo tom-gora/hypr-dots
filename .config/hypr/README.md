@@ -1,4 +1,4 @@
-<img src="./repo_assets/header-with-bg.svg" align="center" width="100%"/>
+<img src="./repo_assets/header-with-bg.svg" align="center" width="70%"/>
 
 # My Hyprland Configuration 🚀
 
