@@ -31,16 +31,25 @@ This repository contains various configurations for different applications and t
 - ##### hypr:
 
   <small> Hyprland user as compositor / window manager. [LINK](https://hyprland.org/)</small>
+  (DETAILED README IN THE SUBDIRECTORY)
 
 - ##### hypr-wallpapers:
 
   <small> Wallpapers collection for RosePine colors in my window manager.</small>
+  (DETAILED README IN THE SUBDIRECTORY)
 
 - ##### hyprland-autoname-workspaces:
+
   <small> Automatic naming of workspaces in Hyprland. [LINK](https://github.com/hyprland-community/hyprland-autoname-workspaces)</small>
+
 - ##### kitty:
 
   <small> Kitty terminal. [LINK](https://sw.kovidgoyal.net/kitty/)</small>
+
+- ##### nvim:
+
+  <small> Neovim - My main text editing tool. Custom config. [LINK](https://neovim.io/)</small>
+  (DETAILED README IN THE SUBDIRECTORY)
 
 - ##### neofetch:
 
