@@ -106,6 +106,10 @@ This repository contains various configurations for different applications and t
 
   <small>Zsh shell. [LINK](https://zsh.sourceforge.io/)</small>
 
+- ##### .bashrc:
+
+  <small>Some basics for bash shell. [LINK](https://www.gnu.org/software/bash/)</small>
+
 - ##### my_omp.json:
 
   <small>My OhMyPosh prompt. [LINK](https://ohmyposh.dev/)</small>
