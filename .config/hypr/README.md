@@ -45,7 +45,10 @@ This configuration includes several Rofi scripts that provide pickers for some q
 
 (Config avalable here: [LINK](https://github.com/tom-gora/hypr-dots/tree/main/.config/wlogout))
 
-![wlogout recording](./repo_assets/wlogout.mp4)
+ <video autoplay muted loop playsinline width="100%" height="420" style="pointer-events:none;">
+  <source src="./repo_assets/wlogout.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## IMPORTANT
 
