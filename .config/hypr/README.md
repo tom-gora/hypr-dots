@@ -53,9 +53,11 @@ Hyprland's submap feature (define a binding that acts as a leader for second lay
 
 ![submaps+notifications](./repo_assets/notifications.png)
 
+---
+
 ## IMPORTANT
 
-This is very much not a distribution or a comprehensive setup. There is noo claim anything will work on a system other than mine. It started waaaaay back from JaKooLit's [LINK](https://github.com/JaKooLit/Fedora-Hyprland) dots as a base but significantly evolved away from this base and it is just my personal config that I maintain for myself. Feel free to get inspired but I do not recommend trying to comprehensively apply any of the dots willy-nilly, as those are very much specific to my machine.
+This is very much not a distribution or a comprehensive setup. There is no claim anything will work on a system other than mine. It started waaaaay back from JaKooLit's [LINK](https://github.com/JaKooLit/Fedora-Hyprland) dots as a base but significantly evolved away from this base and it is just my personal config that I maintain for myself. Feel free to get inspired but I do not recommend trying to comprehensively apply any of the dots willy-nilly, as those are very much specific to my machine.
 
 ## License
 
