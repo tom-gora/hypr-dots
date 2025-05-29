@@ -2,7 +2,7 @@
     <img src="./.config/hypr/repo_assets/header-with-bg.svg"  width="70%"/>
 </p>
 <p align="center" style="border-radius:1.5rem !important">
-    <img src="./repo_assets/os.png"/>
+    <img style="border-radius:1.5rem !important" src="./.config/hypr/repo_assets/os.png" width="70%"/>
 </p>
 
 # Configuration Overview
