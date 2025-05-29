@@ -15,17 +15,17 @@ It is built on a base from Fedora Server. For the Wayland environment I use Hypr
 - ##### hypr:
 
   <small> Hyprland user as compositor / window manager. [LINK](https://hyprland.org/)</small>  
-  (DETAILED README IN THE SUBDIRECTORY)
+  (DETAILED README IN THE [SUBDIRECTORY](https://github.com/tom-gora/hypr-dots/tree/main/.config/hypr))
 
 - ##### hypr-wallpapers:
 
   <small> Wallpapers collection for RosePine colors in my window manager.</small>  
-  (DETAILED README IN THE SUBDIRECTORY)
+  (DETAILED README IN THE [SUBDIRECTORY](https://github.com/tom-gora/hypr-dots/tree/main/.config/hypr-wallpapers))
 
 - ##### nvim:
 
   <small> Neovim - My main text editing tool. Custom config. [LINK](https://neovim.io/)</small>  
-  (DETAILED README IN THE SUBDIRECTORY)
+  (DETAILED README IN THE [SUBDIRECTORY](https://github.com/tom-gora/hypr-dots/tree/main/.config/nvim))
 
 - ##### tmux:
 
