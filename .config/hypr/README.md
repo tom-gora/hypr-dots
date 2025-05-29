@@ -1,4 +1,4 @@
-![header image](./repo_assets/header-with-bg.svg)
+<img src="./repo_assets/header-with-bg.svg" width="100%"/>
 
 # My Hyprland Configuration 🚀
 
