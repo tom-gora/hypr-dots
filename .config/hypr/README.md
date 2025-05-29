@@ -45,11 +45,6 @@ This configuration includes several Rofi scripts that provide pickers for some q
 
 (Config avalable here: [LINK](https://github.com/tom-gora/hypr-dots/tree/main/.config/wlogout))
 
- <video autoplay muted loop playsinline width="100%" height="420" style="pointer-events:none;">
-  <source src="./repo_assets/wlogout.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 ## IMPORTANT
 
 This is very much not a distribution or a comprehensive setup. There is noo claim anything will work on a system other than mine. It started waaaaay back from JaKooLit's [LINK](https://github.com/JaKooLit/Fedora-Hyprland) dots as a base but significantly evolved away from this base and it is just my personal config that I maintain for myself. Feel free to get inspired but I do not recommend trying to comprehensively apply any of the dots willy-nilly, as those are very much specific to my machine.
