@@ -95,7 +95,7 @@ Plugins managed by `lazy.nvim` while native package manager is still only on the
 - **Modular Configuration Structure:**
   - Configuration broken down into core modules (autocommands, statusline, theme, keymaps, lsp, vim_opts) and plugin configurations.
 - **AI Integrations:**
-  - Supermaven for free AI completions always disabled by default, with quick keymap to toggle on/off in case help is needed. Completes via blink and uses no traditional AI ghost text to minimize flickering and code "jumping around the buffer" 😉
+  - Copilot for AI completions always disabled by default, with quick keymap to toggle on/off in case help is needed. Completes via blink and uses no traditional AI ghost text to minimize flickering and code "jumping around the buffer" 😉
   - Aider as terminal vibing assistant, with quick toggle keymap to switch between models more appropriate for coding and for text writing 🤓
 
 ## Installation

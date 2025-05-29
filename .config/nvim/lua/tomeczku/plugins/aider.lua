@@ -6,7 +6,7 @@ aider_opts = {
 		"--no-auto-commits",
 		"--stream",
 		"--fancy-input",
-		"--subtree-only",
+		--"--subtree-only",
 		"--config",
 		"$HOME/.config/aider/aider-default.conf.yml",
 	},
