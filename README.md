@@ -1,13 +1,16 @@
+<p align="center" style="border-radius:1.5rem !important">
+    <img src="./.config/hypr/repo_assets/header-with-bg.svg"  width="70%"/>
+</p>
+<p align="center" style="border-radius:1.5rem !important">
+    <img src="./repo_assets/os.png"/>
+</p>
+
 # Configuration Overview
 
 This repository contains various configurations for different applications and tools on my system.
 It is built on a base from Fedora Server. For the Wayland environment I use Hyprland and
 
 ## Configurations
-
-<p align="center" style="border-radius:1.5rem !important">
-    <img src="./.config/hypr/repo_assets/header-with-bg.svg"  width="70%"/>
-</p>
 
 - ##### hypr:
 
