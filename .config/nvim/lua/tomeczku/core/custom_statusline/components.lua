@@ -72,8 +72,8 @@ M.mode_plus_path = function()
 	modes["ic"][3] = "󰬐"
 	modes["ix"][3] = "󰬐"
 	-- tweak terminal mode
-	modes["t"][3] = '%{&ft == "snacks_terminal" ? "  " : ""}'
-	modes["nt"][3] = '%#St_NTerminalModeCustomTxt#%{&ft == "snacks_terminal" ? "  " : ""}'
+	modes["t"][3] = '%{&buftype == "terminal" ? "  " : ""}'
+	modes["nt"][3] = '%#St_NTerminalModeCustomTxt#%{&buftype == "terminal" ? "  " : ""}'
 
 	local is_modified = function()
 		return vim.bo.modified and " " or ""

@@ -131,3 +131,6 @@ opt.foldtext = localHelpers.foldText()
 
 opt.spelllang = "en_gb"
 opt.spellfile = localHelpers.setupSpellfiles()
+
+-- set treshold for filesize at which to disable features
+_G.thick_boi_file = 0.005

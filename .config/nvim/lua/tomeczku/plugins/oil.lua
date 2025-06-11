@@ -55,7 +55,9 @@ M = {
 	"stevearc/oil.nvim",
 	cond = vim.g.vscode == nil,
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	opts = opts,
+	config = function()
+		require("oil").setup(opts)
+	end,
 }
 
 return M

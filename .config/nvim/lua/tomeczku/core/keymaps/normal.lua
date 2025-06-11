@@ -26,7 +26,7 @@ M = {
 	["<C-y>"] = { "mQ0y$`Q", h.setOpts({ desc = "ignore" }) },
 	--
 	-- toggle comment line in normal mode
-	["<leader>/"] = { "gcc", h.setOpts({ desc = "ignore", remap = true }) },
+	["<leader>/"] = { "gcc", h.setOpts({ desc = "which_key_ignore", remap = true }) },
 	--
 	-- move "line" at a time even on wrapped text
 	["j"] = { "gj", h.setOpts() },
@@ -49,7 +49,7 @@ M = {
 	},
 	--
 	-- neovim help picker
-	["<leader>?"] = { "<cmd>lua Snacks.picker.help()<cr>", h.setOpts({ desc = "󰋗 Help" }) },
+	["<leader>?"] = { "<cmd>lua FzfLua.helptags()<cr>", h.setOpts({ desc = "󰋗 Help" }) },
 	--
 	-- my index fixing command
 	["gz"] = { "<cmd>MultiplyLineWithIndexing<cr>", h.setOpts({ desc = "Multiply Line with Indexing" }) },
@@ -68,8 +68,8 @@ M = {
 		h.setOpts({ desc = "󰏇 Toggle Oil" }),
 	},
 	--
-	-- Zen from Snacks
-	["<leader>z"] = { "<cmd>lua Snacks.zen()<cr>", h.setOpts({ desc = " Toggle Zen Mode" }) },
+	-- Zen Mode with system integration
+	["<leader>z"] = { "<cmd>Focus<cr>", h.setOpts({ desc = " Toggle Zen Mode" }) },
 
 	--
 	-- whichkey neovim section
@@ -78,19 +78,13 @@ M = {
 	["<leader>nl"] = { "<cmd>Lazy<cr>", h.setOpts({ desc = "Open Lazy" }) },
 	["<leader>nm"] = { "<cmd>Mason<cr>", h.setOpts({ desc = "Open Mason" }) },
 	["<leader>nc"] = { "<cmd>checkhealth<cr>", h.setOpts({ desc = "Do Checkhealth" }) },
-	["<leader>nh"] = { h.betterSnacksHlPicker, h.setOpts({ desc = "Look up HL Groups" }) },
-	["<leader>nk"] = { "<cmd>lua Snacks.picker.keymaps()<cr>", h.setOpts({ desc = "Look up Key Mappings" }) },
+	["<leader>nh"] = { "<cmd>lua FzfLua.highlights()<cr>", h.setOpts({ desc = "Look up HL Groups" }) },
+	["<leader>nk"] = { "<cmd>lua FzfLua.keymaps()<cr>", h.setOpts({ desc = "Look up Key Mappings" }) },
 	["<leader>nd"] = { "<cmd>lua require('notify').dismiss()<cr>", h.setOpts({ desc = "Dismiss Notifications" }) },
 	--
 	-- whichkey move to section
 	["<leader>b"] = { " Buffers" },
-	["<leader>bb"] = {
-		function()
-			Snacks.picker.buffers()
-		end,
-		-- "<cmd>lua Snacks.picker.buffers({ layout = { preset = 'vscode' }, win = {border = 'solid'} })<cr>",
-		h.setOpts({ desc = "Find Buffers" }),
-	},
+	["<leader>bb"] = { "<cmd>lua FzfLua.buffers()<cr>", h.setOpts({ desc = "Find Buffers" }) },
 	["<leader>bc"] = { "<cmd>b#<cr>", h.setOpts({ desc = "Circle Previos Buffer" }) },
 	["<leader>bl"] = { "<cmd>bnext<cr>", h.setOpts({ desc = "Next Buffer" }) },
 	["<leader>bh"] = { "<cmd>bprevious<cr>", h.setOpts({ desc = "Previous Buffer" }) },
@@ -99,40 +93,54 @@ M = {
 	--
 	-- git stuff
 	["<leader>g"] = { "󰊢 Git" },
-	["<leader>gg"] = { "<cmd>lua Snacks.lazygit.open()<cr>", h.setOpts({ desc = "󰊢 LazyGit" }) },
-	["<leader>gl"] = { "<cmd>lua Snacks.lazygit.log()<cr>", h.setOpts({ desc = "LazyGit Logs" }) },
+	["<leader>gg"] = {
+		function()
+			vim.fn.system("tmux run $TMUX_LAZYGIT_POPUP")
+		end,
+		h.setOpts({ desc = "LazyGit" }),
+	},
+	["<leader>gl"] = {
+		function()
+			vim.fn.system('tmux run "$TMUX_LAZYGIT_POPUP log"')
+		end,
+		h.setOpts({ desc = "LazyGit Logs" }),
+	},
 	["<leader>gL"] = {
-		"<cmd>lua Snacks.lazygit.log({args = { 'log', '-sm', 'full' }})<cr>",
+		function()
+			vim.fn.system('tmux run "$TMUX_LAZYGIT_POPUP log -sm full"')
+		end,
 		h.setOpts({ desc = "LazyGit Logs Graph" }),
 	},
+	["<leader>gf"] = { "<cmd>lua FzfLua.git_files()<cr>", h.setOpts({ desc = "Find Git Files" }) },
 	["<leader>gs"] = { "<cmd>Gitsigns<cr>", h.setOpts({ desc = "Gitsigns Picker" }) },
 	--
-	-- general find stuff pickers from Snacks
+	-- general find stuff pickers
+	["<M-m>"] = { "<cmd>lua FzfLua.resume()<cr>", h.setOpts({ desc = "ignore" }) },
 	["<leader>f"] = { " Find" },
-	["<leader>ff"] = { "<cmd>lua Snacks.picker.files()<cr>", h.setOpts({ desc = "Find Files" }) },
+	["<leader>ff"] = { "<cmd>lua FzfLua.files({ hidden = false })<cr>", h.setOpts({ desc = "Find Files" }) },
 	["<leader>fw"] = {
-		"<cmd>lua Snacks.picker.grep_word()<cr>",
-		h.setOpts({ desc = "Find Word Under Cursor/Selection" }),
+		"<cmd>lua FzfLua.grep_cword()<cr>",
+		h.setOpts({ desc = "Find cword" }),
 	},
-	["<leader>fj"] = { "<cmd>lua Snacks.picker.jumps()<cr>", h.setOpts({ desc = "Find in Vim Jumps History" }) },
-	["<leader>fo"] = { "<cmd>lua Snacks.picker.grep_buffers()<cr>", h.setOpts({ desc = "Find in Opened Files" }) },
-	["<leader>fb"] = { "<cmd>lua Snacks.picker.lines()<cr>", h.setOpts({ desc = "Current Buffer Lines" }) },
-	["<leader>fd"] = { "<cmd>lua Snacks.picker.grep()<cr>", h.setOpts({ desc = "Find in CWD" }) },
+	["<leader>fW"] = {
+		"<cmd>lua FzfLua.grep_cWORD()<cr>",
+		h.setOpts({ desc = "Find cWORD" }),
+	},
+	["<leader>fj"] = { "<cmd>lua FzfLua.jumps()<cr>", h.setOpts({ desc = "Find in Vim Jumps History" }) },
+	["<leader>fl"] = { "<cmd>lua FzfLua.grep_last()<cr>", h.setOpts({ desc = "Resume Last Grep" }) },
+	["<leader>fb"] = { "<cmd>lua FzfLua.grep_curbuf()<cr>", h.setOpts({ desc = "Find in Current Buffer" }) },
+	["<leader>fd"] = { "<cmd>lua FzfLua.live_grep_native()<cr>", h.setOpts({ desc = "Find in Project" }) },
 	["<leader>fa"] = {
-		"<cmd>lua Snacks.picker.files({hidden = true})<cr>",
+		"<cmd>lua FzfLua.files({hidden = true})<cr>",
 		h.setOpts({ desc = "Find All Files (hidden etc.)" }),
 	},
-	["<leader>fp"] = { "<cmd>lua Snacks.picker.pickers()<cr>", h.setOpts({ desc = "Recent Pickers" }) },
-	["<leader>fh"] = { "<cmd>lua Snacks.picker.command_history()<cr>", h.setOpts({ desc = "Command History" }) },
-	["<leader>fu"] = { "<cmd>lua Snacks.picker.undo()<cr>", h.setOpts({ desc = "Find in Undo Tree" }) },
-	["<leader>ft"] = { "<cmd>lua Snacks.picker.todo_comments()<cr>", h.setOpts({ desc = "Find Todo Comments" }) },
-	["<leader>fv"] = {
-		"<cmd>lua Snacks.picker.cliphist()<cr>",
-		h.setOpts({ desc = "Find in OS Clipboard History." }),
-	},
+	["<leader>fh"] = { "<cmd>lua FzfLua.command_history()<cr>", h.setOpts({ desc = "Command History" }) },
+	-- NOTE: Missing (??) in fzf-lua: undo tree picker and todo-comments picker
+	-- ["<leader>fu"] = { "?????", h.setOpts({ desc = "Find in Undo Tree" }) },
+	-- ["<leader>ft"] = { "?????", h.setOpts({ desc = "Find Todo Comments" }) },
 	--
 	-- terminal
-	["<C-t>"] = { "<cmd>lua  Snacks.terminal.toggle()<CR>", h.setOpts({ desc = "Toggle terminal" }) },
+	["<C-t>"] = { h.toggleTmuxPopupTerm, h.setOpts({ desc = "Toggle terminal" }) },
 	--
 	-- whichkey replace section for normal mode
 	["<leader>r"] = { "󰛔 Replace" },
@@ -182,99 +190,132 @@ M = {
 	--
 	-- text-case: case toggling plugin for normal mode
 	["<leader>~"] = { "󰬴 TextCase" },
-	["<leader>~u"] = {
-		"<cmd>lua require('textcase').current_word('to_upper_case')<CR>",
+	["<Leader>~u"] = {
+		function()
+			require("textcase").current_word("to_upper_case")
+		end,
 		h.setOpts({ desc = "Current Word to Upper Case" }),
 	},
 	["<leader>~l"] = {
-		"<cmd>lua require('textcase').current_word('to_lower_case')<CR>",
+		function()
+			require("textcase").current_word("to_lower_case")
+		end,
 		h.setOpts({ desc = "Current Word to Lower Case" }),
 	},
 	["<leader>~s"] = {
-		"<cmd>lua require('textcase').current_word('to_snake_case')<CR>",
+		function()
+			require("textcase").current_word("to_snake_case")
+		end,
 		h.setOpts({ desc = "Current Word to Snake Case" }),
 	},
 	["<leader>~d"] = {
-		"<cmd>lua require('textcase').current_word('to_dash_case')<CR>",
-		h.setOpts({ desc = "Current Word to Dash Case" }),
-	},
-	["<leader>~k"] = {
-		"<cmd>lua require('textcase').current_word('to_dot_case')<CR>",
+		function()
+			require("textcase").current_word("to_dot_case")
+		end,
 		h.setOpts({ desc = "Current Word to Dot Case" }),
 	},
+	["<leader>~k"] = {
+		function()
+			require("textcase").current_word("to_dash_case")
+		end,
+		h.setOpts({ desc = "Current Word to Kebab Case" }),
+	},
 	["<leader>~f"] = {
-		"<cmd>lua require('textcase').current_word('to_phrase_case')<CR>",
+		function()
+			require("textcase").current_word("to_phrase_case")
+		end,
 		h.setOpts({ desc = "Current Word to Phrase Case" }),
 	},
 	["<leader>~c"] = {
-		"<cmd>lua require('textcase').current_word('to_camel_case')<CR>",
+		function()
+			require("textcase").current_word("to_camel_case")
+		end,
 		h.setOpts({ desc = "Current Word to Camel Case" }),
 	},
 	["<leader>~p"] = {
-		"<cmd>lua require('textcase').current_word('to_pascal_case')<CR>",
+		function()
+			require("textcase").current_word("to_pascal_case")
+		end,
 		h.setOpts({ desc = "Current Word to Pascal Case" }),
 	},
 	["<leader>~t"] = {
-		"<cmd>lua require('textcase').current_word('to_title_case')<CR>",
+		function()
+			require("textcase").current_word("to_title_case")
+		end,
 		h.setOpts({ desc = "Current Word to Title Case" }),
 	},
 	["<leader>~w"] = {
-		"<cmd>lua require('textcase').current_word('to_path_case')<CR>",
+		function()
+			require("textcase").current_word("to_path_case")
+		end,
 		h.setOpts({ desc = "Current Word to Path Case" }),
 	},
 	-- LSP Rename mappings
 	["<leader>~U"] = {
-		"<cmd>lua require('textcase').lsp_rename('to_upper_case')<CR>",
+		function()
+			require("textcase").lsp_rename("to_upper_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Upper Case" }),
 	},
 	["<leader>~L"] = {
-		"<cmd>lua require('textcase').lsp_rename('to_lower_case')<CR>",
+		function()
+			require("textcase").lsp_rename("to_lower_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Lower Case" }),
 	},
 	["<leader>~S"] = {
-		"<cmd>lua require('textcase').lsp_rename('to_snake_case')<CR>",
+		function()
+			require("textcase").lsp_rename("to_snake_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Snake Case" }),
 	},
 	["<leader>~D"] = {
-		"<cmd>lua require('textcase').lsp_rename('to_dash_case')<CR>",
+		function()
+			require("textcase").lsp_rename("to_dash_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Dash Case" }),
 	},
 	["<leader>~K"] = {
-		"<cmd>lua require('textcase').lspRename('to_dot_case')<CR>",
+		function()
+			require("textcase").lspRename("to_dot_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Dot Case" }),
 	},
 	["<leader>~F"] = {
-		"<cmd>lua require('textcase').lsp_rename('to_phrase_case')<CR>",
+		function()
+			require("textcase").lsp_rename("to_phrase_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Phrase Case" }),
 	},
 	["<leader>~C"] = {
-		"<cmd>lua require('textcase').lspRename('to_camel_case')<CR>",
+		function()
+			require("textcase").lspRename("to_camel_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Camel Case" }),
 	},
 	["<leader>~P"] = {
-		"<cmd>lua require('textcase').lsp_rename('to_pascal_case')<CR>",
+		function()
+			require("textcase").lsp_rename("to_pascal_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Pascal Case" }),
 	},
 	["<leader>~T"] = {
-		"<cmd>lua require('textcase').lsp_rename('to_title_case')<CR>",
+		function()
+			require("textcase").lsp_rename("to_title_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Title Case" }),
 	},
 	["<leader>~W"] = {
-		"<cmd>lua require('textcase').lspRename('to_path_case')<CR>",
+		function()
+			require("textcase").lspRename("to_path_case")
+		end,
 		h.setOpts({ desc = "LSP Rename to Path Case" }),
 	},
-	-- AI integration
-	["<leader>aa"] = { "<cmd>Aider toggle<cr>", h.setOpts({ desc = "Toggle Aider" }) },
-	["<leader>ap"] = { "<cmd>Aider command<cr>", h.setOpts({ desc = "Aider Pick Command" }) },
-	["<leader>ab"] = { "<cmd>Aider buffer<cr>", h.setOpts({ desc = "Send Buffer" }) },
-	["<leader>a+"] = { "<cmd>Aider add<cr>", h.setOpts({ desc = "Add File" }) },
-	["<leader>a-"] = { "<cmd>Aider drop<cr>", h.setOpts({ desc = "Drop File" }) },
-	["<leader>ar"] = { "<cmd>Aider add readonly<cr>", h.setOpts({ desc = "Add Read-Only" }) },
-	["<leader>aR"] = { "<cmd>Aider reset<cr>", h.setOpts({ desc = "Reset Session" }) },
-	["<leader>at"] = { h.toggleAiderModels, h.setOpts({ desc = "Writing Models" }) },
+	--
+
 	--
 	-- blink completions
-	["<leader>ac"] = { h.toggleCopilot, h.setOpts({ desc = " Toggle Copilot" }) },
+	["<leader>C"] = { h.toggleCopilot, h.setOpts({ desc = " Toggle Copilot" }) },
 	-- spelling
 	["<leader>s"] = { "󰓆 Spelling" },
 	["<leader>st"] = {
@@ -328,6 +369,9 @@ M = {
 	-- boole. setup manually cuz plugin config fails me
 	["<C-a>"] = { "<cmd>Boole increment<cr>", h.setOpts({ desc = "ignore" }) },
 	["<C-x>"] = { "<cmd>Boole decrement<cr>", h.setOpts({ desc = "ignore" }) },
+
+	-- repl terminals
+	["<leader>t"] = { " REPL Terminals" },
 }
 
 return M

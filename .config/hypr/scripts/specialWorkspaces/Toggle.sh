@@ -43,11 +43,11 @@ if [ -z "$OBJ" ]; then
 		exit 0
 		;;
 	spotify)
-		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=pjibgclleladliembfgfagdaldikeohf
+		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=pjibgclleladliembfgfagdaldikeohf --disable-gpu &
 		exit 0
 		;;
 	discord)
-		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=nebbmpibgobljecgkdipmcfonkkmcggn
+		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=nebbmpibgobljecgkdipmcfonkkmcggn --disable-gpu &
 		exit 0
 		;;
 	joplin)
@@ -59,7 +59,7 @@ if [ -z "$OBJ" ]; then
 		exit 0
 		;;
 	ollama)
-		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=lejoeijgcgldjekkomjapbnhhecipebo
+		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=lejoeijgcgldjekkomjapbnhhecipebo --disable-gpu &
 		exit 0
 		;;
 	*)

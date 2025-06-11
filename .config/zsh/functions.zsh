@@ -62,26 +62,26 @@ function nvim_here() {
   nvim "$(pwd)"
 }
 
-if [[ -z "$TMUX" ]]; then
-  function my_sesh_call() {
-    {
-      exec </dev/tty
-      exec <&1
-      local choice="$(sesh list --icons | fzf \
-        --no-sort --ansi --height=16 --min-height=16 --border=rounded --border-label '󱗿 SESH ' \
-        --border-label-pos=4 --prompt '  ' \
-        --header '  ^e everything ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
-        --bind 'ctrl-j:down,ctrl-k:up,ctrl-a:accept-non-empty' \
-        --bind 'ctrl-e:change-prompt(  )+reload(sesh list --icons)' \
-        --bind 'ctrl-t:change-prompt(  )+reload(sesh list -t --icons)' \
-        --bind 'ctrl-g:change-prompt(  )+reload(sesh list -c --icons)' \
-        --bind 'ctrl-x:change-prompt(  )+reload(sesh list -z --icons)' \
-        --bind 'ctrl-f:change-prompt(󰍉  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
-        --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(  )+reload(sesh list --icons)')"
+# if [[ -z "$TMUX" ]]; then
+function my_sesh_call() {
+  {
+    exec </dev/tty
+    exec <&1
+    local choice="$(sesh list --icons | fzf \
+      --no-sort --ansi --height=16 --min-height=16 --border=rounded --border-label '󱗿 SESH ' \
+      --border-label-pos=4 --prompt '  ' \
+      --header '  ^e everything ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
+      --bind 'ctrl-j:down,ctrl-k:up,ctrl-a:accept-non-empty' \
+      --bind 'ctrl-e:change-prompt(  )+reload(sesh list --icons)' \
+      --bind 'ctrl-t:change-prompt(  )+reload(sesh list -t --icons)' \
+      --bind 'ctrl-g:change-prompt(  )+reload(sesh list -c --icons)' \
+      --bind 'ctrl-x:change-prompt(  )+reload(sesh list -z --icons)' \
+      --bind 'ctrl-f:change-prompt(󰍉  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+      --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(  )+reload(sesh list --icons)')"
 
-      zle reset-prompt >/dev/null 2>&1 || true
-      [[ -z "$choice" ]] && return
-      sesh connect "$choice"
-    }
+    zle reset-prompt >/dev/null 2>&1 || true
+    [[ -z "$choice" ]] && return
+    sesh connect "$choice"
   }
-fi
+}
+# fi

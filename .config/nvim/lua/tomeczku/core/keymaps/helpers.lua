@@ -73,6 +73,10 @@ M.toggleOil = function()
 	o.open(nil, nil, function()
 		if vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_get_current_buf() }) == "oil" then
 			_G._OilOpened = vim.fn.win_getid()
+			-- set oil split to darker like pickers and floats
+			vim.api.nvim_win_set_option(_G._OilOpened, "winhighlight", "Normal:NormalFloat")
+			-- do not show eob fillchars in oil bufers
+			vim.wo[_G._OilOpened].fillchars = string.gsub(vim.wo[_G._OilOpened].fillchars, "eob:[^,]*", "eob: ")
 		else
 			_G._OilOpened = nil
 		end
@@ -152,31 +156,36 @@ end
 ---@param title string
 local notifyColors = function(hl_entry, title)
 	-- hide existing notifications
-	require("snacks.notifier").hide()
+	require("notify").dismiss({ pending = false, silent = true })
 	local i = vim.log.levels.INFO
 	vim.notify("", i, {
 		title = title,
-		keep = function(notif)
-			local n_winnr = notif.win.win -- spawned notification window
-			local width = vim.fn.winwidth(n_winnr) --get width
+		icon = "",
+		keep = function()
+			return true
+		end,
+		on_open = function(win)
+			local width = vim.fn.winwidth(win) --get width
 			-- predefined strings
 			local r_str_fg = "  foreground   "
 			local r_str_bg = "  background   "
 			local r_str_sp = "  special   "
 			local footer = "Yank colors. 'Esc' / 'q' to close."
-			--
+			local msg = {}
 			--
 			-- conditionally construct notification text based on what entries available
 			if hl_entry.fg and not hl_entry.bg then
 				local padding_len = math.ceil(width - (#tostring(hl_entry.fg) + 1 + #r_str_fg))
-				notif.msg = {
+				msg = {
+					" ",
 					decToHexColor(hl_entry.fg) .. string.rep(" ", padding_len) .. r_str_fg,
 					string.rep("─", width - 2),
 					footer,
 				}
 			elseif hl_entry.bg and not hl_entry.fg then
 				local padding_len = width - (#tostring(hl_entry.bg) + 1 + #r_str_bg)
-				notif.msg = {
+				msg = {
+					" ",
 					decToHexColor(hl_entry.bg) .. string.rep(" ", padding_len) .. r_str_bg,
 					string.rep("─", width - 2),
 					footer,
@@ -185,7 +194,8 @@ local notifyColors = function(hl_entry, title)
 			elseif hl_entry.bg and hl_entry.fg then
 				local padding_len_fg = width - (#tostring(hl_entry.fg) + 1 + #r_str_fg)
 				local padding_len_bg = width - (#tostring(hl_entry.bg) + 1 + #r_str_bg)
-				notif.msg = {
+				msg = {
+					" ",
 					decToHexColor(hl_entry.fg) .. string.rep(" ", padding_len_fg) .. r_str_fg,
 					decToHexColor(hl_entry.bg) .. string.rep(" ", padding_len_bg) .. r_str_bg,
 					string.rep("─", width - 2),
@@ -193,7 +203,8 @@ local notifyColors = function(hl_entry, title)
 				}
 			elseif hl_entry.sp then
 				local padding_len = width - (#tostring(hl_entry.sp) + 1 + #r_str_sp)
-				notif.msg = {
+				msg = {
+					" ",
 					decToHexColor(hl_entry.sp) .. string.rep(" ", padding_len) .. r_str_sp,
 					string.rep("─", width - 2),
 					footer,
@@ -203,27 +214,31 @@ local notifyColors = function(hl_entry, title)
 				vim.notify_once("Something went wrong extracting colors!", vim.log.levels.ERROR)
 				return false
 			end
-			vim.api.nvim_set_current_win(n_winnr) -- focus in the notification win
+			local buf = vim.api.nvim_win_get_buf(win)
+
+			vim.api.nvim_set_current_win(win) -- focus in the notification win
 			-- adding additional title because using "minimal" noti style
 			-- if redundant remove title key
-			vim.api.nvim_win_set_config(n_winnr, {
+			vim.api.nvim_win_set_config(win, {
 				border = "solid",
 				title = " " .. title .. " ",
 				relative = "editor",
-				height = #notif.msg,
+				height = #msg,
 				col = vim.o.columns,
-				row = vim.o.lines - (#notif.msg + 3),
+				row = vim.o.lines - (#msg + 3),
 			})
 
-			local n_bufnr = vim.api.nvim_win_get_buf(n_winnr) -- notification's buffer
 			-- dirty modify in place buffer content and window props. set cursor before first color string
+			vim.keymap.set({ "n", "x" }, "q", function()
+				require("notify").dismiss({ silent = true, pending = false })
+			end, { silent = true, noremap = true, desc = "which_key_ignore", buffer = buf })
 			vim.keymap.set({ "n", "x" }, "<Esc>", function()
-				require("snacks.notifier").hide()
-			end, { silent = true, noremap = true, desc = "which_key_ignore", buffer = n_bufnr })
-			vim.api.nvim_set_option_value("modifiable", true, { buf = n_bufnr })
-			vim.api.nvim_put(notif.msg, "", false, true)
-			vim.api.nvim_win_set_cursor(n_winnr, { 1, 0 })
-			vim.api.nvim_set_option_value("modifiable", false, { buf = n_bufnr })
+				require("notify").dismiss({ silent = true, pending = false })
+			end, { silent = true, noremap = true, desc = "which_key_ignore", buffer = buf })
+			vim.api.nvim_set_option_value("modifiable", true, { buf = buf })
+			vim.api.nvim_put(msg, "", false, true)
+			vim.api.nvim_win_set_cursor(win, { 2, 0 })
+			vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
 			return false
 		end,
 	})
@@ -260,36 +275,6 @@ local hlConfirmCallback = function(picker, item)
 	picker:close()
 end
 
--- wrapper calls picker with custom confirm
-M.betterSnacksHlPicker = function()
-	local snacks = require("snacks")
-	snacks.picker.highlights({
-		confirm = hlConfirmCallback,
-		prompt = " ",
-	})
-end
-
-M.toggleAiderModels = function()
-	local at = require("nvim_aider.terminal")
-	local models = _G.AIDER_MODELS
-	if not _G.AIDER_WRITING or _G.AIDER_WRITING ~= true then
-		at.command("/model " .. models.default_coding.model)
-		at.command("/weak-model " .. models.default_coding.weak_model)
-		-- vim.notify("Switched to writing models.", vim.log.levels.INFO)
-		local txt = "Switched to writing models."
-		local msg = txt:gsub('"', '\\"')
-		os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
-	else
-		at.command("/model " .. models.writing.model)
-		at.command("/weak-model " .. models.writing.weak_model)
-		-- vim.notify("Switched to coding models.", vim.log.levels.INFO)
-		local txt = "Switched to coding models."
-		local msg = txt:gsub('"', '\\"')
-		os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
-	end
-	_G.AIDER_WRITING = not _G.AIDER_WRITING
-end
-
 M.toggleCopilot = function()
 	if not _G.COPILOT_ENABLED or _G.COPILOT_ENABLED == false then
 		vim.cmd("Copilot enable")
@@ -302,8 +287,8 @@ end
 
 M.tmuxNavigateAwayFromTerminal = function()
 	local win_conf = vim.api.nvim_win_get_config(vim.api.nvim_get_current_win())
-	local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_get_current_buf() })
-	if not buf_ft or buf_ft ~= "snacks_terminal" then
+	local buftype = vim.api.nvim_get_option_value("buftype", { buf = vim.api.nvim_get_current_buf() })
+	if not buftype or buftype ~= "terminal" then
 		return
 	end
 
@@ -318,4 +303,21 @@ M.tmuxNavigateAwayFromTerminal = function()
 	end
 end
 
+M.toggleTmuxPopupTerm = function()
+	local is_tmux = os.getenv("TMUX") ~= nil and #os.getenv("TMUX") > 0
+	if not is_tmux then
+		vim.notify("Not running inside TMUX! Cannot execute TMUX popups.", vim.log.levels.ERROR)
+		return
+	end
+	local zhs_popup_command = os.getenv("TMUX_ZSH_POPUP")
+	if not zhs_popup_command or #zhs_popup_command <= 0 then
+		zhs_popup_command = "\"\\#{@popup-toggle} -Ed'#{pane_current_path}' -w80% -h80% --name=zsh' zsh\""
+	end
+	-- single line
+	zhs_popup_command = zhs_popup_command:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+	-- escapes
+	local zhs_popup_command = string.format('"%s"', zhs_popup_command:gsub('"', '\\"'))
+
+	vim.fn.system("tmux run " .. zhs_popup_command)
+end
 return M

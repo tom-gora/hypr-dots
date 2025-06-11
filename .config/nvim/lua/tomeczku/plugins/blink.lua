@@ -24,7 +24,6 @@ local copilot_config = function()
 			qf = false,
 			markdown = false,
 			help = false,
-			snacks_terminal = false,
 			-- never enable in env files
 			sh = function()
 				if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
@@ -113,7 +112,7 @@ local blink_dependencies = {
 
 local blink_opts = {
 	enabled = function()
-		return not vim.tbl_contains({ "qf", "oil", "snacks_terminal" }, vim.bo.filetype)
+		return not vim.tbl_contains({ "qf", "oil" }, vim.bo.filetype)
 			and vim.bo.buftype ~= "prompt"
 			and vim.b.completion ~= false
 	end,

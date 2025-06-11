@@ -5,7 +5,7 @@ end
 local M, opts
 
 opts = {
-	default_keymappings_enabled = true,
+	default_keymappings_enabled = false,
 	prefix = "<leader>~",
 	enabled_methods = {
 		"to_upper_case",
@@ -24,6 +24,7 @@ opts = {
 M = {
 	"johmsalas/text-case.nvim",
 	cond = vim.g.vscode == nil,
+	-- enabled = false,
 	lazy = true,
 	opts = opts,
 	cmd = "TextCaseStartReplacingCommand",

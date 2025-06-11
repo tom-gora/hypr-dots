@@ -74,7 +74,7 @@ theme.set_highlights = function()
 	hl(0, "String", { fg = b46.base0B, bg = "NONE" })
 	hl(0, "Character", { fg = b46.base08, bg = "NONE" })
 	hl(0, "Constant", { fg = b46.base08, bg = "NONE" })
-	hl(0, "Number", { fg = b46.base09, bg = "NONE" })
+	hl(0, "LineNumber", { fg = b46.base09, bg = "NONE" })
 	hl(0, "Boolean", { fg = b46.base09, bg = "NONE" })
 	hl(0, "Float", { fg = b46.base09, bg = "NONE" })
 	hl(0, "Identifier", { fg = b46.base08, bg = "NONE", sp = "NONE" })
@@ -230,17 +230,55 @@ theme.set_highlights = function()
 	hl(0, "LspReferenceWrite", { fg = "NONE", bg = "#2e303b" })
 	hl(0, "LspCodeLens", { fg = b46.base04, bg = "NONE", italic = true })
 	hl(0, "LspCodeLensSeparator", { fg = b46.base04, bg = "NONE", italic = true })
-	-- Simplify noti borders:
-	local snacks_noti_border_hls = {
-		"SnacksNotifierBorderDebug",
-		"SnacksNotifierBorderTrace",
-		"SnacksNotifierBorderInfo",
-		"SnacksNotifierBorderWarn",
-		"SnacksNotifierBorderError",
+
+	hl(0, "NotifyBackground", { bg = mod.dark_base_bg(), focer })
+	local notify_error_hls = {
+		"NotifyERRORBorder",
+		"NotifyERRORIcon",
+		"NotifyERRORBody",
+		"NotifyERRORTitle",
 	}
-	for _, key in ipairs(snacks_noti_border_hls) do
-		hl(0, key, { fg = mod.low_dark_base_bg(), bg = mod.low_dark_base_bg(), force = true })
+	local notify_warn_hls = {
+		"NotifyWARNIcon",
+		"NotifyWARNBorder",
+		"NotifyWARNBody",
+		"NotifyWARNTitle",
+	}
+	local notify_info_hls = {
+		"NotifyINFOBorder",
+		"NotifyINFOIcon",
+		"NotifyINFOBody",
+		"NotifyINFOTitle",
+	}
+	local notify_debug_hls = {
+		"NotifyDEBUGTitle",
+		"NotifyDEBUGIcon",
+		"NotifyDEBUGBorder",
+		"NotifyDEBUGBody",
+	}
+	local notify_trace_hls = {
+		"NotifyTRACETitle",
+		"NotifyTRACEBody",
+		"NotifyTRACEIcon",
+		"NotifyTRACEBorder",
+	}
+
+	for _, hl_name in ipairs(notify_error_hls) do
+		hl(0, hl_name, { fg = b46.red, bg = mod.low_dark_base_bg(), bold = true })
 	end
+	for _, hl_name in ipairs(notify_warn_hls) do
+		hl(0, hl_name, { fg = b46.yellow, bg = mod.low_dark_base_bg(), bold = true })
+	end
+	for _, hl_name in ipairs(notify_info_hls) do
+		hl(0, hl_name, { fg = b46.blue, bg = mod.low_dark_base_bg(), bold = true })
+	end
+	for _, hl_name in ipairs(notify_debug_hls) do
+		hl(0, hl_name, { fg = b46.purple, bg = mod.low_dark_base_bg(), bold = true })
+	end
+	for _, hl_name in ipairs(notify_trace_hls) do
+		hl(0, hl_name, { fg = b46.cyan, bg = mod.low_dark_base_bg(), bold = true })
+	end
+
 	-- Cmp
 	hl(0, "CmpItemAbbrDeprecated", { fg = b46.grey, bg = "NONE", strikethrough = true })
 	hl(0, "CmpItemAbbrMatch", { fg = b46.blue, bg = "NONE" })
@@ -394,6 +432,8 @@ theme.set_highlights = function()
 	-- snacks indentation guides
 	hl(0, "SnacksIndent", { link = "VertSplit", force = true })
 	hl(0, "SnacksIndentScope", { fg = mod.indent_lines(), force = true })
+	hl(0, "MiniIndentscopeSymbol", { link = "SnacksIndentScope", force = true })
+	--
 	-- colorize gitignore to my liking because default theme does shit
 	hl(0, "@string.special.path.gitignore", { link = "Normal", force = true })
 	hl(0, "@punctuation.delimiter.gitignore", { link = "Added", force = true })
@@ -431,6 +471,53 @@ theme.set_highlights = function()
 	hl(0, "DiagnosticVirtualTextInformation", { fg = b46.sun, bg = mod.diag_bg_info(), force = true })
 	hl(0, "DiagnosticVirtualTextInfo", { fg = b46.sun, bg = mod.diag_bg_info(), force = true })
 	hl(0, "DiagnosticVirtualTextHint", { fg = b46.purple, bg = mod.diag_bg_hint(), force = true })
+	--
+	-- fzflua
+	hl(0, "FzfLuaNormal", { fg = b46.white, bg = mod.low_dark_base_bg(), force = true })
+	hl(0, "FzfLuaBorder", { fg = b46.base02, bg = mod.low_dark_base_bg(), force = true })
+	hl(0, "FzfLuaTitle", { fg = b46.purple, bg = mod.low_dark_base_bg(), force = true })
+	-- hl(0, "FzfLuaTitleFlags", { fg = b46.base05, bg = b46.base00 })
+	hl(0, "FzfLuaBackdrop", { bg = mod.low_dark_base_bg(), force = true })
+	hl(0, "FzfLuaPreviewBorder", { link = "FzfLuaBorder", force = true })
+	hl(0, "FzfLuaPreviewNormal", { bg = mod.low_dark_base_bg(), force = true })
+	hl(0, "FzfLuaCursorLine", { bg = b46.purple, force = true })
+	-- hl(0, "FzfLuaCursorLineNr", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaSearch", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaScrollBorderEmpty", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaScrollBorderFull", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaScrollFloatEmpty", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaScrollFloatFull", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaHelpBorder", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaHeaderBind", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaHeaderText", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaPathColNr", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaPathLineNr", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaBufName", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaBufId", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaBufNr", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaBufLineNr", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaBufFlagCur", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaBufFlagAlt", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaTabTitle", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaTabMarker", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaDirIcon", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaDirPart", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaFilePart", { fg = b46.base05, bg = b46.base00 })
+	hl(0, "FzfLuaLivePrompt", { fg = mod.delimiters_purple(), bg = "none" })
+	-- hl(0, "FzfLuaLiveSym", { fg = b46.base05, bg = b46.base00 })
+	hl(0, "FzfLuaFzfCursorLine", { bg = b46.base03, fg = mod.dark_base_bg(), force = true })
+	-- hl(0, "FzfLuaFzfMatch", { fg = b46.base05, bg = b46.base00 })
+	hl(0, "FzfLuaFzfBorder", { link = "FzfLuaBorder", force = true })
+	hl(0, "FzfLuaFzfScrollbar", { link = "FzfLuaBorder", force = true })
+	hl(0, "FzfLuaFzfSeparator", { link = "FzfLuaBorder", force = true })
+	-- hl(0, "FzfLuaFzfGutter", { fg = b46.base05, bg = b46.base00 })
+	hl(0, "FzfLuaFzfHeader", { fg = b46.purple, bg = mod.dark_base_bg(), force = true })
+	hl(0, "FzfLuaFzfInfo", { fg = b46.purple, bg = mod.dark_base_bg(), force = true })
+	hl(0, "FzfLuaFzfPointer", { fg = mod.delimiters_purple(), bg = "none" })
+	-- hl(0, "FzfLuaFzfMarker", { fg = b46.base05, bg = b46.base00 })
+	-- hl(0, "FzfLuaFzfSpinner", { fg = b46.base05, bg = b46.base00 })
+	hl(0, "FzfLuaFzfPrompt", { fg = mod.delimiters_purple(), bg = "none" })
+	-- hl(0, "FzfLuaFzfQuery", { fg = b46.base05, bg = b46.base00 })
 end
 
 return theme

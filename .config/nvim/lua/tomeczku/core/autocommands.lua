@@ -2,6 +2,7 @@ local api = vim.api
 local fn = vim.fn
 local autocmd = api.nvim_create_autocmd
 
+local perf = api.nvim_create_augroup("perf", { clear = true })
 local lsp_hacks = api.nvim_create_augroup("lspHacks", { clear = true })
 local ui_helpers = api.nvim_create_augroup("UiHelpers", { clear = true })
 local yank_highlight = api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -18,28 +19,15 @@ autocmd("TextYankPost", {
 	pattern = "*",
 })
 
--- disable buggy anims in completion windows where snacks clash with blink
-autocmd("User", {
-	group = ui_helpers,
-	pattern = "BlinkCmpMenuOpen",
-	callback = function()
-		vim.g.snacks_animate = false
-	end,
-})
-
-autocmd("User", {
-	group = ui_helpers,
-	pattern = "BlinkCmpMenuClose",
-	callback = function()
-		vim.g.snacks_animate = true
-	end,
-})
-
---
 -- visual hints for active split
 autocmd("WinEnter", {
 	group = ui_helpers,
-	callback = function()
+	callback = function(e)
+		local buf_type = vim.api.nvim_buf_get_option(e.buf, "buftype")
+		local ft = vim.api.nvim_get_option_value("filetype", { buf = e.buf })
+		if buf_type == "terminal" or ft == "oil" then
+			return
+		end
 		vim.cmd(
 			"setlocal winhighlight=CursorLineNr:CursorLineNr,LineNr:LineNr,LineNrAbove:LineNrAbove,LineNrBelow:LineNrBelow,MiniIndentscopeSymbol:MiniIndentscopeSymbol,CursorLine:CursorLine"
 		)
@@ -48,25 +36,15 @@ autocmd("WinEnter", {
 
 autocmd("WinLeave", {
 	group = ui_helpers,
-	callback = function()
+	callback = function(e)
+		local buf_type = vim.api.nvim_buf_get_option(e.buf, "buftype")
+		local ft = vim.api.nvim_get_option_value("filetype", { buf = e.buf })
+		if buf_type == "terminal" or ft == "oil" then
+			return
+		end
 		vim.cmd(
 			"setlocal winhighlight=CursorLineNr:InvisibleTxt,LineNr:InvisibleTxt,LineNrAbove:InvisibleTxt,LineNrBelow:InvisibleTxt,MiniIndentscopeSymbol:InvisibleTxt,CursorLine:InvisibleBg"
 		)
-	end,
-})
-
-autocmd({ "TermOpen", "TermClose", "TermLeave", "TermEnter" }, {
-	group = ui_helpers,
-	callback = function(e)
-		local term_file = e.file or e.match
-		if not term_file or not term_file:match("aider") then
-			return
-		end
-		if e.event == "TermClose" then
-			_G.AIDER_RUNNING = false
-		else
-			_G.AIDER_RUNNING = true
-		end
 	end,
 })
 

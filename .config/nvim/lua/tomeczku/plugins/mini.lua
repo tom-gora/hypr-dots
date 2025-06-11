@@ -44,6 +44,23 @@ M = {
 		event = "VeryLazy",
 		opts = {},
 	},
+	{
+		"echasnovski/mini.indentscope",
+		version = "*",
+		config = function()
+			local symbol = "▏"
+			require("mini.indentscope").setup({
+				draw = {
+					delay = 0,
+					animation = require("mini.indentscope").gen_animation.none(),
+				},
+				symbol = symbol,
+				options = {
+					try_as_border = true,
+				},
+			})
+		end,
+	},
 }
 
 return M

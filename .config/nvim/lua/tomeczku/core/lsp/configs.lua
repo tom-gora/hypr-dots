@@ -25,7 +25,7 @@ M.lua_setup = function(capabilities, on_attach, name)
 					"lua/?/init.lua",
 				},
 				diagnostics = {
-					globals = { "vim", "vim.g", "Snacks", "_G" },
+					globals = { "vim", "vim.g", "_G" },
 				},
 			},
 			-- Make the server aware of Neovim runtime files

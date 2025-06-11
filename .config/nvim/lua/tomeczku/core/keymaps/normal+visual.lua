@@ -21,7 +21,7 @@ M = {
 		{ desc = "Open...", expr = true },
 	},
 	["<leader>oc"] = { "<cmd>e#<cr>", h.setOpts({ desc = "Reopen Last Closed" }) },
-	["<leader>or"] = { "<cmd>lua Snacks.picker.recent()<cr>", h.setOpts({ desc = "Open Recent" }) },
+	["<leader>or"] = { "<cmd>lua FzfLua.oldfiles()<cr>", h.setOpts({ desc = "Open Recent" }) },
 	--
 	-- whichkey close section
 	["<leader>q"] = { " Close" },
@@ -31,9 +31,6 @@ M = {
 	["<leader>qa"] = { "<cmd>%bd!<cr>", h.setOpts({ desc = "Force Close All Buffers" }) },
 	["<leader>qo"] = { "<cmd>CloseOtherBuffers<cr>", h.setOpts({ desc = "Close All Other Buffers" }) },
 	["<leader>qu"] = { "<cmd>CloseUnmodifiedBuffers<cr>", h.setOpts({ desc = "Close All Unmodified Buffers" }) },
-	-- aider integration
-	["<leader>a"] = { " AI" },
-	["<leader>as"] = { "<cmd>Aider send<cr>", h.setOpts({ desc = "Send to Aider" }) },
 }
 
 return M

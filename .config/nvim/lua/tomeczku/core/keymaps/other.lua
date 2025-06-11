@@ -12,7 +12,6 @@ M.wkProxies = function()
 		{
 			mode = { "x" },
 			{ "<leader>ri", group = "Replace Inside Visual Selection" },
-			{ "<leader>~", group = "󰬴 TextCase" },
 		},
 	})
 end
