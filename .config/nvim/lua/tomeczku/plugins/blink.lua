@@ -173,15 +173,14 @@ local blink_opts = {
 	signature = { window = { border = "solid" } },
 	snippets = { preset = "luasnip" },
 	sources = {
-		default = { "lazydev", "lsp", "path", "snippets", "buffer", "omni", "css_vars", "copilot" },
+		default = { "lazydev", "lsp", "path", "snippets", "buffer", "css_vars", "copilot" },
 		providers = {
 			lsp = { min_keyword_length = 1, opts = { tailwind_color_icon = "" } },
 			buffer = { min_keyword_length = 2 },
-			omni = { min_keyword_length = 3 },
 			snippets = { min_keyword_length = 2 },
 			path = {
 				enabled = true,
-				min_keyword_length = 0,
+				min_keyword_length = 1,
 				opts = {
 					get_cwd = function(_)
 						return vim.fn.getcwd()
@@ -191,6 +190,7 @@ local blink_opts = {
 			lazydev = {
 				name = "LazyDev",
 				module = "lazydev.integrations.blink",
+				min_keyword_length = 1,
 				score_offset = 100,
 			},
 			copilot = {

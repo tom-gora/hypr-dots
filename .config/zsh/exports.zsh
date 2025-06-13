@@ -21,15 +21,24 @@ export PROMPT_EOL_MARK=""
 # Add Java to path
 export CLASSPATH=/lib/jvm/java-17-openjdk-17.0.9.0.9-3.fc39.x86_64/bin
 
-# Local binaries in path
+# add my own custom binaries dumps and /usr/local/bin as wel as it was missing
 export PATH="$HOME/.local/bin":$PATH
 export PATH="/usr/local/bin":$PATH
+
+# setup for go
 export GOPATH=$(go env GOPATH)
 export PATH=$GOPATH:$PATH
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+
+# setup for composer
 export PATH="$XDG_CONFIG_HOME/composer/vendor/bin":$PATH
 export PATH="$BUN_INSTALL/bin":$PATH
+
+# setup for luarocks
+export LUAROCKS_CONFIG="$XDG_CONFIG_HOME/luarocks/config-5.4.lua"
+export LUAROCKS_USER_TREE_ROOT="$HOME/.local/luarocks"
+export PATH="$LUAROCKS_USER_TREE_ROOT/bin":$PATH
 
 # Manpath
 export MANPATH="/usr/local/man:$MANPATH"

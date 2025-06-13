@@ -369,9 +369,6 @@ M = {
 	-- boole. setup manually cuz plugin config fails me
 	["<C-a>"] = { "<cmd>Boole increment<cr>", h.setOpts({ desc = "ignore" }) },
 	["<C-x>"] = { "<cmd>Boole decrement<cr>", h.setOpts({ desc = "ignore" }) },
-
-	-- repl terminals
-	["<leader>t"] = { " REPL Terminals" },
 }
 
 return M

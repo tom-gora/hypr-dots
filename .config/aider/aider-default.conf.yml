@@ -1,7 +1,7 @@
-model: openrouter/openai/gpt-4o-mini
+model: openrouter/google/gemini-2.5-flash-preview-05-20
 weak-model: openrouter/qwen/qwen-2.5-coder-32b-instruct
 
-# code-theme: "github-dark"
+code-theme: "github-dark"
 user-input-color: "#c4a7e7"
 tool-output-color: "#3e8fb0"
 tool-error-color: "#eb6f92"
