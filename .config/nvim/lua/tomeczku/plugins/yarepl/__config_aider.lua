@@ -106,11 +106,11 @@ local set_keymaps = function()
 	-- Quit Aider terminal
 	map("n", "<leader>taq", function()
 		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /ex")
+			cmd("REPLClose aider")
 			return
 		end
 		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Aider Print Repo Map" }))
+	end, h.setOpts({ desc = "Quit Aider TERM" }))
 
 	-- Toggle between preferred coding/writing models
 	map("n", "<leader>tat", function()
@@ -135,19 +135,6 @@ local set_keymaps = function()
 		end
 		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
 	end, h.setOpts({ desc = "Aider Print Repo Map" }))
-
-	-- Pick files to drop
-	map("n", "<leader>tad", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /ls")
-			vim.defer_fn(function()
-				local files_in_chat = utils.aider_list_files_in_chat()
-				vim.notify(vim.inspect(files_in_chat))
-			end, 200)
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Pick Files to Drop" }))
 
 	-- Send visual selection to Aider
 	map("x", "<leader>tas", function()
@@ -178,7 +165,7 @@ end
 M.args = {
 	"--no-auto-commits --stream",
 	"--fancy-input",
-	--"--subtree-only",
+	"--subtree-only",
 	"--config",
 	"$HOME/.config/aider/aider-default.conf.yml",
 }
