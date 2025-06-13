@@ -252,9 +252,17 @@ M.ai_status = function()
 	if _G.COPILOT_ENABLED and _G.COPILOT_ENABLED == true then
 		ai_completions = "%#St_AI_Cmp_Enabled#  "
 	end
-	if _G.AIDER_RUNNING and (not _G.AIDER_WRITING or _G.AIDER_WRITING == false) then
+	if
+		#_G.ACTIVE_REPLS > 0
+		and vim.tbl_contains(_G.ACTIVE_REPLS, "aider")
+		and (not _G.AIDER_WRITING or _G.AIDER_WRITING == false)
+	then
 		aider = "%#St_AI_Chat_Enabled#▏󰅴 "
-	elseif _G.AIDER_RUNNING and (_G.AIDER_WRITING and _G.AIDER_WRITING == true) then
+	elseif
+		#_G.ACTIVE_REPLS > 0
+		and vim.tbl_contains(_G.ACTIVE_REPLS, "aider")
+		and (_G.AIDER_WRITING and _G.AIDER_WRITING == true)
+	then
 		aider = "%#St_AI_Chat_Enabled#▏󰛓 "
 	end
 	return ai_completions .. aider

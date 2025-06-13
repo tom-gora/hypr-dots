@@ -52,17 +52,6 @@ M.args = {
 }
 
 M.setup = function()
-	_G.AIDER_MODELS = {
-		default_coding = {
-			model = "openrouter/google/gemini-2.5-flash-preview-05-2",
-			weak_model = "openrouter/qwen/qwen-2.5-coder-32b-instruct",
-		},
-		writing = {
-			model = "openrouter/google/gemini-2.5-flash-preview",
-			weak_model = "openrouter/deepseek/deepseek-prover-v2:free",
-		},
-	}
-
 	set_keymaps()
 end
 
