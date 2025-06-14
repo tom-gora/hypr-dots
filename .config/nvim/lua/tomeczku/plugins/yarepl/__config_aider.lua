@@ -1,5 +1,5 @@
 local M = {}
-local api, map, cmd = vim.api, vim.keymap.set, vim.cmd
+local api, cmd = vim.api, vim.cmd
 local h = require("tomeczku.core.keymaps.helpers")
 local utils = require("tomeczku.plugins.yarepl.__utils")
 
@@ -13,14 +13,18 @@ local set_keymaps = function()
 	end
 
 	-- Toggle Aider Terminal visibility
-	map("n", "<leader>taa", function()
-		local focused_win = api.nvim_get_current_win()
-		if not vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLStart aider")
+	utils.map("n", "<leader>taa", "aider", function()
+		vim.cmd("REPLHideOrFocus aider")
+	end, "Toggle Aider Terminal", true)
+
+	-- Quit Aider terminal
+	map("n", "<leader>taq", function()
+		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
+			cmd("REPLClose aider")
 			return
 		end
-		cmd("REPLHideOrFocus aider")
-	end, h.setOpts({ desc = "Toggle Aider Terminal" }))
+		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
+	end, h.setOpts({ desc = "Quit Aider TERM" }))
 
 	-- Send current line to Aider
 	map("n", "<leader>tas", function()
@@ -103,15 +107,6 @@ local set_keymaps = function()
 		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
 	end, h.setOpts({ desc = "Aider Print Repo Map" }))
 
-	-- Quit Aider terminal
-	map("n", "<leader>taq", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLClose aider")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Quit Aider TERM" }))
-
 	-- Toggle between preferred coding/writing models
 	map("n", "<leader>tat", function()
 		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
@@ -134,7 +129,7 @@ local set_keymaps = function()
 			return
 		end
 		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Aider Print Repo Map" }))
+	end, h.setOpts({ desc = "Toggle Aider Models" }))
 
 	-- Send visual selection to Aider
 	map("x", "<leader>tas", function()
@@ -144,22 +139,6 @@ local set_keymaps = function()
 		end
 		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
 	end, h.setOpts({ desc = "Send Selection to Aider" }))
-end
-
-local set_autocmds = function()
-	local aider_helpers = api.nvim_create_augroup("AiderHelpers", { clear = true })
-	api.nvim_create_autocmd("TermClose", {
-		group = aider_helpers,
-		callback = function(e)
-			local ok, repl = pcall(api.nvim_buf_get_var, e.buf, "repl")
-			if not ok then
-				return
-			end
-			_G.ACTIVE_REPLS = vim.tbl_filter(function(item)
-				return not item:match(repl)
-			end, _G.ACTIVE_REPLS)
-		end,
-	})
 end
 
 M.args = {
@@ -184,7 +163,6 @@ M.setup = function()
 	}
 
 	set_keymaps()
-	set_autocmds()
 end
 
 return M

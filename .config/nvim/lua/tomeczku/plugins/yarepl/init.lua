@@ -1,6 +1,7 @@
 local M, api = {}, vim.api
 local utils = require("tomeczku.plugins.yarepl.__utils")
 local aider = require("tomeczku.plugins.yarepl.__config_aider")
+local goose = require("tomeczku.plugins.yarepl.__config_goose")
 local lua_repl = require("tomeczku.plugins.yarepl.__config_lua_repl")
 
 local plugin_opts = {
@@ -53,8 +54,10 @@ M = {
 			})
 		end
 
+		utils.set_autocmds()
 		aider.setup()
 		lua_repl.setup()
+		goose.setup()
 	end,
 }
 

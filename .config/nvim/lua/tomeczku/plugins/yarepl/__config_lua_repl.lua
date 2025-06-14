@@ -6,6 +6,7 @@ local set_keymaps = function()
 	local ok, wk = pcall(require, "which-key")
 	if ok then
 		wk.add({
+			mode = { "n", "x" },
 			{ "<leader>tl", group = "Lua REPL" },
 		})
 	end
@@ -17,6 +18,14 @@ local set_keymaps = function()
 		end
 		cmd("REPLStart lua")
 	end, h.setOpts({ desc = "Toggle Lua REPL" }))
+
+	map("n", "<leader>tlq", function()
+		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "lua") then
+			cmd("REPLClose lua")
+			return
+		end
+		notify("REPL doesn't exist!", vim.log.levels.INFO)
+	end, h.setOpts({ desc = "Quit Lua REPL" }))
 
 	map("n", "<leader>tls", function()
 		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "lua") then
@@ -33,23 +42,7 @@ local set_keymaps = function()
 		end
 		notify("REPL doesn't exist!", vim.log.levels.INFO)
 	end, h.setOpts({ desc = "Send Selection to Lua REPL" }))
-
-	map("n", "<leader>tlq", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "lua") then
-			cmd("REPLClose lua")
-			return
-		end
-		notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Quit Lua REPL" }))
 end
-
-M.args = {
-	"--no-auto-commits --stream",
-	"--fancy-input",
-	--"--subtree-only",
-	"--config",
-	"$HOME/.config/aider/aider-default.conf.yml",
-}
 
 M.setup = function()
 	set_keymaps()

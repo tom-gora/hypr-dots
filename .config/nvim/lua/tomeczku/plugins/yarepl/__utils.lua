@@ -37,4 +37,43 @@ M.set_split = function(bufnr, name)
 	_G.ACTIVE_REPLS[#_G.ACTIVE_REPLS + 1] = name
 end
 
+M.set_autocmds = function()
+	local repl_helpers = api.nvim_create_augroup("REPLHelpers", { clear = true })
+	-- if one of active repls closed remove it from the global state list of opened ones
+	api.nvim_create_autocmd("TermClose", {
+		group = repl_helpers,
+		callback = function(e)
+			local ok, repl = pcall(api.nvim_buf_get_var, e.buf, "repl")
+			if not ok then
+				return
+			end
+			_G.ACTIVE_REPLS = vim.tbl_filter(function(item)
+				return not item:match(repl)
+			end, _G.ACTIVE_REPLS)
+		end,
+	})
+end
+
+---@param mode string
+---@param lhs string
+---@param repl_name string
+---@param logic function
+---@param desc string
+---@param start_new boolean?
+---@retrn void
+M.map = function(mode, lhs, repl_name, logic, desc, start_new)
+	vim.keymap.set(mode, lhs, function()
+		vim.notify(tostring(start_new))
+		if start_new and start_new == true then
+			vim.cmd("REPLStart " .. repl_name)
+			return
+		end
+		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, repl_name) then
+			logic()
+			return
+		end
+		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
+	end, { silent = true, noremap = true, desc = desc })
+end
+
 return M
