@@ -10,7 +10,13 @@ opts = {
 	mappings = {
 		i = { j = { n = "<Esc>" } },
 		c = { j = { n = "<C-c>" } },
-		t = { j = { n = "<Esc>" } },
+		t = {
+			j = {
+				n = function()
+					vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, true, true), "t", false)
+				end,
+			},
+		},
 		x = { j = { n = "<Esc>" } },
 		s = { j = { n = "<Esc>" } },
 	},

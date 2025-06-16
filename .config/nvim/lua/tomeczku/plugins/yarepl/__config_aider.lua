@@ -1,3 +1,4 @@
+-- TODO: add ollama option and integrate into toggling
 local M = {}
 local api, cmd = vim.api, vim.cmd
 local h = require("tomeczku.core.keymaps.helpers")
@@ -12,133 +13,87 @@ local set_keymaps = function()
 		})
 	end
 
+	-- NOTE: Func signature: function(mode, lhs, repl_name, logic, desc, start_new)
+
 	-- Toggle Aider Terminal visibility
 	utils.map("n", "<leader>taa", "aider", function()
 		vim.cmd("REPLHideOrFocus aider")
 	end, "Toggle Aider Terminal", true)
 
 	-- Quit Aider terminal
-	map("n", "<leader>taq", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLClose aider")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Quit Aider TERM" }))
+	utils.map("n", "<leader>taq", "aider", function()
+		cmd("REPLClose aider")
+	end, "Quit Aider TERM", false)
 
 	-- Send current line to Aider
-	map("n", "<leader>tas", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLSendLine aider")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Send Line to Aider" }))
+	utils.map("n", "<leader>tas", "aider", function()
+		cmd("REPLSendLine aider")
+	end, "Send Line to Aider", false)
 
 	-- Send current file to Aider
-	map("n", "<leader>ta+", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /add " .. vim.fn.expand("%:."))
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Send Current File to Aider" }))
+	utils.map("n", "<leader>ta+", "aider", function()
+		cmd("REPLExec $aider /add " .. vim.fn.expand("%:."))
+	end, "Send Current File to Aider", false)
 
 	-- Drop current file from the chat
-	map("n", "<leader>ta-", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /drop " .. vim.fn.expand("%:."))
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Drop Current File From Aider" }))
+	utils.map("n", "<leader>ta-", "aider", function()
+		cmd("REPLExec $aider /drop " .. vim.fn.expand("%:."))
+	end, "Drop Current File From Aider", false)
 
 	-- Drop all files added to the chat
-	map("n", "<leader>taD", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /drop")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Drop All Files From Aider" }))
+	utils.map("n", "<leader>taD", "aider", function()
+		cmd("REPLExec $aider /drop")
+	end, "Drop All Files From Aider", false)
 
 	-- Set Aider to ask mode
-	map("n", "<leader>taA", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /chat-mode ask")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Aider Ask Mode" }))
+	utils.map("n", "<leader>taA", "aider", function()
+		cmd("REPLExec $aider /chat-mode ask")
+	end, "Aider Ask Mode", false)
 
 	-- Set Aider to code mode
-	map("n", "<leader>taC", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /chat-mode code")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Aider Code Mode" }))
+	utils.map("n", "<leader>taC", "aider", function()
+		cmd("REPLExec $aider /chat-mode code")
+	end, "Aider Code Mode", false)
 
 	-- Set Aider to architect mode
-	map("n", "<leader>taR", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /chat-mode architect")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Aider Architect Mode" }))
+	utils.map("n", "<leader>taR", "aider", function()
+		cmd("REPLExec $aider /chat-mode architect")
+	end, "Aider Architect Mode", false)
 
 	-- Refresh Aider repository map
-	map("n", "<leader>tam", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /map-refresh")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Aider Refresh Repo Map" }))
+	utils.map("n", "<leader>tam", "aider", function()
+		cmd("REPLExec $aider /map-refresh")
+	end, "Aider Refresh Repo Map", false)
 
 	-- Print Aider repository map
-	map("n", "<leader>taM", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			cmd("REPLExec $aider /map")
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Aider Print Repo Map" }))
+	utils.map("n", "<leader>taM", "aider", function()
+		cmd("REPLExec $aider /map")
+	end, "Aider Print Repo Map", false)
 
 	-- Toggle between preferred coding/writing models
-	map("n", "<leader>tat", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			local models = _G.AIDER_MODELS
-			if not _G.AIDER_WRITING or _G.AIDER_WRITING == false then
-				cmd("REPLExec $aider /model " .. models.writing.model)
-				cmd("REPLExec $aider /weak-model " .. models.writing.weak_model)
-				local msg = "Switched AIDER to writing models."
-				msg = msg:gsub('"', '\\"')
-				os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
-				_G.AIDER_WRITING = not _G.AIDER_WRITING
-				return
-			end
-			cmd("REPLExec $aider /model " .. models.default_coding.model)
-			cmd("REPLExec $aider /weak-model " .. models.default_coding.weak_model)
-			local msg = "Switched AIDER to coding models."
+	utils.map("n", "<leader>tat", "aider", function()
+		local models = _G.AIDER_MODELS
+		if not _G.AIDER_WRITING or _G.AIDER_WRITING == false then
+			cmd("REPLExec $aider /model " .. models.writing.model)
+			cmd("REPLExec $aider /weak-model " .. models.writing.weak_model)
+			local msg = "Switched AIDER to writing models."
 			msg = msg:gsub('"', '\\"')
 			os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
 			_G.AIDER_WRITING = not _G.AIDER_WRITING
 			return
 		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Toggle Aider Models" }))
+		cmd("REPLExec $aider /model " .. models.default_coding.model)
+		cmd("REPLExec $aider /weak-model " .. models.default_coding.weak_model)
+		local msg = "Switched AIDER to coding models."
+		msg = msg:gsub('"', '\\"')
+		os.execute('notify-send -u normal "Aider" "' .. msg .. '"')
+		_G.AIDER_WRITING = not _G.AIDER_WRITING
+	end, "Toggle Aider Models", false)
 
 	-- Send visual selection to Aider
-	map("x", "<leader>tas", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-			require("yarepl").commands.send_visual({ args = "aider" })
-			return
-		end
-		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Send Selection to Aider" }))
+	utils.map("x", "<leader>tas", "aider", function()
+		require("yarepl").commands.send_visual({ args = "aider" })
+	end, "Send Selection to Aider", false)
 end
 
 M.args = {

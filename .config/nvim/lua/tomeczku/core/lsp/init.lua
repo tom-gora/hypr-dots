@@ -54,9 +54,12 @@ M.setup = function()
 		local lsp_spec = require("mason-registry").get_package(lsp).spec
 		if lsp_spec.categories[1] == "LSP" then
 			-- bring in customized setup functions conditionally
-			if lsp == "emmylua_ls" then
-				configs.lua_setup(capabilities, on_attach, lsp)
-			elseif lsp == "bash-language-server" then
+			--
+			-- lua handled by lazydev
+			-- if lsp == "emmylua_ls" then
+			-- 	configs.lua_setup(capabilities, on_attach, lsp)
+			-- else
+			if lsp == "bash-language-server" then
 				configs.bash_setup(capabilities, on_attach, lsp)
 			elseif lsp == "emmet-language-server" then
 				configs.emmet_setup(capabilities, on_attach, lsp)

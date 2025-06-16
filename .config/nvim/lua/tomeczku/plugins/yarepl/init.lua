@@ -3,6 +3,7 @@ local utils = require("tomeczku.plugins.yarepl.__utils")
 local aider = require("tomeczku.plugins.yarepl.__config_aider")
 local goose = require("tomeczku.plugins.yarepl.__config_goose")
 local lua_repl = require("tomeczku.plugins.yarepl.__config_lua_repl")
+local todos = require("tomeczku.plugins.yarepl.__config_todo")
 
 local plugin_opts = {
 	buflisted = true,
@@ -10,6 +11,7 @@ local plugin_opts = {
 	ft = "REPL",
 	wincmd = utils.set_split,
 	metas = {
+		-- DISABLED:
 		aichat = false,
 		radian = false,
 		ipython = false,
@@ -30,6 +32,11 @@ local plugin_opts = {
 		goose = { cmd = "goose", formatter = "bracketed_pasting", source_syntax = "bash" },
 		lua = { cmd = "croissant", formatter = "bracketed_pasting", source_syntax = "lua" },
 		zsh = { cmd = "zsh", formatter = "bracketed_pasting", source_syntax = "bash" },
+		todo = {
+			cmd = vim.env.shell .. " -c todo; exec " .. vim.env.shell .. " -i",
+			formatter = "bracketed_pasting",
+			source_syntax = "bash",
+		},
 	},
 	close_on_exit = true,
 	scroll_to_bottom_after_sending = true,
@@ -55,6 +62,7 @@ M = {
 		end
 
 		utils.set_autocmds()
+		todos.setup()
 		aider.setup()
 		lua_repl.setup()
 		goose.setup()

@@ -249,6 +249,7 @@ end
 M.ai_status = function()
 	local ai_completions = "%#St_AI_Disabled#  "
 	local aider = "%#St_AI_Disabled#▏󰭲 "
+	local goose = "%#St_AI_Disabled#▏󰇥 "
 	if _G.COPILOT_ENABLED and _G.COPILOT_ENABLED == true then
 		ai_completions = "%#St_AI_Cmp_Enabled#  "
 	end
@@ -265,7 +266,10 @@ M.ai_status = function()
 	then
 		aider = "%#St_AI_Chat_Enabled#▏󰛓 "
 	end
-	return ai_completions .. aider
+	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "goose") then
+		goose = "%#St_AI_Chat_Enabled#▏󰇥 "
+	end
+	return ai_completions .. aider .. goose
 end
 
 M.spelling_status = function()

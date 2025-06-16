@@ -63,13 +63,12 @@ end
 ---@retrn void
 M.map = function(mode, lhs, repl_name, logic, desc, start_new)
 	vim.keymap.set(mode, lhs, function()
-		vim.notify(tostring(start_new))
-		if start_new and start_new == true then
-			vim.cmd("REPLStart " .. repl_name)
-			return
-		end
 		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, repl_name) then
 			logic()
+			return
+		end
+		if start_new and start_new == true then
+			vim.cmd("REPLStart " .. repl_name)
 			return
 		end
 		vim.notify("REPL doesn't exist!", vim.log.levels.INFO)

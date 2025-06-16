@@ -19,108 +19,30 @@ local set_keymaps = function()
 		vim.cmd("REPLHideOrFocus goose")
 	end, "Toggle Goose Terminal", true)
 
+	-- Quit Aider terminal
+	utils.map("n", "<leader>tgq", "goose", function()
+		cmd("REPLClose goose")
+	end, "Quit Goose TERM", false)
+
 	-- Send current line to Goose
 	utils.map("n", "<leader>tgs", "goose", function()
 		cmd("REPLSendLine goose")
 	end, "Send Line to Goose", false)
 
-	-- map("n", "<leader>tgs", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "goose") then
-	-- 		cmd("REPLSendLine goose")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Send Line to Goose" }))
-	--
-	-- -- Quit Goose terminal
-	-- map("n", "<leader>tgq", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "goose") then
-	-- 		cmd("REPLClose goose")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Quit Goose TERM" }))
+	-- Set Goose to auto mode
+	utils.map("n", "<leader>tgA", "goose", function()
+		cmd("REPLExec $goose /mode auto")
+	end, "Goose Auto Mode", false)
 
-	-- -- Send current file to Goose
-	-- map("n", "<leader>ta+", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /add " .. vim.fn.expand("%:."))
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Send Current File to Goose" }))
-	--
-	-- -- Drop current file from the chat
-	-- map("n", "<leader>ta-", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /drop " .. vim.fn.expand("%:."))
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Drop Current File From Goose" }))
-	--
-	-- -- Drop all files added to the chat
-	-- map("n", "<leader>taD", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /drop")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Drop All Files From Goose" }))
-	--
-	-- -- Set Goose to ask mode
-	-- map("n", "<leader>taA", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /chat-mode ask")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Goose Ask Mode" }))
-	--
-	-- -- Set Goose to code mode
-	-- map("n", "<leader>taC", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /chat-mode code")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Goose Code Mode" }))
-	--
-	-- -- Set Goose to architect mode
-	-- map("n", "<leader>taR", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /chat-mode architect")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Goose Architect Mode" }))
-	--
-	-- -- Refresh Goose repository map
-	-- map("n", "<leader>tam", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /map-refresh")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Goose Refresh Repo Map" }))
-	--
-	-- -- Print Goose repository map
-	-- map("n", "<leader>taM", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		cmd("REPLExec $aider /map")
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Goose Print Repo Map" }))
-	--
-	-- -- Send visual selection to Goose
-	-- map("x", "<leader>tas", function()
-	-- 	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "aider") then
-	-- 		require("yarepl").commands.send_visual({ args = "aider" })
-	-- 		return
-	-- 	end
-	-- 	vim.notify("REPL doesn't exist!", vim.log.levels.INFO)
-	-- end, h.setOpts({ desc = "Send Selection to Goose" }))
+	-- Set Goose to approve mode
+	utils.map("n", "<leader>tgP", "goose", function()
+		cmd("REPLExec $goose /mode approve")
+	end, "Goose Approve Mode", false)
+
+	-- Set Goose to chat mode
+	utils.map("n", "<leader>tgC", "goose", function()
+		cmd("REPLExec $goose /mode chat")
+	end, "Goose Chat Mode", false)
 end
 
 M.setup = function()

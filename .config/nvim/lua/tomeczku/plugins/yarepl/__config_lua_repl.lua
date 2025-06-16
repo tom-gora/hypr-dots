@@ -1,6 +1,6 @@
 local M = {}
-local api, map, cmd, notify = vim.api, vim.keymap.set, vim.cmd, vim.notify
-local h = require("tomeczku.core.keymaps.helpers")
+local api, cmd = vim.api, vim.cmd
+local utils = require("tomeczku.plugins.yarepl.__utils")
 
 local set_keymaps = function()
 	local ok, wk = pcall(require, "which-key")
@@ -11,37 +11,27 @@ local set_keymaps = function()
 		})
 	end
 
-	map("n", "<leader>tll", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "lua") then
-			cmd("REPLHideOrFocus lua")
-			return
-		end
-		cmd("REPLStart lua")
-	end, h.setOpts({ desc = "Toggle Lua REPL" }))
+	-- NOTE: Func signature: function(mode, lhs, repl_name, logic, desc, start_new)
 
-	map("n", "<leader>tlq", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "lua") then
-			cmd("REPLClose lua")
-			return
-		end
-		notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Quit Lua REPL" }))
+	-- Toggle Lua REPL
+	utils.map("n", "<leader>tll", "lua", function()
+		cmd("REPLHideOrFocus lua")
+	end, "Toggle Lua REPL", true)
 
-	map("n", "<leader>tls", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "lua") then
-			cmd("REPLSendLine lua")
-			return
-		end
-		notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Send Line to Lua REPL" }))
+	-- Quit Lua REPL
+	utils.map("n", "<leader>tlq", "lua", function()
+		cmd("REPLClose lua")
+	end, "Quit Lua REPL", false)
 
-	map("x", "<leader>tls", function()
-		if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "lua") then
-			require("yarepl").commands.send_visual({ args = "lua" })
-			return
-		end
-		notify("REPL doesn't exist!", vim.log.levels.INFO)
-	end, h.setOpts({ desc = "Send Selection to Lua REPL" }))
+	-- Send Line to Lua REPL
+	utils.map("n", "<leader>tls", "lua", function()
+		cmd("REPLSendLine lua")
+	end, "Send Line to Lua REPL", false)
+
+	-- Send Selection to Lua REPL
+	utils.map("x", "<leader>tls", "lua", function()
+		require("yarepl").commands.send_visual({ args = "lua" })
+	end, "Send Selection to Lua REPL", false)
 end
 
 M.setup = function()
