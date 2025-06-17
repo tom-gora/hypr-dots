@@ -35,38 +35,71 @@ local set_keymaps = function()
 		vim.cmd("d")
 	end, "Init TODOS for Project", false)
 
-	utils.map("n", "<leader>ttd", "todo", function()
-		local input = vim.fn.input("Enter task ID to delete: ")
-
-		if input == "" then
-			vim.notify("Delete action cancelled.", vim.log.levels.INFO)
-			return
-		end
-
-		if not input:match("^%d+$") then
-			vim.notify("Invalid input. Task ID must be an integer.", vim.log.levels.ERROR)
-			return
-		end
-
-		local number = tonumber(input)
-		vim.cmd("REPLExec $todo todo -r " .. number)
-		vim.cmd("REPLExec $todo clear && todo")
-	end, "Delete TODO by ID", false)
-
-	vim.keymap.set("n", "<leader>x", function()
-		local read_chars = ""
-		local keep_reading = nil
-		while keep_reading == nil do
-			local char = vim.fn.getcharstr()
-			read_chars = read_chars .. char
-			if tonumber(char) ~= nil then
-				keep_reading = "NaN"
+	utils.map("n", "<leader>ttr", "todo", function()
+		local count_tasks = function()
+			local counter = 0
+			local todo_output = vim.trim(vim.fn.system("todo -hp"))
+			local output_lines = vim.split(todo_output, "\n", { plain = true })
+			for _, line in ipairs(output_lines) do
+				line = vim.trim(line)
+				if line:match("^%d+") then
+					counter = counter + 1
+				end
 			end
+			return counter
 		end
-		if keep_reading == "Nan" then
-			vim.notify("Only numeric input is valid as TODO index.", vim.log.levels.WARN)
+		local total_tasks = count_tasks()
+
+		local get_chars = function(total_tasks)
+			local chars = ""
+			local max_digits = #tostring(total_tasks)
+			local countdown = vim.uv.new_timer()
+
+			countdown:start(
+				1000,
+				0,
+				vim.schedule_wrap(function()
+					vim.cmd("REPLExec $todo clear && todo -r " .. tonumber(chars))
+					-- HACK: Feed dummy esc to kill the loop
+					vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", true)
+					countdown:stop()
+					countdown:close()
+				end)
+			)
+
+			while #chars < max_digits do
+				local char_ok, char = pcall(vim.fn.getcharstr)
+				if char == "\27" then
+					return chars
+				end
+				if not char_ok or char == "" or tonumber(char) == nil then
+					return nil
+				end
+				chars = chars .. char
+				if tonumber(chars) > total_tasks then
+					return "too_many"
+				end
+			end
+			return chars
 		end
-	end, { silent = true, noremap = true, desc = "For testing" })
+
+		local redraw_scheduler = vim.uv.new_timer()
+		redraw_scheduler:start(
+			0,
+			50,
+			vim.schedule_wrap(function()
+				vim.cmd("redraw")
+			end)
+		)
+		local read_chars = get_chars(total_tasks)
+		redraw_scheduler:stop()
+		redraw_scheduler:close()
+		if read_chars == nil then
+			return
+		elseif read_chars == "too_many" then
+			vim.notify("There is only " .. tostring(total_tasks) .. " tasks to select from.", vim.log.levels.WARN)
+		end
+	end, "Remove TODO by ID", false)
 end
 
 M.setup = function()
