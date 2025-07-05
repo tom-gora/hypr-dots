@@ -60,6 +60,7 @@ M.mode_plus_path = function()
 	if not utils.is_activewin() then
 		return ""
 	end
+	---@diagnostic disable: inject-field, need-check-nil
 	-- tweak normal mode
 	modes["n"][3] = ""
 	-- tweak visual modes
@@ -123,15 +124,15 @@ M.git = function()
 	local git_status = vim.b[utils.stbufnr()].gitsigns_status_dict
 
 	local added = (git_status.added and git_status.added ~= 0)
-			and (" 󰐖 " .. utils.intToSuperscript(git_status.added))
+			and ("⁺" .. utils.intToSuperscript(git_status.added) .. " ")
 		or ""
 	local changed = (git_status.changed and git_status.changed ~= 0)
-			and (" 󱊩 " .. utils.intToSuperscript(git_status.changed))
+			and ("ᵟ" .. utils.intToSuperscript(git_status.changed) .. " ")
 		or ""
 	local removed = (git_status.removed and git_status.removed ~= 0)
-			and (" 󰍵 " .. utils.intToSuperscript(git_status.removed))
+			and ("⁻" .. utils.intToSuperscript(git_status.removed) .. " ")
 		or ""
-	local branch_name = "  " .. git_status.head
+	local branch_name = " " .. git_status.head .. " "
 
 	local width = vim.api.nvim_win_get_width(0)
 	if width < 62 then
@@ -173,11 +174,11 @@ M.lsp_diags = function()
 	local total = errors + warnings + hints + info
 	local width = vim.api.nvim_win_get_width(0)
 	if width < 56 and total > 0 then
-		return " 󰀧 "
+		return " ﹗"
 	end
 
 	if total == 0 then
-		return " 󰺦 "
+		return " · "
 	end
 
 	local e = (errors and errors > 0) and ("%#St_lspError#" .. utils.intToSuperscript(errors) .. " ") or ""
@@ -199,6 +200,7 @@ M.lsp_status = function()
 	if not clients or #clients == 0 then
 		return ""
 	end
+	---@diagnostic disable-next-line
 	local lsp_string = utils.makeLspString(bufnr, clients)
 	--
 	local width = vim.api.nvim_win_get_width(0)
@@ -207,7 +209,7 @@ M.lsp_status = function()
 	end
 	--
 	if lsp_string and lsp_string ~= "" then
-		return (vim.o.columns > 86 and "%#St_ConfirmModeCustomTxt# " .. lsp_string.icon .. lsp_string.name)
+		return (vim.o.columns > 86 and "%#St_ConfirmModeCustomTxt# " .. lsp_string.icon .. lsp_string.name .. " ")
 			or "%#St_ConfirmMode#   "
 	end
 	-- just draw nothing if no lsp client or err out with nil values for string
@@ -233,7 +235,7 @@ end
 
 M.opened_buf_count = function()
 	local bufs = vim.tbl_filter(function(bufnr)
-		return vim.api.nvim_buf_get_option(bufnr, "buflisted")
+		return vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
 	end, vim.api.nvim_list_bufs())
 	if #bufs <= 1 then
 		return ""
@@ -247,29 +249,27 @@ end
 
 ---@return string
 M.ai_status = function()
-	local ai_completions = "%#St_AI_Disabled#  "
-	local aider = "%#St_AI_Disabled#▏󰭲 "
-	local goose = "%#St_AI_Disabled#▏󰇥 "
+	local ai_completions = "%#St_AI_Disabled#ꟲ"
+	local aider = "%#St_AI_Disabled#ᴬ"
 	if _G.COPILOT_ENABLED and _G.COPILOT_ENABLED == true then
-		ai_completions = "%#St_AI_Cmp_Enabled#  "
+		ai_completions = "%#St_AI_Cmp_Enabled#ꟲ"
 	end
 	if
 		#_G.ACTIVE_REPLS > 0
 		and vim.tbl_contains(_G.ACTIVE_REPLS, "aider")
 		and (not _G.AIDER_WRITING or _G.AIDER_WRITING == false)
 	then
-		aider = "%#St_AI_Chat_Enabled#▏󰅴 "
+		aider = "%#St_AI_Chat_Enabled#ꟲ"
 	elseif
 		#_G.ACTIVE_REPLS > 0
 		and vim.tbl_contains(_G.ACTIVE_REPLS, "aider")
 		and (_G.AIDER_WRITING and _G.AIDER_WRITING == true)
 	then
-		aider = "%#St_AI_Chat_Enabled#▏󰛓 "
+		aider = "%#St_AI_Chat_Enabled#ᵂ"
 	end
-	if #_G.ACTIVE_REPLS > 0 and vim.tbl_contains(_G.ACTIVE_REPLS, "goose") then
-		goose = "%#St_AI_Chat_Enabled#▏󰇥 "
+	if #_G.ACTIVE_REPLS > 0 then
 	end
-	return ai_completions .. aider .. goose
+	return ai_completions .. aider .. " "
 end
 
 M.spelling_status = function()

@@ -425,9 +425,9 @@ theme.set_highlights = function()
 	hl(0, "St_sep_r", { fg = mod.path_bg() })
 	hl(0, "St_macro_sep", { fg = mod.path_bg(), bg = "none" })
 	hl(0, "St_macro_reg", { bg = mod.path_bg(), fg = h.get_color("ErrorMsg", "fg") })
-	hl(0, "St_AI_Disabled", { bg = h.get_color("Comment", "fg"), fg = mod.base_bg(), force = true })
-	hl(0, "St_AI_Cmp_Enabled", { bg = h.get_color("Function", "fg"), fg = mod.base_bg(), force = true })
-	hl(0, "St_AI_Chat_Enabled", { bg = h.get_color("Function", "fg"), fg = mod.base_bg(), force = true })
+	hl(0, "St_AI_Disabled", { bg = "none", fg = h.get_color("Comment", "fg"), bold = true, force = true })
+	hl(0, "St_AI_Cmp_Enabled", { bg = "none", fg = h.get_color("String", "fg"), bold = true, force = true })
+	hl(0, "St_AI_Chat_Enabled", { bg = "none", fg = h.get_color("Function", "fg"), bold = true, force = true })
 
 	-- snacks indentation guides
 	hl(0, "SnacksIndent", { link = "VertSplit", force = true })
@@ -450,7 +450,7 @@ theme.set_highlights = function()
 	hl(0, "LineNrAbove", { link = "MyLineNrAbove", force = true })
 	hl(0, "LineNrBelow", { link = "MyLineNrBelow", force = true })
 	-- recolor WinSeparator
-	hl(0, "WinSeparator", { fg = mod.dark_base_bg(), bg = "none", force = true })
+	hl(0, "WinSeparator", { fg = mod.moon_teal(), bg = "none", force = true })
 	-- blink
 	hl(0, "BlinkCmpMenu", { bg = mod.low_dark_base_bg(), force = true })
 	hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder", force = true })

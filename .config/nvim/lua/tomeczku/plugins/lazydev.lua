@@ -24,6 +24,9 @@ opts = {
 		-- Load luvit types when the `vim.uv` word is found
 		{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 		{ path = "wezterm-types", mods = { "wezterm" } },
+		{ diagnostics = {
+			globals = { "vim", "vim.g", "_G" },
+		} },
 	},
 	integrations = {
 		lspconfig = false,

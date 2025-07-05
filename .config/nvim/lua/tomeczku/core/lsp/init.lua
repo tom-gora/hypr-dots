@@ -63,6 +63,8 @@ M.setup = function()
 				configs.bash_setup(capabilities, on_attach, lsp)
 			elseif lsp == "emmet-language-server" then
 				configs.emmet_setup(capabilities, on_attach, lsp)
+			elseif lsp == "json-lsp" then
+				configs.json_setup(capabilities, on_attach, lsp)
 			elseif lsp == "astro-language-server" then
 				configs.astro_setup(capabilities, on_attach, lsp)
 			elseif lsp == "phpactor" then

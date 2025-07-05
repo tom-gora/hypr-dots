@@ -89,21 +89,22 @@ pickers_opts = {
 	},
 	files = {
 		prompt = "󰱽 🯛",
+		sort_lastused = true,
 	},
 	git = {
 		prompt = "󰊢 🯛",
-	},
-	files = {
-		prompt = "󰱽 🯛",
+		sort_lastused = true,
 	},
 	args = {
 		prompt = "() 🯛",
 	},
 	oldfiles = {
 		prompt = "󰋚 🯛",
+		sort_lastused = true,
 	},
 	buffers = {
 		prompt = " 🯛",
+		sort_lastused = true,
 	},
 	lines = {
 		prompt = " 🯛",

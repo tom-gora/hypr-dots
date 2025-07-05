@@ -1,9 +1,13 @@
+-- TODO: Find nice golang repl for learning and testing as well.
+-- https://github.com/x-motemen/gore is a candidate
+--
+-- TODO: something nice for databases cli-based?
+--
+--
 local M, api = {}, vim.api
 local utils = require("tomeczku.plugins.yarepl.__utils")
 local aider = require("tomeczku.plugins.yarepl.__config_aider")
-local goose = require("tomeczku.plugins.yarepl.__config_goose")
 local lua_repl = require("tomeczku.plugins.yarepl.__config_lua_repl")
-local todos = require("tomeczku.plugins.yarepl.__config_todo")
 
 local plugin_opts = {
 	buflisted = true,
@@ -29,14 +33,8 @@ local plugin_opts = {
 			formatter = "bracketed_pasting",
 			source_syntax = "aichat",
 		},
-		goose = { cmd = "goose", formatter = "bracketed_pasting", source_syntax = "bash" },
 		lua = { cmd = "croissant", formatter = "bracketed_pasting", source_syntax = "lua" },
 		zsh = { cmd = "zsh", formatter = "bracketed_pasting", source_syntax = "bash" },
-		todo = {
-			cmd = vim.env.shell .. " -c todo; exec " .. vim.env.shell .. " -i",
-			formatter = "bracketed_pasting",
-			source_syntax = "bash",
-		},
 	},
 	close_on_exit = true,
 	scroll_to_bottom_after_sending = true,
@@ -62,10 +60,8 @@ M = {
 		end
 
 		utils.set_autocmds()
-		todos.setup()
 		aider.setup()
 		lua_repl.setup()
-		goose.setup()
 	end,
 }
 

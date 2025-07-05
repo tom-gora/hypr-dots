@@ -320,4 +320,39 @@ M.toggleTmuxPopupTerm = function()
 
 	vim.fn.system("tmux run " .. zhs_popup_command)
 end
+
+-- TODO: One day refactor this under-construction code meant to take numeric input AFTER keybind trigger
+-- M.helixStylePostOperatorCount = function(max_digits)
+-- 	local chars = ""
+-- 	local countdown = vim.uv.new_timer()
+--
+-- 	countdown:start(
+-- 		1000,
+-- 		0,
+-- 		vim.schedule_wrap(function()
+-- 			vim.cmd("REPLExec $todo clear && todo -r " .. tonumber(chars))
+-- 			-- HACK: Feed dummy esc to kill the loop
+-- 			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", true)
+-- 			countdown:stop()
+-- 			countdown:close()
+-- 		end)
+-- 	)
+--
+-- 	while #chars < max_digits do
+-- 		local char_ok, char = pcall(vim.fn.getcharstr)
+-- 		if char == "\27" then
+-- 			return chars
+-- 		end
+-- 		if not char_ok or char == "" or tonumber(char) == nil then
+-- 			return nil
+-- 		end
+-- 		chars = chars .. char
+-- 		local count = tonumber(chars)
+-- 		if count > total_tasks then
+-- 			return "too_many"
+-- 		end
+-- 	end
+-- 	return chars
+-- end
+
 return M

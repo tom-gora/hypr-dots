@@ -23,9 +23,10 @@ autocmd("TextYankPost", {
 autocmd("WinEnter", {
 	group = ui_helpers,
 	callback = function(e)
-		local buf_type = vim.api.nvim_buf_get_option(e.buf, "buftype")
-		local ft = vim.api.nvim_get_option_value("filetype", { buf = e.buf })
-		if buf_type == "terminal" or ft == "oil" then
+		local buf_type = api.nvim_get_option_value("buftype", { buf = e.buf })
+		local ft = api.nvim_get_option_value("filetype", { buf = e.buf })
+		local ok, skip = pcall(api.nvim_win_get_var, api.nvim_get_current_win(), "skip_bg_change")
+		if buf_type == "terminal" or ft == "oil" or skip then
 			return
 		end
 		vim.cmd(
@@ -39,7 +40,8 @@ autocmd("WinLeave", {
 	callback = function(e)
 		local buf_type = vim.api.nvim_buf_get_option(e.buf, "buftype")
 		local ft = vim.api.nvim_get_option_value("filetype", { buf = e.buf })
-		if buf_type == "terminal" or ft == "oil" then
+		local ok, skip = pcall(api.nvim_win_get_var, api.nvim_get_current_win(), "skip_bg_change")
+		if buf_type == "terminal" or ft == "oil" or skip then
 			return
 		end
 		vim.cmd(
@@ -155,6 +157,15 @@ autocmd({ "BufEnter", "LspAttach" }, {
 	callback = function(e)
 		local plain_text_filetypes =
 			{ "markdown", "markdown.mdx", "markdown.rmd", "markdown.pandoc", "tex", "txt", "log" }
+		local TODO_files = {
+			"todo",
+			"TODO",
+			"todo.md",
+			"TODO.md",
+			"*.todo",
+			"*.todo.md",
+		}
+
 		local buf_ft = api.nvim_get_option_value("filetype", { buf = e.buf })
 		local buf_clients = vim.lsp.get_clients({ bufnr = e.buf })
 		if not vim.tbl_contains(plain_text_filetypes, buf_ft) or #buf_clients < 1 then

@@ -78,6 +78,7 @@ local copilot_source_opts = {
 
 local blink_dependencies = {
 	"rafamadriz/friendly-snippets",
+	"nvim-lua/plenary.nvim",
 	"luckasRanarison/tailwind-tools.nvim",
 	{
 		"fang2hou/blink-copilot",

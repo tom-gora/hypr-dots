@@ -14,9 +14,10 @@ local function compose_modules(modules)
 	table.insert(modules, c.git())
 	table.insert(modules, "%=")
 	table.insert(modules, c.lsp_diags())
+	table.insert(modules, "%=")
+	table.insert(modules, c.ai_status())
 	table.insert(modules, c.lsp_status())
 	table.insert(modules, c.spelling_status())
-	table.insert(modules, c.ai_status())
 	table.insert(modules, c.cursor_pos())
 	-- world counter for markdown files only
 	if vim.b.markdown == true then

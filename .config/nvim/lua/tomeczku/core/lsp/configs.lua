@@ -78,6 +78,22 @@ M.emmet_setup = function(capabilities, on_attach, name)
 	vim.lsp.enable(name)
 end
 
+M.json_setup = function(capabilities, on_attach, name)
+	vim.lsp.config[name] = {
+		cmd = { "vscode-json-language-server", "--stdio" },
+		-- Make it attach to additional filetypes
+		filetypes = {
+			"json",
+			"jsonc",
+		},
+		root_markers = { ".git" },
+		init_options = { provideFormatter = true },
+		capabilities = capabilities,
+		on_attach = on_attach,
+	}
+	vim.lsp.enable(name)
+end
+
 M.astro_setup = function(capabilities, on_attach, name)
 	-- Pass path to typescript for astro to work
 	local get_typescript_server_path = function(root_dir)
@@ -189,6 +205,8 @@ M.css_variables_setup = function(capabilities, on_attach, name)
 		cmd = { name, "--stdio" },
 		filetypes = { "css", "scss", "less" },
 		root_markers = { "package.json", ".git" },
+		capabilities = capabilities,
+		on_attach = on_attach,
 		settings = {
 			cssVariables = {
 				blacklistFolders = {
