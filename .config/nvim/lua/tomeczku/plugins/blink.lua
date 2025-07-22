@@ -117,6 +117,16 @@ local blink_opts = {
 			and vim.bo.buftype ~= "prompt"
 			and vim.b.completion ~= false
 	end,
+	cmdline = {
+		keymap = { preset = "inherit" },
+		completion = {
+			menu = {
+				auto_show = function(ctx)
+					return vim.fn.getcmdtype() == ":"
+				end,
+			},
+		},
+	},
 	keymap = {
 		preset = "none",
 		["<C-k>"] = { "select_prev", "fallback" },
@@ -209,6 +219,15 @@ local blink_opts = {
 					-- If you change the search_extensions you might get false positives and weird completion results.
 					search_extensions = { ".js", ".ts", ".jsx", ".tsx" },
 				},
+			},
+			cmdline = {
+				min_keyword_length = function(ctx)
+					-- when typing a command, only show when the keyword is 3 characters or longer
+					if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
+						return 3
+					end
+					return 0
+				end,
 			},
 		},
 	},

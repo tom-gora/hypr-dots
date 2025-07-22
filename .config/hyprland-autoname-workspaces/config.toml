@@ -43,7 +43,7 @@ Brave-browser = ""
 7 = "󰎶"
 8 = "󰎹"
 
-[title_in_class."FFPWA.*"]
+[title_in_class."brave.*"]
 "Ollama Open WebUI" = " "
 "Discord" = "󰙯 "
 "Spotify" = ""
@@ -76,11 +76,11 @@ Brave-browser = ""
 dedup = false
 dedup_inactive_fullscreen = false
 delim = " "
-workspace = "<span color='#9ccfd8' font_size='x-large' rise='-2300'>{name}</span><span font-size='x-large' color='#e0def4' rise='-1300'>{clients}</span>"
-workspace_empty = "<span color='#6e6a86' font-size='x-large' rise='-2300'>{name}</span>"
+workspace = "<span color='#f7f7f7df' font_size='x-large' rise='-2300'>{name}</span><span font-size='x-large' color='#f7f7f7df' rise='-1300'>{clients}</span>"
+workspace_empty = "<span color='#6f6f6fdf' font-size='x-large' rise='-2300'>{name}</span>"
 client = "<span stretch='ultracondensed' font_style='oblique'> {icon} </span>"
 client_fullscreen = "<span stretch='ultraexpanded'>[{icon}]</span>"
-client_active = "<span color='#d7827e'>{icon}</span>"
+client_active = "<span color='#c44b3b'>{icon}</span>"
 client_dup = "{icon}{counter_sup}"
 client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused_sup}"
 client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused_sup}"

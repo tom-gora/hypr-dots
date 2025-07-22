@@ -26,9 +26,9 @@ hex_to_decimal() {
 
 prep_color() {
 	#hyprpick color
-  local PICKER_RESULT=$(hyprpicker -r --format hex 2>&1)
-  # hyprpicker might return additional errors. extract the hex color line only
-  local INPUT_CLR=$(echo "$PICKER_RESULT" | grep -i '^#[a-f0-9]\+$')
+	local PICKER_RESULT=$(hyprpicker -r --format hex 2>&1)
+	# hyprpicker might return additional errors. extract the hex color line only
+	local INPUT_CLR=$(echo "$PICKER_RESULT" | grep -i '^#[a-f0-9]\+$')
 
 	#check for user cancelling pick process
 	if [[ -z "$INPUT_CLR" ]]; then

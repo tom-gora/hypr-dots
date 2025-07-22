@@ -1,3 +1,6 @@
+-- setup custom "stolen" theme, not managed as a plugin
+require("tomeczku.core.theme").setup("wallust")
+
 vim.g.health = { style = "float" }
 
 -- vim options

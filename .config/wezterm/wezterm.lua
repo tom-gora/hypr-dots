@@ -1,9 +1,12 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
-
+local home = os.getenv("HOME")
+wezterm.add_to_config_reload_watch_list(home .. "/.cache/wallust/targets")
+config.color_scheme_dirs = { home .. "/.cache/wallust/targets" }
+config.color_scheme = "wezterm"
+config.automatically_reload_config = true
 config.enable_tab_bar = false
 config.window_decorations = "NONE"
-config.color_scheme = "Rosé Pine Moon (Gogh)"
 config.font = wezterm.font({
 	family = "0xProto Nerd Font",
 	weight = "Bold",
@@ -19,7 +22,6 @@ config.window_padding = {
 	bottom = 0,
 }
 
-config.colors = { background = "#191724" }
 config.font_rules = {
 	{
 		italic = true,

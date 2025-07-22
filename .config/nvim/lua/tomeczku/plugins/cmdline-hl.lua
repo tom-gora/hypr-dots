@@ -20,13 +20,17 @@ opts = {
 			show_cmd = true,
 		},
 	},
+	ghost_text = false,
 }
 
 M = {
 	{
 		"Sam-programs/cmdline-hl.nvim",
+		enabled = true,
 		event = "VimEnter",
-		opts = opts,
+		config = function()
+			require("cmdline-hl").setup(opts)
+		end,
 	},
 }
 

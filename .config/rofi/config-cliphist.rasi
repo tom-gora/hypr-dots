@@ -52,7 +52,7 @@ mainbox {
 /*  Imagebox  */               
 imagebox {                     
     margin:                     0 -2px 0 -2px;
-    background-image:           url("~/.config/rofi/.current_wallpaper", width);
+    background-image:           url("~/.cache/.current_wallpaper", width);
     background-color:           transparent;
     orientation:                vertical;
 }

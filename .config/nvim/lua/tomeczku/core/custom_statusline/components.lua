@@ -132,7 +132,7 @@ M.git = function()
 	local removed = (git_status.removed and git_status.removed ~= 0)
 			and ("⁻" .. utils.intToSuperscript(git_status.removed) .. " ")
 		or ""
-	local branch_name = " " .. git_status.head .. " "
+	local branch_name = "  " .. git_status.head .. " "
 
 	local width = vim.api.nvim_win_get_width(0)
 	if width < 62 then

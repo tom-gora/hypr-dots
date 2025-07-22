@@ -75,6 +75,8 @@ M.setup = function()
 				configs.tailwind_setup(capabilities, on_attach, lsp)
 			elseif lsp == "typescript-language-server" or lsp == "ts_ls" then
 				configs.typesctipt_setup(capabilities, on_attach, lsp)
+			elseif lsp == "svelte-language-server" then
+				configs.svelte_setup(capabilities, on_attach, lsp)
 				-- NOTE: if ever doing dotnet then maybe. for now running into binary problem
 				-- maybe because I ditched mono... ? so away you go and your errors
 				--

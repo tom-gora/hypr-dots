@@ -128,6 +128,38 @@ M.astro_setup = function(capabilities, on_attach, name)
 	vim.lsp.enable(name)
 end
 
+M.svelte_setup = function(capabilities, _, name)
+	vim.lsp.config[name] = {
+		cmd = { "svelteserver", "--stdio" },
+		filetypes = { "svelte" },
+		capabilities = capabilities,
+		root_dir = function(bufnr, on_dir)
+			local root_files = { "package.json", ".git" }
+			local fname = vim.api.nvim_buf_get_name(bufnr)
+			-- Svelte LSP only supports file:// schema. https://github.com/sveltejs/language-tools/issues/2777
+			if vim.uv.fs_stat(fname) ~= nil then
+				on_dir(vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1]))
+			end
+		end,
+		on_attach = function(client, bufnr)
+			vim.api.nvim_buf_create_user_command(bufnr, "LspMigrateToSvelte5", function()
+				client:exec_cmd({
+					command = "migrate_to_svelte_5",
+					arguments = { vim.uri_from_bufnr(bufnr) },
+				})
+			end, { desc = "Migrate Component to Svelte 5 Syntax" })
+			-- disable semanticTokens
+			if client.supports_method("textDocument/semanticTokens") then
+				client.server_capabilities.semanticTokensProvider = nil
+			end
+
+			vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+			require("tomeczku.core.keymaps.helpers").setupLspMappings(bufnr)
+		end,
+	}
+	vim.lsp.enable(name)
+end
+
 M.phpactor_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { name, "language-server" },
@@ -202,7 +234,7 @@ end
 
 M.css_variables_setup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
-		cmd = { name, "--stdio" },
+		cmd = { "css-variables-language-server", "--stdio" },
 		filetypes = { "css", "scss", "less" },
 		root_markers = { "package.json", ".git" },
 		capabilities = capabilities,
@@ -227,7 +259,7 @@ M.css_variables_setup = function(capabilities, on_attach, name)
 			},
 		},
 	}
-	vim.lsp.enable(name)
+	vim.lsp.enable("css-variables-language-server")
 end
 
 M.typesctipt_setup = function(capabilities, on_attach, name)

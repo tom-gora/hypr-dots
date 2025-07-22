@@ -23,6 +23,7 @@ M.mason_required_packages = {
 	"css-lsp",
 	-- "harper-ls",
 	-- Formatters
+	"svelte-language-server",
 	"prettierd",
 	"blade-formatter",
 	"gofumpt",
