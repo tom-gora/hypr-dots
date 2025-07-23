@@ -29,13 +29,12 @@
 }
 
 #custom-left-slant {
-  margin-top: -1px;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
 }
 
 #custom-right-slant {
   margin-bottom: -1px;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
 }
 
 /* WARN: #############################################
@@ -47,6 +46,11 @@
   color: @bgcolor;
   border-radius: 2px 0 0 2px;
   padding: 1px 0;
+  font-size: 1.5rem;
+}
+
+#workspaces * {
+  font-size: 0.8rem;
 }
 
 #workspaces button:not(.active) > * {

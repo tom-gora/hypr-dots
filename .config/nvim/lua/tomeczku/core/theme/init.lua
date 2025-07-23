@@ -47,26 +47,6 @@ M.setup = function(theme_name)
 			vim.api.nvim_set_hl(0, v, attrs)
 		end
 	end
-
-	if _G.is_theme_gen and _G.is_theme_gen == true then
-		local watcher = function()
-			local watched_path = os.getenv("HOME") .. "/.cache/wallust/targets/nvim.lua"
-			reload_event = vim.uv.new_fs_event()
-			reload_event:start(watched_path, {
-				watch_entry = true,
-				start = true,
-			}, function(_)
-				package.loaded["tomeczku.core.theme"] = nil
-				package.loaded["tomeczku.core.theme.theme"] = nil
-				package.loaded["tomeczku.core.theme.palettes.wallust"] = nil
-				vim.schedule(function()
-					dofile(vim.fn.stdpath("config") .. "/lua/tomeczku/core/init.lua")
-				end)
-			end)
-		end
-
-		watcher()
-	end
 end
 
 return M
