@@ -1,11 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "closer": "#92638E",
-    "orange": "#62496B",
-    "os": "#827A9E",
-    "purple": "#2F2751",
-    "transient": "#383838",
+    "closer": "#786A41",
+    "orange": "#7E515F",
+    "os": "#ADDEED",
+    "purple": "#62C4E1",
+    "transient": "#414142",
     "user": "p:os"
   },
   "transient_prompt": {
@@ -34,8 +34,8 @@
           "foreground_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}{{ end }}",
-            "{{ if gt .Ahead 0 }}{{ end }}",
-            "{{ if gt .Behind 0 }}{{ end }}"
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
           ]
         }
       ]

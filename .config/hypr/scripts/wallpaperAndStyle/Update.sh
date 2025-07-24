@@ -257,7 +257,7 @@ main() {
 	echo "Successfully stored cached image."
 	echo "Updating the colors now..."
 
-	"$HOME/.config/cargo/bin/wallust" run "$IMG"
+	"$HOME/.config/cargo/bin/wallust" run "$IMG" -s
 	post_wallust_reload
 	RC="$?"
 	if [[ "$RC" -eq 1 ]]; then

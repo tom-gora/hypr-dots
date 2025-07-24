@@ -1,10 +1,14 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local home = os.getenv("HOME")
-wezterm.add_to_config_reload_watch_list(home .. "/.cache/wallust/targets")
-config.color_scheme_dirs = { home .. "/.cache/wallust/targets" }
-config.color_scheme = "wezterm"
+
+-- integrate with wallust
+local colors = dofile(home .. "/.cache/wallust/targets/wezterm_colors.lua")
+config.colors = colors
 config.automatically_reload_config = true
+wezterm.add_to_config_reload_watch_list(home .. "/.cache/wallust/targets/wezterm_colors.lua")
+-- END of wallust integration
+
 config.enable_tab_bar = false
 config.window_decorations = "NONE"
 config.font = wezterm.font({
@@ -44,13 +48,6 @@ config.keys = {
 		mods = "CTRL|SHIFT",
 		action = wezterm.action.DisableDefaultAssignment,
 	},
-	-- {
-	-- 	key = "l",
-	-- 	mods = "CTRL|SHIFT",
-	-- 	action = wezterm.action_callback(function(_, pane)
-	-- 		pane:send_text("clear\r") -- CTRL-L substitute since this is used for tmux-navigator
-	-- 	end),
-	-- },
 }
 
 return config
