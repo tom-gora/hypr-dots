@@ -15,6 +15,7 @@ M.setup = function()
 				vim.schedule(function()
 					dofile(vim.fn.stdpath("config") .. "/lua/tomeczku/core/theme/generated_theme_reloader.lua")
 					require("todo-comments").reset()
+					-- HACK: toggle the in-buffer virt text color previewer off and on again to re-rended it's highlight injections
 					require("oklch-color-picker.highlight").toggle()
 					require("oklch-color-picker.highlight").toggle()
 				end)
