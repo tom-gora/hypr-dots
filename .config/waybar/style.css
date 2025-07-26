@@ -1,3 +1,274 @@
+@import url("file:///home/tomeczku/.cache/wallust/targets/waybar.css");
+/* WARN: #############################################
+   DECLARATIONS ######################################
+   ################################################### */
+/* hardcoded */
+@define-color critical #d0422f;
+@define-color warning #f08e16;
+@define-color workspaces_bg @color4;
+@define-color pulseaudio_bg @color2;
+@define-color middle_section_bg @color7;
+@define-color ollama_bg @color5;
+@define-color system_bg @color6;
+@define-color keyboard_bg @background;
+@define-color tray_bg @color4;
+@define-color finalspace_bg @color1;
+
+/* WARN: #############################################
+   GLOBAL ######################################
+   ################################################### */
+
+* {
+  all: initial;
+  color: @foreground;
+  font-family: "Ubuntu Nerd Font";
+  font-weight: 400;
+  min-height: 4px;
+  font-size: 0.8rem;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  padding: 0;
+  margin: 0;
+}
+/* WARN: #############################################
+   SEPARATORS ########################################
+   ################################################### */
+
+#custom-left-slant {
+  margin-top: -1px;
+  font-size: 1.55rem;
+}
+
+#custom-right-slant {
+  margin-bottom: -1px;
+  font-size: 1.55rem;
+}
+.modules-left > *:nth-child(2) > * {
+  color: @workspaces_bg;
+}
+
+.modules-left > *:nth-child(3) > * {
+  color: @pulseaudio_bg;
+}
+
+.modules-right > *:nth-child(2) > * {
+  color: @ollama_bg;
+}
+
+.modules-right > *:nth-child(3) > *,
+.modules-right > *:nth-child(5) > * {
+  color: @system_bg;
+}
+
+.modules-right > *:nth-child(6) > *,
+.modules-right > *:nth-child(8) > * {
+  color: @background;
+}
+
+.modules-right > *:nth-child(9) > *,
+.modules-right > *:nth-child(11) > * {
+  color: @tray_bg;
+}
+
+.modules-right > *:nth-child(12) > * {
+  color: @finalspace_bg;
+}
+
+/* WARN: #############################################
+   LEFT SECTION ######################################
+   ################################################### */
+
+#workspaces {
+  background: @workspaces_bg;
+  color: @bgcolor;
+  border-radius: 2px 0 0 2px;
+  padding: 1px 0;
+}
+
+#workspaces button:not(.active) > * {
+  opacity: 0.6;
+}
+
+#workspaces button:not(.active) {
+  background-color: @background-alpha__0_3;
+}
+
+#workspaces button.active {
+  background-color: @background-alpha__0_7;
+}
+
+#workspaces button:not(.active):hover > *:nth-child(1),
+#workspaces button:not(.active):focus > *:nth-child(1) {
+  opacity: 1;
+}
+
+#workspaces button.focused,
+#workspaces button:hover {
+  background-color: @background;
+}
+
+#workspaces button.urgent {
+  background-color: @critical;
+  color: @foreground;
+}
+
+#workspaces button {
+  padding: 0 0.5rem;
+  background-color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  margin: 0 0.25rem;
+  transition: all 250ms ease-in-out;
+}
+
+.modules-left > *:nth-child(4) > *:last-child {
+  background-color: @pulseaudio_bg;
+}
+
+#pulseaudio {
+  margin: 0 0.5rem;
+  color: @background;
+  background-color: @pulseaudio_bg;
+}
+
+#custom-recording {
+  color: @background;
+  padding: 0 0.5rem;
+  background: @pulseaudio_bg;
+  transition: all 250ms ease-in-out;
+}
+
+/* WARN: #############################################
+   MIDDLE SECTION ####################################
+   ################################################### */
+.modules-center {
+  background-color: @middle_section_bg;
+}
+
+/* INFO: #############################################
+   CLOCK #############################################
+   ################################################### */
+#clock {
+  color: @background;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0 0.75rem;
+  transition: all 250ms ease-in-out;
+}
+
+/* INFO: #############################################
+   WEATHER ###########################################
+   ################################################### */
+#custom-weather {
+  color: @background;
+  padding: 0 0.5rem;
+  background: transparent;
+  transition: all 250ms ease-in-out;
+}
+
+/* INFO: #############################################
+   FEDORA UPDATES ####################################
+   ################################################### */
+#custom-updates {
+  color: @background;
+  padding: 0 0.75rem;
+  transition: all 250ms ease-in-out;
+}
+
+#clock:hover,
+#custom-weather:hover,
+#custom-updates:hover {
+  color: @foreground;
+  background: @background-alpha__0_3;
+}
+
+/* WARN: #############################################
+   LEFT SECTION ######################################
+   ################################################### */
+
+/* INFO: #############################################
+   OLLAMA MODEL ######################################
+   ################################################### */
+#custom-ollama-model {
+  background: @ollama_bg;
+  color: @background;
+}
+
+/* INFO: #############################################
+   OLLAMA STATUS #####################################
+   ################################################### */
+#localai {
+  color: @background;
+  background: @ollama_bg;
+  padding: 0 0.75rem;
+}
+
+#custom-ollama-state {
+  color: @background;
+  padding: 0 0.25rem;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  background-image: url("./assets/ollama.svg");
+}
+
+/* INFO: #############################################
+   GPU USAGE #########################################
+   ################################################### */
+#custom-gpu-usage {
+  color: @background;
+  background-image: url("/home/tomeczku/.config/waybar/assets/gpu.svg");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 35%;
+  font-size: 0.9rem;
+}
+
+/* INFO: #############################################
+   SYSTEM STATS ######################################
+   ################################################### */
+#cpu,
+#memory,
+#temperature,
+#disk {
+  min-width: 2.75rem;
+  background-color: @system_bg;
+  color: @background;
+  padding: 0 0.25rem;
+}
+
+#cpu {
+  padding-left: 0.75rem;
+}
+
+#disk {
+  padding-right: 0.75rem;
+}
+
+#temperature.critical {
+  background-color: @critical;
+}
+
+/* INFO: #############################################
+   KEYBOARD LANG #####################################
+   ################################################### */
+#keyboard-state > *,
+#language > * {
+  color: @foreground;
+}
+
+#language {
+  background: @keyboard_bg;
+  font-weight: 700;
+  font-size: 1rem;
+  min-width: 2rem;
+  margin: 0 0.5rem;
+}
+
+#keyboard {
+  background-color: @keyboard_bg;
+}
+
+#custom-capslock {
   background: @keyboard_bg;
   background-image: url("./assets/caps-unlocked.svg");
   background-position: center;
@@ -102,14 +373,15 @@
 }
 
 #finalspace #idle_inhibitor.activated {
-  background-size: 1.25rem;
   background-image: url("./assets/lock-pause.svg");
 }
 
 #finalspace #custom-swaync {
-  font-size: 1.1rem;
-  padding-left: 0;
-  min-width: 2.5rem;
+  font-size: 1rem;
+  padding-right: 0.5rem;
+}
+#finalspace #custom-swaync:hover {
+  font-size: 1.2rem;
 }
 
 #finalspace #custom-power {
@@ -141,3 +413,4 @@
 #mpd.stopped 
 #mpd.paused 
 #pulseaudio-slider slider */
+

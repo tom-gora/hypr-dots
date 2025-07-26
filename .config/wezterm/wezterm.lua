@@ -2,6 +2,8 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local home = os.getenv("HOME")
 
+config.term = "wezterm"
+
 -- integrate with wallust
 local colors = dofile(home .. "/.cache/wallust/targets/wezterm_colors.lua")
 config.colors = colors
@@ -42,6 +44,13 @@ config.font_rules = {
 
 config.window_close_confirmation = "NeverPrompt"
 config.default_prog = { "/usr/bin/zsh" }
+
+config.warn_about_missing_glyphs = false
+config.default_cursor_style = "BlinkingBlock"
+config.cursor_blink_rate = 1200
+config.cursor_blink_ease_in = "Linear"
+config.cursor_blink_ease_out = "Linear"
+
 config.keys = {
 	{
 		key = "l",
