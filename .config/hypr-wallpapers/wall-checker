@@ -49,31 +49,69 @@ process_file() {
 	local dimensions=$(identify -format '%wx%h' "$file")
 	local width=$(echo "$dimensions" | cut -d'x' -f1)
 	local height=$(echo "$dimensions" | cut -d'x' -f2)
+	local file_modified=0 # Flag to track if the file was modified (resized or compressed)
 
 	# Check the resolution and crop if necessary.
 	if [[ "$width" != "3840" || "$height" != "2160" ]]; then
 		# First, resize to fit within the desired aspect ratio, using larger dimension for 16:9 aspect.
 		magick "$file" -resize '3840x2160^' -gravity center -crop 3840x2160+0+0 +repage "$file"
 		if [[ $? -eq 0 ]]; then
-			RESIZED_AMOUNT=$((RESIZED_AMOUNT + 1))
-			RESIZED_NAMES+=("$file")
+			file_modified=1
 		else
 			echo "Error resizing $file." >&2
 			return 1
 		fi
 	fi
 
-	# Check if the file size is larger than 6MB.
-	local size=$(stat -c%s "$file")
-	if [[ "$size" -gt "5242880" ]]; then
-		LARGE_FILES=$((LARGE_FILES + 1))
-		LARGE_FILE_NAMES+=("$file")
+	# Check if the file size is larger than 5MB (5 * 1024 * 1024 bytes).
+	local target_size_bytes="5242880" # 5MB
+	local current_size=$(stat -c%s "$file")
+
+	if [[ "$current_size" -gt "$target_size_bytes" ]]; then
+		# Attempt to compress the image to reduce its size
+		# We'll try to reduce quality until it's under the target size or we hit a minimum quality.
+		local quality=90
+		local new_size="$current_size"
+		local compressed_file_path="${file%.png}_compressed.png" # Use a temporary name for compression
+
+		while [[ "$new_size" -gt "$target_size_bytes" && "$quality" -ge 50 ]]; do
+			magick "$file" -quality "$quality" "$compressed_file_path"
+			if [[ $? -eq 0 ]]; then
+				new_size=$(stat -c%s "$compressed_file_path")
+				if [[ "$new_size" -gt "$target_size_bytes" ]]; then
+					quality=$((quality - 5)) # Decrease quality by 5
+				else
+					mv "$compressed_file_path" "$file" # Replace original with compressed
+					file_modified=1
+					break
+				fi
+			else
+				echo "Error compressing $file at quality $quality." >&2
+				rm -f "$compressed_file_path" # Clean up temp file
+				return 1
+			fi
+		done
+		rm -f "$compressed_file_path" # Clean up any remaining temp file
+
+		# If after compression, it's still too large, add to LARGE_FILE_NAMES
+		current_size=$(stat -c%s "$file") # Get final size after potential compression
+		if [[ "$current_size" -gt "$target_size_bytes" ]]; then
+			LARGE_FILES=$((LARGE_FILES + 1))
+			LARGE_FILE_NAMES+=("$file")
+		fi
+	fi
+
+	if [[ "$file_modified" -eq 1 ]]; then
+		RESIZED_AMOUNT=$((RESIZED_AMOUNT + 1))
+		RESIZED_NAMES+=("$file")
 	fi
 }
 
 # Process each file in the directory.
-# Use parallel for image processing operations.
-find "$IMG_DIR" -maxdepth 1 -type f -print0 | xargs -0 -I {} -P $(nproc) bash -c 'source "$0"; process_file "$1"' "$0" {}
+# Loop through files and process them sequentially to correctly accumulate global variables.
+while IFS= read -r -d '' file; do
+	process_file "$file"
+done < <(find "$IMG_DIR" -maxdepth 1 -type f -print0)
 
 # Print final report with conditional sections.
 echo -e "\n\\033[0;32mReport after processing content of wallpapers directory:\\033[0m\n"
@@ -97,9 +135,9 @@ else
 	printf "\n\n"
 fi
 
-echo "3. Resized pictures: $RESIZED_AMOUNT"
+echo "3. Resized/Compressed pictures: $RESIZED_AMOUNT"
 if [[ $RESIZED_AMOUNT -eq 0 ]]; then
-	printf "   No resized pictures.\n\n"
+	printf "   No resized/compressed pictures.\n\n"
 else
 	for name in "${RESIZED_NAMES[@]}"; do
 		echo "   $(basename "$name")"
@@ -107,7 +145,7 @@ else
 	printf "\n\n"
 fi
 
-echo "4. Files larger than 5mb: $LARGE_FILES"
+echo "4. Files larger than 5mb (after processing): $LARGE_FILES"
 if [[ $LARGE_FILES -eq 0 ]]; then
 	echo "   No files larger than 5mb."
 else
