@@ -195,6 +195,10 @@ post_wallust_reload() {
 		return 1
 	fi
 
+	# handle tmux
+	local TMUX_CONFIG_FILE="$HOME/.config/tmux/tmux.conf"
+	tmux source-file "$TMUX_CONFIG_FILE"
+
 	# handle oh-my-posh
 	local WALLUST_OMP_PALETTE_FILE="$HOME/.cache/wallust/targets/omp.json"
 	local OMP_CONFIG_FILE="$HOME/.config/my_omp.json"

@@ -27,18 +27,18 @@ M.setup = function()
 		_G.theme_reload_event:start(watched_path, {
 			watch_entry = true,
 			stat = true,
-		}, function(err, filename, events)
+		}, function(err, _, _)
 			if err then
 				vim.notify("Error watching theme file: " .. err, vim.log.levels.ERROR)
 				return
 			end
 
+			---@diagnostic disable-next-line: unnecessary-if
 			if M.is_reloading then
 				return
 			end
 
 			M.is_reloading = true
-			vim.notify("Theme reloading..", vim.log.levels.INFO, { timeout = 250 })
 
 			vim.schedule(function()
 				package.loaded["tomeczku.core.theme"] = nil

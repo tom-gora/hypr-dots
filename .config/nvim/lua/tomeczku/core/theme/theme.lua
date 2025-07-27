@@ -2,10 +2,18 @@ local THEME = {}
 local hl = vim.api.nvim_set_hl
 
 THEME.setup = function(theme_name)
-	local ok, p = pcall(require, "tomeczku.core.theme.palettes." .. theme_name)
+	local ok, palette_or_err = pcall(require, "tomeczku.core.theme.palettes." .. theme_name)
+
 	if not ok then
+		vim.notify(
+			"Failed to load theme palette '" .. theme_name .. "': " .. tostring(palette_or_err),
+			vim.log.levels.ERROR,
+			{ timeout = 3000 }
+		)
 		return
 	end
+
+	local p = palette_or_err
 	hl(0, "Normal", { fg = p.white.base, bg = p.black.base })
 	hl(0, "SignColumn", { fg = p.white.darker, bg = "NONE", sp = "NONE" })
 	hl(0, "MsgArea", { fg = p.white.base, bg = p.black.base })
@@ -26,7 +34,7 @@ THEME.setup = function(theme_name)
 	hl(0, "LineNr", { fg = p.yellow.base, bg = "NONE" })
 	hl(0, "FloatBorder", { fg = p.cyan.base, bg = p.black.darker })
 	hl(0, "VertSplit", { fg = p.black.muted_dark, bg = "NONE" })
-	hl(0, "CursorLine", { fg = "NONE", bg = p.black.light })
+	hl(0, "CursorLine", { fg = "NONE", bg = p.black.muted_base })
 	hl(0, "CursorColumn", { fg = "NONE", bg = p.black.dark })
 	hl(0, "ColorColumn", { fg = "NONE", bg = p.black.dark })
 	hl(0, "NormalFloat", { fg = "NONE", bg = p.black.darker })

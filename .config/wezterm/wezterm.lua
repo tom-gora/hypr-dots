@@ -5,10 +5,13 @@ local home = os.getenv("HOME")
 config.term = "wezterm"
 
 -- integrate with wallust
+config.automatically_reload_config = true
 local colors = dofile(home .. "/.cache/wallust/targets/wezterm_colors.lua")
 config.colors = colors
-config.automatically_reload_config = true
 wezterm.add_to_config_reload_watch_list(home .. "/.cache/wallust/targets/wezterm_colors.lua")
+config.color_scheme_dirs = { home .. "/.cache/wallust/targets" }
+config.color_scheme = "wezterm_colors"
+
 -- END of wallust integration
 
 config.enable_tab_bar = false
