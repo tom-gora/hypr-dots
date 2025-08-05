@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+# set -x
 
 LOCKFILE="/tmp/special_workspace_toggle.lock"
 if [ -e "$LOCKFILE" ]; then
@@ -50,8 +50,8 @@ if [ -z "$OBJ" ]; then
 		flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=nebbmpibgobljecgkdipmcfonkkmcggn --disable-gpu &
 		exit 0
 		;;
-	joplin)
-		"$HOME"/.local/bin/appimage/joplin/Joplin.AppImage &
+	obsidian)
+		flatpak run md.obsidian.Obsidian &
 		exit 0
 		;;
 	thunderbird)

@@ -115,3 +115,5 @@ alias clients="hyprctl clients -j | less"
 
 #shortcuts for permission fixes for apps:
 alias fix-code="sudo chown -R $(whoami) /usr/share/codium"
+
+alias zen-log="MOZ_LOG='timestamp,sync,nsPref:5,nsExternalApp:5,General:5,HTML:5,Image:5,Socket:5,SSLSocket:5,Cookie:5,DNS:5,Cache:5:5,Proxy:5,Networking:5,Auth:5,Protocol:5,URILoader:5,ContentSecurityPolicy:5' MOZ_LOG_FILE='/tmp/zen_browser_startup_log.txt' /home/tomeczku/.local/bin/zen-browser"

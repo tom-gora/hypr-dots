@@ -177,6 +177,11 @@ post_wallust_reload() {
 
 	swaync-client -rs
 
+	# handle GTK
+	local GTK_RELOAD_HELPER
+	GTK_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_GTK_Reload_helper.sh"
+	$GTK_RELOAD_HELPER
+
 	# handle waybar
 	local WAYBAR_STYLES_FILE="$HOME/.config/waybar/style.css"
 
@@ -192,7 +197,6 @@ post_wallust_reload() {
 	printf "%s" "$CURRENT_CONTENT" >"$WAYBAR_STYLES_FILE"
 	if [ $? -ne 0 ]; then
 		echo "Error: Failed trigger waybar's hot reload."
-		return 1
 	fi
 
 	# handle tmux
@@ -205,12 +209,10 @@ post_wallust_reload() {
 
 	if [[ ! -f "$WALLUST_OMP_PALETTE_FILE" ]]; then
 		echo "Error: New Oh My Posh palette file not found at $WALLUST_OMP_PALETTE_FILE." >&2
-		return 1
 	fi
 
 	if [[ ! -f "$OMP_CONFIG_FILE" ]]; then
 		echo "Error: Oh My Posh config file not found at $OMP_CONFIG_FILE." >&2
-		return 1
 	fi
 
 	local NEW_PALETTE_CONTENT NEW_CONFIG_CONTENT
@@ -220,10 +222,13 @@ post_wallust_reload() {
 	echo "$NEW_CONFIG_CONTENT" >"$OMP_CONFIG_FILE"
 	if [ $? -ne 0 ]; then
 		echo "Error: Failed to update Oh My Posh config file with jq." >&2
-		return 1
 	fi
 
-	return 1
+	# handle obsidian
+	local OBSIDIAN_RELOAD_HELPER
+	OBSIDIAN_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_Obsidian_Reload_helper.js"
+	$OBSIDIAN_RELOAD_HELPER
+
 }
 
 main() {

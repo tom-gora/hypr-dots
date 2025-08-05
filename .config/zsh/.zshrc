@@ -42,7 +42,3 @@ else
   # Otherwise, load the default config
   eval "$(oh-my-posh init zsh --config ~/.config/my_omp.json)"
 fi
-
-# if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
-#   exec tmux
-# fi

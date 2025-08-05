@@ -52,6 +52,8 @@ else
   export VISUAL='nvim'
 fi
 
+# gtk theme
+
 #set plugin dir for rofi
 export ROFI_PLUGIN_PATH="/usr/lib64/rofi"
 
@@ -77,3 +79,4 @@ export ZSH_AUTOSUGGEST_STRATEGY=(
   history
   completion
 )
+export GTK_THEME=Dynamic-Dark-compact

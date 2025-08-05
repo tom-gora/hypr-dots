@@ -25,18 +25,12 @@ zinit light lukechilds/zsh-better-npm-completion
 
 # Add in oh-my-zsh snippets
 zinit snippet OMZP::colorize
-zinit snippet OMZP::dnf
 zinit snippet OMZP::extract
-zinit snippet OMZP::gitignore
 
 #reload completions
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
-
-#artisan completions
-zinit ice depth=1
-zinit light jessarcher/zsh-artisan
 
 # configs
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

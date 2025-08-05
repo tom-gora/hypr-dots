@@ -80,8 +80,7 @@
 #workspaces {
   background: @workspaces_bg;
   color: @bgcolor;
-  border-radius: 2px 0 0 2px;
-  padding: 1px 0;
+  padding: 1px 0 2px 0;
 }
 
 #workspaces button:not(.active) > * {
@@ -379,7 +378,10 @@
 #finalspace #custom-swaync {
   font-size: 1rem;
   padding-right: 0.5rem;
+  min-width: 2rem;
+  transition: all 250ms ease-in-out;
 }
+
 #finalspace #custom-swaync:hover {
   font-size: 1.2rem;
 }
