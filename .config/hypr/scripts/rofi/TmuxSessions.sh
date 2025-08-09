@@ -39,7 +39,7 @@ main() {
 
 	# NO RETRIEVED SESSIONS FLOW
 	if [[ -z "$SESSIONS" ]]; then
-		choice=$(printf "1. No sessions found [ Exit ]\n2. No sessions found  [ New ]" | rofi -dmenu -config ~/.config/rofi/config-zellij.rasi)
+		choice=$(printf "1. No sessions found [ Exit ]\n2. No sessions found  [ New ]" | rofi -dmenu -theme-str 'textbox-prompt-icon {str: "  ";}' -theme-str 'entry { placeholder: "TMUX Sessions..."; }')
 		case "$choice" in
 		"1. No sessions found [ Exit ]")
 			pkill -f rofi
@@ -51,7 +51,7 @@ main() {
 		esac
 		# AVAILABLE ENTRIES FLOW
 	else
-		choice=$(echo "$SESSIONS" | rofi -dmenu -config ~/.config/rofi/config-zellij.rasi)
+		choice=$(echo "$SESSIONS" | rofi -dmenu -theme-str 'textbox-prompt-icon {str: "  ";}' -theme-str 'entry { placeholder: "TMUX Sessions..."; }')
 		if [[ -z "$choice" ]]; then
 			exit 0
 		fi

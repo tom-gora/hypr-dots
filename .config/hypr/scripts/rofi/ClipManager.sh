@@ -3,7 +3,7 @@
 # Dependencies: cliphist, wl-copy and of course rofi
 
 if [[ ! $(pidof rofi) ]]; then
-	cliphist list | rofi -dmenu -config ~/.config/rofi/config-cliphist.rasi | cliphist decode | wl-copy
+	cliphist list -preview-width 25 | rofi -dmenu -theme-str 'textbox-prompt-icon {str: "  ";}' -theme-str 'entry { placeholder: "Clipboard..."; }' | cliphist decode | wl-copy
 else
 	pkill rofi
 fi

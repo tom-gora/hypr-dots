@@ -14,7 +14,7 @@ menu() {
 }
 
 main() {
-	choice=$(menu | rofi -dmenu -config ~/.config/rofi/config-quick-settings.rasi | cut -d. -f1)
+	choice=$(menu | rofi -dmenu -theme-str 'textbox-prompt-icon {str: "  ";}' -theme-str 'entry { placeholder: "Hyprland configs..."; }' | cut -d. -f1)
 	exit_code=$?
 	case $choice in
 	1)

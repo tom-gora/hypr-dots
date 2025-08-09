@@ -42,20 +42,20 @@ main() {
 
 	# if color not in a clipboard fire up a picker tool
 	if [[ $EXIT_CODE -ne 0 ]]; then
-	 #hyprpick color
-   PICKER_RESULT=$(hyprpicker -r --format hex 2>&1)
-   # hyprpicker might return additional errors. extract the hex color line only
-   SOURCE_COLOR=$(echo "$PICKER_RESULT" | grep -i '^#[a-f0-9]\+$')
+		#hyprpick color
+		PICKER_RESULT=$(hyprpicker -r --format hex 2>&1)
+		# hyprpicker might return additional errors. extract the hex color line only
+		SOURCE_COLOR=$(echo "$PICKER_RESULT" | grep -i '^#[a-f0-9]\+$')
 	fi
-  
-  IS_ERR=$(echo "$SOURCE_COLOR" | wc -l)
-  notify-send "$IS_ERR"
+
+	IS_ERR=$(echo "$SOURCE_COLOR" | wc -l)
+	notify-send "$IS_ERR"
 	# get gradient breakdown from pastel going from input color
 	# towards both black and white. then remove both of those as they are not really needed
 	# and also remove input colot from one of the blocks to not have it repeated twice when
 	# "arrays" are put together
-	FROM_DARK=$(pastel gradient --number=14 000000 "$SOURCE_COLOR" | pastel format hex | sed '1d;$d')
-	INTO_LIGHT=$(pastel gradient --number=14 "$SOURCE_COLOR" ffffff | pastel format hex | sed '$d')
+	FROM_DARK=$(pastel gradient --number=12 000000 "$SOURCE_COLOR" | pastel format hex | sed '1d;$d')
+	INTO_LIGHT=$(pastel gradient --number=12 "$SOURCE_COLOR" ffffff | pastel format hex | sed '$d')
 	# join the two blocks together
 	FULL_GRADIENT_LIST=$(echo -e "$FROM_DARK\n""$INTO_LIGHT")
 	declare -a TEMPLATE
@@ -68,9 +68,6 @@ main() {
 
 	# read prepared colors
 	while IFS= read -r line; do
-		# increment and pad indexes for alignment reasons
-		((LINE_INDEX++))
-		PADDED=$(printf "%2d" "$LINE_INDEX")
 
 		# check to throw and exit if any input values are invalid as final safeguard
 		# (may happen i.e. when interruped picker and pastel received invalid input.)
@@ -81,9 +78,9 @@ main() {
 		# interpolate color hex code into predefined lines of pango markup
 		# slightly highlighting the input color with subtle bg with opacity
 		if [[ ${line^^} == "${SOURCE_COLOR^^}" ]]; then
-			TEMPLATED_LINE="<span bgcolor='#908caa' bgalpha='15%'>  $PADDED.  <span fgcolor='$line'></span><span size='11.8pt' rise='0.2pt' fgcolor='$line'>███████████████████████</span><span fgcolor='$line'></span>  <span>$line    </span></span>"
+			TEMPLATED_LINE="<span size='16pt' rise='4pt' fgcolor='$line'>■   </span> <span>$line</span>"
 		else
-			TEMPLATED_LINE="  $PADDED.  <span fgcolor='$line'></span><span size='11.8pt' rise='0.2pt' fgcolor='$line'>███████████████████████</span><span fgcolor='$line'></span>   <span>$line</span>"
+			TEMPLATED_LINE="<span size='16pt' rise='4pt' fgcolor='$line'>■   </span><span>$line</span>"
 		fi
 		# append markup lines and store as arr
 		TEMPLATE+=("$TEMPLATED_LINE")
@@ -92,7 +89,7 @@ main() {
 	# prep line separated output for rofi to consume
 	MARKUP=$(printf "%s\n" "${TEMPLATE[@]}")
 	# get selection from rofi picker
-	CHOICE=$(echo "$MARKUP" | rofi -dmenu -config ~/.config/rofi/config-shades.rasi -markup-rows | grep -oE "#[0-9a-fA-F]{6}" | head -n 1)
+	CHOICE=$(echo "$MARKUP" | rofi -dmenu -markup-rows -theme-str 'entry { enabled: false;}' -theme-str 'inputbar { enabled: false;}' | grep -oE "#[0-9a-fA-F]{6}" | head -n 1)
 	# if selection made push it to clipboard
 	if [[ -n "$CHOICE" ]]; then
 		echo "$CHOICE" | tr -d '\n' | wl-copy

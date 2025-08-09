@@ -1,22 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 UPDATE_SCRIPT="$HOME/.config/hypr/scripts/wallpaperAndStyle/Update.sh -d $HOME/.config/hypr-wallpapers/"
-
-if [[ $# -lt 1 ]] || [[ ! -d $1 ]]; then
-	echo "Usage:
-	$0 <dir containing images>"
-	exit 1
-fi
-
-# Edit below to control the images transition
 
 export SWWW_TRANSITION_FPS=60
 export SWWW_TRANSITION_TYPE=simple
 
-# This controls (in seconds) when to switch to the next image
-INTERVAL=900
+MINUTES=15
+INTERVAL=$((MINUTES * 60))
 
 while true; do
 	sleep "$INTERVAL"
-	$UPDATE_SCRIPT
+	# safely call updater
+	systemd-inhibit --what=shutdown:sleep:handle-power-key --who="Wallust Updater" --why="Updating theme dotfiles" "$UPDATE_SCRIPT" >/dev/null 2>&1
 done

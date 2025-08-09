@@ -61,7 +61,7 @@ imagebox {
 /*  Listview  */
 listview {
   expand:                       false;
-  margin:                       0 -2px 1px -2px;
+  margin:                       -5px -2px 1px -2px;
 	enabled:            			    true;
 	columns:            			    1;
 	dynamic:                      false;

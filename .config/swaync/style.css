@@ -1,6 +1,6 @@
-@import "../../.cache/wal/colors-waybar.css";
+@import url("file:///home/tomeczku/.cache/wallust/targets/waybar.css");
 
-@define-color noti-border-color @color4;
+@define-color noti-border-color @color13;
 @define-color noti-bg @background;
 @define-color noti-bg-alt @color0;
 @define-color noti-bg-hover @color4;
@@ -8,7 +8,7 @@
 @define-color text-color-alt @color7;
 @define-color text-color-disabled @foreground-alpha__0_6;
 @define-color regular-theme-bg #08070b;
-@define-color regular-theme-fg #e0def4;
+@define-color regular-theme-fg @foreground;
 * {
   font-family: "UbuntuMono Nerd Font";
   font-weight: bold;
@@ -21,7 +21,7 @@
 
 .control-center .notification-content {
   border-radius: 2px;
-  border: 1px solid @noti-border-color;
+  border: 1px solid @color13;
 }
 
 .control-center .notification:hover,
@@ -49,6 +49,7 @@
 }
 
 .notification-row {
+  background: transparent;
   border-radius: 2px;
   outline: none;
   border: 0px;

@@ -17,7 +17,7 @@
 #   Arch repositories: rofi, bluez-utils (contains bluetoothctl)
 
 # Constants
-divider="  🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘🮙🮘"
+divider="  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 goback="Back"
 
 # Checks if bluetooth controller is powered on
@@ -232,7 +232,7 @@ device_menu() {
 	options="$connected\n$paired\n$trusted\n$divider\n$goback"
 
 	# Open rofi menu, read chosen option
-	chosen="$(echo -e "$options" | $rofi_command "$device_name")"
+	chosen="$(echo -e "$options" | $rofi_command -theme-str 'textbox-prompt-icon {str: "  ";}' -theme-str 'entry { placeholder: "Bluetooth..."; }' "$device_name")"
 
 	# Match chosen option to command
 	case "$chosen" in
@@ -277,7 +277,7 @@ show_menu() {
 	fi
 
 	# Open rofi menu, read chosen option
-	chosen="$(echo -e "$options" | $rofi_command "Bluetooth")"
+	chosen="$(echo -e "$options" | rofi -dmenu Bluetooth -p -theme-str 'textbox-prompt-icon {str: "  ";}' -theme-str 'entry { placeholder: "Bluetooth..."; }')"
 
 	# Match chosen option to command
 	case "$chosen" in
@@ -305,7 +305,7 @@ show_menu() {
 }
 
 # Rofi command to pipe into, can add any options here
-rofi_command="rofi -dmenu $* -p -config ~/.config/rofi/config-bluetooth.rasi"
+rofi_command="rofi -dmenu $* -p"
 
 case "$1" in
 --status)

@@ -26,11 +26,13 @@ check_args() {
 		case "$1" in
 		-h | --help)
 			usage
+			exit 1
 			;;
 		-d | --dir)
 			if [[ -z "$2" ]]; then
 				echo "Error: Option '$1' requires an argument." >&2
 				usage
+				exit 1
 			fi
 			DIR_PATH="$2"
 			has_dir=true
@@ -40,6 +42,7 @@ check_args() {
 			if [[ -z "$2" ]]; then
 				echo "Error: Option '$1' requires an argument." >&2
 				usage
+				exit 1
 			fi
 			IMG_PATH="$2"
 			has_img=true
@@ -51,6 +54,7 @@ check_args() {
 		*)
 			echo "Error: Unknown option '$1'" >&2
 			usage
+			exit 1
 			;;
 		esac
 		shift
@@ -60,9 +64,11 @@ check_args() {
 	if $has_dir && $has_img; then
 		echo "Error: Both -d (--dir) and -i (--img) cannot be provided simultaneously." >&2
 		usage
+		exit 1
 	elif ! $has_dir && ! $has_img; then
 		echo "Error: Either -d (--dir) or -i (--img) must be provided." >&2
 		usage
+		exit 1
 	fi
 }
 
@@ -224,6 +230,9 @@ post_wallust_reload() {
 		echo "Error: Failed to update Oh My Posh config file with jq." >&2
 	fi
 
+	# handle swaync
+	swaync-client --reload-css
+
 	# handle obsidian
 	local OBSIDIAN_RELOAD_HELPER
 	OBSIDIAN_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_Obsidian_Reload_helper.js"
@@ -273,7 +282,7 @@ main() {
 		echo "Error: Failed to at reloading the environment after setting wallpaper."
 		exit 1
 	fi
-
+	exit 0
 }
 
 main "$@"

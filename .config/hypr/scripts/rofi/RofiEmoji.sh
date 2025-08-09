@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sed '1,/^### DATA ###$/d' "$0" | 
-rofi -dmenu -config ~/.config/rofi/config-emoji.rasi| 
+rofi -dmenu -theme-str 'textbox-prompt-icon {str: " 󰦥 ";}' -theme-str 'entry { placeholder: "Emoji..."; }' | 
 cut -d ' ' -f 1 | tr -d '\n' | wl-copy
 
 exit

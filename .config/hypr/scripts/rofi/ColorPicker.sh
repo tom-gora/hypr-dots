@@ -114,7 +114,7 @@ main() {
 	fi
 
 	prep_color
-	choice=$(menu | rofi -dmenu -config ~/.config/rofi/config-colors.rasi)
+	choice=$(menu | rofi -dmenu -theme-str 'textbox-prompt-icon {str: "  ";}' -theme-str 'entry { placeholder: "Color formats..."; }' -theme-str 'imagebox { background-image: url("~/.cache/.rofi-color-picker-bg.png", height);}' -theme-str 'listview { lines: 8; }')
 	local JSON_INPUT=$(cat ~/.cache/.rofi-color-picker-current.json)
 	case $choice in
 	"#"*)
