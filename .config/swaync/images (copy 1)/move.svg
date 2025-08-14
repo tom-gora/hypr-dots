@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   style="color:green;"
+   data-name="Layer 1"
+   fill="currentColor"
+   id="Layer_1"
+   viewBox="-5.12 -6 33.599997 33.599998"
+   version="1.1"
+   sodipodi:docname="move.svg"
+   width="33.599998"
+   height="33.599998"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <g
+     id="SVGRepo_tracerCarrier"
+     stroke-linecap="round"
+     stroke-linejoin="round" />
+  <g
+     id="SVGRepo_iconCarrier"
+     transform="matrix(0.90736266,0,0,0.90736266,0.79164737,-0.08835267)">
+    <defs
+       id="defs1">
+      <style
+         id="style1">.cls-1{fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:1.2;}</style>
+    </defs>
+    <path
+       class="cls-1"
+       d="M 11.05,22.5 5.91,17.36 a 2,2 0 0 1 -0.59,-1.43 2,2 0 0 1 2,-2 2,2 0 0 1 1.43,0.59 l 1.32,1.32 V 6.38 a 2,2 0 0 1 1.74,-2 1.89,1.89 0 0 1 1.52,0.56 1.87,1.87 0 0 1 0.56,1.34 V 12 l 5,0.72 a 1.91,1.91 0 0 1 1.64,1.89 v 0 a 17.18,17.18 0 0 1 -1.82,7.71 l -0.09,0.18"
+       id="path2" />
+    <polyline
+       class="cls-1"
+       points="19.64 7.23 22.5 4.36 19.64 1.5"
+       id="polyline2" />
+    <line
+       class="cls-1"
+       x1="15.82"
+       x2="22.5"
+       y1="4.3600001"
+       y2="4.3600001"
+       id="line2" />
+    <polyline
+       class="cls-1"
+       points="4.36 7.23 1.5 4.36 4.36 1.5"
+       id="polyline3" />
+    <line
+       class="cls-1"
+       x1="8.1800003"
+       x2="1.5"
+       y1="4.3600001"
+       y2="4.3600001"
+       id="line3" />
+  </g>
+</svg>

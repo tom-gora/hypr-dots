@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 STATE_FILE_PATTERN="/tmp/my_updater.*"
 state_content=""

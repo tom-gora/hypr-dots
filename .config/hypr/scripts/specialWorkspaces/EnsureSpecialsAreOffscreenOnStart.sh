@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 get_ollama_pid() {
 	OUTPUT=$(hyprctl clients -j)

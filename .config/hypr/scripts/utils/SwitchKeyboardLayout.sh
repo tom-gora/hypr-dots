@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/bin/env bash
 # This is for changing kb_layouts. Set kb_layouts in $settings_file
 
 layout_f="$HOME/.cache/kb_layout"
 settings_file="$HOME/.config/hypr/configs/Settings.conf"
 notif="$HOME/.config/swaync/images/keyboard.svg"
+
+# dismiss prev notifications
+swaync-client -C
 
 # Check if ~/.cache/kb_layout exists and create it with a default layout from Settings.conf if not found
 if [ ! -f "$layout_f" ]; then

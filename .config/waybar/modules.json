@@ -77,16 +77,8 @@
     "format": "{}  ",
     "exec": "$HOME/.config/hypr/scripts/utils/OllamaModel.sh",
     "tooltip": "false",
-    "interval": 1,
-    "menu": "on-click",
-    "menu-file": "$HOME/.config/waybar/ollama-model-menu.xml",
-    "menu-actions": {
-      "deepseek-r1:14b": "ollama run deepseek-r1:14b",
-      "phi4:latest": "ollama run phi4:latest",
-      "qwen2.5-coder:14b": "ollama run qwen2.5-coder:14b",
-      "codellama:7b": "ollama run codellama:7b",
-      "gemma3:12b": "ollama run gemma3:12b"
-    }
+    "interval": 10,
+    "on-click": "$HOME/.config/hypr/scripts/specialWorkspaces/Toggle.sh ollama"
   },
   "custom/ollama-state": {
     "format": "{}",

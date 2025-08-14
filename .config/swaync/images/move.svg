@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
+   style="color:#3B789A;"
    data-name="Layer 1"
-   fill="#000000"
+   fill="currentColor"
    id="Layer_1"
    viewBox="-5.12 -6 33.599997 33.599998"
    version="1.1"
@@ -15,24 +16,6 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs3" />
-  <sodipodi:namedview
-     id="namedview3"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="8.2344256"
-     inkscape:cx="17.123235"
-     inkscape:cy="18.034045"
-     inkscape:window-width="952"
-     inkscape:window-height="1038"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="Layer_1" />
   <g
      id="SVGRepo_tracerCarrier"
      stroke-linecap="round"
@@ -43,7 +26,7 @@
     <defs
        id="defs1">
       <style
-         id="style1">.cls-1{fill:none;stroke:#3e8fb0;stroke-miterlimit:10;stroke-width:1.2;}</style>
+         id="style1">.cls-1{fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:1.2;}</style>
     </defs>
     <path
        class="cls-1"

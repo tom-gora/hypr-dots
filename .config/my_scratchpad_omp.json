@@ -7,15 +7,15 @@
     "source": "cdn"
   },
   "palette": {
-    "closer": "#eb6f92",
-    "orange": "#ea9a97",
-    "os": "#3e8fb0",
-    "purple": "#c4a7e7",
-    "transient": "#797593",
+    "closer": "#2F749A",
+    "orange": "#89603B",
+    "os": "#EAE7A6",
+    "purple": "#DCD737",
+    "transient": "#424342",
     "user": "p:os"
   },
   "transient_prompt": {
-    "template": "\ueab6 ",
+    "template": " ",
     "foreground": "p:transient",
     "background": "transparent"
   },
@@ -32,8 +32,8 @@
             "fetch_upstream_icon": true
           },
           "style": "plain",
-          "leading_diamond": " \ue0b6",
-          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "leading_diamond": " ",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} ",
           "foreground": "p:purple",
           "type": "git",
           "foreground_templates": [
@@ -51,13 +51,13 @@
       "segments": [
         {
           "style": "plain",
-          "template": "\udb85\udf82 SCRATCHPAD ",
+          "template": "󱞂 SCRATCHPAD ",
           "foreground": "p:user",
           "type": "text"
         },
         {
           "properties": {
-            "folder_icon": "..\ue5fe..",
+            "folder_icon": "....",
             "home_icon": "~",
             "style": "unique"
           },
@@ -68,7 +68,7 @@
         },
         {
           "style": "plain",
-          "template": "\ueab6",
+          "template": "",
           "foreground": "p:closer",
           "type": "text"
         }

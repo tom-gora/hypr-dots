@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # Function to format the tooltip message
 waybar_tooltip() {
 	echo "$1" | while read -r line; do

@@ -176,7 +176,7 @@ element-text {
 
 
 /* Message */
-message { background-color:     transparent; }
+message { background-color:     red; }
 
 textbox {
     padding:                    16px 12px;

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 DIR_PATH=""
 IMG_PATH=""
@@ -179,63 +179,35 @@ call_swww() {
 
 post_wallust_reload() {
 	killall rofi
-	killall walker
+	# killall walker
 
-	swaync-client -rs
+	local GTK_RELOAD_HELPER \
+		WAYBAR_RELOAD_HELPER \
+		OMP_RELOAD_HELPER \
+		SWAYNC_RELOAD_HELPER \
+		OBSIDIAN_RELOAD_HELPER
 
 	# handle GTK
-	local GTK_RELOAD_HELPER
 	GTK_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_GTK_Reload_helper.sh"
 	$GTK_RELOAD_HELPER
 
 	# handle waybar
-	local WAYBAR_STYLES_FILE="$HOME/.config/waybar/style.css"
-
-	if [ ! -f "$WAYBAR_STYLES_FILE" ]; then
-		echo "Error: File not found at $WAYBAR_STYLES_FILE"
-		pkill waybar
-		sleep 1
-		waybar &
-	fi
-
-	local CURRENT_CONTENT
-	CURRENT_CONTENT=$(<"$WAYBAR_STYLES_FILE")
-	printf "%s" "$CURRENT_CONTENT" >"$WAYBAR_STYLES_FILE"
-	if [ $? -ne 0 ]; then
-		echo "Error: Failed trigger waybar's hot reload."
-	fi
+	WAYBAR_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_Waybar_Reload_helper.sh"
+	$WAYBAR_RELOAD_HELPER
 
 	# handle tmux
-	local TMUX_CONFIG_FILE="$HOME/.config/tmux/tmux.conf"
-	tmux source-file "$TMUX_CONFIG_FILE"
+	tmux source-file "$HOME/.config/tmux/tmux.conf"
 
 	# handle oh-my-posh
-	local WALLUST_OMP_PALETTE_FILE="$HOME/.cache/wallust/targets/omp.json"
-	local OMP_CONFIG_FILE="$HOME/.config/my_omp.json"
-
-	if [[ ! -f "$WALLUST_OMP_PALETTE_FILE" ]]; then
-		echo "Error: New Oh My Posh palette file not found at $WALLUST_OMP_PALETTE_FILE." >&2
-	fi
-
-	if [[ ! -f "$OMP_CONFIG_FILE" ]]; then
-		echo "Error: Oh My Posh config file not found at $OMP_CONFIG_FILE." >&2
-	fi
-
-	local NEW_PALETTE_CONTENT NEW_CONFIG_CONTENT
-	NEW_PALETTE_CONTENT=$(<"$WALLUST_OMP_PALETTE_FILE")
-
-	NEW_CONFIG_CONTENT=$(jq --argjson new_palette "$NEW_PALETTE_CONTENT" '.palette = $new_palette' "$OMP_CONFIG_FILE")
-	echo "$NEW_CONFIG_CONTENT" >"$OMP_CONFIG_FILE"
-	if [ $? -ne 0 ]; then
-		echo "Error: Failed to update Oh My Posh config file with jq." >&2
-	fi
+	OMP_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_OMP_Reload_helper.sh"
+	$OMP_RELOAD_HELPER
 
 	# handle swaync
-	swaync-client --reload-css
+	SWAYNC_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_SwayNC_Reload_helper.sh"
+	$SWAYNC_RELOAD_HELPER
 
 	# handle obsidian
-	local OBSIDIAN_RELOAD_HELPER
-	OBSIDIAN_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_Obsidian_Reload_helper.js"
+	OBSIDIAN_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_Obsidian_Reload_helper.sh"
 	$OBSIDIAN_RELOAD_HELPER
 
 }

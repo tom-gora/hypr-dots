@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # Screenshots scripts
 
 icon="${HOME}/.config/swaync/images/screenshot.svg"

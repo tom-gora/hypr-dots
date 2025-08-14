@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # For Swaylock
 
 CONFIG="$HOME/.config/swaylock/config"

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   fill="#3e8fb0"
+   style="color:#3B789A;"
+   fill="currentColor"
    id="svg3"
-   stroke="#3e8fb0"
+   stroke="currentColor"
    stroke-width="0.00024"
    version="1.1"
    viewBox="2.57 2.57 33.599997 33.599997"
@@ -14,24 +15,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
-   id="namedview1"
-   pagecolor="#ffffff"
-   bordercolor="#000000"
-   borderopacity="0.25"
-   inkscape:showpageshadow="2"
-   inkscape:pageopacity="0.0"
-   inkscape:pagecheckerboard="0"
-   inkscape:deskcolor="#d1d1d1"
-   inkscape:zoom="16.852146"
-   inkscape:cx="9.4350004"
-   inkscape:cy="9.4053306"
-   inkscape:window-width="1920"
-   inkscape:window-height="1080"
-   inkscape:window-x="0"
-   inkscape:window-y="0"
-   inkscape:window-maximized="1"
-   inkscape:current-layer="svg3" />
+   xmlns:svg="http://www.w3.org/2000/svg">
   <defs
    id="defs3" />
   <g
@@ -39,7 +23,6 @@
    transform="translate(4.2350767,4.2350766)">
     <g
    id="SVGRepo_tracerCarrier"
-   stroke="#cccccc"
    stroke-linecap="round"
    stroke-linejoin="round"
    stroke-width="0.624"
@@ -50,32 +33,32 @@
    style="stroke-width:0.000250794" />
     <g
    id="g1"
-   style="fill:#3e8fb0;fill-opacity:1"
+   style="fill:currentColor;fill-opacity:1"
    transform="matrix(0.91613785,0,0,0.91613785,9.8815042,9.881504)">
       <g
    id="SVGRepo_bgCarrier"
    stroke-width="0"
-   style="fill:#3e8fb0;fill-opacity:1" />
+   style="fill:currentColor;fill-opacity:1" />
       <g
    id="SVGRepo_tracerCarrier-3"
    stroke-linecap="round"
    stroke-linejoin="round"
-   style="fill:#3e8fb0;fill-opacity:1" />
+   style="fill:currentColor;fill-opacity:1" />
       <g
    id="SVGRepo_iconCarrier-5"
-   style="fill:#3e8fb0;fill-opacity:1">
+   style="fill:currentColor;fill-opacity:1">
         <path
    d="M 6,3 A 3,3 0 1 1 0,3 3,3 0 0 1 6,3 Z"
    id="path1"
-   style="fill:#3e8fb0;fill-opacity:1" />
+   style="fill:currentColor;fill-opacity:1" />
         <path
    d="M 9,6 A 3,3 0 1 1 9,0 3,3 0 0 1 9,6 Z"
    id="path2-6"
-   style="fill:#3e8fb0;fill-opacity:1" />
+   style="fill:currentColor;fill-opacity:1" />
         <path
    d="m 9,6 h 0.5 a 2,2 0 0 1 1.983,1.738 l 3.11,-1.382 A 1,1 0 0 1 16,7.269 v 7.462 a 1,1 0 0 1 -1.406,0.913 L 11.483,14.262 A 2,2 0 0 1 9.5,16 H 2 A 2,2 0 0 1 0,14 V 8 A 2,2 0 0 1 2,6 Z"
    id="path3-2"
-   style="fill:#3e8fb0;fill-opacity:1" />
+   style="fill:currentColor;fill-opacity:1" />
       </g>
     </g>
   </g>

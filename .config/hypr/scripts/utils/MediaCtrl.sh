@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # Playerctl
 
 music_icon="$HOME/.config/swaync/images/music.svg"

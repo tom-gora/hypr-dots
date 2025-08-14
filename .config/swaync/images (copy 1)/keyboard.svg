@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg 
+  style="color:green;"
+  fill="currentColor" 
+  id="svg3" 
+  stroke="currentColor"
+  stroke-width="0.00024000000000000003" 
+  version="1.1" viewBox="-4.8 -4.8 33.60 33.60"
+  xml:space="preserve"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg">
+  <defs id="defs3"></defs>
+  <g id="SVGRepo_tracerCarrier" stroke="#CCCCCC" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.624"></g>
+  <path id="path1" style="fill:#000000"></path>
+  <g id="g36" style="fill:currentColor" transform="matrix(0.32270268,0,0,0.32270268,0.83997252,0.65493186)">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_tracerCarrier-2" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier-0">
+      <g id="g14">
+        <g id="g37" style="fill:currentColor" transform="matrix(2.4665745,0,0,2.4665745,2.5175313,3.0909404)">
+          <g id="SVGRepo_bgCarrier-9" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier-7" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <g data-name="Group 715" id="Group_715" transform="translate(-100,-50)">
+              <path d="m 112,64 v 2 h -2 v -2 z m 4,0 v 2 h -2 v -2 z m 4,0 v 1.993137 h -2 V 64 Z m -14,0 h 2 v 2 h -2 z m 14,7 h -14 v -2 h 14 z m 4,5 h -22 c -1.1032,-0.0033 -1.99671,-0.896798 -2,-2 V 61 c 0.003,-1.103202 0.8968,-1.996705 2,-2 h 4 v -3 c 0.003,-1.103202 0.8968,-1.996705 2,-2 h 12 v -4 h 2 v 4 c -0.003,1.103202 -0.8968,1.996705 -2,2 h -12 v 5 h -6 v 13 h 22 V 61 h -13 c -1.33333,0 -1.33333,-2 0,-2 h 13 c 1.1032,0.0033 1.99671,0.896798 2,2 v 13 c -0.003,1.103202 -0.8968,1.996705 -2,2 z" data-name="Path 1500" fill="currentColor" id="Path_1500"></path>
+            </g>
+          </g>
+          <path d="m 12.056941,14.017744 v 2.011591 h -2.011592 v -2.011591 z m -6.0347729,0 h 2.0115912 v 2.011591 H 6.0221681 Z" id="path1-3" style="fill:currentColor;stroke-width:0.000303266"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

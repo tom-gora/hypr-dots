@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # continuously poll for clients slow to start up until they launch
 # to avoid prematurely failing, if failed still after a minute, only then

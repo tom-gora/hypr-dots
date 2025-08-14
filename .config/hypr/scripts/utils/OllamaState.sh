@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 OLLAMA_PID=$(pgrep -f 'ollama')
 

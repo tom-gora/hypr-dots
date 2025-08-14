@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 status=$(cat /sys/class/leds/*capslock/brightness | head -n 1)
 
