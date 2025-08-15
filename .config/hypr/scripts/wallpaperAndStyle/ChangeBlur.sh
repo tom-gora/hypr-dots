@@ -1,5 +1,4 @@
 #!/bin/env bash
-## Script for changing blurs on the fly
 
 bell="$HOME/.config/swaync/images/bell.svg"
 

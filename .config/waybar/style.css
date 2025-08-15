@@ -3,8 +3,6 @@
    DECLARATIONS ######################################
    ################################################### */
 /* hardcoded */
-@define-color critical #d0422f;
-@define-color warning #f08e16;
 @define-color workspaces_bg @color4;
 @define-color pulseaudio_bg @color2;
 @define-color middle_section_bg @color7;
