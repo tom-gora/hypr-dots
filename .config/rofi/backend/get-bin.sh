@@ -4,7 +4,7 @@
 set -eEu
 
 REPOS=(
-	"https://github.com/tom-gora/rofiQuickColors.git"
+	"https://github.com/tom-gora/gmenu.git"
 	"https://github.com/tom-gora/gophi.git"
 )
 

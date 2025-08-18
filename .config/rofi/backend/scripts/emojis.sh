@@ -44,19 +44,19 @@ if [[ ! $(pidof rofi) ]]; then
 
 	if [[ "$ICON" != "-1" && "$PROMPT" != "-1" ]]; then
 		FULL_ROFI_ARGS=("${ROFI_ARGS_FOR_ROFI[@]}")
-		if ! RESULT=$("$BIN" --menu-config "$MENU_CONFIG_PATH" -join-strings | rofi -dmenu "${FULL_ROFI_ARGS[@]}"); then
+		if ! RESULT=$("$BIN" --menu-config "$MENU_CONFIG_PATH" --join-strings | rofi -dmenu "${FULL_ROFI_ARGS[@]}"); then
 			exit 1
 		fi
 		"$BIN" --menu-config "$MENU_CONFIG_PATH" --picker-result "$RESULT" --default-exec "wl-copy"
 	elif [[ "$ICON" != "-1" ]]; then
 		ICON_ROFI_ARGS=("${ROFI_ARGS_FOR_ROFI[0]}")
-		if ! RESULT=$("$BIN" --menu-config "$MENU_CONFIG_PATH" -join-strings | rofi -dmenu "${ICON_ROFI_ARGS[@]}"); then
+		if ! RESULT=$("$BIN" --menu-config "$MENU_CONFIG_PATH" --join-strings | rofi -dmenu "${ICON_ROFI_ARGS[@]}"); then
 			exit 1
 		fi
 		"$BIN" --menu-config "$MENU_CONFIG_PATH" --picker-result "$RESULT" --default-exec "wl-copy"
 	elif [[ "$PROMPT" != "-1" ]]; then
 		PROMPT_ROFI_ARGS=("${ROFI_ARGS_FOR_ROFI[1]}")
-		if ! RESULT=$("$BIN" --menu-config "$MENU_CONFIG_PATH" -join-strings | rofi -dmenu "${PROMPT_ROFI_ARGS[@]}"); then
+		if ! RESULT=$("$BIN" --menu-config "$MENU_CONFIG_PATH" --join-strings | rofi -dmenu "${PROMPT_ROFI_ARGS[@]}"); then
 			exit 1
 		fi
 		"$BIN" --menu-config "$MENU_CONFIG_PATH" --picker-result "$RESULT" --default-exec "wl-copy"

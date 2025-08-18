@@ -21,7 +21,7 @@ main() {
 
 	send_notification "Pick a color..." && sleep 0.5
 
-	RESULT=$("$BIN")
+	RESULT=$("$BIN" pick)
 	# if result is empty or contains word "error" | "Error" then exit with 1
 	if [[ "$RESULT" =~ [Cc]ancelled ]]; then
 		swaync-client --close-latest
