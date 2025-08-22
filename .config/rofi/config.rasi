@@ -1,3 +1,5 @@
+@import "~/.cache/wallust/targets/rofi.rasi"
+
 configuration {
     modi:                       "drun";
     font:                       "Ubuntu Nerd Font Medium 12";
@@ -12,12 +14,12 @@ configuration {
     kb-remove-to-eol:           "";
     kb-mode-complete:           "";
     kb-move-front:              "";
+    kb-remove-char-back:        "";
     kb-accept-entry:            "Return,Control+a";
-    kb-element-prev:            "Control+j";
-    kb-element-next:            "Control+k";
+    kb-element-prev:            "Control+j,Control+l";
+    kb-element-next:            "Control+k,Control+h";
 }
 
-@import "~/.cache/wallust/targets/rofi.rasi"
 
 /* whole screen blurred bg effect window */
 window {
@@ -114,47 +116,20 @@ element {
     width:				            	100%;
 }                              
                                
-element normal.normal {        
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element normal.urgent {        
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element normal.active {        
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
 element selected.normal {      
     background-color:           @selected-background;
-    text-color:                 @foreground;
+    text-color:                 @background-dark;
 }                              
                                
-element selected.urgent {      
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
                                
+element normal.normal,
+element normal.urgent,
+element normal.active,       
+element selected.urgent,      
+element alternate.urgent,     
+element alternate.active,     
+element alternate.normal,     
 element selected.active {      
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element alternate.normal {     
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element alternate.urgent {     
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element alternate.active {     
     background-color:           inherit;
     text-color:                 @foreground;
 }                              

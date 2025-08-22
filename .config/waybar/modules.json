@@ -230,7 +230,7 @@
   "custom/power": {
     "format": "⏻",
     "exec": "echo ; echo 󰟡 power // blur",
-    "on-click": "$HOME/.config/hypr/scripts/utils/Wlogout.sh",
+    "on-click": "$HOME/.config/rofi/backend/scripts/gmenu_powermenu.sh",
     "on-click-right": "$HOME/.config/hypr/scripts/wallpaperAndStyle/ChangeBlur.sh",
     "interval": 86400,
     "tooltip": false

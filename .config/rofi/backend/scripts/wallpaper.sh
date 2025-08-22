@@ -44,7 +44,7 @@ main() {
 	#reuse updater designed to be walker backend
 	if [[ $pic_index -ne -1 ]]; then
 		local UPDATER
-		UPDATER="$(readlink -f "$(dirname "$0")")/Update.sh -i $wallDIR/$choice.png"
+		UPDATER="$SCRIPTSDIR/wallpaperAndStyle/Update.sh -i $wallDIR/$choice.png"
 		$UPDATER
 	else
 		echo "Image not found."

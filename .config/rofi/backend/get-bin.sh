@@ -32,18 +32,10 @@ get_bin() {
 		return 1
 	fi
 
-	go build "$ENTRY_PATH"
-
-	if [ -z "$ENTRY_PATH" ]; then
-		echo "No main.go found for $CLONED_REPO"
-		popd >/dev/null
-		return 1
-	fi
-
 	BINARY_NAME=$(basename "$CLONED_REPO")
-	go build -o "$BINARY_NAME" "$ENTRY_PATH"
+	ENTRY_PATH_DIRNAME=$(dirname "$ENTRY_PATH")
 
-	if ! go build -o "$BINARY_NAME" "$ENTRY_PATH"; then
+	if ! go build -o "$BINARY_NAME" "$ENTRY_PATH_DIRNAME"; then
 		echo "Failed to build $CLONED_REPO"
 		popd >/dev/null
 		return 1

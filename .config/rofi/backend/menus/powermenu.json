@@ -1,0 +1,26 @@
+[
+  {
+    "name": "\r<span font_size='8pt'>Poweroff [p]</span>",
+    "value": "systemctl poweroff"
+  },
+  {
+    "name": "\r<span font_size='8pt'>Reboot [r]</span>",
+    "value": "reboot"
+  },
+  {
+    "name": "\r<span font_size='8pt'>Lock [l]</span>",
+    "value": "/usr/bin/bash -c $HOME/.config/hypr/scripts/utils/LockScreen.sh"
+  },
+  {
+    "name": "󰍃\r<span font_size='8pt'>Logout [o]</span>",
+    "value": "hyprctl dispatch exit"
+  },
+  {
+    "name": "󰏦\r<span font_size='8pt'>Suspend [s]</span>",
+    "value": "swaylock -f && systemctl suspend"
+  },
+  {
+    "name": "󰒲\r<span font_size='8pt'>Hibernate [h]</span>",
+    "value": "swaylock -f && systemctl hibernate"
+  }
+]

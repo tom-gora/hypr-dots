@@ -1,5 +1,6 @@
- /* bring in defaults to override things below the import */ 
 @import "~/.config/rofi/config.rasi"
+
+/* DIFFERENCES */
 
 mainbox {
     margin:                     20% 20% 51.30% 20%;
@@ -22,7 +23,6 @@ icon-current-entry  {
 
 
 inputbar {
-  /* sadly cannot position this absolutely over icon? */
     background-color:           @background-dark;
 }
 
@@ -40,12 +40,10 @@ entry {
     placeholder:                "Wallpapers...";
 }
 
-/*  Listview  */
 listview {
   margin:                       -2px 0 0 -2px;
 }                              
                                
-/* HACK:  hide icons in the listview */
 element-icon {                 
-  size: 0px;
+  enabled:                      false;
 }                              
