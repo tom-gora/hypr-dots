@@ -7,11 +7,11 @@
     "source": "cdn"
   },
   "palette": {
-    "closer": "#3A9155",
-    "orange": "#A2562A",
-    "os": "#EDD4BA",
-    "purple": "#E1AF4E",
-    "transient": "#404040",
+    "closer": "#793679",
+    "orange": "#2E62A0",
+    "os": "#EDBFAB",
+    "purple": "#E36E3D",
+    "transient": "#424244",
     "user": "p:os"
   },
   "transient_prompt": {

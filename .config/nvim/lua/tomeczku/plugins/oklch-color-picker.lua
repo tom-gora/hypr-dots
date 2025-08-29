@@ -69,6 +69,7 @@ opts = {
 
 M = {
 	"eero-lehtinen/oklch-color-picker.nvim",
+	-- enabled = false,
 	event = "VeryLazy",
 	version = "*",
 	keys = {

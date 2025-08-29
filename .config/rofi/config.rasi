@@ -14,7 +14,7 @@ configuration {
     kb-remove-to-eol:           "";
     kb-mode-complete:           "";
     kb-move-front:              "";
-    kb-remove-char-back:        "";
+    kb-remove-char-back:        "BackSpace";
     kb-accept-entry:            "Return,Control+a";
     kb-element-prev:            "Control+j,Control+l";
     kb-element-next:            "Control+k,Control+h";

@@ -14,6 +14,11 @@ THEME.setup = function(theme_name)
 	end
 
 	local p = palette_or_err
+	if type(p) ~= "table" or not p.white or not p.black or not p.yellow or not p.purple then
+		vim.notify("Invalid theme palette format for '" .. theme_name .. "'", vim.log.levels.ERROR, { timeout = 3000 })
+		return
+	end
+
 	hl(0, "Normal", { fg = p.white.base, bg = p.black.base })
 	hl(0, "SignColumn", { fg = p.white.darker, bg = "NONE", sp = "NONE" })
 	hl(0, "MsgArea", { fg = p.white.base, bg = p.black.base })
