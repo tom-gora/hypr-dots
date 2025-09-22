@@ -1,8 +1,14 @@
 export TERM="xterm-256color"
+#for firefox to fucking start caching the shaders
+export MESA_SHADER_CACHE_DIR="$HOME/.cache/mesa_shader_cache_db"
+
 # language environment
 export LANG=GB.UTF-8
 export LC_CTYPE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
+
+# qt stuff
+export QT_QPA_PLATFORMTHEME=qt6ct
 
 #cargo setup
 export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
@@ -52,6 +58,8 @@ else
   export VISUAL='nvim'
 fi
 
+# gtk theme
+
 #set plugin dir for rofi
 export ROFI_PLUGIN_PATH="/usr/lib64/rofi"
 
@@ -77,3 +85,4 @@ export ZSH_AUTOSUGGEST_STRATEGY=(
   history
   completion
 )
+export GTK_THEME=Dynamic-Dark-compact

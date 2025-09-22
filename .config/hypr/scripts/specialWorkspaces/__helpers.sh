@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # continuously poll for clients slow to start up until they launch
 # to avoid prematurely failing, if failed still after a minute, only then
@@ -76,16 +76,16 @@ __toggle_set_query_string() {
 		echo "Discord"
 		exit 0
 		;;
-	joplin)
-		echo "Joplin"
-		exit 0
-		;;
 	thunderbird)
 		echo "Mozilla Thunderbird"
 		exit 0
 		;;
 	ollama)
 		echo "Ollama"
+		exit 0
+		;;
+	obsidian)
+		echo "obsidian"
 		exit 0
 		;;
 	*)

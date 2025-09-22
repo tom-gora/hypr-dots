@@ -1,110 +1,88 @@
-@import "../../.cache/wal/colors-waybar.css";
+@import url("file:///home/tomeczku/.cache/wallust/targets/waybar.css");
+/* WARN: #############################################
+   DECLARATIONS ######################################
+   ################################################### */
+/* hardcoded */
+@define-color workspaces_bg @color4;
+@define-color pulseaudio_bg @color2;
+@define-color middle_section_bg @color7;
+@define-color ollama_bg @color5;
+@define-color system_bg @color6;
+@define-color keyboard_bg @background;
+@define-color tray_bg @color4;
+@define-color finalspace_bg @color1;
 
-/*-------------------------------------------------*/
-/* DECLARIATIONS */
-@define-color critical @urgent;
-@define-color alert   @urgent;
-@define-color warning #E49B39;
-@define-color fgcolor @foreground;
-@define-color bgcolor @background;
+/* WARN: #############################################
+   GLOBAL ######################################
+   ################################################### */
 
-@define-color bgalpha__0_1 @background-alpha__0_1;
-@define-color bgalpha__0_2 @background-alpha__0_2;
-@define-color bgalpha__0_3 @background-alpha__0_3;
-@define-color bgalpha__0_4 @background-alpha__0_4;
-@define-color bgalpha__0_5 @background-alpha__0_5;
-@define-color bgalpha__0_6 @background-alpha__0_6;
-@define-color bgalpha__0_7 @background-alpha__0_7;
-@define-color bgalpha__0_8 @background-alpha__0_8;
-@define-color bgalpha__0_9 @background-alpha__0_9;
-
-@define-color fgalpha @foreground-alpha__0_6;
-
-@define-color accent1 @color1;
-@define-color accent2 @color2;
-@define-color accent3 @color3;
-@define-color accent4 @color4;
-@define-color accent5 @color5;
-@define-color accent6 @color6;
-@define-color accent7 @color7;
-@define-color accent8 @color8;
-@define-color accent9 @color9;
-@define-color accent10 @color10;
-@define-color accent11 @color11;
-@define-color accent12 @color12;
-@define-color accent13 @color13;
-@define-color accent14 @color14;
-@define-color accent15 @color15;
-
-/*------------------------------------------*/
-/* GLOBAL PROPS */
 * {
   all: initial;
   color: @foreground;
   font-family: "Ubuntu Nerd Font";
   font-weight: 400;
   min-height: 4px;
-  font-size: 95%;
+  font-size: 0.8rem;
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-}
-
-/*--------------------------------------------*/
-/* MAIN WINDOW */
-window#waybar {
-  background-color: transparent;
-  color: @foreground;
-}
-
-window#waybar.empty {
-  background-color: transparent;
-}
-window#waybar.empty #window {
-  padding: 0px;
-  border: 0px;
-  background-color: transparent;
-}
-/* TOOLTIPS */
-tooltip {
-  background: @background-alpha__0_9;
-  border-radius: 2px;
-  border: none;
   padding: 0;
-  min-width: 500px;
+  margin: 0;
+}
+/* WARN: #############################################
+   SEPARATORS ########################################
+   ################################################### */
+
+#custom-left-slant {
+  margin-top: -1px;
+  font-size: 1.55rem;
 }
 
-tooltip label {
-  color: @accent6;
-  padding: 0.5rem 0.25rem;
+#custom-right-slant {
+  margin-bottom: -1px;
+  font-size: 1.55rem;
+}
+.modules-left > *:nth-child(2) > * {
+  color: @workspaces_bg;
 }
 
-/* LEFT SECTION MODULES */
-/* WORKSPACES */
+.modules-left > *:nth-child(3) > * {
+  color: @pulseaudio_bg;
+}
+
+.modules-right > *:nth-child(2) > * {
+  color: @ollama_bg;
+}
+
+.modules-right > *:nth-child(3) > *,
+.modules-right > *:nth-child(5) > * {
+  color: @system_bg;
+}
+
+.modules-right > *:nth-child(6) > *,
+.modules-right > *:nth-child(8) > * {
+  color: @background;
+}
+
+.modules-right > *:nth-child(9) > *,
+.modules-right > *:nth-child(11) > * {
+  color: @tray_bg;
+}
+
+.modules-right > *:nth-child(12) > * {
+  color: @finalspace_bg;
+}
+
+/* WARN: #############################################
+   LEFT SECTION ######################################
+   ################################################### */
+
 #workspaces {
-  font-size: 110%;
+  background: @workspaces_bg;
   color: @bgcolor;
-  background-color: @accent5;
-  border-radius: 2px 0 0 2px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-right: 0.25rem;
-  padding-left: 0.25rem;
-}
-
-#workspaces button {
-  padding-left: 0.4rem;
-  padding-right: 0.8rem;
-  background-color: transparent;
-  box-shadow: none;
-  text-shadow: none;
-  border-radius: 2px;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-  transition: all 0.4s ease-out;
+  padding: 1px 0 2px 0;
 }
 
 #workspaces button:not(.active) > * {
   opacity: 0.6;
-  color: @accent5;
 }
 
 #workspaces button:not(.active) {
@@ -123,7 +101,6 @@ tooltip label {
 #workspaces button.focused,
 #workspaces button:hover {
   background-color: @background;
-  color: @accent3;
 }
 
 #workspaces button.urgent {
@@ -131,367 +108,165 @@ tooltip label {
   color: @foreground;
 }
 
-/* PULSEAUDIO */
-/* pulseaudio wrapper */
+#workspaces button {
+  padding: 0 0.5rem;
+  background-color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  margin: 0 0.25rem;
+  transition: all 250ms ease-in-out;
+}
+
 .modules-left > *:nth-child(4) > *:last-child {
-  border-radius: 0 2px 2px 0;
-  background-color: @accent9;
-  padding-right: 0.5rem;
+  background-color: @pulseaudio_bg;
 }
 
 #pulseaudio {
-  font-size: 112%;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-  color: @color0;
-  background-color: @accent9;
+  margin: 0 0.5rem;
+  color: @background;
+  background-color: @pulseaudio_bg;
 }
 
 #custom-recording {
   color: @background;
-  margin-left: -2px;
-  border-radius: 0 2px 2px 0;
-  padding-left: 0.5rem;
-  padding-right: 0.75rem;
-  background: @accent9;
+  padding: 0 0.5rem;
+  background: @pulseaudio_bg;
+  transition: all 250ms ease-in-out;
 }
 
-/* HACK: slantend separator */
-
-.modules-left > *:nth-child(2),
-.modules-left > *:nth-child(3),
-/* ai */
-.modules-right > *:nth-child(2),
-/* motherboard */
-.modules-right > *:nth-child(3),
-.modules-right > *:nth-child(5),
-/* keyboard */
-.modules-right > *:nth-child(6),
-.modules-right > *:nth-child(8),
-/* tray */
-.modules-right > *:nth-child(9),
-.modules-right > *:nth-child(11),
-.modules-right > *:nth-child(12) {
-  padding: 0;
-  margin-top: -4px;
-  font-size: 181%;
-  background-color: transparent;
-}
-
-/*fixes for weird 1px gaps*/
-.modules-left > *:nth-child(2) > *,
-.modules-left > *:nth-child(3) > *,
-.modules-right > *:nth-child(3) > *,
-.modules-right > *:nth-child(6) > *,
-.modules-right > *:nth-child(9) > *,
-.modules-right > *:nth-child(12) > * {
-  margin-right: -1px;
-}
-
-.modules-left > *:nth-child(2) > * {
-  margin-left: -4px;
-  color: @accent5;
-}
-
-.modules-left > *:nth-child(3) > * {
-  color: @accent9;
-}
-/*---------------------------------------------------------*/
-/* MIDDLE SECTION MODULES */
-
+/* WARN: #############################################
+   MIDDLE SECTION ####################################
+   ################################################### */
 .modules-center {
-  background-color: @accent14;
-  border-radius: 2px;
+  background-color: @middle_section_bg;
 }
 
-/* CLOCK */
+/* INFO: #############################################
+   CLOCK #############################################
+   ################################################### */
 #clock {
-  font-size: 120%;
+  color: @background;
+  font-size: 1rem;
   font-weight: 500;
-  color: @background;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0 0.75rem;
+  transition: all 250ms ease-in-out;
 }
 
+/* INFO: #############################################
+   WEATHER ###########################################
+   ################################################### */
 #custom-weather {
-  font-size: 112%;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  color: @foreground;
-  background-color: @background-alpha__0_5;
+  color: @background;
+  padding: 0 0.5rem;
+  background: transparent;
+  transition: all 250ms ease-in-out;
 }
 
-#custom-weather:hover {
-  transition: all 0.4s ease-out;
-  background-color: @background-alpha__0_7;
-}
-
+/* INFO: #############################################
+   FEDORA UPDATES ####################################
+   ################################################### */
 #custom-updates {
-  padding-left: 1rem;
-  padding-right: 0.6rem;
-  padding-top: 1px;
-  font-size: 134%;
   color: @background;
+  padding: 0 0.75rem;
+  transition: all 250ms ease-in-out;
 }
 
+#clock:hover,
+#custom-weather:hover,
 #custom-updates:hover {
-  transition: all 0.4s ease-out;
-  background-color: #e0def4;
-  color: #283f6e;
+  color: @foreground;
+  background: @background-alpha__0_3;
 }
 
-/* RIGHT SECTION MODULES */
-/* HACK: slantend separators */
-.modules-right > *:nth-child(1) > * {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-}
+/* WARN: #############################################
+   LEFT SECTION ######################################
+   ################################################### */
 
-.modules-right > *:nth-child(2) > * {
-  color: @accent2;
-}
-
-.modules-right > *:nth-child(4) > * {
-  color: @accent2;
-}
-
-.modules-right > *:nth-child(5) > * {
-  color: @accent7;
-}
-
-.modules-right > *:nth-child(6) > *,
-.modules-right > *:nth-child(8) > * {
+/* INFO: #############################################
+   OLLAMA MODEL ######################################
+   ################################################### */
+#custom-ollama-model {
+  background: @ollama_bg;
   color: @background;
 }
 
-.modules-right > *:nth-child(9) > *,
-.modules-right > *:nth-child(11) > * {
-  color: @accent4;
-}
-/* OLLAMA SECTION */
-
+/* INFO: #############################################
+   OLLAMA STATUS #####################################
+   ################################################### */
 #localai {
-  background-color: @accent2;
-  padding-left: 0.5rem;
-  font-size: 112%;
+  color: @background;
+  background: @ollama_bg;
+  padding: 0 0.75rem;
 }
 
 #custom-ollama-state {
-  padding-right: 0.5rem;
+  color: @background;
+  padding: 0 0.5rem;
   background-position: left;
   background-repeat: no-repeat;
-  background-size: 1.25rem;
+  background-size: 1.15rem;
   background-image: url("./assets/ollama.svg");
-  color: @background;
 }
 
+/* INFO: #############################################
+   GPU USAGE #########################################
+   ################################################### */
 #custom-gpu-usage {
-  min-width: 32px;
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: 1rem;
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
+  color: @background;
   background-image: url("/home/tomeczku/.config/waybar/assets/gpu.svg");
-  color: @background;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 35%;
+  font-size: 0.9rem;
 }
 
-#custom-ollama-model {
-  margin-left: 0.25rem;
-  color: @background;
-}
-
-/* MOTHERBOARD SECTION */
+/* INFO: #############################################
+   SYSTEM STATS ######################################
+   ################################################### */
 #cpu,
 #memory,
 #temperature,
 #disk {
-  font-size: 112%;
-  font-weight: 400;
-  min-width: 32px;
-  background-color: @accent7;
+  min-width: 2.75rem;
+  background-color: @system_bg;
   color: @background;
-  padding-left: 0.35rem;
-  padding-right: 0.35rem;
+  padding: 0 0.25rem;
+}
+
+#cpu {
+  padding-left: 0.75rem;
+}
+
+#disk {
+  padding-right: 0.75rem;
 }
 
 #temperature.critical {
   background-color: @critical;
 }
 
-/* KEYBOARD SECTION */
+/* INFO: #############################################
+   KEYBOARD LANG #####################################
+   ################################################### */
 #keyboard-state > *,
 #language > * {
-  color: @accent5;
-}
-
-#keyboard {
-  padding-left: 0.5rem;
-  background-color: @background;
+  color: @foreground;
 }
 
 #language {
-  font-weight: 900;
-  min-width: 32px;
-  margin-left: 0.25rem;
-  margin-right: 0.75rem;
-}
-
-/* NATIVE WAYBAR MENU */
-menu {
-  padding: 1rem 0.5rem;
-  border-radius: 2px;
-  background: @background-alpha__0_7;
-  color: @foreground;
-}
-
-menuitem {
-  padding: 0.5rem 1rem;
-}
-
-menuitem:hover {
-  background-color: @accent4;
-}
-
-menuitem > * {
-  color: @foreground;
-}
-
-/* TRAY SECTION */
-#tray {
-  padding: 2px 0.5rem;
-  background-color: @accent4;
-  color: @foreground;
-}
-
-#tray .needs-attention {
-  -gtk-icon-effect: highlight;
-  background-color: @critical;
-}
-
-#tray widget image {
-  -gtk-icon-style: symbolic;
-}
-
-#tray widget window menu {
-  background: @background-alpha__0_7;
-  padding-top: 1rem;
-}
-
-#tray widget window menu {
-  border-radius: 2px;
-  font-weight: 400;
+  background: @keyboard_bg;
+  font-weight: 700;
   font-size: 1rem;
-  border: none;
+  min-width: 2rem;
+  margin: 0 0.5rem;
 }
 
-/* tray menu items  and hover state for  them */
-#tray widget window menu menuitem {
-  background: none;
-  padding: 0.5rem 1rem;
-}
-
-#tray widget window menu menuitem:hover {
-  background-color: @accent4;
-}
-
-/* top and bottom menu border radius values */
-#tray widget window menu menuitem:first-child {
-  border-radius: 2px 2px 0 0;
-}
-
-#tray widget window menu menuitem:last-child {
-  border-radius: 0 0 2px 2px;
-}
-
-/* inactive menu items (desc) */
-#tray widget window menu menuitem:disabled {
-  background-color: @accent4;
-  border-radius: 0;
-}
-
-#tray widget window menu menuitem:disabled * {
-  font-weight: bold;
-  color: @fgalpha;
-}
-
-/* menu separators and how to hack them into a narrow line 
-without access to height in gtk css XD */
-#tray widget window menu separator {
-  background-color: transparent;
-  border-bottom: 1px solid @accent4;
-  margin-top: -0.85rem;
-}
-
-/* hide the bottom separator */
-#tray widget window menu separator:last-child {
-  opacity: 0;
-}
-
-/* final section */
-#finalspace {
-  background-color: @accent15;
-  border-radius: 0 2px 2px 0;
-}
-
-#finalspace * {
-  color: @background;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-/* IDLE INHIBITOR */
-#finalspace #idle_inhibitor {
-  padding-right: 1.25rem;
-  margin-left: 0.25rem;
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: 1.25rem;
-  background-image: url("./assets/lock-clock.svg");
-  color: @background;
-}
-
-#finalspace #idle_inhibitor.activated {
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: 1.25rem;
-  background-image: url("./assets/lock-pause.svg");
-}
-
-#finalspace #custom-swaync {
-  font-size: 140%;
-  padding-left: 0;
-  min-width: 36px;
-}
-
-#finalspace #custom-power {
-  color: #47212c;
-  font-size: 150%;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  border-radius: 0 2px 2px 0;
-  background-color: @background-alpha__0_5;
-}
-
-#finalspace #custom-power:hover {
-  transition: all 0.4s ease-out;
-  background-color: @background-alpha__0_7;
-  color: #eb6f92;
-}
-
-#network {
-  color: @accent3;
-}
-
-#network.disconnected {
-  color: @alert;
-}
-
-#custom-power {
-  color: @critical;
+#keyboard {
+  background-color: @keyboard_bg;
 }
 
 #custom-capslock {
+  background: @keyboard_bg;
   background-image: url("./assets/caps-unlocked.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -504,74 +279,137 @@ without access to height in gtk css XD */
   background-image: url("./assets/caps-locked.svg");
 }
 
-#taskbar button.active {
-  background-color: #7f849c;
-  padding-left: 12px;
-  padding-right: 12px;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+#keyboard {
+  padding-left: 0.5rem;
 }
 
-#taskbar button:hover {
-  padding-left: 3px;
-  padding-right: 3px;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+#custom-capslock {
+  padding-right: 1rem;
 }
 
-#mpd {
-  color: #2a5c45;
+/* INFO: #############################################
+   SYSTEM TRAY #######################################
+   ################################################### */
+#tray {
+  background: @tray_bg;
+  color: @foreground;
+  padding: 2px 0.75rem;
 }
 
-#mpd.disconnected {
-  background-color: #f53c3c;
+#tray .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @critical;
 }
 
-#mpd.stopped {
-  background-color: #90b1b1;
-}
+/* INFO: #############################################
+   TRAY MENU WIDGET ##################################
+   ################################################### */
 
-#mpd.paused {
-  background-color: #51a37a;
-}
-
-#pulseaudio-slider slider {
-  min-width: 0px;
-  min-height: 0px;
-  opacity: 0;
-  background-image: none;
+#tray widget window menu {
+  background: transparent;
+  font-size: 1.05rem;
   border: none;
-  box-shadow: none;
+  padding-top: 1.75rem;
 }
 
-#pulseaudio-slider trough {
-  min-width: 80px;
-  min-height: 5px;
-  border-radius: 2px;
+/* tray menu items  and hover state for  them */
+#tray widget window menu menuitem {
+  background: @background-alpha__0_7;
+  padding: 0.25rem 0.75rem;
 }
 
-#pulseaudio-slider highlight {
-  background: @accent3;
-  min-height: 10px;
-  border-radius: 2px;
+#tray widget window menu menuitem:hover {
+  background-color: @tray_bg;
+}
+#tray widget window menu menuitem:hover > * {
+  color: @background;
 }
 
-#backlight-slider slider {
-  min-width: 0px;
-  min-height: 0px;
+/* inactive menu items (desc) */
+#tray widget window menu menuitem:disabled {
+  background-color: @tray_bg;
+}
+
+#tray widget window menu menuitem:disabled * {
+  font-weight: bold;
+  color: @background-alpha__0_3;
+}
+
+#tray widget window menu separator {
+  background-color: transparent;
+  border-bottom: 1px solid @tray_bg;
+  margin-top: -0.85rem;
+}
+
+/* hide the bottom separator */
+#tray widget window menu separator:last-child {
   opacity: 0;
-  background-image: none;
-  border: none;
-  box-shadow: none;
 }
 
-#backlight-slider trough {
-  min-width: 80px;
-  min-height: 10px;
-  border-radius: 2px;
+/* INFO: #############################################
+   END MODULES COMPOUND ##############################
+   ################################################### */
+
+#finalspace * {
+  background: @finalspace_bg;
+  color: @background;
 }
 
-#backlight-slider highlight {
-  min-width: 10px;
-  border-radius: 2px;
+#finalspace #idle_inhibitor {
+  padding: 0 1.25rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  background-image: url("./assets/lock-clock.svg");
+  transition: all 250ms ease-in-out;
 }
+
+#finalspace #idle_inhibitor:hover,
+#finalspace #idle_inhibitor.activated:hover {
+  background-size: 1.5rem;
+}
+
+#finalspace #idle_inhibitor.activated {
+  background-image: url("./assets/lock-pause.svg");
+}
+
+#finalspace #custom-swaync {
+  font-size: 1rem;
+  padding-right: 0.5rem;
+  min-width: 2rem;
+  transition: all 250ms ease-in-out;
+}
+
+#finalspace #custom-swaync:hover {
+  font-size: 1.2rem;
+}
+
+#finalspace #custom-power {
+  color: @critical;
+  background: @background-alpha__0_3;
+  font-size: 1rem;
+  padding-left: 0.75rem;
+  padding-right: 0.65rem;
+  transition: all 250ms ease-in-out;
+}
+
+#finalspace #custom-power:hover {
+  background: @background;
+}
+
+#custom-power {
+  color: @critical;
+}
+
+/* NOTE: UNUSED SELECTOR KEPT AS REFERENCE */
+
+/*
+#pulseaudio-slider trough
+#pulseaudio-slider highlight 
+#network 
+#network.disconnected 
+#mpd 
+#mpd.disconnected 
+#mpd.stopped 
+#mpd.paused 
+#pulseaudio-slider slider */

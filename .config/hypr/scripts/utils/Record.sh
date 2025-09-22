@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # Recordings scripts
 set -x
 
@@ -49,7 +49,7 @@ recWin() {
 	if [[ -n "$1" ]]; then
 		countdown "$1"
 	fi
-	cd ${dir} && wf-recorder -a -g "$coordinates" -f ${file}
+	cd ${dir} && wf-recorder -g "$coordinates" -f ${file}
 	sleep 0.5
 	notify_view
 }

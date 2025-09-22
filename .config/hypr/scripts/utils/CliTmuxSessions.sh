@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # kickstart tmux with a temp named session to the run the ressurect restoration having the server running
 if ! pgrep -vx tmux >/dev/null || [[ $(tmux list-sessions 2>/dev/null | wc -l) -eq 0 ]]; then
@@ -16,11 +16,6 @@ function call_sesh {
 		--margin=0,16% \
 		--border-label-pos=4 --prompt '  ' \
 		--header '  ^e everything ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
-		--color=bg:#07060a,fg:#c4a7e7,hl:#ea9a97,selected-fg:#e0def4 \
-		--color=fg+:bright-white,bg+:#2e2a42,hl+:#ea9a97,gutter:-1,selected-fg:#e0def4 \
-		--color=border:#3e8fb0,header:#3e8fb0,border:bold \
-		--color=spinner:#f6c177,info:#9ccfd8,separator:#44415a \
-		--color=pointer:#abe9b3,marker:#eb6f92,prompt:#908caa \
 		--bind 'ctrl-j:down,ctrl-k:up,ctrl-a:accept-non-empty' \
 		--bind 'ctrl-e:change-prompt(  )+reload(sesh list --icons)' \
 		--bind 'ctrl-t:change-prompt(  )+reload(sesh list -t --icons)' \

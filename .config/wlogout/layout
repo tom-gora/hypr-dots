@@ -1,6 +1,6 @@
 {
   "label": "shutdown",
-    "action": "systemctl poweroff",
+    "action": "systemctl poweroff"
     "text": "  SHUTDOWN [s]  ",
     "keybind": "s"
 },
@@ -18,7 +18,7 @@
 },
 {
     "label": "logout",
-    "action": "sudo -n /home/tomeczku/.config/hypr/scripts/wallpaperAndStyle/RandomBG.sh; hyprctl dispatch exit",
+    "action": "hyprctl dispatch exit",
     "text": "   LOGOUT [e]   ",
     "keybind": "e"
 },

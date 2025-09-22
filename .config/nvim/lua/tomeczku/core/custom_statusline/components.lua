@@ -112,35 +112,35 @@ M.mode_plus_path = function()
 end
 
 ---@return string
-M.git = function()
-	if not utils.is_activewin() then
-		return ""
-	end
-
-	if not vim.b[utils.stbufnr()].gitsigns_head or vim.b[utils.stbufnr()].gitsigns_git_status then
-		return ""
-	end
-
-	local git_status = vim.b[utils.stbufnr()].gitsigns_status_dict
-
-	local added = (git_status.added and git_status.added ~= 0)
-			and ("⁺" .. utils.intToSuperscript(git_status.added) .. " ")
-		or ""
-	local changed = (git_status.changed and git_status.changed ~= 0)
-			and ("ᵟ" .. utils.intToSuperscript(git_status.changed) .. " ")
-		or ""
-	local removed = (git_status.removed and git_status.removed ~= 0)
-			and ("⁻" .. utils.intToSuperscript(git_status.removed) .. " ")
-		or ""
-	local branch_name = " " .. git_status.head .. " "
-
-	local width = vim.api.nvim_win_get_width(0)
-	if width < 62 then
-		return "%#St_gitIcons#" .. added .. changed .. removed
-	end
-
-	return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
-end
+-- M.git = function()
+-- 	if not utils.is_activewin() then
+-- 		return ""
+-- 	end
+--
+-- 	if not vim.b[utils.stbufnr()].gitsigns_head or vim.b[utils.stbufnr()].gitsigns_git_status then
+-- 		return ""
+-- 	end
+--
+-- 	local git_status = vim.b[utils.stbufnr()].gitsigns_status_dict
+--
+-- 	local added = (git_status.added and git_status.added ~= 0)
+-- 			and ("⁺" .. utils.intToSuperscript(git_status.added) .. " ")
+-- 		or ""
+-- 	local changed = (git_status.changed and git_status.changed ~= 0)
+-- 			and ("ᵟ" .. utils.intToSuperscript(git_status.changed) .. " ")
+-- 		or ""
+-- 	local removed = (git_status.removed and git_status.removed ~= 0)
+-- 			and ("⁻" .. utils.intToSuperscript(git_status.removed) .. " ")
+-- 		or ""
+-- 	local branch_name = "  " .. git_status.head .. " "
+--
+-- 	local width = vim.api.nvim_win_get_width(0)
+-- 	if width < 62 then
+-- 		return "%#St_gitIcons#" .. added .. changed .. removed
+-- 	end
+--
+-- 	return "%#St_gitIcons#" .. branch_name .. added .. changed .. removed
+-- end
 
 ---@return string
 M.macro_indicator = function()
@@ -229,7 +229,7 @@ M.cursor_pos = function()
 	-- added padding function to make the module less "jumpy" in terms of width while navigating buffers
 	-- now the only realistic "width jump" will appear when exceeding 99 lines position (or I guess 999)
 	-- result is much less jarring
-	local line_col = string.format("%2d⏽%-2d", vim.fn.line("."), vim.fn.col("."))
+	local line_col = string.format("%2d‖%-2d", vim.fn.line("."), vim.fn.col("."))
 	return "%#St_Pos_bg# " .. line_col .. " "
 end
 
@@ -249,27 +249,10 @@ end
 
 ---@return string
 M.ai_status = function()
-	local ai_completions = "%#St_AI_Disabled#ꟲ"
-	local aider = "%#St_AI_Disabled#ᴬ"
 	if _G.COPILOT_ENABLED and _G.COPILOT_ENABLED == true then
-		ai_completions = "%#St_AI_Cmp_Enabled#ꟲ"
+		return "%#St_AI_Cmp_Enabled# "
 	end
-	if
-		#_G.ACTIVE_REPLS > 0
-		and vim.tbl_contains(_G.ACTIVE_REPLS, "aider")
-		and (not _G.AIDER_WRITING or _G.AIDER_WRITING == false)
-	then
-		aider = "%#St_AI_Chat_Enabled#ꟲ"
-	elseif
-		#_G.ACTIVE_REPLS > 0
-		and vim.tbl_contains(_G.ACTIVE_REPLS, "aider")
-		and (_G.AIDER_WRITING and _G.AIDER_WRITING == true)
-	then
-		aider = "%#St_AI_Chat_Enabled#ᵂ"
-	end
-	if #_G.ACTIVE_REPLS > 0 then
-	end
-	return ai_completions .. aider .. " "
+	return "%#St_AI_Disabled# "
 end
 
 M.spelling_status = function()

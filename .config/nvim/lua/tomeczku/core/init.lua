@@ -1,3 +1,13 @@
+-- Set theme generation flag before loading the theme
+_G.is_theme_gen = true
+
+-- setup custom "stolen" theme, not managed as a plugin
+require("tomeczku.core.theme").setup("wallust")
+
+-- Initialize the theme watcher
+local theme_watcher = require("tomeczku.core.theme.generated_theme_watcher")
+theme_watcher.setup()
+
 vim.g.health = { style = "float" }
 
 -- vim options

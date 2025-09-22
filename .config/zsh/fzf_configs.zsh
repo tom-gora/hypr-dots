@@ -4,14 +4,15 @@
 # setup fzf
 eval "$(fzf --zsh)"
 # setup for fzf etc
-alias fzf="fzf --multi --cycle"
-# -- MINE: setup rose-pine colors for fzf --
 export FZF_DEFAULT_OPTS="
-	--color=bg:#07060a,fg:#c4a7e7,hl:#ea9a97,selected-fg:#e0def4
-	--color=fg+:bright-white,bg+:#2e2a42,hl+:#ea9a97,gutter:-1,selected-fg:#e0def4
-	--color=border:#3e8fb0,header:#3e8fb0,border:bold
-	--color=spinner:#f6c177,info:#9ccfd8,separator:#44415a
-	--color=pointer:#abe9b3,marker:#eb6f92,prompt:#908caa
+  --multi
+  --cycle
+  --bind ctrl-a:accept-non-empty
+	--color=bg:#050407,fg:#495057,hl:#665662,selected-fg:#ced4da
+	--color=fg+:bright-white,bg+:#212529,hl+:#665662,gutter:-1,selected-fg:#ced4da
+	--color=border:#475B67,header:#475B67,border:bold
+	--color=spinner:#887963,info:#495057,separator:#343a40
+	--color=pointer:#6D8878,marker:#755867,prompt:#908caa
   --preview-window right:60%:wrap
   --bind ctrl-p:toggle-preview
   --bind ctrl-j:down,ctrl-k:up,ctrl-a:accept-non-empty"
@@ -19,11 +20,13 @@ export FZF_DEFAULT_OPTS="
 export FZF_COMPLETION_TRIGGER="\`\`"
 
 # -- Use fd instead of fzf --
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git --exclude node_modules"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_OPTS="--multi --cycle --bind ctrl-l:accept-non-empty --preview 'bat -n --color=always --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--multi --cycle --bind ctrl-l:accept-non-empty --preview 'eza --tree --color=always {} | head -200'"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git --exclude node_modules"
+
+SHOW_FILE_OR_DIR_PREVIEW="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+export FZF_CTRL_T_OPTS="--multi --cycle  --preview '$SHOW_FILE_OR_DIR_PREVIEW'"
+export FZF_ALT_C_OPTS="--multi --cycle  --preview 'eza --tree --color=always {} | head -200'"
 
 _fzf_compgen_path() {
   fd --hidden --exclude .git . "$1"
@@ -31,23 +34,4 @@ _fzf_compgen_path() {
 # # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
-}
-show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-#
-export FZF_CTRL_T_OPTS="--multi --cycle --bind ctrl-l:accept-non-empty --preview '$show_file_or_dir_preview'"
-export FZF_ALT_C_OPTS="--multi --cycle --bind ctrl-l:accept-non-empty --preview 'eza --tree --color=always {} | head -200'"
-#
-# Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
-_fzf_comprun() {
-  local command=$1
-  shift
-
-  case "$command" in
-    cd)           fzf --multi --cycle --bind ctrl-l:accept-non-empty --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --multi --cycle --bind ctrl-l:accept-non-empty --preview "eval 'echo ${}'"         "$@" ;;
-    ssh)          fzf --multi --cycle --bind ctrl-l:accept-non-empty --preview 'dig {}'                   "$@" ;;
-    *)            fzf --multi --cycle --bind ctrl-l:accept-non-empty --preview "$show_file_or_dir_preview" "$@" ;;
-  esac
 }

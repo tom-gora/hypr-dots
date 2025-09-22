@@ -1,37 +1,16 @@
-#!/bin/bash
-# source https://wiki.archlinux.org/title/Hyprland#Using_a_script_to_change_wallpaper_every_X_minutes
+#!/usr/bin/env bash
 
-# This script will randomly go through the files of a directory, setting it
-# up as the wallpaper at regular intervals
-#
-# NOTE: this script uses bash (not POSIX shell) for the RANDOM variable
-set -x
+UPDATE_SCRIPT="$HOME/.config/hypr/scripts/wallpaperAndStyle/Update.sh"
+WALLPAPERS_DIR="$HOME/.config/hypr-wallpapers"
 
-pywal_refresh=$HOME/.config/hypr/scripts/wallpaperAndStyle/RefreshNoWaybar.sh
-
-if [[ $# -lt 1 ]] || [[ ! -d $1 ]]; then
-	echo "Usage:
-	$0 <dir containing images>"
-	exit 1
-fi
-
-# Edit below to control the images transition
 export SWWW_TRANSITION_FPS=60
 export SWWW_TRANSITION_TYPE=simple
 
-# This controls (in seconds) when to switch to the next image
-INTERVAL=1800
+MINUTES=15
+INTERVAL=$((MINUTES * 60))
 
 while true; do
-	find -L "$1" |
-		while read -r img; do
-			echo "$((RANDOM % 1000)):$img"
-		done |
-		sort -n | cut -d':' -f2- |
-		while read -r img; do
-			swww img "$img"
-			$pywal_refresh
-			sleep $INTERVAL
-
-		done
+	sleep "$INTERVAL"
+	# safely call updater
+	systemd-inhibit --what=shutdown:sleep:handle-power-key --who="Wallust Updater" --why="Updating theme dotfiles" "$UPDATE_SCRIPT" -d "$WALLPAPERS_DIR" >/dev/null 2>&1
 done

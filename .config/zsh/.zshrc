@@ -23,18 +23,8 @@ autoload -U compinit promptinit && compinit
 
 source_if_exists "$XDG_CONFIG_HOME/zsh/main.zsh"
 source_if_exists "$XDG_CONFIG_HOME/zsh/exports.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/aliases.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/functions.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/plugins.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/fzf_configs.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/binds.zsh"
-source_if_exists "$XDG_CONFIG_HOME/zsh/bootstrap-ssh.zsh"
 
-# eval "$(thefuck --alias)"
-# eval "$(thefuck --alias fk)"
-eval "$(zoxide init zsh)"
-
-# exec oh-my-posh with my config
+# exec prompt after exports and ahead of all the other environment fluff
 if [ -n "$SCRATCHPAD" ]; then
   # If SCRATCHPAD is set, load the scratchpad config
   eval "$(oh-my-posh init zsh --config ~/.config/my_scratchpad_omp.json)"
@@ -43,6 +33,16 @@ else
   eval "$(oh-my-posh init zsh --config ~/.config/my_omp.json)"
 fi
 
-# if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
-#   exec tmux
-# fi
+oh-my-posh enable reload
+
+source_if_exists "$XDG_CONFIG_HOME/zsh/aliases.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/functions.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/plugins.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/binds.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/bootstrap-ssh.zsh"
+source_if_exists "$XDG_CONFIG_HOME/zsh/fzf_configs.zsh"
+
+eval "$(zoxide init zsh)"
+
+#reload completions at the very end
+autoload -Uz compinit && compinit

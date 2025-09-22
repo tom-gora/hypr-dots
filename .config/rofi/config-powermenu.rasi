@@ -1,0 +1,59 @@
+@import "./config.rasi"
+
+/* DIFFERENCES */
+
+configuration {
+    kb-select-1:                "p";
+    kb-select-2:                "r";
+    kb-select-3:                "l";
+    kb-select-4:                "o";
+    kb-select-5:                "s";
+    kb-select-6:                "h";
+}
+
+
+mainbox {
+    orientation:                vertical;
+    margin:                     22% 27.7%;
+    expand:                     true;
+    children:                   [ "imagebox", "listview" ];
+}
+
+
+imagebox {                     
+    width:                      50%;
+    border:                     0px 0px 3px 0px;
+    children:                   [];
+}
+
+
+entry,
+inputbar,
+textbox-prompt-icon,
+element-icon {                 
+    enabled:                    false;
+}
+
+listview {
+  expand:                       false;
+  width:                        100%;
+	columns:            			    1;
+  lines:                        6;
+	layout:                       horizontal;
+	reverse:                      false;
+}                              
+                               
+element {                      
+    enabled:                    true;
+    padding:                    24px 28px;
+    margin:                     12px;
+    cursor:                     pointer;
+    background-color:          	transparent;
+    width:                      none;
+}                              
+                               
+element-text {                 
+    font:                       "Ubuntu Nerd Font Medium 42";
+    vertical-align:             0.5;
+    horizontal-align:           0.5;
+}

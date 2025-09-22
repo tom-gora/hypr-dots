@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Window Rules",
+    "value": "wezterm start -- nvim \"$HOME/.config/hypr/configs/WindowRules.conf\""
+  },
+  {
+    "name": "Startup Apps",
+    "value": "wezterm start -- nvim \"$HOME/.config/hypr/configs/Startup_Apps.conf\""
+  },
+  {
+    "name": "Settings",
+    "value": "wezterm start -- nvim \"$HOME/.config/hypr/configs/Settings.conf\""
+  },
+  {
+    "name": "Keybinds",
+    "value": "wezterm start -- nvim \"$HOME/.config/hypr/configs/Keybinds.conf\""
+  },
+  {
+    "name": "Submap Keybinds",
+    "value": "wezterm start -- nvim \"$HOME/.config/hypr/configs/Submap_Keybinds.conf\""
+  },
+  {
+    "name": "Env variables",
+    "value": "wezterm start -- nvim \"$HOME/.config/hypr/configs/ENVariables.conf\""
+  },
+  {
+    "name": "Monitors",
+    "value": "wezterm start -- nvim \"$HOME/.config/hypr/configs/Monitors.conf\""
+  }
+]

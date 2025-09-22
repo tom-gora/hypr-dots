@@ -1,0 +1,1 @@
+/home/tomeczku/.cache/wallust/targets/nvim.lua

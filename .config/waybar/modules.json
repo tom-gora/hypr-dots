@@ -74,19 +74,11 @@
     "on-click": "$HOME/.config/hypr/scripts/utils/KillWfRecorder.sh"
   },
   "custom/ollama-model": {
-    "format": "{}",
+    "format": "{}  ",
     "exec": "$HOME/.config/hypr/scripts/utils/OllamaModel.sh",
     "tooltip": "false",
-    "interval": 1,
-    "menu": "on-click",
-    "menu-file": "$HOME/.config/waybar/ollama-model-menu.xml",
-    "menu-actions": {
-      "deepseek-r1:14b": "ollama run deepseek-r1:14b",
-      "phi4:latest": "ollama run phi4:latest",
-      "qwen2.5-coder:14b": "ollama run qwen2.5-coder:14b",
-      "codellama:7b": "ollama run codellama:7b",
-      "gemma3:12b": "ollama run gemma3:12b"
-    }
+    "interval": 10,
+    "on-click": "$HOME/.config/hypr/scripts/specialWorkspaces/Toggle.sh ollama"
   },
   "custom/ollama-state": {
     "format": "{}",
@@ -97,7 +89,7 @@
   },
   "custom/gpu-usage": {
     "exec": "echo $(cat /sys/class/drm/card1/device/gpu_busy_percent)",
-    "format": "       {}%",
+    "format": "{}%        ",
     "return-type": "",
     "interval": 10,
     "tooltip": false
@@ -219,14 +211,14 @@
     "tooltip": false,
     "format": "{icon}<sup>{0}</sup>",
     "format-icons": {
-      "notification": "<span foreground='#ff7e76'>󰂚 </span>",
-      "none": "<span foreground='#111e20'>󰂚 </span>",
-      "dnd-notification": "<span foreground='#d43e69'>󰂛 </span>",
-      "dnd-none": "<span foreground='#111e20'>󰂛 </span>",
+      "notification": "<span foreground='#23130eee'>󰂚 </span>",
+      "none": "<span foreground='#000000df'>󰂚 </span>",
+      "dnd-notification": "<span foreground='#c44b3b'>󰂛 </span>",
+      "dnd-none": "<span foreground='#000000df'>󰂛 </span>",
       "inhibited-notification": "<span foreground='#eca036'>󰹇 </span>",
-      "inhibited-none": "<span foreground='#111e20'>󰹇 </span>",
-      "dnd-inhibited-notification": "<span foreground='#d43e69'>󱠱 </span>",
-      "dnd-inhibited-none": "<span foreground='#111e20'>󱠱 </span>"
+      "inhibited-none": "<span foreground='#000000df'>󰹇 </span>",
+      "dnd-inhibited-notification": "<span foreground='#c44b3b'>󱠱 </span>",
+      "dnd-inhibited-none": "<span foreground='#000000df'>󱠱 </span>"
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
@@ -238,18 +230,18 @@
   "custom/power": {
     "format": "⏻",
     "exec": "echo ; echo 󰟡 power // blur",
-    "on-click": "$HOME/.config/hypr/scripts/utils/Wlogout.sh",
+    "on-click": "$HOME/.config/rofi/backend/scripts/gmenu_powermenu.sh",
     "on-click-right": "$HOME/.config/hypr/scripts/wallpaperAndStyle/ChangeBlur.sh",
     "interval": 86400,
     "tooltip": false
   },
-  "custom/separator#right_slant": {
-    "format": "🭡 ",
+  "custom/right-slant": {
+    "format": "🭀",
     "interval": "once",
     "tooltip": false
   },
-  "custom/separator#left_slant": {
-    "format": "🭅",
+  "custom/left-slant": {
+    "format": "🭦",
     "interval": "once",
     "tooltip": false
   }

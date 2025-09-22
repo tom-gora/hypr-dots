@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 name=$(ollama ps | sed -n '2p' | awk '{ print $1 }')
 

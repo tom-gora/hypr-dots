@@ -8,7 +8,14 @@
 **/*.log
 **/.env
 
+.config/rofi/backend/bin/*
+!.config/rofi/backend/bin/.gitkeep
+
 
 todo.txt
+.aider*
+.aider*
+.aider*
+.aider*
 .aider*
 .aider*

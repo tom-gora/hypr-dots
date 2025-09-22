@@ -1,9 +1,21 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+local home = os.getenv("HOME")
+
+config.term = "wezterm"
+
+-- integrate with wallust
+config.automatically_reload_config = true
+local colors = dofile(home .. "/.cache/wallust/targets/wezterm_colors.lua")
+config.colors = colors
+wezterm.add_to_config_reload_watch_list(home .. "/.cache/wallust/targets/wezterm_colors.lua")
+config.color_scheme_dirs = { home .. "/.cache/wallust/targets" }
+config.color_scheme = "wezterm_colors"
+
+-- END of wallust integration
 
 config.enable_tab_bar = false
 config.window_decorations = "NONE"
-config.color_scheme = "Rosé Pine Moon (Gogh)"
 config.font = wezterm.font({
 	family = "0xProto Nerd Font",
 	weight = "Bold",
@@ -19,7 +31,6 @@ config.window_padding = {
 	bottom = 0,
 }
 
-config.colors = { background = "#191724" }
 config.font_rules = {
 	{
 		italic = true,
@@ -36,19 +47,19 @@ config.font_rules = {
 
 config.window_close_confirmation = "NeverPrompt"
 config.default_prog = { "/usr/bin/zsh" }
+
+config.warn_about_missing_glyphs = false
+config.default_cursor_style = "BlinkingBlock"
+config.cursor_blink_rate = 1200
+config.cursor_blink_ease_in = "Linear"
+config.cursor_blink_ease_out = "Linear"
+
 config.keys = {
 	{
 		key = "l",
 		mods = "CTRL|SHIFT",
 		action = wezterm.action.DisableDefaultAssignment,
 	},
-	-- {
-	-- 	key = "l",
-	-- 	mods = "CTRL|SHIFT",
-	-- 	action = wezterm.action_callback(function(_, pane)
-	-- 		pane:send_text("clear\r") -- CTRL-L substitute since this is used for tmux-navigator
-	-- 	end),
-	-- },
 }
 
 return config

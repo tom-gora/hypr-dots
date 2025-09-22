@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 notif="$HOME/.config/swaync/images/screenshot.svg"
 

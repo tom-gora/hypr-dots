@@ -1,10 +1,56 @@
 if vim.g.vscode then
-	return
 end
 
 local M, opts = {}, {}
-local preset, global_winopts, fzf_colors, fzf_opts, keymap, picker_opts
+local preset, global_winopts, fzf_colors, fzf_opts, keymap, pickers_opts
 
+-- on selection of a highlight group, copy its colors to the clipboard
+---@param arg string[]
+---@return void
+local handleHlGroupPick = function(arg)
+	local dec_to_hex_color = function(color)
+		if type(color) ~= "string" or string.match(color, "^#") == nil then
+			return string.format("#%06X", color)
+		end
+		return tostring(color)
+	end
+	local hl = vim.api.nvim_get_hl(0, { name = arg[1] })
+	local formatted_lines = {}
+
+	for key, value in pairs(hl) do
+		if key == "fg" or key == "bg" or key == "sp" then
+			local formatted_value = dec_to_hex_color(value)
+			table.insert(formatted_lines, string.format("%s: %s", key, formatted_value))
+		elseif key == "link" then
+			local linked = vim.api.nvim_get_hl(0, { name = value })
+			for lkey, lvalue in pairs(linked) do
+				if lkey == "fg" or lkey == "bg" or lkey == "sp" then
+					local formatted_value = dec_to_hex_color(lvalue)
+					table.insert(formatted_lines, string.format("%s: %s", lkey, formatted_value))
+				end
+			end
+		end
+	end
+
+	if #formatted_lines < 1 then
+		vim.notify(
+			"No colors found for highlight group '" .. arg[1] .. "'.",
+			vim.log.levels.WARN,
+			{ title = "Highlight Info" }
+		)
+		return
+	end
+
+	local final_string = table.concat(formatted_lines, "\n")
+
+	vim.fn.setreg("+", final_string)
+
+	vim.notify(
+		"Highlight info for '" .. arg[1] .. "' copied to + register:\n" .. final_string,
+		vim.log.levels.INFO,
+		{ title = "Highlight Info" }
+	)
+end
 --
 -- DECLARATIIVE SECTION
 --
@@ -86,6 +132,14 @@ pickers_opts = {
 			preview = { layout = "horizontal" },
 		},
 		file_icons = true,
+	},
+	highlights = {
+		prompt = " 🯛",
+		-- NOTE: Cannot inject custom action?
+		actions = {
+			["enter"] = handleHlGroupPick,
+			["Ctrl-a"] = handleHlGroupPick,
+		},
 	},
 	files = {
 		prompt = "󰱽 🯛",

@@ -5,7 +5,7 @@
   "layer": "overlay",
   "control-center-layer": "top",
   "layer-shell": true,
-  "cssPriority": "application",
+  "cssPriority": "user",
   "control-center-margin-top": 5,
   "control-center-margin-bottom": 5,
   "control-center-margin-right": 5,
@@ -29,12 +29,12 @@
   "script-fail-notify": true,
   "scripts": {
     "view-recent-screenshot": {
-      "exec": "hyprctl dispatch exec '[float;center] thunar $(cat /tmp/recent_screenshot.txt)'",
+      "exec": "hyprctl dispatch exec '[float;center;size 60% 50%] thunar $(cat /tmp/recent_screenshot.txt)'",
       "summary": "Screenshot(\\s.*|\\s)saved\\.",
       "run-on": "action"
     },
     "view-recent-video": {
-      "exec": "hyprctl dispatch exec '[float;center] thunar $(cat /tmp/recent_recording.txt)'",
+      "exec": "hyprctl dispatch exec '[float;center;size 60% 50%] thunar $(cat /tmp/recent_recording.txt)'",
       "summary": "Recording(\\s.*|\\s)saved\\.",
       "run-on": "action"
     }

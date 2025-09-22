@@ -1,3 +1,5 @@
+@import "~/.cache/wallust/targets/rofi.rasi"
+
 configuration {
     modi:                       "drun";
     font:                       "Ubuntu Nerd Font Medium 12";
@@ -7,121 +9,127 @@ configuration {
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
     dpi:						            1;
-    terminal: "wezterm";
-    /*slight vim-ish rebind */
+    terminal:                   "wezterm";
+    /* slight rebind to stay consistent with my nvim binds */
     kb-remove-to-eol:           "";
     kb-mode-complete:           "";
-    kb-accept-entry:            "Return,Control+l";
-    kb-element-prev:            "Control+j";
-    kb-element-next:            "Control+k";
+    kb-move-front:              "";
+    kb-remove-char-back:        "BackSpace";
+    kb-accept-entry:            "Return,Control+a";
+    kb-element-prev:            "Control+j,Control+l";
+    kb-element-next:            "Control+k,Control+h";
 }
 
-@import "~/.config/rofi/pywal-color/pywal-theme.rasi"
 
 /* whole screen blurred bg effect window */
 window {
     width:				            	100%;
-    height:				            	110%;
+    height:				            	100%;
     x-offset:                   0px;
     y-offset:                   0px;
+    border:                     0px;
     spacing:                    0px;
-    padding:                    16% 38% 0 38%;
     margin:                     0px; 
     cursor:                     "default";
     location:                   center;
     anchor:                     center;
-    fullscreen:                 false;
+    fullscreen:                 true;
     enabled:                    true;
-    border-radius:              2px;
-    background-color:           @background;
+    background-color:           @background-alpha;
 }
 
 /* main box */
 mainbox {
-    expand:                     false;
     enabled:                    true;
-    orientation:                vertical;
-    border:                     2px;
-    border-color:               @active-background;
-    border-radius:              2px;
-    children:                   [ "imagebox", "listview", "inputbar" ];
+    orientation:                horizontal;
+    margin:                     20%;
+    expand:                     false;
+    border:                     3px;
+    border-color:               @selected-background;
+    children:                   [ "imagebox", "listview" ];
 }
+
 
 /*  Imagebox  */               
 imagebox {                     
-    margin:                     0 -2px 0 -2px;
-    background-image:           url("~/.config/rofi/.current_wallpaper", width);
-    background-color:           transparent;
+    background-image:           url("~/.cache/.current_wallpaper", width);
     orientation:                vertical;
+    margin:                     0 -2px;
+    border-color:               @selected-background;
+    border:                     0px 3px 0px 0px;
+    children:                   ["inputbar-offset", "inputbar" ];
 }
 
+inputbar-offset {
+  expand:                       true;
+}
+
+inputbar {
+    enabled:                    true;
+    text-color:                 @foreground;
+    padding:                    5px 12px 10px 12px;
+    background-color:           @background-alpha;
+    children:                   [ "entry", "textbox-prompt-icon" ];
+    vertical-align:             0.5;
+}
+
+textbox-prompt-icon {
+    enabled:                    true;
+    expand:                     false;
+    margin:                     6px 0 0 0;  
+    text-color:                 inherit;
+    background-color:     			transparent;
+}
+
+
+entry {
+    enabled:                    true;
+    padding:					          6px 0px 0px 0px;
+    text-color:                 inherit;
+    cursor:                     text;
+    placeholder-color:          inherit;
+    background-color:			      transparent;
+}
 
 /*  Listview  */
 listview {
   expand:                       true;
-  margin:                       -2px -2px 1px -2px;
+  margin:                       -2px 0 0 0;
 	enabled:            			    true;
 	columns:            			    1;
-  lines:                        10;
+  lines:                        7;
 	dynamic:                      true;
 	cycle:                        true;
 	scrollbar:                    false;
 	layout:                       vertical;
 	reverse:                      true;
-  background-color:             @background-regular;
+  background-color:             @background-dark;
+  border:                       0px;
 }                              
                                
 /*  Elements of Listview  */   
 element {                      
     enabled:                    true;
-    margin:                     -1px 0;
     padding:                    8px 12px;
     cursor:                     pointer;
     background-color:          	transparent;
     width:				            	100%;
 }                              
                                
-element normal.normal {        
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element normal.urgent {        
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element normal.active {        
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
 element selected.normal {      
-    background-color:           @selected-normal-background;
-    text-color:                 @foreground;
+    background-color:           @selected-background;
+    text-color:                 @background-dark;
 }                              
                                
-element selected.urgent {      
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
                                
+element normal.normal,
+element normal.urgent,
+element normal.active,       
+element selected.urgent,      
+element alternate.urgent,     
+element alternate.active,     
+element alternate.normal,     
 element selected.active {      
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element alternate.normal {     
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element alternate.urgent {     
-    background-color:           inherit;
-    text-color:                 @foreground;
-}                              
-                               
-element alternate.active {     
     background-color:           inherit;
     text-color:                 @foreground;
 }                              
@@ -141,52 +149,19 @@ element-text {
     horizontal-align:           0;
 }
 
-/*  Inputbar  */
-inputbar {
-    enabled:                    true;
-    text-color:                 @foreground;
-    spacing:                    12px;
-    margin:                     0 -2px 0px -2px;
-    border-radius:              0px 0px 2px 2px;
-    padding:                    6px 12px 14px 12px;
-    background-color:           transparent;
-    children:                   [ "entry", "textbox-prompt-colon" ];
-    vertical-align:             0.5;
-}
-
-textbox-prompt-colon {
-    enabled:                    true;
-    expand:                     false;
-    margin:                     6px 0 0 0;  
-    str:                        "  ";
-    text-color:                 inherit;
-    background-color:     			transparent;
-}
-
-
-entry {
-    enabled:                    true;
-    padding:					          6px 0px 0px 0px;
-    text-color:                 inherit;
-    cursor:                     text;
-    placeholder:                "Open...";
-    placeholder-color:          inherit;
-    background-color:			      transparent;
-}
 
 /* Message */
-message { background-color:     transparent; }
+message { background-color:     red; }
 
 textbox {
     padding:                    16px 12px;
     border:                     2px;
-    border-radius:              2px;
     border-color:               @urgent-background;
     background-color:      		  @background;
     text-color:                 @foreground;
 }
 
 error-message {
-    background-color:      		  transparent;
+    background-color:      		  @urgent-background;
     text-color:                 @foreground;
 }

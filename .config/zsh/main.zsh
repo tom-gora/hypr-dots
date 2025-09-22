@@ -15,3 +15,6 @@ setopt hist_find_no_dups
 unsetopt autocd beep
 bindkey -v
 # End of lines configured by zsh-newu ser-install
+#
+#cursor blink
+#echo '\e[5 q'

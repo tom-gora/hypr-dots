@@ -1,16 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "bg": "",
-    "closer": "#eb6f92",
-    "orange": "#ea9a97",
-    "os": "#3e8fb0",
-    "purple": "#c4a7e7",
-    "transient": "#797593",
+    "closer": "#34688B",
+    "orange": "#883D78",
+    "os": "#B2EAEE",
+    "purple": "#44D4E5",
+    "transient": "#414142",
     "user": "p:os"
   },
   "transient_prompt": {
-    "template": "\ueab6 ",
+    "template": " ",
     "foreground": "p:transient",
     "background": "transparent"
   },
@@ -27,8 +26,8 @@
             "fetch_upstream_icon": true
           },
           "style": "plain",
-          "leading_diamond": " \ue0b6",
-          "template": " {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "leading_diamond": " ",
+          "template": " {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} ",
           "foreground": "p:purple",
           "background": "p:bg",
           "type": "git",
@@ -61,7 +60,7 @@
         },
         {
           "properties": {
-            "folder_icon": "..\ue5fe..",
+            "folder_icon": "....",
             "home_icon": "~",
             "style": "unique"
           },
@@ -73,7 +72,7 @@
         },
         {
           "style": "plain",
-          "template": "\ueab6",
+          "template": "",
           "foreground": "p:closer",
           "background": "p:bg",
           "type": "text"

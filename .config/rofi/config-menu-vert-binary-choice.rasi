@@ -1,0 +1,36 @@
+@import "./config.rasi"
+
+mainbox {
+    margin:                     20% 30%;
+}
+
+imagebox {                     
+    background-image:           url("~/.cache/.current_wallpaper", width);
+    width:                      32%;
+    expand:                     false;
+    children:                   [];
+}
+
+entry,
+inputbar,
+textbox-prompt-icon,
+element-icon {                 
+    enabled:                    false;
+}
+
+listview {
+    height:                     100%;
+    lines:                      2;
+}                              
+                               
+element {                      
+    padding:                    24px;
+    margin:                     12px;
+}                              
+                               
+element-text {                 
+    font:                       "Ubuntu Nerd Font Medium 42";
+    vertical-align:             0.5;
+    horizontal-align:           0.5;
+}
+

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # pre-clean any potential leftovers
 cleanup() {

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "upgrade": {
+    "notice": true,
+    "interval": "168h",
+    "auto": false,
+    "source": "cdn"
+  },
+  "palette": {
+    "closer": "#34688B",
+    "orange": "#883D78",
+    "os": "#B2EAEE",
+    "purple": "#44D4E5",
+    "transient": "#414142",
+    "user": "p:os"
+  },
+  "transient_prompt": {
+    "template": " ",
+    "foreground": "p:transient",
+    "background": "transparent"
+  },
+  "blocks": [
+    {
+      "type": "rprompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "properties": {
+            "branch_max_length": 25,
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "style": "plain",
+          "leading_diamond": " ",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} ",
+          "foreground": "p:purple",
+          "type": "git",
+          "foreground_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FF{{ end }}"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "style": "plain",
+          "template": "󱞂 SCRATCHPAD ",
+          "foreground": "p:user",
+          "type": "text"
+        },
+        {
+          "properties": {
+            "folder_icon": "....",
+            "home_icon": "~",
+            "style": "unique"
+          },
+          "style": "plain",
+          "template": "{{ .Path }} ",
+          "foreground": "p:orange",
+          "type": "path"
+        },
+        {
+          "style": "plain",
+          "template": "",
+          "foreground": "p:closer",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "version": 3,
+  "final_space": true
+}
