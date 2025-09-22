@@ -104,6 +104,8 @@ opt.fillchars = {
 	vertright = "├",
 	verthoriz = "┼",
 	fold = " ",
+	-- tab = " ",
+	-- trail = " ",
 }
 
 -- globally set border for floats

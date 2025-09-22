@@ -25,17 +25,8 @@ alias ff="fastfetch"
 # one letter away from yazi
 alias y="yazi"
 
-# quick lazygit
-# alias lg="lazygit"
-
-# quick lazydocker
-alias ldo="lazydocker"
-
-#specify picker if using pastel
-alias pick="pastel --color-picker hyprpicker pick"
-
 # bat instead of cat
-alias cat="bat"
+alias cat="bat --theme=wallust-generated -p"
 
 #zoxide instead of cd
 alias cd="z"
@@ -68,12 +59,6 @@ alias rmf="rm -rf"
 #colored commands
 alias grep="grep --color=auto"
 
-#shorter php artisan
-alias pa="php artisan"
-
-#shorter composer dev server
-alias crd="composer run dev"
-
 # wezterm img preview
 alias wi="wezterm imgcat"
 
@@ -92,28 +77,27 @@ alias qq="exit"
 alias xx="exit"
 # go to repos
 alias rep="cd ~/Repos"
-# go to root of apache server
-alias aa="cd /var/www/html/"
 
 alias uni="cd ~/Documents/uni_dir/"
-
 # utils etc.
-alias zel="$XDG_CONFIG_HOME/hypr/scripts/rofi/ZellijSessions.sh -t1"
+# alias zel="$XDG_CONFIG_HOME/hypr/scripts/rofi/ZellijSessions.sh -t1"
 
-# for school quickly handle dotnet
-alias .r="dotnet run ."
-alias .br="dotnet build && echo '\n\033[1;35mOutput >>>>>>> \033[0m\n' && dotnet run ."
-alias .b="dotnet build"
+# for school
+# alias .r="dotnet run ."
+# alias .br="dotnet build && echo '\n\033[1;35mOutput >>>>>>> \033[0m\n' && dotnet run ."
+# alias .b="dotnet build"
+# alias intellij="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=idea com.jetbrains.IntelliJ-IDEA-Ultimate"
+#shorter php artisan
+# alias pa="php artisan"
+#shorter composer dev server
+# alias crd="composer run dev"
 
 # applications aliases
-alias spotify="flatpak run --socket=wayland com.spotify.Client --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto &"
 alias code="codium --ozone-platform=wayland"
 alias cpwd="pwd | wl-copy"
 alias cpl="fc -ln -1 | wl-copy"
-alias intellij="/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=idea com.jetbrains.IntelliJ-IDEA-Ultimate"
 alias clients="hyprctl clients -j | less"
 
-#shortcuts for permission fixes for apps:
-alias fix-code="sudo chown -R $(whoami) /usr/share/codium"
+alias krita="KRITA_NO_STYLE_OVERRIDE=1 /usr/bin/krita"
 
-alias zen-browser="uwsm app -- zen-browser"
+alias zen-browser="MESA_SHADER_CACHE_DIR=$XDG_CACHE_HOME/mesa_shader_cache_db $HOME/.local/share/zen/zen"

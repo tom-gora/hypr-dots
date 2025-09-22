@@ -29,6 +29,7 @@ opts = {
 
 M = {
 	"michaelrommel/nvim-silicon",
+	enabled = false,
 	cond = vim.g.vscode == nil,
 	lazy = true,
 	cmd = "Silicon",

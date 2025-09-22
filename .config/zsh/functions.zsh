@@ -32,15 +32,6 @@ lg() {
   fi
 }
 
-# edit neovim configs
-function cfgn() {
-  cd "$XDG_CONFIG_HOME/nvim/lua/" && nvim .
-}
-
-# edit hyprland configs
-function cfgh() {
-  cd "$HOME/.config/hypr" && nvim .
-}
 # additional clearing bind to make it work in nvim which occupies C-L
 function clear-screen-and-scrollback() {
   builtin echoti civis >"$TTY"
@@ -69,7 +60,7 @@ function my_sesh_call() {
     exec <&1
     local choice="$(sesh list --icons | fzf \
       --no-sort --ansi --height=16 --min-height=16 --border=rounded --border-label '󱗿 SESH ' \
-      --border-label-pos=4 --prompt '  ' \
+      --border-label-pos=4 --prompt '  ' \
       --header '  ^e everything ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
       --bind 'ctrl-j:down,ctrl-k:up,ctrl-a:accept-non-empty' \
       --bind 'ctrl-e:change-prompt(  )+reload(sesh list --icons)' \

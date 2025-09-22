@@ -132,8 +132,10 @@ store_cached_img() {
 	for OUTPUT in "${MONITOR_OUTPUTS[@]}"; do
 		CACHE_FILE="$SWWW_CACHE_DIR/$OUTPUT"
 
+		# swww project thinks it needs to break user scripts because storing 2 short strings in cache calls for binary format.
+		# what's next military grade encrypting them?
 		if [[ -f "$CACHE_FILE" ]]; then
-			WALLPAPER_PATH=$(grep -v 'Lanczos3' "$CACHE_FILE" | head -n 1)
+			WALLPAPER_PATH=$(strings "$CACHE_FILE" | tail -n1)
 
 			if [[ -z "$WALLPAPER_PATH" ]]; then
 				continue
@@ -181,11 +183,16 @@ post_wallust_reload() {
 	killall rofi
 	# killall walker
 
+	"$HOME/.local/bin/pywalfox" update
+
 	local GTK_RELOAD_HELPER \
 		WAYBAR_RELOAD_HELPER \
 		OMP_RELOAD_HELPER \
 		SWAYNC_RELOAD_HELPER \
 		OBSIDIAN_RELOAD_HELPER
+
+	# handle bat
+	bat cache --build
 
 	# handle GTK
 	GTK_RELOAD_HELPER="$(readlink -f "$(dirname "$0")")/_GTK_Reload_helper.sh"

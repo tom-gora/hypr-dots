@@ -92,8 +92,10 @@ M.setup = function()
 				configs.css_setup(capabilities, on_attach, lsp)
 			elseif lsp == "docker-compose-language-service" then
 				configs.dockerComposeSetup(capabilities, on_attach, lsp)
-			elseif lsp == "harper-ls" then
-				configs.harper_setup(capabilities, on_attach, lsp)
+			elseif lsp == "marksman" then
+				configs.md_setup(capabilities, on_attach, lsp)
+			-- elseif lsp == "harper-ls" then
+			-- 	configs.harper_setup(capabilities, on_attach, lsp)
 			else
 				-- generic setup
 				local bin_key, languages_to_ft = nil, {}

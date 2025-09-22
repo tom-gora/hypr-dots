@@ -1,11 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "closer": "#793679",
-    "orange": "#2E62A0",
-    "os": "#EDBFAB",
-    "purple": "#E36E3D",
-    "transient": "#424244",
+    "closer": "#3B8A85",
+    "orange": "#0B9254",
+    "os": "#DBF880",
+    "purple": "#C5FD0D",
+    "transient": "#3E3F3F",
     "user": "p:os"
   },
   "transient_prompt": {

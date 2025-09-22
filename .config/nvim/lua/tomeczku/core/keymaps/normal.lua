@@ -140,7 +140,7 @@ M = {
 	-- ["<leader>ft"] = { "?????", h.setOpts({ desc = "Find Todo Comments" }) },
 	--
 	-- terminal
-	["<C-t>"] = { h.toggleTmuxPopupTerm, h.setOpts({ desc = "Toggle terminal" }) },
+	["<C-p>"] = { h.toggleTmuxPopupTerm, h.setOpts({ desc = "Toggle popup terminal [tmux]" }) },
 	--
 	-- whichkey replace section for normal mode
 	["<leader>r"] = { "󰛔 Replace" },
@@ -152,6 +152,13 @@ M = {
 	["<leader>rrp"] = { "<cmd>SearchReplaceInit false<cr>", h.setOpts({ desc = "Replace Preserve Case" }) },
 	--
 	-- lsp section (configured in the lsp congfig)
+	-- yes, c-] is a thing but this one I consider a single big blunder of nvim devs deciding on defaults
+	["gd"] = {
+		function()
+			vim.lsp.buf.definition()
+		end,
+		h.setOpts({ desc = "Definition" }),
+	},
 	["<leader>l"] = { "  LSP" },
 	--
 	-- quickfix List with quicker

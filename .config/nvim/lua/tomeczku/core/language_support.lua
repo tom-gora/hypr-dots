@@ -21,8 +21,9 @@ M.mason_required_packages = {
 	"css-variables-language-server",
 	"cssmodules-language-server",
 	"css-lsp",
+	"marksman",
 	-- "harper-ls",
-	-- Formatters
+	-- Formattes
 	"svelte-language-server",
 	"prettierd",
 	"blade-formatter",

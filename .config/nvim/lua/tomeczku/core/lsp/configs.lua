@@ -472,6 +472,17 @@ M.harper_setup = function(capabilities, on_attach, name)
 	vim.lsp.enable(name)
 end
 
+M.md_setup = function(capabilities, on_attach, name)
+	vim.lsp.config[name] = {
+		cmd = { name, "server" },
+		filetypes = { "markdown", "markdown.mdx" },
+		root_markers = { ".marksman.toml", ".git" },
+		capabilities = capabilities,
+		on_attach = on_attach,
+	}
+	vim.lsp.enable(name)
+end
+
 M.dockerComposeSetup = function(capabilities, on_attach, name)
 	vim.lsp.config[name] = {
 		cmd = { "docker-compose-langserver", "--stdio" },

@@ -9,7 +9,7 @@
   },
   {
     "name": "\r<span font_size='8pt'>Lock [l]</span>",
-    "value": "/usr/bin/bash -c $HOME/.config/hypr/scripts/utils/LockScreen.sh"
+    "value": "$HOME/.config/hypr/scripts/utils/LockHandler.sh"
   },
   {
     "name": "󰍃\r<span font_size='8pt'>Logout [o]</span>",

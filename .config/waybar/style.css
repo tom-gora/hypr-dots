@@ -201,10 +201,10 @@
 
 #custom-ollama-state {
   color: @background;
-  padding: 0 0.25rem;
+  padding: 0 0.5rem;
   background-position: left;
   background-repeat: no-repeat;
-  background-size: 1.25rem;
+  background-size: 1.15rem;
   background-image: url("./assets/ollama.svg");
 }
 

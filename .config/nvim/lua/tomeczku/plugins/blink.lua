@@ -22,7 +22,6 @@ local copilot_config = function()
 		filetypes = {
 			oil = false,
 			qf = false,
-			markdown = false,
 			help = false,
 			-- never enable in env files
 			sh = function()
