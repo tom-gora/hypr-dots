@@ -1,0 +1,65 @@
+
+*foreground:        {{foreground}}
+*background:        {{background}}
+*.foreground:       {{foreground}}
+*.background:       {{background}}
+emacs*foreground:   {{foreground}}
+emacs*background:   {{background}}
+URxvt*foreground:   {{foreground}}
+XTerm*foreground:   {{foreground}}
+UXTerm*foreground:  {{foreground}}
+
+URxvt*background:   [{{alpha}}]{{background}}
+XTerm*background:   {{background}}
+UXTerm*background:  {{background}}
+URxvt*cursorColor:  {{cursor}}
+XTerm*cursorColor:  {{cursor}}
+UXTerm*cursorColor: {{cursor}}
+URxvt*borderColor:  [{{alpha}}]{{background}}
+
+*.color0: {{color0}}
+*color0:  {{color0}}
+*.color1: {{color1}}
+*color1:  {{color1}}
+*.color2: {{color2}}
+*color2:  {{color2}}
+*.color3: {{color3}}
+*color3:  {{color3}}
+*.color4: {{color4}}
+*color4:  {{color4}}
+*.color5: {{color5}}
+*color5:  {{color5}}
+*.color6: {{color6}}
+*color6:  {{color6}}
+*.color7: {{color7}}
+*color7:  {{color7}}
+*.color8: {{color8}}
+*color8:  {{color8}}
+*.color9: {{color9}}
+*color9:  {{color9}}
+*.color10: {{color10}}
+*color10:  {{color10}}
+*.color11: {{color11}}
+*color11:  {{color11}}
+*.color12: {{color12}}
+*color12:  {{color12}}
+*.color13: {{color13}}
+*color13:  {{color13}}
+*.color14: {{color14}}
+*color14:  {{color14}}
+*.color15: {{color15}}
+*color15:  {{color15}}
+
+*.color66: {{color0}}
+*color66:  {{color0}}
+
+XClock*foreground: {{foreground}}
+XClock*background: {{background}}
+
+XClock*majorColor:  rgba:{{color15 | xrgb}}/{{alpha | alpha_hexa}}
+XClock*minorColor:  rgba:{{color15 | xrgb}}/{{alpha | alpha_hexa}}
+XClock*hourColor:   rgba:{{color15 | xrgb}}/{{alpha | alpha_hexa}}
+XClock*minuteColor: rgba:{{color15 | xrgb}}/{{alpha | alpha_hexa}}
+XClock*secondColor: rgba:{{color15 | xrgb}}/{{alpha | alpha_hexa}}
+
+URxvt*depth: 32

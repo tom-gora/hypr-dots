@@ -1,0 +1,42 @@
+@define-color critical #d0422f;
+@define-color warning #f08e16;
+
+@define-color cursor {{cursor}};
+@define-color background {{background | darken(0.8)}};
+@define-color foreground {{foreground}};
+@define-color color0  {{color0}};
+@define-color color1  {{color1}};
+@define-color color2  {{color2}};
+@define-color color3  {{color3}};
+@define-color color4  {{color4}};
+@define-color color5  {{color5}};
+@define-color color6  {{color6}};
+@define-color color7  {{color7}};
+@define-color color8  {{color8}};
+@define-color color9  {{color9}};
+@define-color color10 {{color10}};
+@define-color color11 {{color11}};
+@define-color color12 {{color12}};
+@define-color color13 {{color13}};
+@define-color color14 {{color14}};
+@define-color color15 {{color15}};
+
+@define-color background-alpha__0_1 rgba({{ background | rgb }},0.1);
+@define-color background-alpha__0_2 rgba({{ background | rgb }},0.2);
+@define-color background-alpha__0_3 rgba({{ background | rgb }},0.3);
+@define-color background-alpha__0_4 rgba({{ background | rgb }},0.4);
+@define-color background-alpha__0_5 rgba({{ background | rgb }},0.5);
+@define-color background-alpha__0_6 rgba({{ background | rgb }},0.6);
+@define-color background-alpha__0_7 rgba({{ background | rgb }},0.7);
+@define-color background-alpha__0_8 rgba({{ background | rgb }},0.8);
+@define-color background-alpha__0_9 rgba({{ background | rgb }},0.9);
+
+@define-color foreground-alpha__0_1 rgba({{ foreground | rgb }},0.1);
+@define-color foreground-alpha__0_2 rgba({{ foreground | rgb }},0.2);
+@define-color foreground-alpha__0_3 rgba({{ foreground | rgb }},0.3);
+@define-color foreground-alpha__0_4 rgba({{ foreground | rgb }},0.4);
+@define-color foreground-alpha__0_5 rgba({{ foreground | rgb }},0.5);
+@define-color foreground-alpha__0_6 rgba({{ foreground | rgb }},0.6);
+@define-color foreground-alpha__0_7 rgba({{ foreground | rgb }},0.7);
+@define-color foreground-alpha__0_8 rgba({{ foreground | rgb }},0.8);
+@define-color foreground-alpha__0_9 rgba({{ foreground | rgb }},0.9);

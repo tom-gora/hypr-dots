@@ -1,0 +1,8 @@
+{
+  "closer": "{{color13 | saturate(0.2) }}",
+  "orange": "{{color4 | saturate(0.2)}}",
+  "os": "{{color15 | lighten(0.2) | saturate(0.2)}}",
+  "purple": "{{color9 | saturate(0.4)}}",
+  "transient": "{{foreground | darken(0.7)}}",
+  "user": "p:os"
+}

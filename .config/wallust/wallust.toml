@@ -1,0 +1,69 @@
+# wallust v3.3
+#
+# You can copy this file to ~/.config/wallust/wallust.toml (keep in mind is a sample config)
+
+# SIMPLE TUTORIAL, or `man wallust.5`:
+# https://explosion-mental.codeberg.page/wallust/
+#
+# If comming from v2: https://explosion-mental.codeberg.page/wallust/v3.html#wallusttoml
+
+# Global section - values below can be overwritten by command line flags
+
+# How the image is parse, in order to get the colors:
+# full - resized - wal - thumb -  fastresize - kmeans
+backend = "fastresize"
+
+# What color space to use to produce and select the most prominent colors:
+# lab - labmixed - lch - lchmixed
+color_space = "lab"
+
+# Use the most prominent colors in a way that makes sense, a scheme color palette:
+# dark - dark16 - darkcomp - darkcomp16
+# light - light16 - lightcomp - lightcomp16
+# harddark - harddark16 - harddarkcomp - harddarkcomp16
+# softdark - softdark16 - softdarkcomp - softdarkcomp16
+# softlight - softlight16 - softlightcomp - softlightcomp16
+palette = "softdark16"
+
+# Ensures a "readable contrast" (OPTIONAL, disabled by default)
+# Should only be enabled when you notice an unreadable contrast frequently happening
+# with your images. The reference color for the contrast is the background color.
+check_contrast = true
+
+# Color saturation, between [1% and 100%] (OPTIONAL, disabled by default)
+# usually something higher than 50 increases the saturation and below
+# decreases it (on a scheme with strong and vivid colors)
+saturation = 40
+
+# Alpha value for templating, by default 100 (no other use whatsoever)
+#alpha = 100
+
+[templates]
+my_nvim = { template = 'wallust_template_nvim', target = '~/.cache/wallust/targets/nvim.lua'}
+my_tmux ={ template = 'wallust_template_tmux.conf', target = '~/.cache/wallust/targets/tmux.conf'} 
+waybar =  { template = 'wallust_template_waybar.css', target = '~/.cache/wallust/targets/waybar.css' }
+hyprland = { template = 'wallust_template_hyprland.conf', target = '~/.cache/wallust/targets/hyprland.conf'}
+hyprlock = { template = 'wallust_template_hyprlock.conf', target = '~/.cache/wallust/targets/hyprlock.conf'}
+xresources = { template = 'wallust_template_Xresources', target = '~/.cache/wallust/targets/Xresources' }
+colors_general_css = { template = 'wallust_template_colors.css', target = '~/.cache/wallust/targets/colors.css' }
+kitty = { template = 'wallust_template_kitty.conf', target = '~/.cache/wallust/targets/kitty.conf' }
+wezterm_lua = { template = 'wallust_template_wezterm.lua', target = '~/.cache/wallust/targets/wezterm_colors.lua' }
+oh_my_posh = { template = 'wallust_template_omp.json', target = '~/.cache/wallust/targets/omp.json' }
+obsidian = { template = 'wallust_template_obsidian.css', target = '~/.cache/wallust/targets/obsisian.css' }
+obsisian_appearance = { template = 'wallust_template_obsidian_appearance.json', target = '~/.cache/wallust/targets/obsisian_appearance.json' }
+rofi = { template = 'wallust_template_rofi.rasi', target = '~/.cache/wallust/targets/rofi.rasi' }
+zen = { template = 'wallust_template_zen.css', target = '~/.zen/aptxzjta.tomeczku_new/chrome/userChrome.css' }
+tmTheme = { template = 'wallust_template_tmTheme.tmTheme', target = '~/.config/bat/themes/wallust-generated.tmTheme' }  
+fzf = { template = 'wallust_template_fzf.sh', target = '~/.cache/wallust/targets/fzf_theme.sh' }   
+pywal_compat_json = { template = 'wallust_template_pywal_compat.json', target = '~/.cache/wal/colors.json' }   
+kvantum = { template = 'wallust_template_kvantum.kvconfig', target = '~/.config/Kvantum/Colloid-Wallust/Colloid-Wallust.kvconfig' }
+kvantum_svg = { template = 'wallust_template_kvantum.svg', target = '~/.config/Kvantum/Colloid-Wallust/Colloid-Wallust.svg' }
+
+
+
+
+# NOTE: prefer '' over "" for paths, avoids escaping.
+# template: A RELATIVE path that points to `~/.config/wallust/template` (depends on platform)
+# target: ABSOLUTE path in which to place a file with generated templated values.
+# ¡ If either one is a directory, then both SHOULD be one. !
+# zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }

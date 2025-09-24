@@ -1,0 +1,247 @@
+:root {
+  --zen-main-browser-background: {{ background | darken(0.5) }} !important;
+  --zen-colors-border: {{ color14 }} !important;
+  --zen-colors-primary: {{ color14  }} !important;
+  --zen-primary-color: {{ color14 }} !important;
+  --zen-colors-tertiary: {{ color12 }} !important;
+  --zen-border-radius: 0 !important;
+  --border-radius-small: 0 !important;
+  --border-radius-medium: 0 !important;
+  --border-radius-large: 0 !important;
+  --zen-button-border-radius: 0 !important;
+  --toolbarbutton-border-radius: 0 !important;
+  --tab-border-radius: 0 !important;
+  --arrowpanel-border-radius: 0 !important;
+  --arrowpanel-menuitem-border-radius: 0 !important;
+  --custom-workspaces-color: {{ color14 }};
+  --arrowpanel-background: {{ background | darken(0.5) }} !important;
+  --toolbarbutton-border-radius: 0 !important;
+  menu,
+  menuitem {
+    --menuitem-border-radius: 0 !important;
+  }
+  #urlbar {
+    --urlbarView-separator-color: {{ color14 }} !important;
+  }
+  
+  #zen-main-app-wrapper {
+      --zen-element-separation: 2px !important;
+  }
+  toolbarbutton,
+  toolbox#navigator-toolbox {
+  --border-radius-medium: 0 !important;
+  --tab-border-radius: 0 !important;
+  --toolbarbutton-border-radius: 0 !important;
+  }
+
+  #zen-glance-sidebar-container toolbarbutton {
+    border-radius: 0 !important;
+  }
+  #ctrlTab-panel {
+    --panel-background: var(--zen-main-browser-background) !important;
+    & * {
+      border-radius: 0 !important;
+    }
+    .ctrlTab-favicon-container image {
+      box-shadow: none !important;
+      background: var(--zen-colors-tertiary) !important;
+      position: absolute !important;
+      transform: translate(4px, -125%) !important;
+      margin: 0.25rem !important;
+    }
+    .ctrlTab-preview:focus {
+      .ctrlTab-preview-inner {
+        background: none !important;
+        border: 2px solid var(--zen-colors-tertiary) !important;
+      }
+    }
+  }
+
+  findbar {
+    background-color: var(--zen-main-browser-background) !important;
+  }
+
+  .findbar-textbox {
+    border-radius: 0 !important;
+  }
+  
+  toolbox#navigator-toolbox {
+    box-shadow: inset -6px 0 0 -4px var(--zen-colors-primary),
+    inset -8px 0 0 0 var(--zen-main-browser-background);
+  }
+
+  toolbox#navigator-toolbox[zen-sidebar-expanded="true"] #titlebar {
+    --zen-toolbox-min-width: max(22rem, 10vw) !important;
+
+    min-width: var(--zen-toolbox-min-width) !important;
+    gap: 0.5rem !important;
+    /* & #zen-workspaces-button { */
+    /*   display: none !important; */
+    /* } */
+  }
+
+  #zen-sidebar-top-buttons {
+    & #zen-sidebar-top-buttons-customization-target {
+      flex-direction: row-reverse !important;
+    }
+  }
+
+  #urlbar:not([breakout-extend="true"]) #urlbar-background {
+    background: var(--zen-colors-primary)!important;
+  }
+
+  #urlbar[breakout-extend="true"] #urlbar-background {
+    border: 1px solid var(--custom-workspaces-color) !important;
+  }
+
+  #urlbar,
+  #urlbar * {
+    outline: none !important;
+    border-radius: 0 !important;
+  }
+
+  .urlbarView-favicon {
+    background-color: transparent !important;
+  }
+
+  #urlbar-background {
+    background: var(--zen-main-browser-background) !important;
+  }
+
+  #zen-appcontent-navbar-container {
+    padding-block: 0.15rem !important;
+    background-color: var(--zen-main-browser-background) !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    max-width: 80vw !important;
+    margin-inline-start: 10vw !important;
+    margin-top: 1rem !important;
+  }
+
+  #titlebar {
+    background-color: var(--zen-main-browser-background) !important;
+  }
+
+  #nav-bar-customization-target toolbarbutton:first-of-type {
+    position: relative !important;
+    margin-left: 0.5rem !important;
+  }
+
+  toolbarbutton[label="Zen"]::after {
+    cursor: pointer !important;
+    pointer-events: none !important;
+    display: block !important;
+    transform: translateX(-1rem) !important;
+    content: " " !important;
+    background-image: url("./fox.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    width: 2.5rem !important;
+    aspect-ratio: 1 !important;
+  }
+
+  toolbarbutton[label="Zen"] stack {
+    list-style-image: none !important;
+  }
+
+  #zen-sidebar-top-buttons-customization-target toolbarbutton[label="Zen"] {
+    margin-left: 1rem !important;
+  }
+
+  #zen-sidebar-top-buttons-customization-target
+    toolbarbutton[label="Zen"]:active,
+  #zen-sidebar-top-buttons-customization-target
+    toolbarbutton[label="Zen"]:hover {
+    &::after {
+      scale: 1.1 !important;
+      transition-duration: 250ms !important;
+    }
+  }
+
+  #page-action-buttons *,
+  #identity-box * {
+    border-radius: 0 !important;
+  }
+
+  #page-action-buttons image,
+  #identity-box image,
+  toolbarbutton .toolbarbutton-badge-stack,
+  toolbarbutton > image,
+  .zen-current-workspace-indicator-icon,
+  .zen-workspace-icon {
+    color: var(--custom-workspaces-color) !important;
+    font-size: 1.2rem !important;
+  }
+
+  #identity-box image{
+    color: {{ color4 | saturate(0.8) }} !important;
+  }
+  
+  toolbarbutton[label="Zen"] *,
+  toolbarbutton[label="Zen"]:hover * {
+    background: transparent !important;
+    color: transparent !important;
+  }
+  /* deal with menus ----------------------------------- */
+    /* Background color of the menu */
+  menupopup {
+  border-radius: 0 !important;
+    background-color: transparent !important;
+  }
+
+
+  /* Change background color on hover for right click */
+  menupopup > menuitem:hover, menupopup > menu:hover {
+    background-color: var(--custom-workspaces-color) !important;
+    color: var(--zen-main-browser-background)!important; 
+  }
+
+  /* Text color of the menu items */
+  menuitem, menupopup > menu {
+    color: {{ foreground }} !important;
+  }
+
+  /* Hovered item background & Text color for the top 4 icons*/
+  menuitem:hover, menupopup > menu:hover {
+    background-color: var(--custom-workspaces-color) !important; 
+    color: var(--zen-main-browser-background)!important;
+  }
+
+  /*Removes the border*/
+  menupopup {
+  -moz-appearance: none !important;
+  }
+
+  /*Rounds the menus*/
+  menupopup,
+  menupopup[type="menu"] {
+      border: none !important;
+  }
+  menupopup panel {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+  }
+  menupopup {
+    --panel-border-color: var(--custom-workspaces-color) !important;
+    --panel-border-radius: 0 !important;
+    --panel-background: var(--zen-main-browser-background) !important;
+  }
+}
+/* -------------------------------------------------------------------*/
+/* from better active tab. snippet to override var myself) */
+@-moz-document url-prefix("chrome:") {
+  .tab-background {
+    position: relative;
+  }
+  
+  .tab-background[selected=""]::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background-color: var(--custom-workspaces-color);
+  }
+}

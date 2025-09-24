@@ -1,0 +1,16 @@
+* {
+
+    urgent-background: #d0422f;
+
+
+    selected-background: {{color13}};
+    selected-foreground: {{background}};
+
+    background-regular: {{background}};
+    background-dark: {{background | darken(0.9)}};
+    background-alpha: {{background | darken(0.8)}}{{60 | alpha_hexa}};
+    foreground: {{foreground}};
+    border-color: {{color13}};
+    spacing: 2;
+}
+

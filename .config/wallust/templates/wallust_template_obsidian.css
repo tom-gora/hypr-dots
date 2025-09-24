@@ -1,0 +1,21 @@
+.theme-dark {
+	--color-base-00: #000;
+	--color-base-05: {{background | darken(0.8)}};
+	--color-base-10: {{background | darken(0.6)}};
+	--color-base-20: {{background | darken(0.4)}};
+	--color-base-25: {{background | darken(0.2)}};
+	--color-base-30: {{background}};
+	--color-base-35: {{background | lighten(0.2)}};
+	--color-base-40: {{background | lighten(0.4)}};
+	--color-base-50: {{foreground| darken(0.4)}};
+	--color-base-60: {{foreground| darken(0.2)}};
+	--color-base-70: {{foreground}};
+	--color-base-100: {{foreground| lighten(0.4)}};
+
+  --background-primary: var(--color-base-00);
+  --background-secondary: var(--color-base-05);
+  --titlebar-background: var(--color-base-00);
+  --titlebar-background-focused: var(--color-base-10);
+
+}
+

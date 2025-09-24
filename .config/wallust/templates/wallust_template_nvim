@@ -1,0 +1,73 @@
+local PALETTE = {
+	black = {
+		darker = "{{ background | saturate(0.2) | darken(0.9) | blend("#000000")}}",
+		dark = "{{background | saturate(0.2) | darken(0.6)}}",
+		base = "{{background | saturate(0.2) | darken(0.3)}}",
+		light = "{{background | saturate(0.4)}}",
+		lighter = "{{background |  saturate(0.4) | lighten(0.1)}}",
+		muted_base = "{{background   | blend("#888888") | darken(0.4)}}",
+		muted_dark = "{{background   | blend("#888888") | darken(0.6)}}",
+		muted_darker = "{{background | blend("#888888") | darken(0.8)}}",
+    base_off = "{{background | blend("#111111") | darken(0.2)}}",
+	},
+	white = {
+		base = "{{foreground}}",
+		dark = "{{foreground | saturate(0.1) | darken(0.1)}}",
+		darker = "{{foreground | saturate(0.2) | darken(0.4)}}",
+	},
+	red = {
+		base = "{{color4 | saturate(0.2) | blend("#D52915")}}",
+		light = "{{color4 | saturate(0.2) | blend("#D52915") | lighten(0.2)}}",
+		intense = "{{color4 | saturate(0.2) | blend("#D52915") | darken(0.2)}}",
+		oversaturated = "{{color4 | blend("#D52915") | saturate(0.5)}}",
+		muted = "{{color4 |  blend("#D52915") | blend("#888888") | darken(0.3)}}",
+		tinted_bg = "{{color4 | saturate(0.2) | blend("#D52915") | blend("#000000") | darken(0.7)}}",
+	},
+	pink = {
+		base = "{{color3}}",
+		light = "{{color3 | saturate(0.2) | lighten(0.2)}}",
+		intense = "{{color3 | saturate(0.2) | darken(0.2)}}",
+		oversaturated = "{{color3 | saturate(0.5)}}",
+		muted = "{{color3 | blend("#000000") | blend("#ffffff") | darken(0.3)}}",
+	},
+	blue = {
+		base = "{{color5}}",
+		light = "{{color5 | saturate(0.2) | lighten(0.2)}}",
+		intense = "{{color5 | saturate(0.2) | darken(0.2)}}",
+		oversaturated = "{{color5 | saturate(0.5)}}",
+		muted = "{{color5 | blend("#888888") | darken(0.3)}}",
+		tinted_bg = "{{color5 | saturate(0.2) | blend("#000000") | darken(0.7)}}",
+	},
+	green = {
+		base = "{{color7 | saturate(0.2) | blend("#6AA07E")}}",
+		light = "{{color7 | saturate(0.2) | blend("#6AA07E") | lighten(0.2)}}",
+		intense = "{{color7 | saturate(0.2) | blend("#6AA07E") | darken(0.2)}}",
+		oversaturated = "{{color7 | blend("#6AA07E") | saturate(0.5)}}",
+		muted = "{{color7 | blend("#6AA07E") | blend("#888888") | darken(0.3)}}",
+		tinted_bg = "{{color7 | saturate(0.2) | blend("#6AA07E") | blend("#000000") | darken(0.7)}}",
+	},
+	cyan = {
+		base = "{{color8}}",
+		light = "{{color8 | saturate(0.2) | lighten(0.2)}}",
+		intense = "{{color8 | saturate(0.2) | darken(0.2)}}",
+		oversaturated = "{{color8 | saturate(0.5)}}",
+		muted = "{{color8 | blend("#888888") | darken(0.3)}}",
+	},
+	yellow = {
+		base = "{{color6 | saturate(0.2) | blend("#EAC341")}}",
+		light = "{{color6 | saturate(0.2) | blend("#EAC341") | lighten(0.2)}}",
+		intense = "{{color6 | saturate(0.2) | blend("#EAC341") | darken(0.2)}}",
+		oversaturated = "{{color6 | blend("#EAC341") | saturate(0.5)}}",
+		muted = "{{color6  | blend("#EAC341") | blend("#888888") | darken(0.3)}}",
+		tinted_bg = "{{color6 | saturate(0.2) | blend("#EAC341") | blend("#000000") | darken(0.7)}}",
+	},
+	purple = {
+		base = "{{color12}}",
+		light = "{{color12 | saturate(0.2) | lighten(0.2)}}",
+		intense = "{{color12 | saturate(0.2) | darken(0.2)}}",
+		oversaturated = "{{color12 | saturate(0.5)}}",
+		muted = "{{color12 | saturate(0.2) | blend("#888888") | darken(0.3)}}",
+	},
+}
+
+return PALETTE
